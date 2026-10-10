@@ -1,0 +1,3 @@
+[submodule "hypit-productions"]
+	path = hypit-productions
+	url = git@github.com:eanfs/hypit-productions.git
