@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** 在 `hypit-productions/ai-engineering-zh` 建立可复用的手绘大画布视频制作工程，并交付阶段 03、07、14 三条流水线的首集样片。
+**Goal:** 在 `eanfs/hypit-productions`（私有）的 `ai-engineering-zh/` 目录建立可复用的手绘大画布视频制作工程，并交付阶段 03、07、14 三条流水线的首集样片。该目录位于课程仓的 `hypit-productions` 子模块内。
 
 **Architecture:** 参考已验证工程 `hypit-productions/self-attention-whiteboard`（Hypit 0.2.17 + HyperFrames + 自建 CosyVoice 3）。参考工程的 `packages/whiteboard/src/render.ts` 把 12 个场景的图形、标题、世界坐标和镜头常量全部硬编码，且 `check_cosy_camera.cjs` 用正则从源码里抠出数组、`Array(12)` 写死场景数——每换一集主题就要改引擎。本计划先把它拆成「引擎（`@production/board-kit`，跨集复用）+ 单集图形（`episodes/<slug>`，一集一个 Hypit 组件包）」，再让三条流水线各自在独立目录内顺序推进，互不改同一个文件。
 
@@ -20,7 +20,7 @@
 - 字幕内容取自已核对讲稿；ASR（Whisper small）只用于定位句首。ASR 与讲稿字符覆盖率 < 0.65 时脚本必须报错，**不得下调阈值让脚本通过**。
 - 图形在世界坐标中永久保留；镜头只平移缩放同一个画布，禁止逐场景 DOM 替换或淡出（会退化成幻灯片翻页）。
 - 镜头交接必须是一条连续运动：五次缓动 `6t⁵-15t⁴+10t³`，缩放在对数空间插值；运动区间不得重叠、端点必须连续。
-- 课程仓库 `/Users/lirichen/Work/GithubRepo/ai-engineering-from-scratch-zh` 全程只读；不得向其中写入制作产物。
+- 课程仓库的课程内容（`phases/`、`certifications/`、`glossary/`、`site/`、`scripts/`）全程只读；制作产物只写进 `hypit-productions/` 子模块，提交进 `eanfs/hypit-productions` 仓库，**不得提交进课程仓库**。
 - 密钥只经 Hypit auth 存入 Keychain，项目文件只保存凭证引用；不得把密钥写进脚本、README、命令行参数或版本库。
 - 每集交付 MP4、SRT、讲稿、可编辑 Source/Run、验收证据；旧版本文件保留，不覆盖。
 - 引用参考工程的文件时**只读不写**；`self-attention-whiteboard` 的成片和已接受音轨不得修改。
@@ -36,7 +36,18 @@
 
 ## 文件结构
 
-制作工程根：`/Users/lirichen/Work/GithubRepo/hypit-productions/ai-engineering-zh/`
+制作工程根：`/Users/lirichen/Work/GithubRepo/ai-engineering-from-scratch-zh/hypit-productions/ai-engineering-zh/`
+
+它位于课程仓库内的 **`hypit-productions` 子模块**（`eanfs/hypit-productions`，私有）中。课程仓库本身只保存 `.gitmodules` 与一个 gitlink；本计划的全部产物提交进制作工程仓库，不提交进课程仓库。
+
+```sh
+export COURSE='/Users/lirichen/Work/GithubRepo/ai-engineering-from-scratch-zh'
+export VIDEO_PROJECT="$COURSE/hypit-productions/ai-engineering-zh"   # 本计划的工程根
+export REFERENCE="$COURSE/hypit-productions/self-attention-whiteboard" # 只读参考（仓库副本）
+export REFERENCE_WORK='/Users/lirichen/Work/GithubRepo/hypit-productions/self-attention-whiteboard' # 本机工作副本，含 .hypit/ 与 node_modules/，未入库
+```
+
+`$REFERENCE`（仓库内副本）不含 `node_modules/` 与 `.hypit/`——它们被 `.gitignore` 排除，**因此仓库副本不能直接运行**。需要跑参考工程时用 `$REFERENCE_WORK`（保留完整构建状态与运行结果），或先给仓库副本补 `npm install` 与 runtime 配置。只有 Task 1 Step 5 的工具链验证依赖可运行的参考工程。
 
 ```text
 package.json                     # 聚合所有单集组件包的 file: 依赖
@@ -100,7 +111,7 @@ templates/
 ### Task 1: 制作工程脚手架与运行环境核验
 
 **Files:**
-- Create: `/Users/lirichen/Work/GithubRepo/hypit-productions/ai-engineering-zh/package.json`
+- Create: `$COURSE/hypit-productions/ai-engineering-zh/package.json`
 - Create: `.../hypit.runtime.json`
 - Create: `.../BRIEF.md` `.../PROGRESS.md` `.../REVIEW.md`
 - Create: `.../tools/check_env.sh`
@@ -108,14 +119,16 @@ templates/
 
 **Interfaces:**
 - Consumes: 无
-- Produces: 一个能用 `hypit plan` 跑通的最小工程；`HYPIT_REPO`、`VIDEO_PROJECT` 两个环境变量约定，后续所有任务依赖
+- Produces: 一个能用 `hypit plan` 跑通的最小工程；`COURSE`、`VIDEO_PROJECT`、`REFERENCE`、`REFERENCE_WORK` 四个环境变量约定，后续所有任务依赖
 
 - [ ] **Step 1: 建立目录并复制 runtime profile**
 
 ```sh
+export COURSE='/Users/lirichen/Work/GithubRepo/ai-engineering-from-scratch-zh'
 export HYPIT_REPO='/Users/lirichen/Work/GithubRepo/hypit'
-export VIDEO_PROJECT='/Users/lirichen/Work/GithubRepo/hypit-productions/ai-engineering-zh'
-export REFERENCE='/Users/lirichen/Work/GithubRepo/hypit-productions/self-attention-whiteboard'
+export VIDEO_PROJECT="$COURSE/hypit-productions/ai-engineering-zh"
+export REFERENCE="$COURSE/hypit-productions/self-attention-whiteboard"
+export REFERENCE_WORK='/Users/lirichen/Work/GithubRepo/hypit-productions/self-attention-whiteboard'
 mkdir -p "$VIDEO_PROJECT"/{episodes,packages,tools,templates,authors,runs,evidence,output}
 cp "$REFERENCE/hypit.runtime.json" "$VIDEO_PROJECT/hypit.runtime.json"
 cp "$REFERENCE/authors/look.svs" "$VIDEO_PROJECT/authors/look.svs"
@@ -185,37 +198,41 @@ if [ "$fail" -eq 0 ]; then ok=true; else ok=false; fi
 
 - [ ] **Step 4: 运行并确认通过**
 
-Run: `export HYPIT_REPO='/Users/lirichen/Work/GithubRepo/hypit'; export VIDEO_PROJECT='/Users/lirichen/Work/GithubRepo/hypit-productions/ai-engineering-zh'; bash "$VIDEO_PROJECT/tools/check_env.sh"`
+Run: `export HYPIT_REPO='/Users/lirichen/Work/GithubRepo/hypit'; export VIDEO_PROJECT='/Users/lirichen/Work/GithubRepo/ai-engineering-from-scratch-zh/hypit-productions/ai-engineering-zh'; bash "$VIDEO_PROJECT/tools/check_env.sh"`
 Expected: 所有项 `ok`，末行 `环境核验通过`，退出码 0。
 已知事实：CosyVoice 3 在 2026-10-10 实测返回 `{"status":"ready","model":"FunAudioLLM/Fun-CosyVoice3-0.5B-2512","busy":false}`，Hypit CLI 返回 `0.2.17`。
 
 - [ ] **Step 5: 确认工具链真能构建（不只 `--version`）**
 
 ```sh
-cd /Users/lirichen/Work/GithubRepo/hypit-productions/self-attention-whiteboard
+cd "$REFERENCE_WORK"   # 必须用本机工作副本：仓库内的 $REFERENCE 没有 node_modules/ 与 .hypit/
 node "$HYPIT_REPO/bin/hypit.mjs" plan runs/final-cosy-title.svrun
 ```
 
 Expected: 输出含 `Preflight  ready`，请求列表里 `media.local` 与 `hyperframes.local` 都是 `local, no Provider charge`。这一步验证的是**参考工程整体可构建**——如果它失败，本计划后续所有 `hypit plan` / `hypit build` 都不成立，必须先修 Hypit 环境（在 Hypit 仓库按说明 `pnpm install --frozen-lockfile`）再继续。
 
-> 实测记录（2026-10-10）：本步通过；CosyVoice 3 健康检查返回 `{"status":"ready","busy":false}`；Hypit CLI 为 `0.2.17`。
+若 `$REFERENCE_WORK` 已不存在（只克隆了课程仓），跳过本步，改在 Task 5 Step 5 用探针单集验证——那是更强的检查，因为它走的是本工程自己的组件包。
+
+> 实测记录（2026-10-10）：本步在 `$REFERENCE_WORK` 上通过；CosyVoice 3 健康检查返回 `{"status":"ready","busy":false}`；Hypit CLI 为 `0.2.17`。
 
 - [ ] **Step 6: 写 `BRIEF.md`、`PROGRESS.md`、`REVIEW.md`**
 
-`BRIEF.md` 必须写明：系列名、三阶段 83 集、分档规则、1280×720 / 24 fps、CosyVoice 3 音色 `default`、课程仓库只读、参考工程路径、以及「图形在世界坐标永久保留，镜头不切场景」这一形式决定。
+`BRIEF.md` 必须写明：系列名、三阶段 83 集、分档规则、1280×720 / 24 fps、CosyVoice 3 音色 `default`、课程仓库只读、制作工程仓库与子模块位置（`eanfs/hypit-productions` → 课程仓 `hypit-productions/`）、参考工程路径（`$REFERENCE`）、以及「图形在世界坐标永久保留，镜头不切场景」这一形式决定。
 
 `PROGRESS.md` 用三张表（A/B/C），每行 `集号 | 档位 | 状态 | 当前步骤 | 阻塞原因 | Build ID`。
 
 `REVIEW.md` 记录每集的验收时间、检查项、未完成项；初始写三行「待样片批填入」。
 
-- [ ] **Step 7: 提交**
+- [ ] **Step 7: 提交进制作工程仓库**
 
 ```sh
-cd "$VIDEO_PROJECT"
-git init 2>/dev/null || true
-printf 'node_modules/\n.hypit/\noutput/\nepisodes/*/assets/*.wav\nepisodes/*/assets/*.asr.json\n__pycache__/\n' > .gitignore
-git add -A && git commit -m "chore: 建立 ai-engineering-zh 制作工程与运行环境核验"
+cd "$COURSE/hypit-productions"
+git status --short          # 确认只有 ai-engineering-zh/ 下的新文件，没有音频/成片/.hypit
+git add ai-engineering-zh
+git commit -m "chore: 建立 ai-engineering-zh 制作工程与运行环境核验"
 ```
+
+**不要在这里 `git init`。** `hypit-productions/` 已经是课程仓的子模块，单独 init 会造出嵌套仓库，父仓的 gitlink 会指向不到东西。构建产物的忽略规则由 `hypit-productions/.gitignore` 统一提供（`**/.hypit/`、`**/node_modules/`、`**/output/`、`**/*.wav`、`**/*.mp4`、`**/__pycache__/` 等），本工程不需要自己的 `.gitignore`。
 
 ---
 
@@ -1919,7 +1936,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 
 把参考工程的 `positions`（12 个世界坐标）和 `timing-cosy.json` 喂给 `checkCamera`，输出必须与参考工程 `check_cosy_camera.cjs` 的 `evidence/cosy-camera-check.json` 的 `moves` 条数一致。
 
-Run: `cd "$VIDEO_PROJECT" && node -e 'const t=require("/Users/lirichen/Work/GithubRepo/hypit-productions/self-attention-whiteboard/timing-cosy.json"); console.log(t.events.length)'`
+Run: `cd "$VIDEO_PROJECT" && node -e 'const t=require(process.env.REFERENCE + "/timing-cosy.json"); console.log(t.events.length)'`
 Expected: `36`（12 场景 × 3 beat，确认参考数据可用）
 
 - [ ] **Step 6: 提交**
@@ -2221,7 +2238,7 @@ git commit -m "feat(ep-03-01): 感知机 T-L 样片成片与验收证据"
 
 ```sh
 cd /Users/lirichen/Work/GithubRepo/ai-engineering-from-scratch-zh/phases/07-transformers-deep-dive/01-why-transformers/code
-ls -1 && for f in *.py; do echo "== $f"; python3 "$f" 2>&1 | tee "/Users/lirichen/Work/GithubRepo/hypit-productions/ai-engineering-zh/episodes/07-01/evidence/measure-${f%.py}.txt" | head -30; done
+ls -1 && for f in *.py; do echo "== $f"; python3 "$f" 2>&1 | tee "$VIDEO_PROJECT/episodes/07-01/evidence/measure-${f%.py}.txt" | head -30; done
 ```
 
 `s10` 必须说明 O(n²) 是注意力自身的代价，且与 RNN 的串行瓶颈是一组权衡，不得只讲优点。
@@ -2369,7 +2386,7 @@ git push origin feature/hypit-video-series-plan
 | 83 集 / 三阶段并行 / 阶段内串行 | Task 13 Step 3 的 runbook + `PROGRESS.md` 三张表 |
 | 1280×720 / 24 fps | Task 1 Step 6（BRIEF）、Task 7 模板 `<spatial:Canvas>`、Task 10 Step 10 技术验收 |
 | 分档 T-L / T-M / T-S | Task 7 `classify` + `SCENES`，Task 10/11/12 各验一档 |
-| 独立制作工程 `hypit-productions/ai-engineering-zh` | Task 1 |
+| 独立制作工程在 `eanfs/hypit-productions`，经子模块挂在课程仓 `hypit-productions/` | Task 1（含「不要 `git init`」的理由） |
 | 从讲义/代码/测验整理每集依据，记录 Git 提交 | Task 10 Step 1–3（`sourceCommit`，`perceptron.py` 实跑），Task 11 Step 1 |
 | 统一视觉模板五类可复用组件 | Task 6 |
 | 区分图解与证据；模拟结果明确标注 | Task 10 Step 3（实跑脚本取数）、Task 11 Step 1 |
@@ -2401,3 +2418,5 @@ git push origin feature/hypit-video-series-plan
 | 参考工程 `render.ts` 硬编码量 | 12 个标题、12 个场景 id、12 组世界坐标、12 段逐场景绘制代码全在引擎里 | 这是本计划拆出 board-kit 的直接原因 |
 | `assemble_cosy.py` / `master_cosy.py` 的隐含假设 | 前者 `if i==11` 写死 12 章并依赖 `main-qwen.svml` 作模板；后者原地改写 SVML，**不幂等** | Task 8 两处参数化并修正幂等性 |
 | 探针单集的相机边界 | 单场景会让 `localPose(last-1)` 取到 `positions[-1]`；T-S（6 场景）会让 `recap.secondReview` 的 6/7/8 越界 | Task 4 加入下标夹取与 `at()` 裁剪，并加两条测试 |
+| 制作工程仓库形态 | 已建 `eanfs/hypit-productions`（私有）并作为子模块挂入课程仓；入库 367 文件 / 16.2 MB，排除 `.hypit/`（1.4G）、音频、成片与第三方参考视频 | 工程根改到子模块内 `<课程仓>/hypit-productions/ai-engineering-zh`；Task 1 Step 7 从「`git init`」改为「提交进父仓库」 |
+| 子模块副本能否直接跑 | 不能：`node_modules/` 与 `.hypit/` 被 `.gitignore` 排除 | Task 1 Step 5 的工具链验证改用本机工作副本 `$REFERENCE_WORK`，并给出无该副本时的替代路径 |

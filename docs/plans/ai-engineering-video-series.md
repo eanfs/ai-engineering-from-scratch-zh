@@ -149,7 +149,7 @@ flowchart TD
 
 ## 制作流程与 Hypit 实现
 
-- **建立独立制作工程：** 放在 `/Users/lirichen/Work/GithubRepo/hypit-productions/ai-engineering-zh`，与已验证的参考工程 `self-attention-whiteboard` 同级，使用 [Hypit](https://github.com/hypit-ai/hypit) 0.2.17 作为制作工具。视频制作时课程仓库只读，视频工程保存讲稿、图形组件、素材、制作源文件和结果。三条流水线在同一工程内按 `<阶段编号>-<课编号>` 分目录，共用引擎但不共享单集状态，任一流水线阻塞不影响其余两条。
+- **独立制作工程仓库：** 制作工程放在 `eanfs/hypit-productions`（私有），以 git submodule 挂在课程仓库的 `hypit-productions/` 路径下；本批工程目录为 `hypit-productions/ai-engineering-zh`，与已验证的参考工程 `hypit-productions/self-attention-whiteboard` 同级。使用 [Hypit](https://github.com/hypit-ai/hypit) 0.2.17 作为制作工具。课程仓库只保存子模块指针，讲稿、图形组件、素材、制作源文件和结果都提交进制作工程仓库。三条流水线在同一工程内按 `<阶段编号>-<课编号>` 分目录，共用引擎但不共享单集状态，任一流水线阻塞不影响其余两条。
 - **提取课程依据：** 从中文讲义、代码、测验和术语表整理每集学习目标、关键结论、演示方法及来源。逐集记录课程 Git 提交，便于后续更新追踪。
 - **改编视频脚本：** 每个场景写 3 段旁白，按“问题 → 机制 → 示例 → 边界 → 原课练习”组织；每段 110–180 字，T-L 档整集约 4000–6000 字。实际时长以配音测量结果为准，超过该档上限时删减内容而不是放慢语速。
 - **统一视觉模板：** 准备批制作标题卡、机制图、代码高亮、运行结果和总结卡五类可复用组件，三条流水线共用。代码每屏以 5–10 行为主；公式、标识符保持准确，字幕避免遮挡演示区域。
