@@ -1,6 +1,8 @@
 # pdoom-video 子项目与三集课程样片
 
-根据用户指示新增 `pdoom-video/` Git 子模块，初始代码从 `/Users/lirichen/Work/GithubRepo/pdoom-video` 克隆，上游地址保留为 `https://github.com/mexicat/pdoom-video`。
+根据用户指示新增 `pdoom-video/` Git 子模块，初始代码从 `/Users/lirichen/Work/GithubRepo/pdoom-video` 克隆。
+上游是 `https://github.com/mexicat/pdoom-video`（保留为本机 `origin`，用于同步上游），推送目标为 fork
+`https://github.com/eanfs/pdoom-video`；`.gitmodules` 指向 fork，否则新克隆取不到本仓推送的样片提交。
 
 在此基础上，用 pdoom-video 的代码渲染视频引擎（Three.js Engine + headless Chrome 离线导出器）制作
 `docs/plans/2026-10-10-video-series-production-plan.md` 的首批三集样片（Task 10/11/12 的场景表）：
