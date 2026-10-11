@@ -1,3 +1,6 @@
 [submodule "hypit-productions"]
 	path = hypit-productions
 	url = git@github.com:eanfs/hypit-productions.git
+[submodule "pdoom-video"]
+	path = pdoom-video
+	url = https://github.com/eanfs/pdoom-video.git
