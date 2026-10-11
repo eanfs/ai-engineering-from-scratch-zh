@@ -12,7 +12,9 @@
 | 14-01 Agent 循环 | `pdoom-video/codex-agent/` | 9 / T-M | 约 183 s | `out/codex-agent/agent-loop-codex-1080p.mp4` |
 
 三条产线均为 1920×1080、30 fps、无配音（按此前指示跳过音频）：旁白改为按阅读节奏逐段显示的字幕
-（每场景 3 段），时长落在对应档位窗口。画面数字全部来自课程代码实跑（`course-run.txt` 保存原始输出）。
+（每场景 3 段），时长落在对应档位窗口。2026-10-11 起统一为亮色纸感主题（纸底 `#f7f6f1`、白面板、
+墨色正文、深绿 `#2e7d4f` 强调），场景切换带方向交替的纸色擦除动画（绿色前缘，约 0.55 秒）。
+画面数字全部来自课程代码实跑（`course-run.txt` 保存原始输出）。
 分镜与制作细节见各产线的 `SCRIPT.md` 与 `README.md`；验收证据见各产线 `media-validation.json`。
 
 - 分镜：`pdoom-video/{perceptron,why-transformers,codex-agent}/SCRIPT.md`
