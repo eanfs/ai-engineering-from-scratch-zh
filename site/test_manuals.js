@@ -166,6 +166,62 @@ test('numbers figures per part and renders the print edition', () => {
   assert.match(html, /<span class="m-tok-key">&quot;kind&quot;<\/span>/);
 });
 
+test('offline print embeds licensed CJK text fonts and keeps headings and listings pageable', () => {
+  const manual = manuals.loadManual(fixture().dir);
+  const print = manuals.printPage(manual);
+  assert.match(print, /font-family: 'Manual Noto Sans'; src: url\('data:font\/woff2;base64,/);
+  assert.match(print, /font-family: 'Manual Noto Mono'; src: url\('data:font\/woff2;base64,/);
+  assert.match(print, /font-family: 'Manual Noto Symbols'; src: url\('data:font\/woff2;base64,/);
+  assert.match(print, /font-family: 'Manual Noto Emoji'; src: url\('data:font\/woff2;base64,/);
+  const sheets = [...print.matchAll(/<style>([\s\S]*?)<\/style>/g)].map(match => match[1]);
+  assert.equal(sheets.length, 5);
+  for (const sheet of sheets) assert.ok(Buffer.byteLength(sheet) < 2 ** 24, 'Paged.js tokenizer sheet offset limit');
+  for (const sheet of sheets.slice(0, 4)) assert.equal((sheet.match(/@font-face/g) || []).length, 1);
+  assert.match(print, /--m-font-body: 'Manual Noto Sans'/);
+  assert.match(print, /--m-font-mono: 'Manual Noto Mono'/);
+  assert.match(print, /\.m-section-head \{[^}]*break-inside: avoid;[^}]*break-after: avoid;/);
+  assert.match(print, /\.m-listing \{ break-inside: auto;/);
+  assert.match(print, /\.m-listing-head \{[^}]*break-after: avoid;/);
+  assert.match(print, /<div class="m-print-line"><code>\{<\/code><\/div>\n/);
+  const listing = print.match(/<figure class="m-listing"[\s\S]*?<\/figure>/)[0];
+  const lines = [...listing.matchAll(/<div class="m-print-line"><code>(.*?)<\/code><\/div>/g)]
+    .map(match => match[1].replace(/<[^>]+>/g, ''));
+  const code = manual.documents.flatMap(doc => doc.blocks).find(block => block.type === 'listing').code;
+  assert.equal(lines.join('\n'), figkit.escapeHtml(code), 'printing preserves listing characters and newlines');
+  assert.match(print, /\.m-print-line \{[^}]*break-inside: avoid;/);
+  assert.match(print, /\.manual p \{ break-inside: avoid;/);
+  assert.match(print, /overflow-wrap: anywhere;/);
+  assert.doesNotMatch(print, /src:\s*(?:local\(|url\(https?:)/);
+  const license = fs.readFileSync(path.join(__dirname, '..', 'manuals/_shared/fonts/OFL.txt'), 'utf8');
+  assert.match(license, /SIL OPEN FONT LICENSE Version 1\.1/);
+});
+
+test('print-ready waits for every font and disables native re-fragmentation only after pagination', async () => {
+  const vm = require('node:vm');
+  const fontCalls = [];
+  const styles = [];
+  let Handler;
+  const document = {
+    fonts: { load: async (font, chars) => { fontCalls.push({ font, chars }); return [{}]; }, ready: Promise.resolve() },
+    createElement: tag => { assert.equal(tag, 'style'); return {}; },
+    head: { appendChild: style => styles.push(style.textContent) },
+  };
+  vm.runInNewContext(fs.readFileSync(path.join(__dirname, '..', 'manuals/_shared/print-ready.js'), 'utf8'), {
+    document, Paged: { Handler: class {}, registerHandlers: handler => { Handler = handler; } },
+  });
+  const handler = new Handler();
+  await handler.beforeParsed();
+  assert.equal(fontCalls.length, 4);
+  assert.ok(fontCalls.every(call => call.chars.includes('中文') && call.chars.includes('✅')));
+  assert.equal(styles.length, 0);
+  handler.afterRendered();
+  assert.equal(styles.length, 1);
+  assert.match(styles[0], /@media print.*\.pagedjs_page_content \{ column-width: auto !important; column-count: auto !important;/);
+  assert.match(styles[0], /break-inside: auto !important/);
+  document.fonts.load = async () => [];
+  await assert.rejects(handler.beforeParsed(), /Missing print font: Manual Noto Sans/);
+});
+
 test('fails the build on dangling cross references anywhere, including the plate caption', () => {
   assert.throws(() => manuals.loadManual(fixture({ 'sections/1-1-intro.md': SECTION.replace('(#fig-1-1)', '(#fig-9-9)') }).dir), /intro\.md:\d+: link to unknown anchor #fig-9-9/);
   const plated = fixture({ 'manual.json': manifest({ plate: { figure: 'fig-1-1', title: 'plate', caption: 'See [nothing](#s-9-9).' } }) });

@@ -691,6 +691,22 @@ function stripMotion(html) {
   return html.replace(/<circle class="m-packet"[^>]*>[\s\S]*?<\/circle>/g, '').replace(/<animate(?:Transform|Motion)?\b[^>]*\/>/g, '');
 }
 
+function printCodeLines(html) {
+  // Explicit line boxes let Paged.js split long preformatted listings without losing the tail.
+  return html.replace(/<pre([^>]*)><code>([\s\S]*?)<\/code><\/pre>/g, (match, attrs, code) =>
+    `<div class="m-print-code${attrs.includes('m-code') ? ' m-code' : ''}">${code.split('\n').map(line => `<div class="m-print-line"><code>${line}</code></div>`).join('\n')}</div>`);
+}
+
+function printFonts() {
+  // Inline full OFL fonts so an offline print job never falls back to host CJK fonts.
+  return [['Manual Noto Sans', 'NotoSansSC-Regular.woff2'], ['Manual Noto Mono', 'NotoSansMonoCJKsc-Regular.woff2'], ['Manual Noto Symbols', 'NotoSansSymbols2-Regular.woff2'], ['Manual Noto Emoji', 'NotoEmoji.woff2']]
+    .map(([family, file]) => {
+      const data = fs.readFileSync(path.join(MANUALS, '_shared', 'fonts', file)).toString('base64');
+      // Keep each face in its own sheet: Paged.js 0.4.3's CSS tokenizer has 24-bit offsets.
+      return `<style>@font-face { font-family: '${family}'; src: url('data:font/woff2;base64,${data}') format('woff2'); font-weight: 400; font-style: normal; }</style>`;
+    }).join('\n');
+}
+
 function printPage(manual) {
   const css = shared('tokens.css') + shared('manual.css') + shared('print.css');
   return `<!DOCTYPE html>
@@ -705,10 +721,11 @@ function printPage(manual) {
 <meta name="keywords" content="${escapeHtml(manual.pin.subject)},AI Engineering from Scratch,${escapeHtml(manual.id)}">
 <meta name="robots" content="noindex">
 <link rel="canonical" href="${SITE_ORIGIN}/${pageName(manual.id)}">
+${printFonts()}
 <style>${css}</style>
 </head>
 <body>
-${stripMotion(manualArticle(manual, 'print'))}
+${printCodeLines(stripMotion(manualArticle(manual, 'print')))}
 </body>
 </html>
 `;
