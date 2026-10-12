@@ -536,9 +536,11 @@ function tocHtml(manual, mode) {
   return `<nav class="m-toc" aria-label="目录">${head}<ol>${groups.join('')}</ol></nav>`;
 }
 
-function docHtml(doc) {
+function docHtml(doc, mode) {
   const front = doc.kind === 'front';
-  return `<section class="${front ? 'm-front-section' : 'm-section'}" id="${doc.anchor}" data-accent="${doc.accent}"><header class="m-section-head"><div class="m-section-num">${front ? '00' : doc.id}</div><h1 class="m-section-title">${escapeHtml(doc.title)}</h1>${doc.thesisHtml ? `<p class="m-thesis">${doc.thesisHtml}</p>` : ''}</header>${doc.html}</section>`;
+  // Print targets must travel with the kept-together heading, not a preceding section rule.
+  const anchor = ` id="${doc.anchor}"`;
+  return `<section class="${front ? 'm-front-section' : 'm-section'}"${mode === 'print' ? '' : anchor} data-accent="${doc.accent}"><header class="m-section-head"${mode === 'print' ? anchor : ''}><div class="m-section-num">${front ? '00' : doc.id}</div><h1 class="m-section-title">${escapeHtml(doc.title)}</h1>${doc.thesisHtml ? `<p class="m-thesis">${doc.thesisHtml}</p>` : ''}</header>${doc.html}</section>`;
 }
 
 function ditherHtml(seed, label, slim) {
@@ -593,14 +595,14 @@ function coverHtml(manual, mode) {
 function manualArticle(manual, mode) {
   const band = (seed, label) => (mode === 'web' ? ditherHtml(`${manual.id}-${seed}`, label, true) : '');
   const body = [];
-  if (manual.front) body.push(docHtml(manual.front));
+  if (manual.front) body.push(docHtml(manual.front, mode));
   for (const part of manual.parts) {
     body.push(partHtml(part, `第 ${part.number} 部分`, band(part.anchor, `第 ${part.number} 部分 · ${part.title}`)));
-    for (const section of part.sections) body.push(docHtml(section));
+    for (const section of part.sections) body.push(docHtml(section, mode));
   }
   if (manual.reference) {
     body.push(partHtml(manual.reference, '参考', band('reference', manual.reference.title)));
-    for (const section of manual.reference.sections) body.push(docHtml(section));
+    for (const section of manual.reference.sections) body.push(docHtml(section, mode));
   }
   return `<article class="manual">${coverHtml(manual, mode)}${mode === 'print' ? tocHtml(manual, 'print') : ''}${body.join('\n')}\n${colophonHtml(manual)}</article>`;
 }

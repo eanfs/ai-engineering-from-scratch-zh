@@ -196,6 +196,22 @@ test('offline print embeds licensed CJK text fonts and keeps headings and listin
   assert.match(license, /SIL OPEN FONT LICENSE Version 1\.1/);
 });
 
+test('print document anchors follow the kept-together header while web anchors stay on sections', () => {
+  const manual = manuals.loadManual(fixture().dir);
+  const print = manuals.printPage(manual);
+  const out = tempDir('manual-anchor-web-');
+  manuals.writeWeb([manual], out, { only: manual.id });
+  const web = fs.readFileSync(path.join(out, `manual-${manual.id}.html`), 'utf8');
+  for (const doc of manual.documents) {
+    const sectionClass = doc.kind === 'front' ? 'm-front-section' : 'm-section';
+    assert.ok(print.includes(`<section class="${sectionClass}" data-accent="${doc.accent}"><header class="m-section-head" id="${doc.anchor}">`), `${doc.anchor}: print anchor must be on the header`);
+    assert.ok(web.includes(`<section class="${sectionClass}" id="${doc.anchor}" data-accent="${doc.accent}"><header class="m-section-head">`), `${doc.anchor}: web markup must stay unchanged`);
+    assert.equal(print.split(`id="${doc.anchor}"`).length - 1, 1, `${doc.anchor}: one print target`);
+    assert.equal(web.split(`id="${doc.anchor}"`).length - 1, 1, `${doc.anchor}: one web target`);
+    assert.ok(print.includes(`href="#${doc.anchor}"`), `${doc.anchor}: original TOC link retained`);
+  }
+});
+
 test('print-ready waits for every font and disables native re-fragmentation only after pagination', async () => {
   const vm = require('node:vm');
   const fontCalls = [];
