@@ -1259,12 +1259,6 @@
           host.setAttribute('data-figure-missing', 'true');
           return; // unknown figure; leave the empty host out
         }
-        var dependencies = (window.AIFS_FIGURE_DEPENDENCIES || {})[name] || [];
-        for (var d = 0; d < dependencies.length; d++) {
-          if (typeof FIGS[dependencies[d]] !== 'function') {
-            throw new Error('Figure dependency missing: ' + name + ' -> ' + dependencies[d]);
-          }
-        }
         host.removeAttribute('data-figure-missing');
         host.setAttribute('aria-busy', 'true');
         var dispose = figure(host, cfg);
