@@ -1329,6 +1329,44 @@
     });
   }
 
+  // Only the figures with verified small-screen text are displayed at a readable
+  // scale. Keep SVG coordinates, text, inputs and animation trees untouched.
+  var READABLE_FIGURES = {
+    'v4-vision-pipeline': true, 'clip-contrastive': true,
+    'data-augmentation': true, 'l5-vlm-recipe-knobs': true,
+    'l5-onevision-budget': true, 'mm-mrope-axes': true,
+    'tp-tool-loop': true, 'agent-loop': true, 'a5-orchestrator-scale': true
+  };
+
+  function displayReadableFigure(host, name) {
+    if (!READABLE_FIGURES[name]) return;
+    host.querySelectorAll('svg').forEach(function (svg) {
+      var box = (svg.getAttribute('viewBox') || '').trim().split(/\s+/).map(Number);
+      var smallest = Infinity;
+      svg.querySelectorAll('text').forEach(function (node) {
+        var size = parseFloat(node.getAttribute('font-size'));
+        if (size > 0) smallest = Math.min(smallest, size);
+      });
+      if (!(box[2] > 0) || !isFinite(smallest)) return;
+      var parent = svg.parentNode;
+      if (parent.getAttribute('class') !== 'lf-readable-viewport') {
+        var hint = document.createElement('div');
+        hint.setAttribute('class', 'lf-readability-hint');
+        hint.textContent = '图内文字按可读尺寸显示；可横向滑动，或聚焦图表后用方向键浏览。';
+        var viewport = document.createElement('div');
+        viewport.setAttribute('class', 'lf-readable-viewport');
+        viewport.setAttribute('tabindex', '0');
+        viewport.setAttribute('role', 'region');
+        viewport.setAttribute('aria-label', '可横向滚动的图表');
+        parent.insertBefore(hint, svg);
+        parent.insertBefore(viewport, svg);
+        viewport.appendChild(svg);
+      }
+      // Scale the whole drawing, not its text: preserve the mathematical layout.
+      svg.style.minWidth = Math.ceil(box[2] * Math.max(1, 12 / smallest)) + 'px';
+    });
+  }
+
   function applyFigureI18n(root) {
     (root || document).querySelectorAll('.lesson-figure[data-figure]').forEach(function (host) {
       if (!host.dataset.lfMounted) return;
@@ -1344,6 +1382,7 @@
       translateSvgText(host, name);
       translateProviderTree(host);
       translateReaderTree(host, name);
+      displayReadableFigure(host, name);
       var cap = host.querySelector('.lf-cap');
       if (cap && CAP[name]) cap.textContent = CAP[name];
       if (host.dataset.lfI18n) return;
@@ -1355,6 +1394,7 @@
           translateSvgText(host, name);
           translateProviderTree(host);
           translateReaderTree(host, name);
+          displayReadableFigure(host, name);
         } catch (e) {}
       }
       host.addEventListener('input', retranslate);

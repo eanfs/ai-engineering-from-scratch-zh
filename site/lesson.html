@@ -1283,6 +1283,32 @@
       background: var(--bg-surface);
     }
 
+    .lesson-figure .lf-readable-viewport {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .lesson-figure .lf-readable-viewport svg {
+      width: 100%;
+      max-width: none;
+      height: auto;
+      margin: 4px 0 0;
+    }
+
+    .lf-readability-hint {
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: var(--ink-soft);
+      margin-bottom: 8px;
+    }
+
+    .lf-readable-viewport:focus-visible,
+    .mermaid-render:focus-visible,
+    .mermaid-modal-center:focus-visible {
+      outline: 2px solid var(--blueprint);
+      outline-offset: -2px;
+    }
+
     .mermaid-source { display: none; }
 
     .mermaid-modal-overlay {
@@ -1346,7 +1372,8 @@
 
     .mermaid-modal-center {
       min-height: 100%;
-      width: 100%;
+      min-width: 100%;
+      width: max-content;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -4491,6 +4518,16 @@
       // 把超出的末字裁掉。渲染后把每个 cluster 标题的 foreignObject 加宽到容纳文字 + 居中。
       function fixMermaidClusterLabels(root) {
         if (!root) return;
+        // Mermaid's max-width:100% fits the whole graph by shrinking its labels.
+        // Keep the measured 13px type instead; the existing viewport scrolls.
+        var svg = root.querySelector('svg');
+        if (svg && svg.viewBox.baseVal.width > 0) {
+          svg.style.width = svg.viewBox.baseVal.width + 'px';
+          svg.style.maxWidth = 'none';
+          root.setAttribute('tabindex', '0');
+          root.setAttribute('role', 'region');
+          root.setAttribute('aria-label', '图表，可横向滚动；聚焦后用方向键浏览');
+        }
         // 非节点的 foreignObject（cluster 标题 / edge label 连线标签 / note）overflow 兜底：
         // 中文测量偏窄导致框算小时，让超出文字显示而非被裁。节点不动（字体修复已够，且加宽会破坏布局）。
         root.querySelectorAll('foreignObject').forEach(function (fo) {
