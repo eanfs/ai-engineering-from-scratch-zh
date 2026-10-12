@@ -2177,14 +2177,77 @@ test('04 context cache consumer lazily loads real prefix and semantic renderers'
 
 test('04 context cache missing dependency fails loudly and retries without an empty mounted stage', async () => {
   const runtime = loadContextCacheConsumer({ failOnce: true });
+  const sibling = runtime.element('div');
+  sibling.dataset.figure = 'softmax-temperature';
+  runtime.root.appendChild(sibling);
+  runtime.root.querySelectorAll = selector => selector === '.lesson-figure[data-figure]' ? [runtime.host, sibling] : [];
   await runtime.window.AIFS_mountLessonFigures(runtime.root);
   assert.equal(runtime.host.dataset.lfMounted, undefined);
   assert.equal(runtime.host.children.length, 0);
   assert.ok(runtime.warnings.some(message => message.includes('prompt-cache-hit')), 'missing renderer must name its dependency');
+  assert.equal(sibling.dataset.lfMounted, '1', 'a failed host must not block the next real figure');
+  assert.ok(cacheNodes(sibling, node => node.tagName === 'input').length > 0);
   await runtime.window.AIFS_mountLessonFigures(runtime.root);
   assert.equal(runtime.host.dataset.lfMounted, '1');
   assert.equal(cacheNodes(runtime.host, node => node.tagName === 'input').length, 2);
   assert.deepEqual(runtime.requests, ['figures-llmeng.js', 'figures-claude-certifications.js', 'figures-i18n-zh.js', 'figures-llmeng.js']);
+});
+
+test('04 context cache manifest guard delegates unchanged and rewraps provider registrations once', async () => {
+  const runtime = loadContextCacheConsumer();
+  await runtime.window.AIFS_mountLessonFigures(runtime.root);
+  const firstGuard = runtime.window.LESSON_FIGURES['04-context-cache'];
+  await runtime.window.AIFS_mountLessonFigures(runtime.root);
+  assert.equal(runtime.window.LESSON_FIGURES['04-context-cache'], firstGuard, 'repeat mounts must not stack guards');
+
+  // Boundary-only spy: the separate consumer test executes the real providers.
+  const calls = [];
+  let disposed = 0;
+  const disposer = () => { disposed++; };
+  function replacement() {
+    calls.push({ receiver: this, args: [...arguments] });
+    return disposer;
+  }
+  runtime.window.LF.register({ '04-context-cache': replacement });
+  await runtime.window.AIFS_mountLessonFigures(runtime.root);
+  const guard = runtime.window.LESSON_FIGURES['04-context-cache'];
+  assert.notEqual(guard, replacement, 'a newly registered provider must be validated');
+  const receiver = {};
+  const host = runtime.element('div');
+  const cfg = { mode: 'semantic', threshold: 0.85 };
+  const extra = {};
+  assert.equal(guard.call(receiver, host, cfg, extra), disposer);
+  assert.equal(calls[0].receiver, receiver);
+  assert.deepEqual(calls[0].args, [host, cfg, extra]);
+  await runtime.window.AIFS_mountLessonFigures(runtime.root);
+  assert.equal(runtime.window.LESSON_FIGURES['04-context-cache'], guard);
+
+  delete runtime.window.LESSON_FIGURES['semantic-cache'];
+  assert.throws(() => guard(host, cfg), /04-context-cache -> semantic-cache/);
+  assert.equal(calls.length, 1, 'missing dependency must not invoke the renderer');
+  const retryHost = runtime.element('div');
+  retryHost.dataset.figure = '04-context-cache';
+  const retryRoot = runtime.element('article');
+  retryRoot.appendChild(retryHost);
+  retryRoot.querySelectorAll = selector => selector === '.lesson-figure[data-figure]' ? [retryHost] : [];
+  await runtime.window.AIFS_mountLessonFigures(retryRoot);
+  assert.equal(retryHost.dataset.lfMounted, undefined);
+  assert.equal(retryHost.children.length, 0);
+  assert.equal(calls.length, 1);
+  assert.equal(disposed, 0);
+
+  // Re-register the real dependency and retry the same host without new scripts.
+  const registrations = {};
+  vm.runInNewContext(fs.readFileSync(path.join(__dirname, 'figures-llmeng.js'), 'utf8'), {
+    window: { LF: { ...runtime.window.LF, register(entries) { Object.assign(registrations, entries); } } },
+  });
+  runtime.window.LF.register({ 'semantic-cache': registrations['semantic-cache'] });
+  await runtime.window.AIFS_mountLessonFigures(retryRoot);
+  assert.equal(retryHost.dataset.lfMounted, '1');
+  assert.equal(calls.length, 2);
+  runtime.window.AIFSFigureRuntime.disposeRoot(retryRoot);
+  assert.equal(disposed, 1, 'delegated disposer must remain owned by the shared runtime');
+  assert.equal(runtime.requests.length, 3);
 });
 
 test('04 context cache manifest requires real dependency registrations even with only its fence', t => {
