@@ -14,7 +14,7 @@
     "Go"
   ],
   "languageWhy": {
-    "Go": "Go's standard library exposes HTTP limits, context cancellation, atomic file replacement and safe HTML templates with no framework."
+    "Go": "Go 标准库无需框架即可提供 HTTP 限制、context 取消、原子文件替换和安全 HTML 模板。"
   },
   "status": "ready",
   "source": "core",

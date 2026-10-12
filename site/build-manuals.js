@@ -536,9 +536,11 @@ function tocHtml(manual, mode) {
   return `<nav class="m-toc" aria-label="目录">${head}<ol>${groups.join('')}</ol></nav>`;
 }
 
-function docHtml(doc) {
+function docHtml(doc, mode) {
   const front = doc.kind === 'front';
-  return `<section class="${front ? 'm-front-section' : 'm-section'}" id="${doc.anchor}" data-accent="${doc.accent}"><header class="m-section-head"><div class="m-section-num">${front ? '00' : doc.id}</div><h1 class="m-section-title">${escapeHtml(doc.title)}</h1>${doc.thesisHtml ? `<p class="m-thesis">${doc.thesisHtml}</p>` : ''}</header>${doc.html}</section>`;
+  // Print targets must travel with the kept-together heading, not a preceding section rule.
+  const anchor = ` id="${doc.anchor}"`;
+  return `<section class="${front ? 'm-front-section' : 'm-section'}"${mode === 'print' ? '' : anchor} data-accent="${doc.accent}"><header class="m-section-head"${mode === 'print' ? anchor : ''}><div class="m-section-num">${front ? '00' : doc.id}</div><h1 class="m-section-title">${escapeHtml(doc.title)}</h1>${doc.thesisHtml ? `<p class="m-thesis">${doc.thesisHtml}</p>` : ''}</header>${doc.html}</section>`;
 }
 
 function ditherHtml(seed, label, slim) {
@@ -593,14 +595,14 @@ function coverHtml(manual, mode) {
 function manualArticle(manual, mode) {
   const band = (seed, label) => (mode === 'web' ? ditherHtml(`${manual.id}-${seed}`, label, true) : '');
   const body = [];
-  if (manual.front) body.push(docHtml(manual.front));
+  if (manual.front) body.push(docHtml(manual.front, mode));
   for (const part of manual.parts) {
     body.push(partHtml(part, `第 ${part.number} 部分`, band(part.anchor, `第 ${part.number} 部分 · ${part.title}`)));
-    for (const section of part.sections) body.push(docHtml(section));
+    for (const section of part.sections) body.push(docHtml(section, mode));
   }
   if (manual.reference) {
     body.push(partHtml(manual.reference, '参考', band('reference', manual.reference.title)));
-    for (const section of manual.reference.sections) body.push(docHtml(section));
+    for (const section of manual.reference.sections) body.push(docHtml(section, mode));
   }
   return `<article class="manual">${coverHtml(manual, mode)}${mode === 'print' ? tocHtml(manual, 'print') : ''}${body.join('\n')}\n${colophonHtml(manual)}</article>`;
 }
@@ -691,6 +693,22 @@ function stripMotion(html) {
   return html.replace(/<circle class="m-packet"[^>]*>[\s\S]*?<\/circle>/g, '').replace(/<animate(?:Transform|Motion)?\b[^>]*\/>/g, '');
 }
 
+function printCodeLines(html) {
+  // Explicit line boxes let Paged.js split long preformatted listings without losing the tail.
+  return html.replace(/<pre([^>]*)><code>([\s\S]*?)<\/code><\/pre>/g, (match, attrs, code) =>
+    `<div class="m-print-code${attrs.includes('m-code') ? ' m-code' : ''}">${code.split('\n').map(line => `<div class="m-print-line"><code>${line}</code></div>`).join('\n')}</div>`);
+}
+
+function printFonts() {
+  // Inline full OFL fonts so an offline print job never falls back to host CJK fonts.
+  return [['Manual Noto Sans', 'NotoSansSC-Regular.woff2'], ['Manual Noto Mono', 'NotoSansMonoCJKsc-Regular.woff2'], ['Manual Noto Symbols', 'NotoSansSymbols2-Regular.woff2'], ['Manual Noto Emoji', 'NotoEmoji.woff2']]
+    .map(([family, file]) => {
+      const data = fs.readFileSync(path.join(MANUALS, '_shared', 'fonts', file)).toString('base64');
+      // Keep each face in its own sheet: Paged.js 0.4.3's CSS tokenizer has 24-bit offsets.
+      return `<style>@font-face { font-family: '${family}'; src: url('data:font/woff2;base64,${data}') format('woff2'); font-weight: 400; font-style: normal; }</style>`;
+    }).join('\n');
+}
+
 function printPage(manual) {
   const css = shared('tokens.css') + shared('manual.css') + shared('print.css');
   return `<!DOCTYPE html>
@@ -705,10 +723,11 @@ function printPage(manual) {
 <meta name="keywords" content="${escapeHtml(manual.pin.subject)},AI Engineering from Scratch,${escapeHtml(manual.id)}">
 <meta name="robots" content="noindex">
 <link rel="canonical" href="${SITE_ORIGIN}/${pageName(manual.id)}">
+${printFonts()}
 <style>${css}</style>
 </head>
 <body>
-${stripMotion(manualArticle(manual, 'print'))}
+${printCodeLines(stripMotion(manualArticle(manual, 'print')))}
 </body>
 </html>
 `;

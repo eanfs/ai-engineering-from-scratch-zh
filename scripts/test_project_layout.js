@@ -47,7 +47,7 @@ async function main() {
     };
     watchdog = setTimeout(() => { for (const operation of pending.values()) operation.reject(Error('Project DOM gate timed out')); socket.close(); }, 90000);
     await command('Page.enable');
-    for (const width of [1440, 390]) for (const id of ['agent-budget-planner', 'dataset-split-auditor', 'research-report-agent']) {
+    for (const width of [1440, 390]) for (const theme of ['light', 'dark']) for (const id of ['agent-budget-planner', 'dataset-split-auditor', 'research-report-agent', 'csv-repair-workbench', 'dataset-contract-gate', 'web-change-brief']) {
       await command('Emulation.setDeviceMetricsOverride', { width, height: 900, deviceScaleFactor: 1, mobile: false, screenWidth: width, screenHeight: 900 });
       await command('Page.navigate', { url: `${base}/project.html?id=${id}` });
       let loaded = false;
@@ -56,20 +56,42 @@ async function main() {
         if (loaded) break; await delay(50);
       }
       if (!loaded) throw Error(`${id}: actual stage code did not load`);
-      await delay(100);
+      await evaluate(`document.documentElement.dataset.theme=${JSON.stringify(theme)}`);
+      await delay(250);
+      // Keyboard activation must retain focus and copy the original MDRender literal.
       const row = await evaluate(`(async function(){
         const pres=[...document.querySelectorAll('#pjDoc pre')].filter(pre=>pre.querySelector('code')&&pre.querySelector('.code-copy'));
         const pre=pres.sort((a,b)=>b.scrollWidth-a.scrollWidth)[0];
-        const button=pre.querySelector('.code-copy'); const text=button.getAttribute('data-code');
-        const preserved=pre.querySelector('code').textContent===text;
+        const button=pre.querySelector('.code-copy');
         Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async value=>{window.__copied=value;}}});
-        button.click(); await new Promise(resolve=>setTimeout(resolve,20));
+        // Select the longest block for the scroll check; inspect every native toolbar.
+        const toolbars=pres.map(block=>{
+          const copy=block.querySelector('.code-copy'), label=block.querySelector('.code-lang');
+          const rect=copy.getBoundingClientRect(), codeRect=block.querySelector('code').getBoundingClientRect();
+          return {width:rect.width,height:rect.height,codeBelow:codeRect.top>=rect.bottom,
+            separated:!label||label.getBoundingClientRect().right<=rect.left,
+            preserved:block.querySelector('code').textContent===copy.getAttribute('data-code')};
+        });
+        const lists=[...document.querySelectorAll('#pjDoc > :is(ul, ol), #pjDoc > :is(ul, ol) :is(ul, ol)')].map(list=>({
+          indent:parseFloat(getComputedStyle(list).paddingInlineStart),left:list.getBoundingClientRect().left,
+          marker:getComputedStyle(list).listStyleType,position:getComputedStyle(list).listStylePosition}));
+        window.__targetCopy=button; button.focus();
+        return {id:${JSON.stringify(id)},theme:${JSON.stringify(theme)},width:${width},toolbars,lists};
+      })()`);
+      await command('Input.dispatchKeyEvent', { type: 'keyDown', key: ' ', code: 'Space', windowsVirtualKeyCode: 32 });
+      await command('Input.dispatchKeyEvent', { type: 'keyUp', key: ' ', code: 'Space', windowsVirtualKeyCode: 32 });
+      await delay(30);
+      Object.assign(row, await evaluate(`(function(){
+        const button=window.__targetCopy, pre=button.closest('pre'), text=button.getAttribute('data-code');
         pre.scrollLeft=pre.scrollWidth;
         const strings=[...document.querySelectorAll('#pjProjectHero li')].map(li=>({text:li.textContent,href:li.querySelector('a')?.getAttribute('href')||null}));
-        return {id:${JSON.stringify(id)},width:${width},innerWidth:innerWidth,clientWidth:document.documentElement.clientWidth,scrollWidth:document.documentElement.scrollWidth,
+        return {innerWidth:innerWidth,clientWidth:document.documentElement.clientWidth,scrollWidth:document.documentElement.scrollWidth,
+          codeScheme:getComputedStyle(pre).colorScheme,focused:document.activeElement===button,disabled:button.disabled,
+          focusVisible:button.matches(':focus-visible'),outlineStyle:getComputedStyle(button).outlineStyle,
+          outlineWidth:parseFloat(getComputedStyle(button).outlineWidth),
           preWidth:pre.clientWidth,preScrollWidth:pre.scrollWidth,tailScroll:pre.scrollLeft,overflowX:getComputedStyle(pre).overflowX,
-          codePreserved:preserved,copyPreserved:window.__copied===text,codeChars:text.length,requirements:strings};
-      })()`);
+          copyPreserved:window.__copied===text,copyFeedback:button.textContent,codeChars:text.length,requirements:strings};
+      })()`));
       row.layoutViewport = (await command('Page.getLayoutMetrics')).cssLayoutViewport;
       rows.push(row);
     }
@@ -77,7 +99,20 @@ async function main() {
     for (const row of rows) {
       assert.equal(row.innerWidth, row.width, 'Do not emulate a narrow screenshot with a wide layout viewport');
       assert.ok(row.scrollWidth <= row.clientWidth, `${row.id}@${row.width}: ${row.scrollWidth} > ${row.clientWidth}`);
-      assert.equal(row.codePreserved, true); assert.equal(row.copyPreserved, true);
+      assert.ok(row.toolbars.length > 0);
+      for (const toolbar of row.toolbars) {
+        assert.ok(toolbar.width >= 44 && toolbar.height >= 44, `${row.id}@${row.width}: native copy target too small`);
+        assert.ok(toolbar.codeBelow && toolbar.separated, 'Native toolbar must not overlap its label or code');
+        assert.equal(toolbar.preserved, true, 'CSS must preserve every code literal');
+      }
+      if (row.id === 'dataset-contract-gate') assert.ok(row.lists.length > 0, 'Exercise actual Markdown lists, not figure-generated lists');
+      assert.ok(row.lists.every(list => list.indent >= 20 && list.left >= 0 && list.marker !== 'none' && list.position === 'outside'), 'Native list markers need an in-page gutter');
+      assert.equal(row.codeScheme, row.theme, 'Native scrollbars must follow the project theme');
+      assert.equal(row.copyPreserved, true);
+      assert.equal(row.copyFeedback, '已复制');
+      assert.equal(row.focused, true); assert.equal(row.disabled, false);
+      assert.equal(row.focusVisible, true);
+      assert.notEqual(row.outlineStyle, 'none'); assert.ok(row.outlineWidth >= 2);
       assert.equal(row.overflowX, 'auto');
       if (row.preScrollWidth > row.preWidth) assert.ok(row.tailScroll > 0, 'Long code tail must remain reachable inside pre');
       assert.ok(row.requirements.every(item => item.text.trim() && item.href !== 'lesson.html?path='));

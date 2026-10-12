@@ -33,4 +33,10 @@ assert(narrowActionHead, 'lesson.html 缺少窄屏行动面板标题栏规则');
 assert.match(narrowActionHead[1], /display:\s*grid\s*;/, '窄屏必须启用 Grid，不能只给 Flex 容器设置 grid-template-columns');
 assert.match(narrowActionHead[1], /grid-template-columns:\s*minmax\(0,\s*1fr\)\s*;/, '窄屏介绍与检查点状态必须各占一行');
 
+const narrowMermaidToolbar = lessonHtml.match(
+  /@media\s*\(max-width:\s*900px\)\s*\{[^]*?\.mermaid-toolbar\s*\{([^{}]*)\}/
+);
+assert(narrowMermaidToolbar, '移动端 Mermaid 工具栏必须避让固定目录按钮');
+assert.match(narrowMermaidToolbar[1], /padding-right:\s*44px\s*;/, '工具栏右侧必须空出目录按钮宽度与间距');
+
 console.log('lesson mobile CSS contract tests passed');

@@ -547,7 +547,7 @@
       list-style: none;
       padding-left: 28px;
       margin-bottom: 18px;
-      counter-reset: ol-counter;
+      counter-reset: ol-counter var(--ol-start, 0);
     }
 
     .lesson-article ol li {
@@ -1367,12 +1367,10 @@
       height: auto;
     }
 
-    :where(
-      .lesson-article .mermaid-render foreignObject p,
-      .lesson-article .mermaid-render foreignObject span,
-      .mermaid-modal-body foreignObject p,
-      .mermaid-modal-body foreignObject span
-    ) {
+    .lesson-article .mermaid-render foreignObject p,
+    .lesson-article .mermaid-render foreignObject span,
+    .mermaid-modal-body foreignObject p,
+    .mermaid-modal-body foreignObject span {
       font-family: "JetBrains Mono", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
       font-size: 13px;
       line-height: 1.5;
@@ -2453,6 +2451,7 @@
     }
 
     @media (max-width: 900px) {
+      .mermaid-toolbar { padding-right: 44px; }
       .lesson-sidebar { transform: translateX(-100%); }
       .lesson-sidebar.open { transform: translateX(0); }
       .lesson-sidebar-toggle {
@@ -2665,7 +2664,7 @@
     <aside class="toc-sidebar" id="tocSidebar" aria-hidden="true"></aside>
   </div>
 
-  <script src="md-render.js?v=20260612a"></script>
+  <script src="md-render.js?v=20261013a"></script>
   <script src="build-meta.js"></script>
   <script src="data.js?v=20260831a"></script>
   <script>
@@ -4365,7 +4364,7 @@
         mermaid.initialize({
           startOnLoad: false,
           theme: mermaidTheme(),
-          fontFamily: 'JetBrains Mono, ui-monospace, monospace',
+          fontFamily: '"JetBrains Mono", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif',
           themeVariables: { fontSize: '13px' },
           flowchart: { useMaxWidth: true, htmlLabels: true, nodeSpacing: 40, rankSpacing: 50, padding: 12 }
         });
