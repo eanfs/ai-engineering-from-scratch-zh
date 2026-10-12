@@ -140,6 +140,43 @@ test('lesson inline scripts remain syntactically valid and keep protected reader
   assert.doesNotMatch(source, /set\('meta\[property="og:image"\]', ORIGIN \+ '\/og-image/);
 });
 
+test('MDRender ordered lists retain blank-separated items and the initial native start', () => {
+  assert.equal(MDRender.parseMd('1. 甲\n\n2. 乙\n\n3. 丙'), '<ol><li>甲</li><li>乙</li><li>丙</li></ol>');
+  assert.equal(MDRender.parseMd('1. 甲\n1. 乙\n1. 丙'), '<ol><li>甲</li><li>乙</li><li>丙</li></ol>');
+  assert.equal(MDRender.parseMd('3. 甲\n\n7. 乙\n\n1. 丙'), '<ol start="3" style="--ol-start: 2"><li>甲</li><li>乙</li><li>丙</li></ol>');
+  assert.equal(MDRender.parseMd('0. 甲\n2. 乙'), '<ol start="0" style="--ol-start: -1"><li>甲</li><li>乙</li></ol>');
+});
+
+test('MDRender ordered lists cannot continue across prose, headings, UL, code or blockquotes', () => {
+  for (const boundary of ['普通段落', '## 新列表', '- 无序项', '```python\nprint("3. not a list")\n```', '> 引用', '---', '| 键 | 值 |\n| --- | --- |\n| a | b |']) {
+    const html = MDRender.parseMd('3. 甲\n\n' + boundary + '\n\n1. 乙');
+    assert.equal((html.match(/<ol\b/g) || []).length, 2, boundary);
+    assert.ok(html.startsWith('<ol start="3" style="--ol-start: 2"><li>甲</li></ol>'), boundary);
+    assert.ok(html.endsWith('<ol><li>乙</li></ol>'), boundary);
+  }
+  assert.equal(MDRender.parseMd('- 甲\n- 乙'), '<ul><li>甲</li><li>乙</li></ul>');
+  assert.equal(MDRender.parseMd('- 甲\n\n- 乙'), '<ul><li>甲</li></ul><ul><li>乙</li></ul>', 'existing blank-separated UL behavior is unchanged');
+});
+
+test('MDRender real open-weight-vlm-recipes exercises form one five-item list and keep escaping/code/paths', () => {
+  const markdown = fs.readFileSync(path.join(root, 'phases/12-multimodal-ai/07-open-weight-vlm-recipes/docs/zh.md'), 'utf8');
+  const exercises = markdown.split('## 练习')[1].split('## 关键术语')[0];
+  const html = MDRender.parseMd(exercises);
+  assert.equal((html.match(/<ol\b/g) || []).length, 1);
+  assert.equal((html.match(/<li>/g) || []).length, 5);
+  assert.match(html, /MM1 第 3\.2 节/);
+  assert.match(html, /设计一张消融表/);
+  const escaped = MDRender.parseMd('3. & <标记> `phases/a/code/main.py`\n\n4. **中文**');
+  assert.match(escaped, /&amp; &lt;标记&gt;/);
+  assert.match(escaped, /<code>phases\/a\/code\/main\.py<\/code>/);
+  assert.match(escaped, /<strong>中文<\/strong>/);
+  const code = MDRender.parseMd('```python\nprint("1. & <tag>")\n```');
+  assert.match(code, /data-code="print\(&quot;1\. &amp; &lt;tag&gt;&quot;\)"/);
+  assert.doesNotMatch(code, /<ol\b/);
+  const source = fs.readFileSync(path.join(root, 'site/lesson.html'), 'utf8');
+  assert.match(source, /\.lesson-article ol\s*\{[^}]*counter-reset:\s*ol-counter var\(--ol-start,\s*0\)/);
+});
+
 test('Mermaid HTML labels keep the measured CJK font and line height instead of article prose styles', () => {
   const source = fs.readFileSync(path.join(root, 'site/lesson.html'), 'utf8');
   const labels = source.match(/\.lesson-article \.mermaid-render foreignObject p,\s*\.lesson-article \.mermaid-render foreignObject span,\s*\.mermaid-modal-body foreignObject p,\s*\.mermaid-modal-body foreignObject span\s*\{([^{}]*)\}/);
