@@ -236,3 +236,20 @@ test('real local HTTP lesson route negotiates Chinese source and preserves legac
   assert.equal(missing.headers.get('cache-control'), 'no-store');
   assert.match(await missing.text(), /\/llms\.txt/);
 });
+
+test('Mermaid reader preserves natural label scale in a keyboard-scrollable region, including the modal', () => {
+  const source = fs.readFileSync(path.join(root, 'site/lesson.html'), 'utf8');
+  const fn = source.split('function fixMermaidClusterLabels(root) {')[1].split('function rerenderMermaidBlocks()')[0];
+  const svg = { style: {}, viewBox: { baseVal: { width: 552 } } };
+  const attrs = {};
+  const target = { querySelector: () => svg, querySelectorAll: () => [], setAttribute: (key, value) => { attrs[key] = value; } };
+  vm.runInNewContext('function fixMermaidClusterLabels(root) {' + fn + '; fixMermaidClusterLabels(target)', { target });
+  assert.equal(svg.style.width, '552px');
+  assert.equal(svg.style.maxWidth, 'none');
+  assert.equal(attrs.tabindex, '0');
+  assert.equal(attrs.role, 'region');
+  assert.match(attrs['aria-label'], /方向键/);
+  assert.match(source, /\.mermaid-modal-center\s*\{[^}]*min-width:\s*100%;[^}]*width:\s*max-content;/);
+  assert.match(source, /\.lesson-figure \.lf-readable-viewport\s*\{[^}]*overflow-x:\s*auto;/);
+  assert.match(source, /\.lesson-figure \.lf-readable-viewport svg\s*\{[^}]*max-width:\s*none;/);
+});

@@ -36,6 +36,7 @@ class Element {
 
   append(child) {
     const node = typeof child === 'string' ? text(child) : child;
+    if (node.parentNode) node.parentNode.removeChild(node);
     node.parentNode = this;
     this.childNodes.push(node);
     return node;
@@ -100,6 +101,8 @@ function matches(node, selector) {
   if (selector === '.lf-head') return hasClass(node, 'lf-head');
   if (selector === '.lf-cap') return hasClass(node, 'lf-cap');
   if (selector === 'svg') return node.tagName === 'SVG';
+  if (selector === 'text') return node.tagName === 'TEXT';
+  if (selector === '.lf-readable-viewport' || selector === '.lf-readability-hint') return hasClass(node, selector.slice(1));
   if (selector === 'svg text') return node.tagName === 'TEXT' && node.parentNode && node.parentNode.tagName === 'SVG';
   if (selector === '.lf-ctrl label' && node.tagName === 'LABEL') {
     for (let parent = node.parentNode; parent; parent = parent.parentNode) {
@@ -111,6 +114,7 @@ function matches(node, selector) {
 
 class Document {
   constructor(hosts) { this.hosts = hosts; }
+  createElement(tag) { return new Element(tag); }
   querySelectorAll(selector) {
     assert.equal(selector, '.lesson-figure[data-figure]');
     return this.hosts;
@@ -186,7 +190,7 @@ function visibleText(root) {
       if (child.nodeType === 3) {
         const value = child.nodeValue.trim();
         if (value) values.push(value);
-      } else {
+      } else if (!hasClass(child, 'lf-readability-hint')) {
         walk(child);
       }
     });
@@ -236,6 +240,7 @@ function testVisualFindingReaderText() {
     ['figures-visaudio4.js', 'v4-vision-pipeline', '视觉综合项目 · 流水线', '生产视觉服务由一串契约连接而成'],
     ['figures-foundations2.js', 'data-augmentation', '数据增强', '数据增强对每张训练图像'],
     ['figures-cv2.js', 'clip-contrastive', 'CLIP · 对比矩阵', 'CLIP 将图像与图像描述'],
+    ['figures-tools2.js', 'tp-tool-loop', '工具循环', '每套工具调用栈都运行同样的四步循环'],
     ['figures-llmstack5.js', 'l5-vlm-recipe-knobs', 'VLM 配方调节项', 'MM1、Idefics2、Cambrian-1 和 Prismatic'],
     ['figures-llmstack5.js', 'l5-onevision-budget', 'OneVision token 预算', 'LLaVA-OneVision 将每个样本'],
     ['figures-multimodal2.js', 'mm-mrope-axes', 'M-RoPE 三轴', 'Qwen2-VL 将每个 token'],
@@ -256,8 +261,14 @@ function testVisualFindingReaderText() {
     if (node.nodeType === 3) return null;
     const attrs = Object.assign({}, node.attrs);
     delete attrs['aria-label'];
-    return { tag: node.tagName, attrs, style: Object.assign({}, node.style),
-      children: node.children.map(machineTree) };
+    const style = Object.assign({}, node.style);
+    if (node.tagName === 'SVG') delete style.minWidth; // display scale, not SVG geometry
+    const children = node.children.flatMap(child => {
+      if (hasClass(child, 'lf-readability-hint')) return [];
+      if (hasClass(child, 'lf-readable-viewport')) return child.children.map(machineTree);
+      return [machineTree(child)];
+    });
+    return { tag: node.tagName, attrs, style, children };
   }
   function numbers(rendered) { return visibleText(rendered).join(' ').match(/\d+(?:[.,]\d+)*/g) || []; }
   function applyAndCheck(entry, event) {
@@ -271,6 +282,19 @@ function testVisualFindingReaderText() {
     applyAndCheck(entry);
     assert.equal(entry.host.querySelector('.lf-label').textContent, entry.title);
     assert.ok(entry.host.querySelector('.lf-cap').textContent.startsWith(entry.caption), entry.name + ': full Chinese caption');
+    const svg = entry.host.querySelector('svg');
+    const viewports = entry.host.querySelectorAll('.lf-readable-viewport');
+    assert.equal(viewports.length, svg ? 1 : 0, entry.name + ': wrap only actual SVG');
+    if (svg) {
+      assert.equal(viewports[0].attrs.tabindex, '0');
+      assert.equal(viewports[0].attrs.role, 'region');
+      assert.match(entry.host.querySelector('.lf-readability-hint').textContent, /方向键/);
+      const width = Number(svg.attrs.viewBox.split(/\s+/)[2]);
+      const font = Math.min(...svg.querySelectorAll('text').map(n => Number(n.attrs['font-size'])).filter(n => n > 0));
+      assert.ok(parseFloat(svg.style.minWidth) / width * font >= 12, entry.name + ': at least 12 CSS px');
+      applyAndCheck(entry);
+      assert.equal(entry.host.querySelectorAll('.lf-readable-viewport').length, 1, 'idempotent display wrapper');
+    }
   });
 
   // All selected exact strings must match actual renderer text, including SVG
@@ -341,7 +365,7 @@ function testVisualFindingReaderText() {
   assert.ok(visibleText(pipeline).includes('crop + resize'), 'code not translated');
   assert.ok(visibleText(pipeline).includes('decode + detect'), 'nested preformatted code not translated');
   assert.ok(visibleText(pipeline).includes('unknown explanatory text'), 'unknown prose not guessed');
-  console.log('visual-finding reader i18n passed: 9 real widgets; CNN/augmentation input, all 12 agent steps, motion aria; numerical/geometry/value parity');
+  console.log('visual-finding reader i18n/display passed: 10 real widgets; CNN/augmentation input, all 12 agent steps, motion aria; numerical/geometry/value parity');
 }
 
 function main() {
