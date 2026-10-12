@@ -140,6 +140,19 @@ test('lesson inline scripts remain syntactically valid and keep protected reader
   assert.doesNotMatch(source, /set\('meta\[property="og:image"\]', ORIGIN \+ '\/og-image/);
 });
 
+test('Mermaid HTML labels keep the measured CJK font and line height instead of article prose styles', () => {
+  const source = fs.readFileSync(path.join(root, 'site/lesson.html'), 'utf8');
+  const labels = source.match(/\.lesson-article \.mermaid-render foreignObject p,\s*\.lesson-article \.mermaid-render foreignObject span,\s*\.mermaid-modal-body foreignObject p,\s*\.mermaid-modal-body foreignObject span\s*\{([^{}]*)\}/);
+  assert.ok(labels, 'label rules must outrank article prose, not be wrapped in zero-specificity :where');
+  assert.match(labels[1], /font-size:\s*13px\s*;/);
+  assert.match(labels[1], /line-height:\s*1\.5\s*;/);
+  assert.match(labels[1], /margin:\s*0\s*;/);
+  assert.match(labels[1], /text-align:\s*center\s*;/);
+  const cjkFont = '"JetBrains Mono", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif';
+  assert.ok(labels[1].includes('font-family: ' + cjkFont));
+  assert.equal(source.split("fontFamily: '" + cjkFont + "'").length - 1, 3, 'initial, lazy and theme Mermaid renders must measure with the same CJK font');
+});
+
 test('lesson reader typography can shrink on narrow CJK viewports without changing desktop sizes', () => {
   const source = fs.readFileSync(path.join(root, 'site/lesson.html'), 'utf8');
   assert.match(source, /font-size: clamp\(min\(2rem, 10vw\), 5vw, 3rem\)/);
