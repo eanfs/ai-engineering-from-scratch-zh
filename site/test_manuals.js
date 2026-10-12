@@ -540,6 +540,27 @@ test('Chinese web and offline print output use genuine URLs and mark historic ev
   assert.match(index, /aria-label="搜索"/);
 });
 
+test('PDF downloads link only the two published ready manuals and never enter print output', () => {
+  const manual = manuals.loadManual(fixture().dir);
+  const base = 'https://github.com/fancyboi999/ai-engineering-from-scratch-zh/releases/download/zh-manuals-20261013/';
+  for (const id of ['a2a-101', 'docker-sandboxes-101', 'demo-101', 'constructor']) {
+    for (const status of ['ready', 'draft']) {
+      const book = { ...manual, id, status };
+      const site = tempDir('manual-pdf-link-');
+      manuals.writeWeb([book], site, { drafts: true });
+      const html = fs.readFileSync(path.join(site, `manual-${id}.html`), 'utf8');
+      const index = fs.readFileSync(path.join(site, 'manuals.html'), 'utf8');
+      const published = status === 'ready' && ['a2a-101', 'docker-sandboxes-101'].includes(id);
+      for (const page of [html, index]) {
+        if (published) assert.ok(page.includes(`href="${base}aiefs-manual-${id}.pdf">下载中文 PDF</a>`));
+        else assert.doesNotMatch(page, /下载中文 PDF<\/a>|href="[^"\s]+\.pdf"/);
+        assert.ok(page.includes(`href="manual-${id}-print.html">打印版</a>`));
+      }
+      assert.doesNotMatch(manuals.printPage(book), /releases\/download|下载中文 PDF/);
+    }
+  }
+});
+
 test('audit CLI fails closed when a mistaken root or selector loads no manuals', () => {
   const { spawnSync } = require('node:child_process');
   const { root } = fixture();

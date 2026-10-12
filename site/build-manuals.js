@@ -556,6 +556,16 @@ function sectionCount(manual) { return manual.parts.reduce((total, part) => tota
 function action(href, label, primary = false) { return `<a class="m-action${primary ? ' is-primary' : ''}" href="${href}">${label}</a>`; }
 function sourceAction(manual) { return action(escapeHtml(githubSourceUrl(`manuals/${manual.id}`)), '源码文件'); }
 
+// Only independently reviewed, published attachments belong here. Unknown/draft manuals stay print-only.
+const PUBLISHED_PDFS = Object.freeze({
+  'a2a-101': 'https://github.com/fancyboi999/ai-engineering-from-scratch-zh/releases/download/zh-manuals-20261013/aiefs-manual-a2a-101.pdf',
+  'docker-sandboxes-101': 'https://github.com/fancyboi999/ai-engineering-from-scratch-zh/releases/download/zh-manuals-20261013/aiefs-manual-docker-sandboxes-101.pdf',
+});
+function pdfAction(manual, primary = false) {
+  return manual.status === 'ready' && Object.hasOwn(PUBLISHED_PDFS, manual.id)
+    ? action(PUBLISHED_PDFS[manual.id], '下载中文 PDF', primary) : '';
+}
+
 function pinLine(manual) {
   const pin = manual.pin;
   return `${escapeHtml(pin.subject)} ${escapeHtml(pin.version)} · ${escapeHtml(pin.commit.slice(0, 7))} · ${escapeHtml(pin.date)} · 版本 ${escapeHtml(manual.edition)}`;
@@ -587,7 +597,7 @@ function coverHtml(manual, mode) {
   const head = `<div class="m-cover-stamp"><span class="m-kicker m-cover-kicker">AI Engineering from Scratch · 手册</span><span class="m-kicker m-copy">${copyLine(manual)}</span></div><h1 class="m-cover-title">${escapeHtml(manual.title)}</h1><p class="m-cover-subtitle">${escapeHtml(manual.subtitle)}</p><div class="m-cover-pin">${pinLine(manual)}</div>`;
   if (mode === 'print') return `<section class="m-cover" id="cover">${plate}${head}${partDots(manual)}${editionHtml(manual)}</section>`;
   const band = ditherHtml(manual.id, `${manual.pin.subject} ${manual.pin.version}`, false);
-  const download = action(printUrl(manual), '打印版', true);
+  const download = pdfAction(manual, true) + action(printUrl(manual), '打印版', !pdfAction(manual));
   const draft = manual.status === 'draft' ? '<div class="m-draft-note">草稿版本，尚未列入目录</div>' : '';
   return `<section class="m-cover" id="cover">${band}${draft}${head}<div class="m-cover-actions">${download}${action(manual.front ? '#s-front' : `#${manual.parts[0].anchor}`, '开始阅读', !download)}${sourceAction(manual)}</div>${partDots(manual)}${plate}</section>`;
 }
@@ -663,12 +673,13 @@ function webPage(manual) {
 const INDEX_LEDE = '每本手册围绕一个主题的固定版本，从用途讲到每次请求与响应。示例来自上游保存的运行记录，规则链接到对应规范。捕获记录保留原始来源，不等同于本次中文同步的实时验证。';
 const INDEX_GIVES = [
   ['阅读', '网页版配有可随滚动播放的图表。'],
-  ['留存', '同一正文提供打印版 HTML；中文 PDF 尚未发布。'],
+  ['留存', '已发布完整中文 PDF，并保留同一正文的打印版 HTML。'],
   ['复现', '源码包含捕获套件。运行前先核对离线范围、工具版本与权限要求。'],
 ];
 
 function manualCard(manual) {
   const actions = [action(pageName(manual.id), '阅读手册', true)];
+  if (pdfAction(manual)) actions.push(pdfAction(manual));
   actions.push(action(printUrl(manual), '打印版'));
   actions.push(sourceAction(manual));
   const draft = manual.status === 'draft' ? '<div class="m-draft-note">草稿版本</div>' : '';
