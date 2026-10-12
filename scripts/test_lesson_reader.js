@@ -36,6 +36,38 @@ test('lesson-markdown delegates to the sole Node and browser MDRender implementa
   assert.match(MDRender.parseMd(markdown), /复制<\/button>/);
 });
 
+test('MDRender restores nested syntax tokens without changing quoted URLs, fragments or comments', () => {
+  const window = {};
+  vm.runInNewContext(fs.readFileSync(path.join(root, 'site/md-render.js'), 'utf8'), { window });
+  const cases = [
+    ['json', '{"uri":"file:///workspace","name":"Workspace"}'],
+    ['javascript', 'const uri = "https://example.test/path"; // keep this comment\nconst next = "https://example.test/other";'],
+    ['python', 'value = "prefix#fragment"\nother = "second#fragment" # explanation'],
+    ['json', '{"value":"<script>alert(1)</script> & <img src=x onerror=alert(2)>","uri":"file:///workspace"}'],
+  ];
+  for (const [lang, code] of cases) {
+    const html = MDRender.renderCodeBlock(code, lang);
+    const inner = html.match(/<code>([\s\S]*?)<\/code>/)[1];
+    const text = inner.replace(/<[^>]*>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+    assert.equal(text, code, lang);
+    assert.doesNotMatch(inner, /\x00TOK\d+\x00/);
+    assert.doesNotMatch(inner, /<script\b|<img\b/);
+    assert.equal(window.MDRender.renderCodeBlock(code, lang), html);
+    assert.ok(html.includes('data-code="' + MDRender.escapeAttr(code) + '"'), 'copy payload stays original');
+  }
+});
+
+test('MDRender displays the real MCP continuation JSON byte-for-byte and keeps it parseable', () => {
+  const source = fs.readFileSync(path.join(root, 'certifications/claude/lessons/11-mcp-server-design-and-integration/docs/zh.md'), 'utf8');
+  const code = [...source.matchAll(/```json\n([\s\S]*?)```/g)].find(match => match[1].includes('"uri": "file:///workspace"'))[1].replace(/\n$/, '');
+  const expected = JSON.parse(code);
+  const html = MDRender.parseMd('```json\n' + code + '\n```');
+  const text = html.match(/<code>([\s\S]*?)<\/code>/)[1].replace(/<[^>]*>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+  assert.equal(text, code);
+  assert.deepEqual(JSON.parse(text), expected);
+  assert.equal(expected.params.inputResponses.workspace_scope.roots[0].uri, 'file:///workspace');
+});
+
 test('SourceBoundary reads only exact manifest members in the core and both published certification programs', t => {
   for (const lessonPath of ['phases/01-math/01-vectors', 'certifications/claude/lessons/01-models', 'certifications/mcpa/lessons/01-discovery']) {
     const fixture = sourceFixture(t, lessonPath);
