@@ -281,6 +281,13 @@ test('Mermaid reader preserves natural label scale in a keyboard-scrollable regi
   assert.equal(attrs.tabindex, '0');
   assert.equal(attrs.role, 'region');
   assert.match(attrs['aria-label'], /方向键/);
+  const modalAttrs = {};
+  const centerAttrs = {};
+  const modalTarget = { ...target, id: 'mermaidModalCenter', parentElement: { setAttribute: (key, value) => { modalAttrs[key] = value; } }, setAttribute: (key, value) => { centerAttrs[key] = value; } };
+  vm.runInNewContext('function fixMermaidClusterLabels(root) {' + fn + '; fixMermaidClusterLabels(target)', { target: modalTarget });
+  assert.equal(modalAttrs.tabindex, '0', 'modal keyboard target must own the overflow, not its natural-width content');
+  assert.equal(modalAttrs.role, 'region');
+  assert.deepEqual(centerAttrs, {});
   assert.match(source, /\.mermaid-modal-center\s*\{[^}]*min-width:\s*100%;[^}]*width:\s*max-content;/);
   assert.match(source, /\.lesson-figure \.lf-readable-viewport\s*\{[^}]*overflow-x:\s*auto;/);
   assert.match(source, /\.lesson-figure \.lf-readable-viewport svg\s*\{[^}]*max-width:\s*none;/);
