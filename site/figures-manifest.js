@@ -10,7 +10,7 @@
   var baseUrl = current && current.src
     ? current.src.replace(/[^/?#]+(?:[?#].*)?$/, '')
     : '/';
-  var i18nSrc = 'figures-i18n-zh.js?v=20261009a';
+  var i18nSrc = 'figures-i18n-zh.js?v=20261013d';
 
   var MODULES = [
   {
@@ -632,6 +632,26 @@
       "mcp-registry-admission",
       "mcp-conformance-operations"
     ]
+  },
+  {
+    "src": "figures-python.js?v=20261011a",
+    "figures": [
+      "s0-list-vs-generator"
+    ]
+  },
+  {
+    "src": "figures-mlprod.js?v=20261011a",
+    "figures": [
+      "mlprod-drift-psi",
+      "mlprod-pit-join",
+      "mlprod-serving-cost"
+    ]
+  },
+  {
+    "src": "figures-demo.js?v=20261011a",
+    "figures": [
+      "demo-token-bucket"
+    ]
   }
 ];
 
@@ -722,10 +742,33 @@
       .then(function () { return true; });
   }
 
+  function guardFigureDependencies() {
+    var registry = window.LESSON_FIGURES || {};
+    var dependencies = window.AIFS_FIGURE_DEPENDENCIES || {};
+    Object.keys(dependencies).forEach(function (name) {
+      var figure = registry[name];
+      if (typeof figure !== 'function' || figure.aifsDependencyGuard) return;
+      // Validate only; the shared runtime retains per-host failure cleanup and
+      // the renderer retains its original arguments, return value and disposer.
+      var guarded = function () {
+        var required = dependencies[name];
+        for (var i = 0; i < required.length; i++) {
+          if (typeof registry[required[i]] !== 'function') {
+            throw new Error('Figure dependency missing: ' + name + ' -> ' + required[i]);
+          }
+        }
+        return figure.apply(this, arguments);
+      };
+      guarded.aifsDependencyGuard = true;
+      registry[name] = guarded;
+    });
+  }
+
   function mount(root) {
     var scope = root || document;
     return ensureModules(scope).then(function (hasFigures) {
       if (!hasFigures || typeof window.mountLessonFigures !== 'function') return false;
+      guardFigureDependencies();
       try {
         window.mountLessonFigures(scope);
       } catch (error) {
