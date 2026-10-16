@@ -3,8 +3,8 @@
 set -eu
 P="$(cd "$1" && pwd)"
 NAME="$2"
-T="$HOME/video-skills/dashi-works/tools"
-OUT="${DASHI_OUT:-$HOME/video-skills/output}"
+T="${DASHI_TOOLS:-$(cd "$(dirname "$0")" && pwd)}"
+OUT="${DASHI_OUT:-$(cd "$(dirname "$0")/.." && pwd)/output}"
 DST="$OUT/$NAME.mp4"
 echo "=== 成片 ==="
 ffprobe -v error -show_entries stream=index,codec_type,codec_name,width,height,r_frame_rate:format=duration,size -of compact "$DST"

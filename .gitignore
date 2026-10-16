@@ -107,3 +107,8 @@ site/lesson-terms.json
 site/og-cards.json
 
 site/hub-pages.json
+
+# video-productions 的本地构建产物（TTS、分段渲染、成片、抽帧）——不入库，
+# 代码与每集源数据在 video-productions/ 下随时可重建。
+video-productions/dashi-works/
+video-productions/output/
