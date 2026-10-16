@@ -3,7 +3,7 @@
 import os, subprocess, sys, concurrent.futures as cf
 
 work = sys.argv[1]
-EDGE = os.environ.get("EDGE_TTS", os.path.expanduser("~/video-skills/venv/bin/edge-tts"))
+EDGE = os.environ.get("EDGE_TTS", os.path.expanduser("~/.local/bin/edge-tts"))
 VOICE = os.environ.get("DASHI_VOICE", "zh-CN-XiaoxiaoNeural")
 RATE = os.environ.get("DASHI_RATE", "+15%")
 TTS = os.path.join(work, "tts"); os.makedirs(TTS, exist_ok=True)
