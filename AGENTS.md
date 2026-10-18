@@ -44,7 +44,7 @@ scripts/                       # 审计和构建工具
 4. 所有代码围栏必须带语言标记。
 5. 不使用外部 LLM API 做翻译；不提交考题泄露内容、机密题目或包过承诺。
 6. 代码保持 stdlib-first，不为满足形式而伪造 provider API 集成。
-7. 不直接 push `main`；所有更改走 PR。
+7. 不直接 push `main`；所有更改走 PR。`gh pr create` 必须显式带 `--repo eanfs/ai-engineering-from-scratch-zh`：本机 `gh` 的默认仓库会解析到 `upstream`（fancyboi999），不指定就会把 PR 建到错误的仓库下。
 8. 不提交构建产物 `site/sitemap.xml`、`site/llms.txt`、`site/build-meta.js`、`site/certification-data.js`、`site/lessons/`。
 9. 项目、手册、Hub、OG 数据与目录从中文源构建；不提交 `site/projects-data.js`、`site/project-content/`、`site/manuals-data.js`、`site/manuals.html`、`site/manual-*.html`、`site/hubs/`、`site/lesson-terms.json` 或 `site/og-cards.json`。
 10. `site/data.js` 是中文仓跟踪的构建产物；课程、术语或站点数据变动后必须重建并与源文件一起提交。
