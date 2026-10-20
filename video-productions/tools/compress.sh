@@ -3,7 +3,7 @@
 set -eu
 P="$(cd "$1" && pwd)"
 NAME="$2"
-OUT="${DASHI_OUT:-$HOME/video-skills/output}"
+OUT="${DASHI_OUT:-$(cd "$(dirname "$0")/.." && pwd)/output}"
 mkdir -p "$OUT"
 DST="$OUT/$NAME.mp4"
 rm -f "$DST"

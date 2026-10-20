@@ -4,7 +4,8 @@
 # 依赖 dashi-animationstyle skill 的 styles/手绘笔记/模板.html；用环境变量 DASHI_SKILL 指定 skill 根目录。
 import os, sys
 
-SKILL = os.environ.get("DASHI_SKILL", os.path.expanduser("~/video-skills/dashi-animationstyle"))
+_REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+SKILL = os.environ.get("DASHI_SKILL", os.path.join(_REPO, "skills", "dashi-animationstyle"))
 argv = sys.argv[1:]
 common = None
 if "--common" in argv:

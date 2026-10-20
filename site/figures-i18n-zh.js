@@ -15,6 +15,13 @@
   // widget 标题（.lf-label）
   var L = {
     'A2A DISCOVERY': 'A2A 发现机制',
+    'LIST VERSUS GENERATOR': '列表对比生成器',
+    'LIST VS GENERATOR': '列表对比生成器',
+    'BATCH VERSUS ONLINE': '批处理对比在线推理',
+    'BATCH VS ONLINE': '批处理对比在线推理',
+    'POPULATION STABILITY INDEX': '群体稳定性指标 (PSI)',
+    'POINT-IN-TIME JOIN': '时点连接 (Point-in-Time Join)',
+    'TOKEN BUCKET': '令牌桶限流',
     'CONTRACT NET': '合同网协议',
     'WORK STEALING': '工作窃取',
     'HANDOFF ROUTING': '交接路由',
@@ -178,6 +185,15 @@
 
   // 操作提示（.lf-head 末位 span）
   var H = {
+    'eight rows, batch size two': '8 行数据，批大小为 2',
+    'a list holds every row, a generator holds one batch': '列表保留所有行，生成器仅保留单个批次',
+    'drag traffic and freshness': '拖动流量与时效',
+    'drag the drift': '拖动数据漂移',
+    'drag the label day': '拖动标签日期',
+    'drag staleness or runs per day': '拖动最大延迟或每日运行次数',
+    'shift the current window': '平移当前数据窗口',
+    'move the label day or change the TTL': '移动标签日期或更改 TTL',
+    'one client, 24 requests in 12 seconds': '单个客户端，12 秒内 24 次请求',
     'card then task': '先拉取名片再委派任务',
     'announce, bid, award': '发布、投标、中标',
     'pull, not push': '拉取而非推送',
@@ -330,6 +346,23 @@
   // 控件 label（.lf-ctrl label 首个文本节点，按 trim 后精确匹配）。
   // 英文词样本（cat / the / doc1 等演示数据）刻意不收录。
   var C = {
+    'requests per day (millions)': '每日请求量（百万次）',
+    'max staleness (hours)': '最大陈旧度（小时）',
+    'mean shift (reference std units)': '均值偏移（基准标准差倍数）',
+    'spread ratio (current std / reference std)': '离散度比率（当前标准差 / 基准标准差）',
+    'label day': '标签日期',
+    'TTL (days)': 'TTL 生存期（天）',
+    'bucket capacity (burst size)': '桶容量（突发并发上限）',
+    'refill rate (tokens per second)': '补充速率（每秒令牌数）',
+    'max staleness': '最大时效/延迟',
+    'runs per day': '每日运行次数',
+    'entity count': '实体数量',
+    'peak QPS': '峰值 QPS',
+    'mean shift': '均值漂移',
+    'scale ratio': '尺度比率',
+    'TTL days': 'TTL 天数',
+    'capacity': '容量 (Burst)',
+    'refill / sec': '每秒补充量',
     '"great" weight': '"great" 权重',
     '"not" weight': '"not" 权重',
     '"okay" weight': '"okay" 权重',
@@ -629,6 +662,11 @@
 
   // 说明散文（.lf-cap，按 widget 名索引）
   var CAP = {
+    's0-list-vs-generator': '列表会在训练开始前构建出每一行，并在内存中常驻完整数据集；生成器每次仅产出一个 batch，因此显存开销取决于批大小而非数据集总规模。两者产生完全相同顺序的相同 batch。',
+    'mlprod-serving-cost': '批处理推理成本随待评分实体总数和每日运行次数线性缩放，因为每次运行都会对所有实体重新评分；在线推理成本则受峰值 QPS 驱动，因为必须预留足够的副本实例在延迟预算内响应实时流量。时效要求宽松时批处理大幅胜出；时效要求极高时批处理运行过于频繁，在线推理更划算。',
+    'mlprod-drift-psi': '基准窗口切分为 10 个十分位分箱，每个分箱占 10% 的样本量。平移当前窗口会改变各分箱的样本占比。PSI 将这些变化按对数比率加权求和。分箱占比从 10% 暴涨到 30% 所贡献的漂移量远大于增至 12%。0.1 与 0.25 的判定带属于信用评分的经验法则，而非严格的统计检验。',
+    'mlprod-pit-join': '对于每个标签事件，时点连接（Point-in-Time Join）仅读取事件时间戳等于或早于标签时间戳、且仍在 TTL 窗口内的最新特征快照。标签日期之后的行属于未来数据，使用它们会导致特征穿越泄露。如果 TTL 窗口内没有任何记录，特征库将填充默认值。',
+    'demo-token-bucket': '每次请求消耗当前客户端桶里的一个令牌。桶以恒定速率补充，且永远不会超过其最大容量。容量决定了 Demo 能承受的突发并发上限，补充速率决定了长期平稳请求率。被拒绝的请求会收到携带 Retry-After 标头的 HTTP 429 响应，且不会触发底层模型运行。',
     'sw-agent-card-discovery': 'A2A 是 agent 之间的横向线协议。客户端首先从知名 URL 获取 Agent Card 以了解远端 agent 能做什么，然后发送消息，由远端 agent 转换为任务。任务在不透明生命周期（TASK_STATE_SUBMITTED、TASK_STATE_WORKING、TASK_STATE_COMPLETED）中推进并返回产物。这就是以 agent 为一等公民重新构建的 HTTP 与 REST。',
     'sw-contract-net': 'FIPA 合同网协议将任务分配建模为暗标拍卖。主管广播征求方案（CFP），空闲 agent 提交报价，主管将合同授予最优标的。MCP tools/call 与现代任务市场正是这一 1980 年代机制在 JSON 时代的重述。',
     'sw-work-stealing': '工作窃取用本地双端队列替代了中心化瓶颈。繁忙的 agent 向自身队列尾部压入任务；空闲 agent 则从其他工作节点的头部窃取。争用保持在局部，吞吐量随 worker 数量扩展，且无须中心协调者持有全图。',
@@ -1096,6 +1134,170 @@
     'Attempt one runs to its per-call timeout and returns a typed error instead of hanging the loop. Backoff doubles with jitter before each retry, and a duplicate that races the in-flight attempt collapses into it on the idempotency key. Whatever happens, the loop receives one envelope shape: result or mapped error, never a raw stack trace.': '第一次尝试运行到单次调用超时，随后返回类型化错误，而不是卡死循环。每次重试前，退避时间都会加倍并加入抖动；与进行中尝试竞态的重复请求，会通过幂等 key 折叠进同一次调用。无论发生什么，循环只收到一种信封形状：结果或已映射错误，绝不是原始堆栈跟踪。'
   };
 
+  // 已实见的核心图表漏译：只按 widget ID 和完整文案匹配，保留 provider、
+  // option value、数值、协议与实验输出。未知文案不猜译。
+  var READER_TEXT = {
+    "04-context-cache": {
+      "PROMPT CACHE HIT": "Prompt 缓存命中",
+      "SEMANTIC CACHE": "语义缓存",
+      "drag prefix and hit rate": "拖动前缀占比与命中率",
+      "drag the threshold": "拖动阈值",
+      "shared prefix (% of prompt)": "共享前缀（占 prompt %）",
+      "cache hit rate (%)": "缓存命中率（%）",
+      "similarity threshold": "相似度阈值",
+      "% prefill saved": "% 预填充计算节省量",
+      "A long system prompt or document that repeats across calls can be prefilled once and reused. The cached prefix (dashed) skips recomputation, so only the new suffix (solid) is processed. The saving is the hit rate times the prefix fraction: a big shared prefix that is hit often is where caching pays off most.": "重复出现的长系统 prompt 或文档可以预填充一次并复用。虚线表示缓存前缀，它跳过重复计算，只有新的实线后缀需要处理。节省量等于命中率乘以前缀占比：共享前缀越大、命中越频繁，缓存收益越高。",
+      "A semantic cache answers a new query from a stored answer when their embeddings are close enough. Each dot is an incoming query placed by its cosine similarity to the nearest cached entry; the shaded zone past the orange line is served from cache. Raise the threshold and you get fewer hits but rarely serve a wrong answer; lower it and you cache more but risk returning a stale or mismatched reply (orange dots).": "语义缓存会在新 query 与已缓存答案的 embedding 足够接近时直接复用答案。每个点表示一条进入的 query，按它与最近缓存项的余弦相似度排列；橙线之后的阴影区从缓存返回。提高阈值会减少命中却很少答错；降低阈值会增加命中，也更容易返回过期或不匹配的回答（橙色点）。"
+    },
+    "v4-vision-pipeline": {
+      "one request through the chain": "一次请求走完整条链路",
+      "decode + detect": "解码 + 检测",
+      "crop + resize": "裁剪 + 缩放",
+      "validated JSON out": "输出已校验的 JSON",
+      "VISION CAPSTONE · THE PIPELINE": "视觉综合项目 · 流水线",
+      "detect, crop, classify, validate": "检测、裁剪、分类、校验",
+      "A production vision service is a chain of contracts: decode the bytes, detect boxes, crop each box, classify the crop, then assemble one structured response. Every arrow is an interface that can fail silently (coordinate order, normalisation, resize interpolation), which is why the output passes through a Pydantic schema before it leaves the service. Swap the detector or the classifier freely; the skeleton stays.": "生产视觉服务由一串契约连接而成：解码字节、检测边界框、逐框裁剪、对裁剪图分类，再组装成一份结构化响应。每条箭头都是接口，都可能悄悄出错（坐标顺序、归一化、缩放插值），因此输出必须经过 Pydantic schema 校验才能离开服务。检测器或分类器可以替换，流水线骨架不变。"
+    },
+    "data-augmentation": {
+      "DATA AUGMENTATION": "数据增强",
+      "pick a transform": "选择变换方式",
+      "source": "原图",
+      "horizontal flip": "水平翻转",
+      "rotate 90": "旋转 90 度",
+      "random crop": "随机裁剪",
+      "color jitter": "颜色扰动",
+      "augment(x) preserves the label while changing the pixels  ·  the model sees more variation, generalizes better": "augment(x) 改变像素但保留标签  ·  模型见到更多变化，泛化更好",
+      "Augmentation applies label-preserving transforms — flips, rotations, crops, color shifts — to each training image, so one labelled example becomes many. The network never sees the exact same input twice and learns features that survive these changes, which expands the effective dataset and curbs overfitting without collecting more data.": "数据增强对每张训练图像施加不改变标签的变换，如翻转、旋转、裁剪和颜色偏移，把一个带标签样本变成多个。网络每次见到的输入都不同，由此学习在这些变化下仍然稳定的特征。不用收集更多数据，就能扩大有效数据集并抑制过拟合。"
+    },
+    "clip-contrastive": {
+      "text embeddings →": "文本嵌入 →",
+      "img": "图像",
+      "matching (image, caption) — pull together": "匹配图文对：拉近",
+      "mismatched pairs — push apart": "不匹配图文对：推远",
+      "softmax over each row and column": "逐行、逐列计算 softmax",
+      "drives the diagonal high": "提高对角线上的得分",
+      "CLIP · CONTRASTIVE MATRIX": "CLIP · 对比矩阵",
+      "matching pairs land on the diagonal": "匹配图文对位于对角线",
+      "CLIP embeds images and captions into one shared space. For a batch of N pairs it builds an NxN similarity matrix and trains so the diagonal (true pairs) scores high and every off-diagonal scores low. Watch the diagonal brighten as matching pairs are pulled together and mismatches pushed apart.": "CLIP 将图像与图像描述嵌入同一个共享空间。对一批 N 个图文对，它构建 NxN 相似度矩阵，通过训练让对角线上的真实配对得分高、非对角线上的配对得分低。匹配图文对被拉近，不匹配的被推远，对角线也随之变亮。"
+    },
+    "l5-vlm-recipe-knobs": {
+      "impact on final benchmarks": "对最终基准成绩的影响",
+      "encoder": "编码器",
+      "connector": "连接器",
+      "LLM size": "LLM 规模",
+      "data mix": "数据混合",
+      "resolution": "分辨率",
+      "turn this first": "先调这一项",
+      "VLM RECIPE KNOBS": "VLM 配方调节项",
+      "the ablation-stable ranking": "消融实验中稳定的影响排序",
+      "The ranking that survives across the MM1, Idefics2, Cambrian-1, and Prismatic ablation tables. Data mixture moves benchmarks most, the image encoder is next, and the connector, the knob most papers obsess over, matters least. When a VLM underperforms, reach for the tallest fader first.": "MM1、Idefics2、Cambrian-1 和 Prismatic 的消融实验表都呈现出这一稳定排序：数据混合对基准成绩影响最大，图像编码器其次，而多数论文反复研究的连接器影响最小。VLM 表现不佳时，先调最高的那根滑杆。"
+    },
+    "l5-onevision-budget": {
+      "~3-4K visual tokens": "约 3-4K 个视觉 token",
+      "single image: AnyRes tiles, ~2900 tok": "单图：AnyRes 分块，约 2900 个 token",
+      "multi-image: 6 images x 729 tok each": "多图：6 张图 x 每张 729 个 token",
+      "video: 32 frames x 81 tok, pooled": "视频：32 帧 x 每帧池化后 81 个 token",
+      "ONEVISION TOKEN BUDGET": "OneVision token 预算",
+      "same jar, three packings": "同一预算，三种装法",
+      "LLaVA-OneVision holds the visual-token budget roughly constant at a few thousand tokens per sample and just repacks it: one image at high AnyRes resolution, several images at moderate resolution, or 32 video frames pooled down to 81 tokens each. Because every scenario costs about the same, one model trains on all three without any of them dominating.": "LLaVA-OneVision 将每个样本的视觉 token 预算大致固定在几千个，只改变分配方式：一张高 AnyRes 分辨率图像、几张中等分辨率图像，或 32 帧视频，每帧池化为 81 个 token。各场景开销接近，同一个模型便能同时学习三种场景，不会让某一种独占训练。"
+    },
+    "mm-mrope-axes": {
+      "temporal": "时间",
+      "height": "高度",
+      "width": "宽度",
+      "M-RoPE: one position, three rotations": "M-RoPE：一个位置，三种旋转",
+      "time slowest · width fastest": "时间轴最慢 · 宽度轴最快",
+      "M-ROPE THREE AXES": "M-RoPE 三轴",
+      "time, height, width rotate apart": "时间、高度、宽度分别旋转",
+      "Qwen2-VL gives every token a three-part position and rotates each part on its own axis: temporal, height, and width. The temporal axis turns slowly so a frame an hour later still sits at a distinct phase, while the spatial axes turn faster to encode a patch grid. One absolute-table-free scheme covers a single image, a multi-image batch, and a long video at once.": "Qwen2-VL 将每个 token 的位置分为时间、高度和宽度三部分，各自沿对应轴旋转。时间轴转得慢，让一小时后的帧仍处于不同相位；空间轴转得更快，用来编码图像分块网格。不依赖绝对位置表，同一套方案就能覆盖单图、多图批次和长视频。"
+    },
+    "a5-orchestrator-scale": {
+      "simple query: 1 subagent": "简单查询：1 个子 agent",
+      "medium: 3 subagents": "中等查询：3 个子 agent",
+      "complex research: 10+ subagents": "复杂研究：10+ 个子 agent",
+      "lead": "主 agent",
+      "plans + synthesizes": "规划 + 综合",
+      "15x tokens": "15x token 用量",
+      "scale effort to query complexity  ·  each subagent buys a fresh context window": "按查询复杂度投入资源  ·  每个子 agent 获得独立的新上下文窗口",
+      "ORCHESTRATOR SCALE": "编排规模",
+      "spawn to match the query": "按查询需求创建子 agent",
+      "Anthropic's Research system scales effort to query complexity: one agent with a few tool calls for simple lookups, three for medium queries, ten or more parallel subagents for complex research. It beat single-agent Opus 4 by 90.2%, token usage alone explained 80% of BrowseComp variance, and the bill is 15x tokens per query plus rainbow deploys for the long-running agents.": "Anthropic 的 Research 系统按查询复杂度投入资源：简单检索由一个 agent 调用几次工具完成，中等查询使用三个 agent，复杂研究则并行使用十个或更多子 agent。它比单 agent Opus 4 的表现高出 90.2%；仅 token 用量就能解释 BrowseComp 成绩方差的 80%。代价是每次查询消耗 15x 的 token，还需要为长时间运行的 agent 采用彩虹部署（rainbow deploys）。"
+    },
+    "agent-loop": {
+      "Think: Read the goal and trajectory, then form a plan. The loop stops only when the goal is met or its step budget runs out.": "思考：阅读目标和已有轨迹，再制定计划。循环只在达成目标或耗尽步数预算时停止。",
+      "Chosen action: Select search_web because current evidence is missing. The loop stops only when the goal is met or its step budget runs out.": "选定行动：当前缺少证据，因此选择 search_web。循环只在达成目标或耗尽步数预算时停止。",
+      "Tool call: Send the chosen tool its explicit query arguments. The loop stops only when the goal is met or its step budget runs out.": "工具调用：将明确的查询参数发送给选定的工具。循环只在达成目标或耗尽步数预算时停止。",
+      "Tool result: The tool returns a metro population result. The loop stops only when the goal is met or its step budget runs out.": "工具结果：工具返回都市圈人口结果。循环只在达成目标或耗尽步数预算时停止。",
+      "Observe: Notice that metro population does not answer city proper. The loop stops only when the goal is met or its step budget runs out.": "观察：发现都市圈人口并不能回答城区本身的人口问题。循环只在达成目标或耗尽步数预算时停止。",
+      "Context update: Append the result and scope mismatch to the trajectory. The loop stops only when the goal is met or its step budget runs out.": "更新上下文：将结果和范围不匹配的情况追加到轨迹中。循环只在达成目标或耗尽步数预算时停止。",
+      "Think again: Use the updated context to refine the next plan. The loop stops only when the goal is met or its step budget runs out.": "再次思考：根据更新后的上下文完善下一步计划。循环只在达成目标或耗尽步数预算时停止。",
+      "Chosen action: Choose a narrower search with the corrected scope. The loop stops only when the goal is met or its step budget runs out.": "选定行动：按修正后的范围选择更精确的搜索。循环只在达成目标或耗尽步数预算时停止。",
+      "Tool call: Request the population for Tokyo city proper. The loop stops only when the goal is met or its step budget runs out.": "工具调用：查询东京城区本身的人口。循环只在达成目标或耗尽步数预算时停止。",
+      "Tool result: The tool returns the scoped population evidence. The loop stops only when the goal is met or its step budget runs out.": "工具结果：工具返回符合所需范围的人口证据。循环只在达成目标或耗尽步数预算时停止。",
+      "Observe: Confirm that this result matches the requested scope. The loop stops only when the goal is met or its step budget runs out.": "观察：确认结果符合请求的范围。循环只在达成目标或耗尽步数预算时停止。",
+      "Context update: Store the supported answer so the next thought can finish. The loop stops only when the goal is met or its step budget runs out.": "更新上下文：保存有证据支持的答案，让下一轮思考可以结束。循环只在达成目标或耗尽步数预算时停止。"
+    }
+  };
+
+  var READER_PATTERNS = {
+    '04-context-cache': [
+      ['text', /^cached prefix (\d+)%$/, '缓存前缀 $1%'],
+      ['text', /^new (\d+)%$/, '新增 $1%'],
+      ['small', /^of (\d+) served from cache$/, '条由缓存返回（共 $1 条）'],
+      ['lf-meta', /^hit rate (\d+)%  ·  cached prefix skips recompute  ·  cost and time-to-first-token both drop by ~(\d+)%$/, '命中率 $1%  ·  缓存前缀跳过重复计算  ·  成本和首个 token 延迟均降低约 $2%'],
+      ['lf-meta', /^threshold ([\d.]+)  ·  (\d+) of those hits return a wrong answer  ·  high: few hits, safe$/, '阈值 $1  ·  命中中有 $2 条返回错误答案  ·  高阈值：命中少，安全'],
+      ['lf-meta', /^threshold ([\d.]+)  ·  (\d+) of those hits return a wrong answer  ·  low: many hits, risky$/, '阈值 $1  ·  命中中有 $2 条返回错误答案  ·  低阈值：命中多，风险高'],
+      ['lf-meta', /^threshold ([\d.]+)  ·  (\d+) of those hits return a wrong answer  ·  balanced$/, '阈值 $1  ·  命中中有 $2 条返回错误答案  ·  均衡'],
+      ['lf-formula', /^serve cached answer when (cos\(query, cached\) ≥ [\d.]+)  ·  lower threshold = more hits, more risk$/, '当 $1 时返回缓存答案  ·  阈值越低 = 命中越多，风险越高']
+    ],
+    'cnn-param-count': [
+      ['lf-meta', /^a dense layer on the same (\d+x\d+) map = ([\d.]+[KMB]?) params  ·  ([\d.]+[KMB]?)x more$/, '同样的 $1 特征图使用全连接层 = $2 个参数  ·  参数量为卷积层的 $3 倍'],
+      ['lf-formula', /^(conv = \(K·K·Cin \+ 1\)·Cout = \(\d+·\d+·\d+ \+ 1\)·\d+)   ·   independent of spatial size$/, '$1   ·   与空间尺寸无关']
+    ],
+    'data-augmentation': [
+      ['lf-meta', /^each pass yields a fresh view  ·  (\d+) images x (\d+) = ([\d,]+) effective examples$/, '每轮生成新视图  ·  $1 张图像 x $2 = $3 个有效样本'],
+      ['text', /^aug (\d+)$/, '增强 $1']
+    ]
+  };
+  var MOTION_ARIA = {
+    'Pause explanatory animation': '暂停讲解动画',
+    'Play explanatory animation': '播放讲解动画',
+    'Replay explanatory animation': '重播讲解动画'
+  };
+
+  function translateReaderTree(host, name) {
+    var map = READER_TEXT[name] || {};
+    var patterns = READER_PATTERNS[name] || [];
+    host.querySelectorAll('*').forEach(function (node) {
+      var tag = (node.tagName || '').toLowerCase();
+      for (var parent = node; parent && parent !== host; parent = parent.parentNode) {
+        if (/^(pre|code|script|style)$/i.test(parent.tagName || '')) return;
+      }
+      for (var i = 0; i < node.childNodes.length; i++) {
+        var child = node.childNodes[i];
+        if (child.nodeType !== 3) continue;
+        var key = child.nodeValue;
+        if (Object.prototype.hasOwnProperty.call(map, key)) {
+          child.nodeValue = map[key];
+          continue;
+        }
+        for (var j = 0; j < patterns.length; j++) {
+          var rule = patterns[j];
+          var field = rule[0] === 'text' || rule[0] === 'small' ? tag === rule[0]
+            : (' ' + (node.getAttribute('class') || '') + ' ').indexOf(' ' + rule[0] + ' ') !== -1;
+          if (field && rule[1].test(key)) { child.nodeValue = key.replace(rule[1], rule[2]); break; }
+        }
+      }
+      var readerAria = node.getAttribute('aria-label');
+      if (name === '04-context-cache' && Object.prototype.hasOwnProperty.call(map, readerAria)) node.setAttribute('aria-label', map[readerAria]);
+      var cls = ' ' + (node.getAttribute('class') || '') + ' ';
+      if (cls.indexOf(' lf-motion-toggle ') !== -1 || cls.indexOf(' lf-motion-replay ') !== -1) {
+        var aria = node.getAttribute('aria-label');
+        if (MOTION_ARIA[aria]) node.setAttribute('aria-label', MOTION_ARIA[aria]);
+      }
+    });
+  }
+
   function zhCtrl(t) {
     var key = t.trim();
     if (C[key]) return C[key];
@@ -1151,6 +1353,45 @@
     });
   }
 
+  // Only the figures with verified small-screen text are displayed at a readable
+  // scale. Keep SVG coordinates, text, inputs and animation trees untouched.
+  var READABLE_FIGURES = {
+    'v4-vision-pipeline': true, 'clip-contrastive': true,
+    'data-augmentation': true, 'l5-vlm-recipe-knobs': true,
+    'l5-onevision-budget': true, 'mm-mrope-axes': true,
+    'tp-tool-loop': true, 'agent-loop': true, 'a5-orchestrator-scale': true,
+    '04-context-cache': true
+  };
+
+  function displayReadableFigure(host, name) {
+    if (!READABLE_FIGURES[name]) return;
+    host.querySelectorAll('svg').forEach(function (svg) {
+      var box = (svg.getAttribute('viewBox') || '').trim().split(/\s+/).map(Number);
+      var smallest = Infinity;
+      svg.querySelectorAll('text').forEach(function (node) {
+        var size = parseFloat(node.getAttribute('font-size'));
+        if (size > 0) smallest = Math.min(smallest, size);
+      });
+      if (!(box[2] > 0) || !isFinite(smallest)) return;
+      var parent = svg.parentNode;
+      if (parent.getAttribute('class') !== 'lf-readable-viewport') {
+        var hint = document.createElement('div');
+        hint.setAttribute('class', 'lf-readability-hint');
+        hint.textContent = '图内文字按可读尺寸显示；可横向滑动，或聚焦图表后用方向键浏览。';
+        var viewport = document.createElement('div');
+        viewport.setAttribute('class', 'lf-readable-viewport');
+        viewport.setAttribute('tabindex', '0');
+        viewport.setAttribute('role', 'region');
+        viewport.setAttribute('aria-label', '可横向滚动的图表');
+        parent.insertBefore(hint, svg);
+        parent.insertBefore(viewport, svg);
+        viewport.appendChild(svg);
+      }
+      // Scale the whole drawing, not its text: preserve the mathematical layout.
+      svg.style.minWidth = Math.ceil(box[2] * Math.max(1, 12 / smallest)) + 'px';
+    });
+  }
+
   function applyFigureI18n(root) {
     (root || document).querySelectorAll('.lesson-figure[data-figure]').forEach(function (host) {
       if (!host.dataset.lfMounted) return;
@@ -1165,6 +1406,8 @@
       translateCtrls(host);
       translateSvgText(host, name);
       translateProviderTree(host);
+      translateReaderTree(host, name);
+      displayReadableFigure(host, name);
       var cap = host.querySelector('.lf-cap');
       if (cap && CAP[name]) cap.textContent = CAP[name];
       if (host.dataset.lfI18n) return;
@@ -1175,6 +1418,8 @@
           translateCtrls(host);
           translateSvgText(host, name);
           translateProviderTree(host);
+          translateReaderTree(host, name);
+          displayReadableFigure(host, name);
         } catch (e) {}
       }
       host.addEventListener('input', retranslate);

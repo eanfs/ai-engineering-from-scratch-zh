@@ -54,6 +54,7 @@
         var tableRows = [];
         var inList = false;
         var listType = '';
+        var listStart = 1;
         var listItems = [];
         var firstBlockquoteDone = false;
         var firstParaAfterMottoDone = false;
@@ -72,7 +73,10 @@
           if (!inList) return '';
           inList = false;
           var tag = listType === 'ol' ? 'ol' : 'ul';
-          var h = '<' + tag + '>';
+          var startAttributes = tag === 'ol' && listStart !== 1
+            ? ' start="' + listStart + '" style="--ol-start: ' + (listStart - 1) + '"'
+            : '';
+          var h = '<' + tag + startAttributes + '>';
           for (var li = 0; li < listItems.length; li++) {
             h += '<li>' + inlineFormat(listItems[li]) + '</li>';
           }
@@ -268,7 +272,7 @@
             continue;
           }
 
-          var olMatch = line.match(/^\d+\.\s+(.+)/);
+          var olMatch = line.match(/^(\d+)\.\s+(.+)/);
           if (olMatch) {
             out += flushTable();
             out += flushBlockquote();
@@ -276,9 +280,16 @@
               out += flushList();
               inList = true;
               listType = 'ol';
+              listStart = Number(olMatch[1]);
             }
-            listItems.push(olMatch[1]);
+            listItems.push(olMatch[2]);
             continue;
+          }
+
+          if (inList && listType === 'ol' && line.trim() === '') {
+            var nextListLine = i + 1;
+            while (nextListLine < lines.length && lines[nextListLine].trim() === '') nextListLine++;
+            if (nextListLine < lines.length && /^\d+\.\s+.+/.test(lines[nextListLine])) continue;
           }
 
           if (inList) {
@@ -441,7 +452,8 @@
         code = code.replace(keywords, '<span class="syn-keyword">$1</span>');
         code = code.replace(/\b(\d+\.?\d*)\b/g, '<span class="syn-number">$1</span>');
 
-        for (var ti = 0; ti < tokens.length; ti++) {
+        // 后存的字符串可能包含先存的注释 token；先恢复外层，再恢复内层。
+        for (var ti = tokens.length - 1; ti >= 0; ti--) {
           code = code.replace('\x00TOK' + ti + '\x00', tokens[ti]);
         }
         return code;

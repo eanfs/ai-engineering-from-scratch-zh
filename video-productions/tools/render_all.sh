@@ -1,7 +1,7 @@
 #!/bin/bash
 # 用法：render_all.sh <作品目录> [每段秒数=43.4]  —— 分段渲染（断点续跑）+ 拼接混音 → 成片_full.mp4
 set -u
-SKILL="${DASHI_SKILL:-$HOME/video-skills/dashi-animationstyle}"
+SKILL="${DASHI_SKILL:-$(cd "$(dirname "$0")/../.." && pwd)/skills/dashi-animationstyle}"
 P="$(cd "$1" && pwd)"
 SEG=${2:-43.4}
 cd "$P" || exit 1
