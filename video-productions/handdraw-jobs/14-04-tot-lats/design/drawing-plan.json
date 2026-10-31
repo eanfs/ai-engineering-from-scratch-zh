@@ -1,0 +1,374 @@
+{
+  "version": 1,
+  "illustrations": [
+    {
+      "id": "ill-p01",
+      "page": "p01",
+      "composition": "左侧一条竖直三步链，第二步被粗黑叉划掉；右侧一棵搜索树，根节点实心黑，左分支标死路，右下节点实心黑写 24，一条虚线回溯箭头从中间分支绕回 24 分支。",
+      "drawability_reason": "链、树、箭头、叉都是可独立追踪的深灰轮廓；没有人物解剖；暖黄只用于链节点和 24 节点，边缘清楚。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "图形外轮廓",
+            "节点与方框接缝",
+            "箭头与连线",
+            "实心黑区域边界",
+            "标注文字轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req-p01",
+          "narration_quote": "单条思维链没有回溯的余地",
+          "observable": "画面同时出现一条不能回头的三步链和一棵带虚线回溯箭头的搜索树。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p02",
+      "page": "p02",
+      "composition": "顶部一行 4 + 6 − 4 × 1 ÷ 和实心黑 24 圆章；下方两根准确率柱：CoT 黑色短柱标 4%，ToT 白底排线长柱标 74%，基线下方写 CoT / ToT。",
+      "drawability_reason": "数字方块、运算符、圆章和两根柱的边界清晰；暖黄柱与暖棕排线分离，深色短柱面积小，便于先描轮廓后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "图形外轮廓",
+            "节点与方框接缝",
+            "箭头与连线",
+            "实心黑区域边界",
+            "标注文字轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req-p02",
+          "narration_quote": "GPT-4 的思维链只有 4% 的准确率",
+          "observable": "4% 的黑色短柱与 74% 的排线长柱并排，顶部有 4、6、4、1 和 24。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p03",
+      "page": "p03",
+      "composition": "顶部实心黑根节点写 4,6,4,1 → 24，三条箭线连到三个白底子节点（思考 A/B/C），每个子节点右侧接一个分数小框；左下角三件套图例，右下角写展开 K 个子思考。",
+      "drawability_reason": "根节点、三条边、三个子节点和分数框是分离的深灰轮廓；暖黄只用于根节点与分数框，图例是独立矩形。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "图形外轮廓",
+            "节点与方框接缝",
+            "箭头与连线",
+            "实心黑区域边界",
+            "标注文字轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req-p03",
+          "narration_quote": "搜索有三件套",
+          "observable": "根节点、三条展开边、三个带分数的子节点，以及节点/边/价值三件套图例同屏。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p04",
+      "page": "p04",
+      "composition": "一棵三层树：实心黑根、三个实心黑打分子节点（7/3/9）、六个白底叶节点；右上角放大镜写自评，底部三组 BFS/DFS/beam 箭头。",
+      "drawability_reason": "树的三层节点都是圆或深灰轮廓；分数写在暖黄节点内，放大镜和遍历箭头在空白区，互不粘连。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "图形外轮廓",
+            "节点与方框接缝",
+            "箭头与连线",
+            "实心黑区域边界",
+            "标注文字轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req-p04",
+          "narration_quote": "模型用一个打分提示词给它自评",
+          "observable": "每个子节点内写有分数，右上放大镜标自评，底部标出 BFS、DFS、beam。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p05",
+      "page": "p05",
+      "composition": "一棵密集小节点树，一条加粗黑路径从根经过两层节点落到实心黑 27 方块；右侧用 ≠ 连接空心 24 圆章；下方写 152 次展开。",
+      "drawability_reason": "小节点圆、加粗路径、27 方块和 24 圆章保留暖白分隔；失败终点用暖黄+暖棕粗框强调，与目标节点形成对照。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "图形外轮廓",
+            "节点与方框接缝",
+            "箭头与连线",
+            "实心黑区域边界",
+            "标注文字轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req-p05",
+          "narration_quote": "它展开 152 个节点",
+          "observable": "加粗路径终点是 27，旁边明确写出 ≠ 和一个未到达的 24。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p06",
+      "page": "p06",
+      "composition": "四个白底方框按上右下左排成选择/扩展/模拟/回传环，顺时针粗箭头相连；中心圆内分三层写策略/价值/自省。",
+      "drawability_reason": "四个方框与中心圆分离，箭头走空白区；中心用浅金属灰，三层文字不依赖颜色区分。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "图形外轮廓",
+            "节点与方框接缝",
+            "箭头与连线",
+            "实心黑区域边界",
+            "标注文字轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req-p06",
+          "narration_quote": "每次迭代走四步：选择、扩展、模拟、回传。",
+          "observable": "四个步骤名和顺时针箭头构成闭环，中心同时出现三个角色。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p07",
+      "page": "p07",
+      "composition": "水平链条 6 → ×4 → 24 → ×1，右端一个大勾；下方实心黑 24 方块；左侧写 286 次展开，右下标 HumanEval pass@1 92.7%。",
+      "drawability_reason": "链条节点是独立粗圆，箭头在节点之间；大勾、暖黄 24 方块和两处文字都在空白区。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "图形外轮廓",
+            "节点与方框接缝",
+            "箭头与连线",
+            "实心黑区域边界",
+            "标注文字轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req-p07",
+          "narration_quote": "286 次节点展开之后",
+          "observable": "6×4=24 的成功链、勾选标记、286 次展开和 92.7% 同屏。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p08",
+      "page": "p08",
+      "composition": "顶部横条写噪声评估器会放大成高分错误答案并打叉；下方三根成本柱 CoT 1×、ToT 100×、LATS 1000×；底部一行三个条件。",
+      "drawability_reason": "横条、三根柱和底部文字分区清楚；成本柱高度差明显，暖黄、暖棕与排线区分开。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "图形外轮廓",
+            "节点与方框接缝",
+            "箭头与连线",
+            "实心黑区域边界",
+            "标注文字轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req-p08",
+          "narration_quote": "ToT 的 token 是 CoT 的 100 到 1000 倍",
+          "observable": "1×、100×、1000× 三档成本并排，顶部有噪声评估器警告。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p09",
+      "page": "p09",
+      "composition": "左侧 ReAct + 工具验证方框，中间实心黑门写复杂度阈值，右侧搜索 ToT/LATS 方框；底部一行值不值得付 100× token 的问题。",
+      "drawability_reason": "三个方框与中间深灰门分离，两根短箭头连接；暖黄搜索框与白底 ReAct 框形成主次。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "图形外轮廓",
+            "节点与方框接缝",
+            "箭头与连线",
+            "实心黑区域边界",
+            "标注文字轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req-p09",
+          "narration_quote": "搜索藏在任务复杂度超过阈值的门后",
+          "observable": "搜索位于复杂度阈值门后，左侧是 ReAct 生产路径，底部是成本问题。"
+        }
+      ]
+    }
+  ]
+}

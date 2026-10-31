@@ -1,0 +1,706 @@
+{
+  "version": 1,
+  "title": "Tree of Thoughts 与 LATS：把推理变成搜索",
+  "design_file": "design.json",
+  "art_direction": {
+    "record": "design/art-direction.json"
+  },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "cover": {
+    "source": "inputs/cover.png",
+    "seconds": 1.0
+  },
+  "hand": {
+    "preset": "teacher-pen"
+  },
+  "narration": {
+    "source": "inputs/narration/master.wav",
+    "alignment": "inputs/narration/alignment.json"
+  },
+  "audio": {
+    "end_hold_seconds": 0.7,
+    "music": {
+      "source": "inputs/music.wav",
+      "gain": 0.14,
+      "user_instruction": "用户选择复用 07-04 任务的科普轻电子配乐，作为低音量铺底，不压过旁白"
+    }
+  },
+  "font": {
+    "path": "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf",
+    "index": 0
+  },
+  "captions": {
+    "font": {
+      "path": "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf",
+      "index": 0
+    },
+    "font_size": 42,
+    "color": "#FFFFFF",
+    "bottom_margin": 54,
+    "max_width_ratio": 0.86,
+    "max_lines": 2,
+    "stroke_width": 4,
+    "stroke_color": "#1E1E1E",
+    "background": null
+  },
+  "paper": "#FFFDF7",
+  "ending": {
+    "fade_seconds": 0.6
+  },
+  "drawing_plan": "design/drawing-plan.json",
+  "drawing_review": "design/drawing-review.json",
+  "pages": [
+    {
+      "id": "p01",
+      "title": "没有回溯，就没有搜索",
+      "illustration": "p01",
+      "beats": [
+        {
+          "id": "p01-b01",
+          "text": "阶段 14，第 4 课：Tree of Thoughts 与 LATS。"
+        },
+        {
+          "id": "p01-b02",
+          "text": "单条思维链没有回溯的余地，推理真正需要的是搜索。"
+        },
+        {
+          "id": "p01-b03",
+          "text": "这一课把推理变成一棵树，再让蒙特卡洛树搜索来管它。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "text",
+              "text": "没有回溯，就没有搜索",
+              "x": 120,
+              "y": 72,
+              "size": 58,
+              "color": "#2B2F33",
+              "weight": 0.45
+            },
+            {
+              "type": "illustration",
+              "source": "inputs/p01.png",
+              "x": 320,
+              "y": 176,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p01",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p02",
+      "title": "4% 到 74%",
+      "illustration": "p02",
+      "beats": [
+        {
+          "id": "p02-b01",
+          "text": "先看 Game of 24：四个数字，用加、减、乘、除凑出 24。"
+        },
+        {
+          "id": "p02-b02",
+          "text": "GPT-4 的思维链只有 4% 的准确率，它早早挑错了子表达式，再也回不来。"
+        },
+        {
+          "id": "p02-b03",
+          "text": "换成 Tree of Thoughts，同一个模型涨到 74%。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "text",
+              "text": "4% 到 74%",
+              "x": 120,
+              "y": 72,
+              "size": 58,
+              "color": "#2B2F33",
+              "weight": 0.45
+            },
+            {
+              "type": "illustration",
+              "source": "inputs/p02.png",
+              "x": 320,
+              "y": 176,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p02",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p03",
+      "title": "把推理框成搜索",
+      "illustration": "p03",
+      "beats": [
+        {
+          "id": "p03-b01",
+          "text": "搜索有三件套：节点是一个思考，边是展开，价值是它有多大希望。"
+        },
+        {
+          "id": "p03-b02",
+          "text": "根节点是从 4、6、4、1 里找出 24，每个节点再展开 K 个子思考。"
+        },
+        {
+          "id": "p03-b03",
+          "text": "自评是承重部件：分类、打分，或者在候选之间投票。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "text",
+              "text": "把推理框成搜索",
+              "x": 120,
+              "y": 72,
+              "size": 58,
+              "color": "#2B2F33",
+              "weight": 0.45
+            },
+            {
+              "type": "illustration",
+              "source": "inputs/p03.png",
+              "x": 320,
+              "y": 176,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p03",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p04",
+      "title": "ToT：每个节点都自评",
+      "illustration": "p04",
+      "beats": [
+        {
+          "id": "p04-b01",
+          "text": "Tree of Thoughts 由 Yao 等人在 2023 年提出，把推理变成一棵树。"
+        },
+        {
+          "id": "p04-b02",
+          "text": "每个节点是一段连贯的中间步骤，模型用一个打分提示词给它自评。"
+        },
+        {
+          "id": "p04-b03",
+          "text": "遍历可以是 BFS、DFS 或者 beam，论文里最常用的是 BFS。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "text",
+              "text": "ToT：每个节点都自评",
+              "x": 120,
+              "y": 72,
+              "size": 58,
+              "color": "#2B2F33",
+              "weight": 0.45
+            },
+            {
+              "type": "illustration",
+              "source": "inputs/p04.png",
+              "x": 320,
+              "y": 176,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p04",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p05",
+      "title": "实跑：152 个节点，停在 27",
+      "illustration": "p05",
+      "beats": [
+        {
+          "id": "p05-b01",
+          "text": "跑一遍代码：数字是 4、6、4、1，目标是 24，用带自评的 BFS。"
+        },
+        {
+          "id": "p05-b02",
+          "text": "它展开 152 个节点，找到的最好轨迹最后一步是 24 加 3 等于 27。"
+        },
+        {
+          "id": "p05-b03",
+          "text": "终态停在 27 而不是 24——这次搜索失败了，如实记录。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "text",
+              "text": "实跑：152 个节点，停在 27",
+              "x": 120,
+              "y": 72,
+              "size": 58,
+              "color": "#2B2F33",
+              "weight": 0.45
+            },
+            {
+              "type": "illustration",
+              "source": "inputs/p05.png",
+              "x": 320,
+              "y": 176,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p05",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p06",
+      "title": "LATS：选择 · 扩展 · 模拟 · 回传",
+      "illustration": "p06",
+      "beats": [
+        {
+          "id": "p06-b01",
+          "text": "LATS 在蒙特卡洛树搜索之下，统一了 ToT、ReAct 和 Reflexion。"
+        },
+        {
+          "id": "p06-b02",
+          "text": "模型扮演三个角色：策略提候选，价值函数打分，自省器写反思。"
+        },
+        {
+          "id": "p06-b03",
+          "text": "每次迭代走四步：选择、扩展、模拟、回传。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "text",
+              "text": "LATS：选择 · 扩展 · 模拟 · 回传",
+              "x": 120,
+              "y": 72,
+              "size": 58,
+              "color": "#2B2F33",
+              "weight": 0.45
+            },
+            {
+              "type": "illustration",
+              "source": "inputs/p06.png",
+              "x": 320,
+              "y": 176,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p06",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p07",
+      "title": "实跑：286 次展开，找到 24",
+      "illustration": "p07",
+      "beats": [
+        {
+          "id": "p07-b01",
+          "text": "同一组数字再跑 LATS，用 UCT 平衡利用和探索。"
+        },
+        {
+          "id": "p07-b02",
+          "text": "286 次节点展开之后，它找到 6 乘 4 等于 24，再乘 1 还是 24。"
+        },
+        {
+          "id": "p07-b03",
+          "text": "这次成功了。论文里 HumanEval 的 pass@1 达到 92.7%。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "text",
+              "text": "实跑：286 次展开，找到 24",
+              "x": 120,
+              "y": 72,
+              "size": 58,
+              "color": "#2B2F33",
+              "weight": 0.45
+            },
+            {
+              "type": "illustration",
+              "source": "inputs/p07.png",
+              "x": 320,
+              "y": 176,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p07",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p08",
+      "title": "搜索不是免费的",
+      "illustration": "p08",
+      "beats": [
+        {
+          "id": "p08-b01",
+          "text": "搜索不是免费的：Game of 24 上，ToT 的 token 是 CoT 的 100 到 1000 倍。"
+        },
+        {
+          "id": "p08-b02",
+          "text": "值得花的场合有三个：单条轨迹明显不够、墙钟时间没正确性重要、价值函数廉价又可靠。"
+        },
+        {
+          "id": "p08-b03",
+          "text": "如果你的评估器有噪声，搜索会把事情弄得更糟，它会找到一个评分很高的错误答案。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "text",
+              "text": "搜索不是免费的",
+              "x": 120,
+              "y": 72,
+              "size": 58,
+              "color": "#2B2F33",
+              "weight": 0.45
+            },
+            {
+              "type": "illustration",
+              "source": "inputs/p08.png",
+              "x": 320,
+              "y": 176,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p08",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p09",
+      "title": "把搜索当预算来花",
+      "illustration": "p09",
+      "beats": [
+        {
+          "id": "p09-b01",
+          "text": "2026 年，大多数生产 agent 不跑 LATS，跑的是带工具验证的 ReAct。"
+        },
+        {
+          "id": "p09-b02",
+          "text": "搜索藏在任务复杂度超过阈值的门后，编码 agent 把单元测试当价值函数。"
+        },
+        {
+          "id": "p09-b03",
+          "text": "留一个问题给你：你的任务，值不值得为一次推理付 100 倍 token？"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "text",
+              "text": "把搜索当预算来花",
+              "x": 120,
+              "y": 72,
+              "size": 58,
+              "color": "#2B2F33",
+              "weight": 0.45
+            },
+            {
+              "type": "illustration",
+              "source": "inputs/p09.png",
+              "x": 320,
+              "y": 176,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p09",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

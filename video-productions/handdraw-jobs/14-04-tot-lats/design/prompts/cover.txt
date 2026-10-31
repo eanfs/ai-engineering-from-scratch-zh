@@ -1,0 +1,6 @@
+封面本地排版规范
+
+尺寸 1920×1080，暖白纸 #FFFDF7。
+左侧：Tree of Thoughts（118px）、与 LATS（118px）、把推理变成搜索（64px）、14-04 · Agent Engineering（34px），深黑灰 #2B2F33。
+右侧：复用 p01 马克笔主视觉（1040×585）。
+实现：design/illustration-gen.py 的 cover()。
