@@ -19,6 +19,65 @@
 成片（1920×1080、30 fps、H.264 + AAC）在本地 `output/dashi-*-handdrawn.mp4`，
 已加入 `.gitignore` 不入库；按下面的步骤可以整片重建。
 
+## 07-04 位置编码（huashu-motion · 机制动画）
+
+07-04 用 [huashu-motion](../../.claude/skills/huashu-motion) 的 `mechanism` 语言单独做了一版：
+暗底、亮线、同一个对象连续变形——正弦波 → 旋转 Q/K → 距离偏置，中文旁白按词打点。
+它和 dashi 的手绘笔记并行，不共用 `tools/` 流水线。
+
+| 集 | 主题 | 成片 | 时长 | 场景 | 旁白 | 产出 |
+|---|---|---|---|---|---|---|
+| 07-04 | 位置编码（Sinusoidal / RoPE / ALiBi） | `07-04_位置编码/out/07-04_位置编码-v8.mp4` | 68.2 秒 / 10.5 MiB | 17 | 21 句 / 153 词 | 1920×1080 · 30 fps |
+
+```bash
+cd video-productions/07-04_位置编码
+OM="$HOME/.claude/skills/huashu-motion/bin/om"
+$OM voice . --text script.txt --voice say:Tingting   # 旁白 + 词级 om-cues
+$OM sound .                                          # 音乐 + 音效，混入旁白
+$OM check .                                          # 0 errors 后再渲染
+$OM render . --blur                                  # 成片写进 out/
+```
+
+`assets/voice.wav`、`assets/sound.wav`、`assets/voice.words.json`、`out/`、`index-*.png`
+都是本地产物，已在 `.gitignore` 中排除；`om render` 会先重建声音。
+
+## 逐笔手绘版（handdrawn-explainer-video · 任务目录）
+
+`handdraw-jobs/<集>-<slug>/` 是 [handdrawn-explainer-video](../../../.hub/skills/handdrawn-explainer-video)
+的任务目录：`job.json` 声明画布、手部、旁白与分页，`design.json` 是模型写的叙事与分镜，
+`design/illustration-gen.py` 用 Pillow 本地画出全部插图（不调生图接口），
+`style/`、`design/drawing-plan.json`、`design/drawing-review.json`、`design/art-direction.json`
+是画风与可绘制性合同。
+
+| 集 | 主题 | 成片 | 页 / 句 | 手部 | 产出 |
+|---|---|---|---|---|---|
+| 07-04 | 位置编码 | `handdraw-jobs/07-04-positional-encoding/outputs/film.mp4` | 11 / 83 | teacher-pen | 1280×720 · 24 fps |
+| 14-04 | Tree of Thoughts 与 LATS | `handdraw-jobs/14-04-tot-lats/outputs/film.mp4` | 9 / 27 | teacher-pen | 1920×1080 · 30 fps |
+| 07-05 | 完整的 Transformer | `handdraw-jobs/07-05-full-transformer/outputs/film.mp4` | 9 / 27 | teacher-pen | 1920×1080 · 30 fps |
+| 07-06 | BERT 掩码语言建模 | `handdraw-jobs/07-06-bert-mlm/outputs/film.mp4` | 9 / 27 | teacher-pen | 1920×1080 · 30 fps |
+
+四集共用 12 号「工业设计马克笔手绘」、#FFFDF7 暖白纸与 07-04 的科普轻电子配乐。
+旁白用 edge-tts 整篇一次合成（`zh-CN-XiaoxiaoNeural`），句级时间戳取自 TTS 返回的
+`SentenceBoundary`，逐句比对原稿后写入 `inputs/narration/alignment.json`。
+
+```bash
+J="$PWD/video-productions/handdraw-jobs/07-05-full-transformer"
+SKILL="$HOME/.hub/skills/handdrawn-explainer-video"
+PY="$HOME/.cache/sweety-handdraw-video/venv/bin/python"   # design_env.sh 建出来的 venv
+
+$PY "$SKILL/scripts/handdraw_video.py" doctor "$J"
+$PY "$SKILL/scripts/handdraw_video.py" build "$J"
+$PY "$SKILL/scripts/handdraw_video.py" render "$J" --preview --duration 14   # 先看代表段
+$PY "$SKILL/scripts/handdraw_video.py" render "$J"                            # 约 12 分钟
+$PY "$SKILL/scripts/handdraw_video.py" verify "$J"
+# 实际看片、填写 review.json 后
+$PY "$SKILL/scripts/handdraw_video.py" finalize "$J"
+```
+
+改插图只需改 `design/illustration-gen.py` 后重跑它，再按
+`clean_image.py` → `drawing_contract.py`（重建 preflight）→ `art_direction.py bind-evidence`
+→ `build` 的顺序刷新哈希；`review.json` 里的 `video_sha256` 必须与新成片一致。
+
 ## 目录
 
 ```
