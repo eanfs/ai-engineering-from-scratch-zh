@@ -1,0 +1,1 @@
+industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 三根柱状条表示 80%、10%、10%，分别填暖黄、金属灰和留白，柱顶标百分比，柱下标用途；底部两行回答为什么不全部用 [MASK]。 Visible: 80% 换成 [MASK]、10% 换成随机词、10% 保持原样三条同时可见。. No people, no photorealism, no dark background, no watermark.

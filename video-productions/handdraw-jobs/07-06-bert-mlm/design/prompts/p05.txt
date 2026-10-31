@@ -1,0 +1,1 @@
+industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 左侧上下两个句子框由箭头连接，中间一个问号圆问「B 是否紧跟 A？」，右侧一个大叉与「RoBERTa 2019 消融」；下方两行结论与一条暖黄横条。 Visible: 两个句子、一个问号和一个大叉同时出现，说明 NSP 被消融掉。. No people, no photorealism, no dark background, no watermark.

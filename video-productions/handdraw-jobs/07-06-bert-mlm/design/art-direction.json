@@ -1,0 +1,186 @@
+{
+  "dependency_sha256": "fbbfd33d70f729011b6a6bc232851c116cd4a89ead2adea4462888a6ce26fc1a",
+  "style_sha256": "de190b487fa9ae0479682e8e80163742cf868ef0d3290312b7d303963197e062",
+  "images": [
+    {
+      "source": "../inputs/cover.png",
+      "sha256": "7014453890de19ec1ad2223598b06adff4e45bbbdbf341cb8925f0a9762cba64",
+      "method": "composed_with_verified_layers",
+      "brief_file": "briefs/cover.md",
+      "prompt_file": "prompts/cover.txt",
+      "status": "pass",
+      "layers": [
+        {
+          "source": "illustration-gen.py",
+          "sha256": "eeff62f91d19690fd63447c1212145fa0684bcdd0aeac59abb1ad18afc4f407a",
+          "role": "矢量图形与文字图层"
+        }
+      ],
+      "evidence": "实际查看该页：暖白纸面、深灰勾线、暖黄填充与暖棕条纹清楚，文字完整可读，未越出画面边缘。",
+      "brief_sha256": "6e3962c81e4e67ada0fbd0340078e06d68f2d86570f86ff6af92cff6ae80313f",
+      "prompt_sha256": "44b5362f7bca8c23b123d0f014ab513cd7b0cf83a025d7a16d68cdafef6308eb"
+    },
+    {
+      "source": "../inputs/p01.png",
+      "sha256": "4d746fc8d2f0bd6219df756926e6396b179cd0025a3a3f8aa1467ce391920472",
+      "method": "composed_with_verified_layers",
+      "brief_file": "briefs/p01.md",
+      "prompt_file": "prompts/p01.txt",
+      "status": "pass",
+      "layers": [
+        {
+          "source": "illustration-gen.py",
+          "sha256": "eeff62f91d19690fd63447c1212145fa0684bcdd0aeac59abb1ad18afc4f407a",
+          "role": "矢量图形与文字图层"
+        }
+      ],
+      "evidence": "实际查看该页：暖白纸面、深灰勾线、暖黄填充与暖棕条纹清楚，文字完整可读，未越出画面边缘。",
+      "brief_sha256": "78146ffcd1e524fb9e72ea571ab511fd8d06143654c5303082a6f8b504c19b6d",
+      "prompt_sha256": "d1ad1617b49c6f1d0599de86ea3fc31dd05e1bb6bc2b8c47d769cf94b4e7c1ac"
+    },
+    {
+      "source": "../inputs/p02.png",
+      "sha256": "90570ac2b2d9571c74a115bbd9df9e5d2f01ae034e39e17ba3b13c19561413a9",
+      "method": "composed_with_verified_layers",
+      "brief_file": "briefs/p02.md",
+      "prompt_file": "prompts/p02.txt",
+      "status": "pass",
+      "layers": [
+        {
+          "source": "illustration-gen.py",
+          "sha256": "eeff62f91d19690fd63447c1212145fa0684bcdd0aeac59abb1ad18afc4f407a",
+          "role": "矢量图形与文字图层"
+        }
+      ],
+      "evidence": "实际查看该页：暖白纸面、深灰勾线、暖黄填充与暖棕条纹清楚，文字完整可读，未越出画面边缘。",
+      "brief_sha256": "64b181b2ed75ac21a046fa861ee23dafe96f5ce12e2cd27ac6b476afa93fa0d6",
+      "prompt_sha256": "ed269b1351fb628a9a6ba91fa5bd8718ece126046de6ec90a589c61fae164158"
+    },
+    {
+      "source": "../inputs/p03.png",
+      "sha256": "5753c3bb896543989fe565d0dbfeb8c2e769fade54cccfe42836602a21ee7052",
+      "method": "composed_with_verified_layers",
+      "brief_file": "briefs/p03.md",
+      "prompt_file": "prompts/p03.txt",
+      "status": "pass",
+      "layers": [
+        {
+          "source": "illustration-gen.py",
+          "sha256": "eeff62f91d19690fd63447c1212145fa0684bcdd0aeac59abb1ad18afc4f407a",
+          "role": "矢量图形与文字图层"
+        }
+      ],
+      "evidence": "实际查看该页：暖白纸面、深灰勾线、暖黄填充与暖棕条纹清楚，文字完整可读，未越出画面边缘。",
+      "brief_sha256": "1c77f2565b522d5d0128d0f41a5754ae37590be98518316e4118f1dca075ed67",
+      "prompt_sha256": "bbf054867b5b8961c1e59521ed32e66dbfa2ff19aff3ebbedb75b6b4a24a4af5"
+    },
+    {
+      "source": "../inputs/p04.png",
+      "sha256": "bc9eecae701471bd6316bfcf8deeb74602f881f29239952bdca28efff5d151b4",
+      "method": "composed_with_verified_layers",
+      "brief_file": "briefs/p04.md",
+      "prompt_file": "prompts/p04.txt",
+      "status": "pass",
+      "layers": [
+        {
+          "source": "illustration-gen.py",
+          "sha256": "eeff62f91d19690fd63447c1212145fa0684bcdd0aeac59abb1ad18afc4f407a",
+          "role": "矢量图形与文字图层"
+        }
+      ],
+      "evidence": "实际查看该页：暖白纸面、深灰勾线、暖黄填充与暖棕条纹清楚，文字完整可读，未越出画面边缘。",
+      "brief_sha256": "0640f35a0eb44c58b0e4e89e50df82d660d8f187be6720dbb3e30f9be17641b8",
+      "prompt_sha256": "6558d404da4ed18d6c37104e15c0c6d84b50d8d31296dd3894dc98e247d9ea4e"
+    },
+    {
+      "source": "../inputs/p05.png",
+      "sha256": "ebd392e5ee0e362af2d1cb47dcac50670a0e1826c4ccf3e407be51d8cfdd179e",
+      "method": "composed_with_verified_layers",
+      "brief_file": "briefs/p05.md",
+      "prompt_file": "prompts/p05.txt",
+      "status": "pass",
+      "layers": [
+        {
+          "source": "illustration-gen.py",
+          "sha256": "eeff62f91d19690fd63447c1212145fa0684bcdd0aeac59abb1ad18afc4f407a",
+          "role": "矢量图形与文字图层"
+        }
+      ],
+      "evidence": "实际查看该页：暖白纸面、深灰勾线、暖黄填充与暖棕条纹清楚，文字完整可读，未越出画面边缘。",
+      "brief_sha256": "9ea0ce4c03860d224358354b43982ef5803c399f202583cc0c0d0e2eacce8f1b",
+      "prompt_sha256": "820f20331c6470432d713eef8371e8cb6ddca90f9c34007672dcb129e4601a66"
+    },
+    {
+      "source": "../inputs/p06.png",
+      "sha256": "af7be4392d1e760b3dda31c5195c89a1acaad89dc1459a48b1ccf49bedaffbd0",
+      "method": "composed_with_verified_layers",
+      "brief_file": "briefs/p06.md",
+      "prompt_file": "prompts/p06.txt",
+      "status": "pass",
+      "layers": [
+        {
+          "source": "illustration-gen.py",
+          "sha256": "eeff62f91d19690fd63447c1212145fa0684bcdd0aeac59abb1ad18afc4f407a",
+          "role": "矢量图形与文字图层"
+        }
+      ],
+      "evidence": "实际查看该页：暖白纸面、深灰勾线、暖黄填充与暖棕条纹清楚，文字完整可读，未越出画面边缘。",
+      "brief_sha256": "546fff230323c74bdaba32194c9d4feac8ebc545bed320d04abe8e4a26559e43",
+      "prompt_sha256": "1427e87c5fa5497bb06d588032495c30a188cb9faebc67a6115b589b20c6dcfb"
+    },
+    {
+      "source": "../inputs/p07.png",
+      "sha256": "e4cba3d740c0117b77d2d4bca732a7ee0fa358960c743266a046cb79d7b7af4f",
+      "method": "composed_with_verified_layers",
+      "brief_file": "briefs/p07.md",
+      "prompt_file": "prompts/p07.txt",
+      "status": "pass",
+      "layers": [
+        {
+          "source": "illustration-gen.py",
+          "sha256": "eeff62f91d19690fd63447c1212145fa0684bcdd0aeac59abb1ad18afc4f407a",
+          "role": "矢量图形与文字图层"
+        }
+      ],
+      "evidence": "实际查看该页：暖白纸面、深灰勾线、暖黄填充与暖棕条纹清楚，文字完整可读，未越出画面边缘。",
+      "brief_sha256": "e754270ad741770b126008c288d5bcdb3a05b931b8a0623d5c479eabf57eaf81",
+      "prompt_sha256": "4b8dac6c7091299d216d5a14b6bd32b63a3f88d0f1b407a912735f194099f690"
+    },
+    {
+      "source": "../inputs/p08.png",
+      "sha256": "dceaf248c07b62e1659d65603ce2588fb4224cd7ec3ef8117872e5fba74742b9",
+      "method": "composed_with_verified_layers",
+      "brief_file": "briefs/p08.md",
+      "prompt_file": "prompts/p08.txt",
+      "status": "pass",
+      "layers": [
+        {
+          "source": "illustration-gen.py",
+          "sha256": "eeff62f91d19690fd63447c1212145fa0684bcdd0aeac59abb1ad18afc4f407a",
+          "role": "矢量图形与文字图层"
+        }
+      ],
+      "evidence": "实际查看该页：暖白纸面、深灰勾线、暖黄填充与暖棕条纹清楚，文字完整可读，未越出画面边缘。",
+      "brief_sha256": "856ecb9250ef1e943c7a6ed3631d7afb958e28cd4f12b0149560cde381e2f2ec",
+      "prompt_sha256": "9e62516167e40b9b1a658cf1ee829c5a69b72e520048b149c26d6950cdfda25c"
+    },
+    {
+      "source": "../inputs/p09.png",
+      "sha256": "e5839bba80a2d22093d4784d96690c2bc34d7f432094d1058fe8700fca16d082",
+      "method": "composed_with_verified_layers",
+      "brief_file": "briefs/p09.md",
+      "prompt_file": "prompts/p09.txt",
+      "status": "pass",
+      "layers": [
+        {
+          "source": "illustration-gen.py",
+          "sha256": "eeff62f91d19690fd63447c1212145fa0684bcdd0aeac59abb1ad18afc4f407a",
+          "role": "矢量图形与文字图层"
+        }
+      ],
+      "evidence": "实际查看该页：暖白纸面、深灰勾线、暖黄填充与暖棕条纹清楚，文字完整可读，未越出画面边缘。",
+      "brief_sha256": "18b47f1867438502438e981fcf746f02282e5d26a8a9f211e24f968052212d44",
+      "prompt_sha256": "dfad9cc73576f2aaa30ab7e05d6efd461ba5a4484edc503a2d6f936262422c43"
+    }
+  ]
+}
