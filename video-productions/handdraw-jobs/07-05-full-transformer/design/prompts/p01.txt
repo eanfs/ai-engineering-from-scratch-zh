@@ -1,0 +1,1 @@
+industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 左侧一个方框写「自注意力 / 特征提取器」，下方箭头指向「一次 matmul 的容量 / 喂不饱语言」；右侧四层堆叠的 block 方框，最上面一层填暖黄，箭头向下接一个金属灰的「语言模型」框。 Visible: 画面同时出现单独一层自注意力与四层堆叠的 block，堆叠末端接语言模型。. No people, no photorealism, no dark background, no watermark.

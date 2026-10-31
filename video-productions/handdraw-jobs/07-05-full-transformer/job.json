@@ -1,0 +1,626 @@
+{
+  "version": 1,
+  "title": "完整的 Transformer：编码器 + 解码器",
+  "design_file": "design.json",
+  "art_direction": {
+    "record": "design/art-direction.json"
+  },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "cover": {
+    "source": "inputs/cover.png",
+    "seconds": 1.0
+  },
+  "hand": {
+    "preset": "teacher-pen",
+    "scale": 0.26
+  },
+  "narration": {
+    "source": "inputs/narration/master.wav",
+    "alignment": "inputs/narration/alignment.json"
+  },
+  "audio": {
+    "end_hold_seconds": 0.65,
+    "music": {
+      "source": "inputs/music.wav",
+      "gain": 0.14,
+      "user_instruction": "用户选择复用 07-04 任务的科普轻电子配乐，作为低音量铺底，不压过旁白"
+    }
+  },
+  "font": {
+    "path": "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf",
+    "index": 0
+  },
+  "captions": {
+    "font": {
+      "path": "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf",
+      "index": 0
+    },
+    "font_size": 42,
+    "color": "#FFFFFF",
+    "bottom_margin": 54,
+    "max_width_ratio": 0.86,
+    "max_lines": 2,
+    "stroke_width": 4,
+    "stroke_color": "#1E1E1E",
+    "background": null
+  },
+  "paper": "#FFFDF7",
+  "ending": {
+    "fade_seconds": 0.55
+  },
+  "drawing_plan": "design/drawing-plan.json",
+  "drawing_review": "design/drawing-review.json",
+  "pages": [
+    {
+      "id": "p01",
+      "title": "一层注意力不够",
+      "illustration": "p01",
+      "beats": [
+        {
+          "id": "p01-b01",
+          "text": "阶段 7，第 5 课：完整的 Transformer。"
+        },
+        {
+          "id": "p01-b02",
+          "text": "一个注意力层只是特征提取器，还撑不起一个语言模型。"
+        },
+        {
+          "id": "p01-b03",
+          "text": "你需要深度，而深度需要正确的管线，才不会在第六层就崩。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p01.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p01",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p02",
+      "title": "六个部件",
+      "illustration": "p02",
+      "beats": [
+        {
+          "id": "p02-b01",
+          "text": "二零一七年的论文，把六个设计决策打包成一个可以堆叠的 block。"
+        },
+        {
+          "id": "p02-b02",
+          "text": "嵌入与位置、自注意力、前馈网络、残差、归一化，还有解码器的交叉注意力。"
+        },
+        {
+          "id": "p02-b03",
+          "text": "从编码器到解码器，此后每个新模型都继承同一副骨架。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p02.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p02",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p03",
+      "title": "编码器与解码器接线",
+      "illustration": "p03",
+      "beats": [
+        {
+          "id": "p03-b01",
+          "text": "编码器是双向的：没有掩码，每个位置都能看到其他所有位置。"
+        },
+        {
+          "id": "p03-b02",
+          "text": "解码器每个 block 有三个子层，中间的交叉注意力，是编码器信息唯一的入口。"
+        },
+        {
+          "id": "p03-b03",
+          "text": "纯解码器模型干脆删掉交叉注意力，只剩掩码自注意力和前馈。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p03.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p03",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p04",
+      "title": "残差与归一化",
+      "illustration": "p04",
+      "beats": [
+        {
+          "id": "p04-b01",
+          "text": "残差就是 x 加上子层的输出，没有它，梯度大约过了六层就消失。"
+        },
+        {
+          "id": "p04-b02",
+          "text": "归一化稳定残差流，原论文把它放在子层之后，这叫 post-norm。"
+        },
+        {
+          "id": "p04-b03",
+          "text": "现代模型改成 pre-norm，先把归一化放在子层之前，不用热身技巧也能训深。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p04.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p04",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p05",
+      "title": "2017 与 2026",
+      "illustration": "p05",
+      "beats": [
+        {
+          "id": "p05-b01",
+          "text": "二零二六年的生产 block，换掉了好几个默认值。"
+        },
+        {
+          "id": "p05-b02",
+          "text": "归一化换成 RMSNorm，前馈激活换成 SwiGLU，扩展比从四倍降到二点六倍。"
+        },
+        {
+          "id": "p05-b03",
+          "text": "位置从正弦换成 RoPE，注意力从完整多头换成 GQA，线性层连偏置都省掉了。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p05.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p05",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p06",
+      "title": "实跑一次前向",
+      "illustration": "p06",
+      "beats": [
+        {
+          "id": "p06-b01",
+          "text": "跑一遍代码：两层编码器加两层解码器，模型维度只有八。"
+        },
+        {
+          "id": "p06-b02",
+          "text": "源序列六个 token，目标序列五个，解码器输出是五乘八的矩阵。"
+        },
+        {
+          "id": "p06-b03",
+          "text": "形状全部对齐，这就是二零二六年的 block 骨架，只差 RoPE。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p06.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p06",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p07",
+      "title": "一层有多少参数",
+      "illustration": "p07",
+      "beats": [
+        {
+          "id": "p07-b01",
+          "text": "一个 block 的参数量可以手算：多头注意力占四倍的 d 平方。"
+        },
+        {
+          "id": "p07-b02",
+          "text": "SwiGLU 的前馈再加三乘扩展比，一层加起来约两亿参数。"
+        },
+        {
+          "id": "p07-b03",
+          "text": "三十二层就是六十三亿，加上嵌入和输出头，接近七十亿，和 Llama 3 的八 B 对得上。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p07.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p07",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p08",
+      "title": "三种骨架",
+      "illustration": "p08",
+      "beats": [
+        {
+          "id": "p08-b01",
+          "text": "同一副骨架能长出三种模型。"
+        },
+        {
+          "id": "p08-b02",
+          "text": "纯编码器做分类、嵌入和检索，BERT 与 ModernBERT 是代表。"
+        },
+        {
+          "id": "p08-b03",
+          "text": "纯解码器赢下语言，GPT、Llama、Claude 都在这边；编码器解码器留给翻译和语音。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p08.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p08",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p09",
+      "title": "生产里自己写 block",
+      "illustration": "p09",
+      "beats": [
+        {
+          "id": "p09-b01",
+          "text": "二零二六年，生产代码大多自己写 block，不直接调 PyTorch 的现成层。"
+        },
+        {
+          "id": "p09-b02",
+          "text": "因为 Flash Attention、GQA、RoPE、RMSNorm 都不在标准库的默认值里。"
+        },
+        {
+          "id": "p09-b03",
+          "text": "想读规范实现，就去看 modeling_llama，大约五百行。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p09.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p09",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

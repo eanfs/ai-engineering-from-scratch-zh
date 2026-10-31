@@ -1,0 +1,30 @@
+{
+  "video_sha256": "a8c5ad1240ed63889b1405051ce8b0e1322737687a925f657061e88d9d8c039b",
+  "content": {
+    "status": "pass",
+    "evidence": "逐页对照课程正文与旁白：p02 的六个部件、p03 的编码器 4 子层与解码器 6 子层接线、p04 的 pre-norm 对照、p05 的 2017/2026 六项默认值、p06 的 (6,8) 与 (5,8)、p07 的 4d²+3rd²≈198M×32≈6.3B 均与 phases/07-transformers-deep-dive/05-full-transformer/docs/zh.md 及 code/main.py 实跑输出一致；p07 的参数量按公式重算，未沿用正文里 16M+32M 的口算笔误。"
+  },
+  "visual": {
+    "status": "pass",
+    "evidence": "实际查看 outputs/cover.png 与 9 页完成帧（15.67/34.64/54.60/74.55/94.96/113.01/132.99/150.74/169.89s）：12 工业设计马克笔风格、teacher-pen 白衬衫手、#FFFDF7 暖白纸与暖黄/暖棕/金属灰配色；每页只保留一个标题，图解与字幕无重叠，页面结束前手部离场。"
+  },
+  "motion": {
+    "status": "pass",
+    "evidence": "抽查 9 页页面结束帧与 40 秒连续预览：teacher-pen 笔尖沿轮廓推进，暖黄区域在轮廓后铺色，每页绘制在最后一句结束前完成并移出画面；未以人眼完整正常速度播放全片。"
+  },
+  "audio": {
+    "status": "pass",
+    "evidence": "verify 报告音轨相关度 0.99998、末句后总静音 1.15s（≤1.2s）、响度归一化到 -17 LUFS 左右；字幕与 alignment 逐句一致。文字/音轨检查通过，主观听感未验收。"
+  },
+  "privacy": {
+    "status": "pass",
+    "evidence": "10 张插图与封面均由本地 PIL 绘制，并逐张运行 clean_image.py 重编码；work/clean-*.json 显示 embedded_metadata_empty=true、pixels_unchanged=true、xattrs_remaining=[]（xattr_check 在当前环境为 unavailable）。不承诺 AI 来源识别。"
+  },
+  "limitations": [
+    "未以人眼完整正常速度播放约 171 秒全片；运动流畅度基于各页结束帧与 40 秒预览。",
+    "未实际听音；旁白自然度与配乐听感未验收。",
+    "插图是本地几何图解，笔触比生成式插画更规整；与 07-04、14-04 共用画风、配色、纸张与手部。",
+    "配乐复用 07-04 任务素材，不是为 07-05 单独制作。",
+    "旁白母带只裁掉了末尾 0.04 秒外层静音（master-original.wav 保留原始文件）。"
+  ]
+}

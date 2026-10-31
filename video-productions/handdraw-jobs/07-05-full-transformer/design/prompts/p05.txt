@@ -1,0 +1,1 @@
+industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 一张六行对照表，左列写部件名，中间列是 2017 的取值，箭头指向右侧 2026 的取值方框，其中四处用暖黄强调；表格右侧三组旁注解释 SwiGLU、RMSNorm 与 GQA。 Visible: 六行对照同时列出 2017 与 2026 的取值，暖黄标出 RMSNorm、SwiGLU、RoPE、GQA。. No people, no photorealism, no dark background, no watermark.

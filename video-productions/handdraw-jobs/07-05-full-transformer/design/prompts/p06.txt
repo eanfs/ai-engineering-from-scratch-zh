@@ -1,0 +1,1 @@
+industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 左上六个小方块表示源序列，左下五个表示目标序列；中间两个暖黄方框分别是编码器 ×2 与解码器 ×2；右上 (6, 8)，右下是一张 5×8 的格子矩阵表示输出；虚线从 (6, 8) 绕下接入解码器，标注 K, V。 Visible: 源序列六个 token、目标序列五个 token，输出是 5×8 的格子矩阵。. No people, no photorealism, no dark background, no watermark.
