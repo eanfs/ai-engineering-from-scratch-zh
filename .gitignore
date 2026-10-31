@@ -90,6 +90,8 @@ site/lessons/
 # scripts/build_catalog.py 的可再生产物；中文仓的发布与课数真相仍由
 # site/build.js 管理，因此忽略 catalog.json，避免误提交生成文件。
 catalog.json
+# 手绘任务目录里的 catalog.json 是画风合同快照，需要入库。
+!video-productions/handdraw-jobs/*/style/catalog.json
 book/_build/
 i18n/*/phases/
 i18n/*/.cache/
@@ -112,3 +114,19 @@ site/hub-pages.json
 # 代码与每集源数据在 video-productions/ 下随时可重建。
 video-productions/dashi-works/
 video-productions/output/
+video-productions/*/assets/voice.wav
+video-productions/*/assets/sound.wav
+video-productions/*/assets/voice.words.json
+video-productions/*/index-*.png
+video-productions/*/.om/
+
+# 逐笔手绘任务目录：插图、画风快照与合同文件入库，配音、配乐、渲染中间件与成片不入库。
+video-productions/handdraw-jobs/*/work/
+video-productions/handdraw-jobs/*/outputs/film.mp4
+video-productions/handdraw-jobs/*/outputs/verification.json
+video-productions/handdraw-jobs/*/outputs/verification.txt
+video-productions/handdraw-jobs/*/inputs/narration/master.wav
+video-productions/handdraw-jobs/*/inputs/narration/master-original.wav
+video-productions/handdraw-jobs/*/inputs/narration/master.mp3
+video-productions/handdraw-jobs/*/inputs/music.wav
+video-productions/handdraw-jobs/*/inputs/music.mp3

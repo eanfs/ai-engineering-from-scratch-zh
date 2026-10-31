@@ -1,0 +1,30 @@
+{
+  "video_sha256": "fcdd3f80b0c1f0a39078a6dc67385a1246037803988b4d4110ddd47bf0238a55",
+  "content": {
+    "status": "pass",
+    "evidence": "逐页对照课程正文与旁白：p02 的 4% vs 74%、p05 的 152 次展开与 27≠24、p07 的 286 次展开与 92.7% HumanEval 均与 phases/14-agent-engineering/04-tree-of-thoughts-lats/docs/zh.md 一致；p05 保留失败记录；outputs/editing/transcript.srt 与 alignment 文本逐句一致。"
+  },
+  "visual": {
+    "status": "pass",
+    "evidence": "实际查看 outputs/cover.png 与 9 页完成帧（15.39/34.16/53.82/72.75/92.87/110.70/129.39/151.35/170.94s）：已换成 07-04 同款 12 工业设计马克笔风格、teacher-pen 白衬衫手、#FFFDF7 暖白纸与暖黄/暖棕/金属灰配色；各页标题、图解与字幕无重叠，封面标题完整。"
+  },
+  "motion": {
+    "status": "pass",
+    "evidence": "抽查 9 页绘制阶段帧与 18 秒连续预览：teacher-pen 笔尖沿轮廓推进，暖黄区域在轮廓后铺色，页面结束前手部离场；未以人眼完整正常速度播放全片。"
+  },
+  "audio": {
+    "status": "pass",
+    "evidence": "verify 报告音轨相关度 0.99998、末句编码相关度 0.99998、末句后总静音 1.178s（≤1.2s）；字幕与 alignment 逐句一致。文字/音轨检查通过，主观听感未验收。"
+  },
+  "privacy": {
+    "status": "pass",
+    "evidence": "10 张插图与封面均由本地 PIL 绘制，并逐张运行 clean_image.py 重编码；work/clean-*.json 显示 embedded_metadata_empty=true、pixels_unchanged=true、xattrs_remaining=[]（xattr_check 在当前环境为 unavailable）。不承诺 AI 来源识别。"
+  },
+  "limitations": [
+    "未以人眼完整正常速度播放约 172 秒全片；运动流畅度基于抽帧与 18 秒预览。",
+    "未实际听音；旁白自然度与配乐听感未验收。",
+    "插图是本地几何图解，笔触比 07-04 的生成式插画更规整；两者共用画风、配色、纸张与手部。",
+    "插画文字为本地绘制的图形文字，逐笔描线后个别复杂字（如“回溯”）笔画略有变形，但保持可读。",
+    "配乐复用 07-04 任务素材，不是为 14-04 单独制作。"
+  ]
+}

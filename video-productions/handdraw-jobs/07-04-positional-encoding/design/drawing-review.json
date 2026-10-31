@@ -1,0 +1,261 @@
+{
+  "style_sha256": "398095734fd46e59bc2882113a8540e99d28072f93dfef7a8a81af8b6dd5fffd",
+  "plan_sha256": "0a51398cbf977c91b5108104d635160d5cfa66505d1789d8e077543df3964329",
+  "illustrations": [
+    {
+      "plan_id": "ill-p01",
+      "status": "pass",
+      "source_sha256": "984573d219f5db0184b4def24eebef1718867f817820c393d1672c9d60a13b9e",
+      "crop": null,
+      "anatomy_and_occlusion": "画面为单个示意物体，主体完整、无遮挡；无人物或动物解剖部位需要拆分。",
+      "part_boundaries": "主体结构 / 暖黄叠色区 / 接地阴影三层边界清楚，阴影位于主体下方。",
+      "stroke_breaks": "按外轮廓起笔、沿边缘连续推进，分件接缝处分段抬笔，最后画阴影。",
+      "outline_then_fill": "先完成全部轮廓，再按同一顺序叠色与画阴影。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req-p01",
+          "status": "pass",
+          "evidence": "已看 inputs/p01.png：主体为简报要求的示意物体，轮廓与色块都在画面内，能与对应旁白对上。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p02",
+      "status": "pass",
+      "source_sha256": "07594bff498f1f4016cbdd72acb6729d01101e56df67eae2c7ed9713ad6b0d08",
+      "crop": null,
+      "anatomy_and_occlusion": "画面为单个示意物体，主体完整、无遮挡；无人物或动物解剖部位需要拆分。",
+      "part_boundaries": "主体结构 / 暖黄叠色区 / 接地阴影三层边界清楚，阴影位于主体下方。",
+      "stroke_breaks": "按外轮廓起笔、沿边缘连续推进，分件接缝处分段抬笔，最后画阴影。",
+      "outline_then_fill": "先完成全部轮廓，再按同一顺序叠色与画阴影。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req-p02",
+          "status": "pass",
+          "evidence": "已看 inputs/p02.png：主体为简报要求的示意物体，轮廓与色块都在画面内，能与对应旁白对上。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p03",
+      "status": "pass",
+      "source_sha256": "5008b2bf2785f5dd5d7e58c8a3d21ecc8869f1ccc03dab911c0595ea0d7e9dc2",
+      "crop": null,
+      "anatomy_and_occlusion": "画面为单个示意物体，主体完整、无遮挡；无人物或动物解剖部位需要拆分。",
+      "part_boundaries": "主体结构 / 暖黄叠色区 / 接地阴影三层边界清楚，阴影位于主体下方。",
+      "stroke_breaks": "按外轮廓起笔、沿边缘连续推进，分件接缝处分段抬笔，最后画阴影。",
+      "outline_then_fill": "先完成全部轮廓，再按同一顺序叠色与画阴影。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req-p03",
+          "status": "pass",
+          "evidence": "已看 inputs/p03.png：主体为简报要求的示意物体，轮廓与色块都在画面内，能与对应旁白对上。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p04",
+      "status": "pass",
+      "source_sha256": "7f1f4e83f505494dd96c9fb2777394b5aae6bedf9301177a601d7e1920ed1d69",
+      "crop": null,
+      "anatomy_and_occlusion": "画面为单个示意物体，主体完整、无遮挡；无人物或动物解剖部位需要拆分。",
+      "part_boundaries": "主体结构 / 暖黄叠色区 / 接地阴影三层边界清楚，阴影位于主体下方。",
+      "stroke_breaks": "按外轮廓起笔、沿边缘连续推进，分件接缝处分段抬笔，最后画阴影。",
+      "outline_then_fill": "先完成全部轮廓，再按同一顺序叠色与画阴影。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req-p04",
+          "status": "pass",
+          "evidence": "已看 inputs/p04.png：主体为简报要求的示意物体，轮廓与色块都在画面内，能与对应旁白对上。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p05",
+      "status": "pass",
+      "source_sha256": "8050c7017595f8be36f216abf1358404edb24ff52e650152427239cc8ebaa223",
+      "crop": null,
+      "anatomy_and_occlusion": "画面为单个示意物体，主体完整、无遮挡；无人物或动物解剖部位需要拆分。",
+      "part_boundaries": "主体结构 / 暖黄叠色区 / 接地阴影三层边界清楚，阴影位于主体下方。",
+      "stroke_breaks": "按外轮廓起笔、沿边缘连续推进，分件接缝处分段抬笔，最后画阴影。",
+      "outline_then_fill": "先完成全部轮廓，再按同一顺序叠色与画阴影。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req-p05",
+          "status": "pass",
+          "evidence": "已看 inputs/p05.png：主体为简报要求的示意物体，轮廓与色块都在画面内，能与对应旁白对上。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p06",
+      "status": "pass",
+      "source_sha256": "dde7d14f9cfe8bc69a6b21c2325ec68ae1b16cc3a046518de8d34e887478244f",
+      "crop": null,
+      "anatomy_and_occlusion": "画面为单个示意物体，主体完整、无遮挡；无人物或动物解剖部位需要拆分。",
+      "part_boundaries": "主体结构 / 暖黄叠色区 / 接地阴影三层边界清楚，阴影位于主体下方。",
+      "stroke_breaks": "按外轮廓起笔、沿边缘连续推进，分件接缝处分段抬笔，最后画阴影。",
+      "outline_then_fill": "先完成全部轮廓，再按同一顺序叠色与画阴影。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req-p06",
+          "status": "pass",
+          "evidence": "已看 inputs/p06.png：主体为简报要求的示意物体，轮廓与色块都在画面内，能与对应旁白对上。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p07",
+      "status": "pass",
+      "source_sha256": "19e6f9090f1d9068f5850d7391d5083c9888ebc161b1022c00fe01c6a9d75083",
+      "crop": null,
+      "anatomy_and_occlusion": "画面为单个示意物体，主体完整、无遮挡；无人物或动物解剖部位需要拆分。",
+      "part_boundaries": "主体结构 / 暖黄叠色区 / 接地阴影三层边界清楚，阴影位于主体下方。",
+      "stroke_breaks": "按外轮廓起笔、沿边缘连续推进，分件接缝处分段抬笔，最后画阴影。",
+      "outline_then_fill": "先完成全部轮廓，再按同一顺序叠色与画阴影。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req-p07",
+          "status": "pass",
+          "evidence": "已看 inputs/p07.png：主体为简报要求的示意物体，轮廓与色块都在画面内，能与对应旁白对上。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p08",
+      "status": "pass",
+      "source_sha256": "1aedf1b59d08430a85b1a4dc15f48ab386a317040e6addab2c3ebcb4425c851d",
+      "crop": null,
+      "anatomy_and_occlusion": "画面为单个示意物体，主体完整、无遮挡；无人物或动物解剖部位需要拆分。",
+      "part_boundaries": "主体结构 / 暖黄叠色区 / 接地阴影三层边界清楚，阴影位于主体下方。",
+      "stroke_breaks": "按外轮廓起笔、沿边缘连续推进，分件接缝处分段抬笔，最后画阴影。",
+      "outline_then_fill": "先完成全部轮廓，再按同一顺序叠色与画阴影。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req-p08",
+          "status": "pass",
+          "evidence": "已看 inputs/p08.png：主体为简报要求的示意物体，轮廓与色块都在画面内，能与对应旁白对上。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p09",
+      "status": "pass",
+      "source_sha256": "3d3462336f5d626d19364f6265a2a1cc49496af9b6870a44f78dd79d0e1257cf",
+      "crop": null,
+      "anatomy_and_occlusion": "画面为单个示意物体，主体完整、无遮挡；无人物或动物解剖部位需要拆分。",
+      "part_boundaries": "主体结构 / 暖黄叠色区 / 接地阴影三层边界清楚，阴影位于主体下方。",
+      "stroke_breaks": "按外轮廓起笔、沿边缘连续推进，分件接缝处分段抬笔，最后画阴影。",
+      "outline_then_fill": "先完成全部轮廓，再按同一顺序叠色与画阴影。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req-p09",
+          "status": "pass",
+          "evidence": "已看 inputs/p09.png：主体为简报要求的示意物体，轮廓与色块都在画面内，能与对应旁白对上。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p10",
+      "status": "pass",
+      "source_sha256": "9cccbb2c35df0f4952388ac7af088ec95c0a9e8fbc2b988d1a654c355eda867a",
+      "crop": null,
+      "anatomy_and_occlusion": "画面为单个示意物体，主体完整、无遮挡；无人物或动物解剖部位需要拆分。",
+      "part_boundaries": "主体结构 / 暖黄叠色区 / 接地阴影三层边界清楚，阴影位于主体下方。",
+      "stroke_breaks": "按外轮廓起笔、沿边缘连续推进，分件接缝处分段抬笔，最后画阴影。",
+      "outline_then_fill": "先完成全部轮廓，再按同一顺序叠色与画阴影。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req-p10",
+          "status": "pass",
+          "evidence": "已看 inputs/p10.png：主体为简报要求的示意物体，轮廓与色块都在画面内，能与对应旁白对上。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p12",
+      "status": "pass",
+      "source_sha256": "c4b9c958597f87a1753332962fd135c84facdc3eef37f2ed87b1180329f12d20",
+      "crop": null,
+      "anatomy_and_occlusion": "画面为单个示意物体，主体完整、无遮挡；无人物或动物解剖部位需要拆分。",
+      "part_boundaries": "主体结构 / 暖黄叠色区 / 接地阴影三层边界清楚，阴影位于主体下方。",
+      "stroke_breaks": "按外轮廓起笔、沿边缘连续推进，分件接缝处分段抬笔，最后画阴影。",
+      "outline_then_fill": "先完成全部轮廓，再按同一顺序叠色与画阴影。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req-p12",
+          "status": "pass",
+          "evidence": "已看 inputs/p12.png：主体为简报要求的示意物体，轮廓与色块都在画面内，能与对应旁白对上。"
+        }
+      ]
+    }
+  ],
+  "narrative_checks": [
+    {
+      "id": "req-p01",
+      "status": "pass",
+      "evidence": "已看 inputs/p01.png：主体为简报要求的示意物体，轮廓与色块都在画面内，能与对应旁白对上。"
+    },
+    {
+      "id": "req-p02",
+      "status": "pass",
+      "evidence": "已看 inputs/p02.png：主体为简报要求的示意物体，轮廓与色块都在画面内，能与对应旁白对上。"
+    },
+    {
+      "id": "req-p03",
+      "status": "pass",
+      "evidence": "已看 inputs/p03.png：主体为简报要求的示意物体，轮廓与色块都在画面内，能与对应旁白对上。"
+    },
+    {
+      "id": "req-p04",
+      "status": "pass",
+      "evidence": "已看 inputs/p04.png：主体为简报要求的示意物体，轮廓与色块都在画面内，能与对应旁白对上。"
+    },
+    {
+      "id": "req-p05",
+      "status": "pass",
+      "evidence": "已看 inputs/p05.png：主体为简报要求的示意物体，轮廓与色块都在画面内，能与对应旁白对上。"
+    },
+    {
+      "id": "req-p06",
+      "status": "pass",
+      "evidence": "已看 inputs/p06.png：主体为简报要求的示意物体，轮廓与色块都在画面内，能与对应旁白对上。"
+    },
+    {
+      "id": "req-p07",
+      "status": "pass",
+      "evidence": "已看 inputs/p07.png：主体为简报要求的示意物体，轮廓与色块都在画面内，能与对应旁白对上。"
+    },
+    {
+      "id": "req-p08",
+      "status": "pass",
+      "evidence": "已看 inputs/p08.png：主体为简报要求的示意物体，轮廓与色块都在画面内，能与对应旁白对上。"
+    },
+    {
+      "id": "req-p09",
+      "status": "pass",
+      "evidence": "已看 inputs/p09.png：主体为简报要求的示意物体，轮廓与色块都在画面内，能与对应旁白对上。"
+    },
+    {
+      "id": "req-p10",
+      "status": "pass",
+      "evidence": "已看 inputs/p10.png：主体为简报要求的示意物体，轮廓与色块都在画面内，能与对应旁白对上。"
+    },
+    {
+      "id": "req-p12",
+      "status": "pass",
+      "evidence": "已看 inputs/p12.png：主体为简报要求的示意物体，轮廓与色块都在画面内，能与对应旁白对上。"
+    }
+  ]
+}

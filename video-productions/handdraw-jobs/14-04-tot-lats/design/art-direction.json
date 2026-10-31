@@ -1,0 +1,186 @@
+{
+  "dependency_sha256": "fbbfd33d70f729011b6a6bc232851c116cd4a89ead2adea4462888a6ce26fc1a",
+  "style_sha256": "036099009ec8b7789d9d2613e6c7fe64d045ce56d93a53a4f139da13261cd628",
+  "images": [
+    {
+      "source": "../inputs/cover.png",
+      "sha256": "58c809f3701295473e1dddad3fc97836c55389f5fd348d352ebc87f760f05deb",
+      "method": "composed_with_verified_layers",
+      "brief_file": "briefs/cover.md",
+      "prompt_file": "prompts/cover.txt",
+      "status": "pass",
+      "layers": [
+        {
+          "source": "illustration-gen.py",
+          "sha256": "2845d5747805ff81354456a0b2dd697e78d85f9b346d0f5dfcd6844a4e739d0b",
+          "role": "标题排版与 p01 主视觉合成"
+        }
+      ],
+      "evidence": "实际查看 inputs/cover.png：左侧标题、副标题与期号完整，右侧 p01 马克笔主视觉未裁切；暖白纸面，无伪文字。",
+      "brief_sha256": "91382b23bff63180e3f28750b8b51c56ab8ed8c4f0715c2f3384b4f43d54f484",
+      "prompt_sha256": "30965666fd2998797460bda43f95e8c4af7a7622c7943abd6724004f16bb0e1b"
+    },
+    {
+      "source": "../inputs/p01.png",
+      "sha256": "d455af09e89b3a6235db523bcf4d5c4cc108548a6e4bcab6937b0bcb6b47052a",
+      "method": "composed_with_verified_layers",
+      "brief_file": "briefs/p01.md",
+      "prompt_file": "prompts/p01.txt",
+      "status": "pass",
+      "layers": [
+        {
+          "source": "illustration-gen.py",
+          "sha256": "43452db38b81a29096c8d2f59c599d2ae258cd9e0eb3ad7a61561cc887429e3b",
+          "role": "矢量图形与文字图层"
+        }
+      ],
+      "evidence": "实际查看 p01.png：工业设计马克笔风格，暖白纸面，深灰勾线、暖黄/暖棕/金属灰分区清楚；画面同时出现一条不能回头的三步链和一棵带虚线回溯箭头的搜索树。 可见。",
+      "brief_sha256": "864eb6de878c690d60ad9548b6030e75813444477464f94de16b44e836598c02",
+      "prompt_sha256": "ca9b5e6570789879c5886b5df83e0abaf0ed26c54a2863667cc54d775d0aef71"
+    },
+    {
+      "source": "../inputs/p02.png",
+      "sha256": "cc71e71975a6b6ff0cb7be1aacb54db57fa360f780a5d43dc8e47d7244d39c8c",
+      "method": "composed_with_verified_layers",
+      "brief_file": "briefs/p02.md",
+      "prompt_file": "prompts/p02.txt",
+      "status": "pass",
+      "layers": [
+        {
+          "source": "illustration-gen.py",
+          "sha256": "43452db38b81a29096c8d2f59c599d2ae258cd9e0eb3ad7a61561cc887429e3b",
+          "role": "矢量图形与文字图层"
+        }
+      ],
+      "evidence": "实际查看 p02.png：工业设计马克笔风格，暖白纸面，深灰勾线、暖黄/暖棕/金属灰分区清楚；4% 的黑色短柱与 74% 的排线长柱并排，顶部有 4、6、4、1 和 24。 可见。",
+      "brief_sha256": "d20abd28389f35ee3a6d712fbc46a7ada0734b7aef72456e9656265ff62afad6",
+      "prompt_sha256": "4d1b2ef2cd0321054a1922de2cd78cdbfecdbbc433dded9bb9600c8ecdc4b17a"
+    },
+    {
+      "source": "../inputs/p03.png",
+      "sha256": "363d6a615ff684dd3fd5c4e07dd00dc46a509909cde517ed0fd0f3fa7f874be2",
+      "method": "composed_with_verified_layers",
+      "brief_file": "briefs/p03.md",
+      "prompt_file": "prompts/p03.txt",
+      "status": "pass",
+      "layers": [
+        {
+          "source": "illustration-gen.py",
+          "sha256": "43452db38b81a29096c8d2f59c599d2ae258cd9e0eb3ad7a61561cc887429e3b",
+          "role": "矢量图形与文字图层"
+        }
+      ],
+      "evidence": "实际查看 p03.png：工业设计马克笔风格，暖白纸面，深灰勾线、暖黄/暖棕/金属灰分区清楚；根节点、三条展开边、三个带分数的子节点，以及节点/边/价值三件套图例同屏。 可见。",
+      "brief_sha256": "aa237283c5847db53542c17b03f5897c64b54cb70d4b442e77b5d3084b720b53",
+      "prompt_sha256": "0671e845306832309c36eb801743db1afcad4b17e0dff368bd0f0bead469608c"
+    },
+    {
+      "source": "../inputs/p04.png",
+      "sha256": "aebc8edfa31ea126a4f3af2c2a920552bf1503247bc2441b67fc129792eca964",
+      "method": "composed_with_verified_layers",
+      "brief_file": "briefs/p04.md",
+      "prompt_file": "prompts/p04.txt",
+      "status": "pass",
+      "layers": [
+        {
+          "source": "illustration-gen.py",
+          "sha256": "43452db38b81a29096c8d2f59c599d2ae258cd9e0eb3ad7a61561cc887429e3b",
+          "role": "矢量图形与文字图层"
+        }
+      ],
+      "evidence": "实际查看 p04.png：工业设计马克笔风格，暖白纸面，深灰勾线、暖黄/暖棕/金属灰分区清楚；每个子节点内写有分数，右上放大镜标自评，底部标出 BFS、DFS、beam。 可见。",
+      "brief_sha256": "abd76c33d8ba227a38cb3336cd6807b3f982e4b7e27a78ca7d714603af7f320e",
+      "prompt_sha256": "76ae3ed21fa6ca8efb5d3b71c432f6b7ef8efd95c0c6499c7270899282e2457e"
+    },
+    {
+      "source": "../inputs/p05.png",
+      "sha256": "496f9122bac1f7fb98e718cca902de44d2f1790c84d2504c9eb5312bcfd8bede",
+      "method": "composed_with_verified_layers",
+      "brief_file": "briefs/p05.md",
+      "prompt_file": "prompts/p05.txt",
+      "status": "pass",
+      "layers": [
+        {
+          "source": "illustration-gen.py",
+          "sha256": "43452db38b81a29096c8d2f59c599d2ae258cd9e0eb3ad7a61561cc887429e3b",
+          "role": "矢量图形与文字图层"
+        }
+      ],
+      "evidence": "实际查看 p05.png：工业设计马克笔风格，暖白纸面，深灰勾线、暖黄/暖棕/金属灰分区清楚；加粗路径终点是 27，旁边明确写出 ≠ 和一个未到达的 24。 可见。",
+      "brief_sha256": "2278e2a942eb68c2158428cf2274c8859522375b196b2206ebf91b539b160f6a",
+      "prompt_sha256": "863d908f1bbb69c31373fe252dac07db7073c2974b3e7fca8218183224fbcd10"
+    },
+    {
+      "source": "../inputs/p06.png",
+      "sha256": "8fc93073b51779b29246e168dc15c31366778900f9c564ac462055adfb84f834",
+      "method": "composed_with_verified_layers",
+      "brief_file": "briefs/p06.md",
+      "prompt_file": "prompts/p06.txt",
+      "status": "pass",
+      "layers": [
+        {
+          "source": "illustration-gen.py",
+          "sha256": "43452db38b81a29096c8d2f59c599d2ae258cd9e0eb3ad7a61561cc887429e3b",
+          "role": "矢量图形与文字图层"
+        }
+      ],
+      "evidence": "实际查看 p06.png：工业设计马克笔风格，暖白纸面，深灰勾线、暖黄/暖棕/金属灰分区清楚；四个步骤名和顺时针箭头构成闭环，中心同时出现三个角色。 可见。",
+      "brief_sha256": "0190d163da466a6b8cca7e4fcd9759cca552d0dd4d84d71c9c8114a0a5d452a3",
+      "prompt_sha256": "17af712cf38dddbdc9cd80d4e476b898f8aa28abfcf011fea631f5652f0b9f10"
+    },
+    {
+      "source": "../inputs/p07.png",
+      "sha256": "ad8733eafe785b9e4782902d320eff4744cba09966cc1bdae17daeca94515684",
+      "method": "composed_with_verified_layers",
+      "brief_file": "briefs/p07.md",
+      "prompt_file": "prompts/p07.txt",
+      "status": "pass",
+      "layers": [
+        {
+          "source": "illustration-gen.py",
+          "sha256": "43452db38b81a29096c8d2f59c599d2ae258cd9e0eb3ad7a61561cc887429e3b",
+          "role": "矢量图形与文字图层"
+        }
+      ],
+      "evidence": "实际查看 p07.png：工业设计马克笔风格，暖白纸面，深灰勾线、暖黄/暖棕/金属灰分区清楚；6×4=24 的成功链、勾选标记、286 次展开和 92.7% 同屏。 可见。",
+      "brief_sha256": "d81c47860ca5a77d2df72566bfaa2d3eb10041edb2f62e3489dcd0f7e5f1b5ee",
+      "prompt_sha256": "4aebd9e2fc42bedaceccaab6966cd723e036c561eb6f8c5f3989aafd5b61356d"
+    },
+    {
+      "source": "../inputs/p08.png",
+      "sha256": "be96327e1e1b18ca996a700806314f566a43d99c6b3146cd725ab9086159e8cf",
+      "method": "composed_with_verified_layers",
+      "brief_file": "briefs/p08.md",
+      "prompt_file": "prompts/p08.txt",
+      "status": "pass",
+      "layers": [
+        {
+          "source": "illustration-gen.py",
+          "sha256": "43452db38b81a29096c8d2f59c599d2ae258cd9e0eb3ad7a61561cc887429e3b",
+          "role": "矢量图形与文字图层"
+        }
+      ],
+      "evidence": "实际查看 p08.png：工业设计马克笔风格，暖白纸面，深灰勾线、暖黄/暖棕/金属灰分区清楚；1×、100×、1000× 三档成本并排，顶部有噪声评估器警告。 可见。",
+      "brief_sha256": "b418414f805e2e88c5503e53d8c5ea30d7f9e27e6130fd125c504b9e233f7e84",
+      "prompt_sha256": "7ecd5f28b1154a6cf28a7288de82fbfd6714f3755c26aa301976afa26d42240a"
+    },
+    {
+      "source": "../inputs/p09.png",
+      "sha256": "04ac63783ba4027dbc0b70f08885734da1cec1c453413de7db113351eaf0771d",
+      "method": "composed_with_verified_layers",
+      "brief_file": "briefs/p09.md",
+      "prompt_file": "prompts/p09.txt",
+      "status": "pass",
+      "layers": [
+        {
+          "source": "illustration-gen.py",
+          "sha256": "43452db38b81a29096c8d2f59c599d2ae258cd9e0eb3ad7a61561cc887429e3b",
+          "role": "矢量图形与文字图层"
+        }
+      ],
+      "evidence": "实际查看 p09.png：工业设计马克笔风格，暖白纸面，深灰勾线、暖黄/暖棕/金属灰分区清楚；搜索位于复杂度阈值门后，左侧是 ReAct 生产路径，底部是成本问题。 可见。",
+      "brief_sha256": "0de6a3308bd8b5f1d1630fae0df2330625b1663cd4d71686bd4ffcfc030ab350",
+      "prompt_sha256": "ed77cdcda7c80914aa91ed182ada82b46c7de5bccd37c5dfebcb72f0200f6d9a"
+    }
+  ]
+}

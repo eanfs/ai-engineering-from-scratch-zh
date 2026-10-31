@@ -1,0 +1,170 @@
+{
+  "narrative_route": {
+    "decision": "concept_mechanism_contrast",
+    "reason": "14-04 是机制课，核心不是生活困境而是「线性思维链 vs 搜索」的对照。用一条不能回头的链和一棵可回溯的树开篇，再用两次实跑（失败 27 / 成功 24）把抽象搜索变成可核对的证据。",
+    "director_review": "九页按「问题 → 两代方法 → 实跑 → 成本 → 选型」推进；p05 和 p07 是同一组数字的失败/成功对照，必须保留 27≠24 的失败记录，不能只讲成功。",
+    "director_plan": "p01 单链 vs 树；p02 4%→74%；p03 搜索三件套；p04 ToT 自评树；p05 152 次展开停在 27；p06 MCTS 四步；p07 286 次展开找到 24；p08 100–1000 倍成本与噪声风险；p09 2026 选型与预算问题。每页只换一次图，图随整段旁白保留，不按句切。"
+  },
+  "topic": "Tree of Thoughts 与 LATS：把推理变成搜索",
+  "audience": "学过 Transformer 与 ReAct、想理解搜索式推理的工程师和学生",
+  "explanation_goal": "看完能说清 ToT 的节点/边/价值三件套、自评的作用、LATS 的 MCTS 四步，以及为什么搜索要按 token 预算来决定是否启用。",
+  "source_scope": {
+    "type": "课程改编",
+    "links": [
+      "phases/14-agent-engineering/04-tree-of-thoughts-lats/docs/zh.md"
+    ],
+    "evidence": "旁白复用的 14-04 口播稿与课程正文一致；4%/74%、152 节点、27、286 次、92.7% 均来自课程与论文引用的数字。"
+  },
+  "visual_direction": {
+    "approach": "黑白墨线图解，不画人物",
+    "palette": "纯黑 #111111 + 纯白 #FFFFFF，仅少量灰阶",
+    "line": "粗重外轮廓配细线连接，实心黑块只用于根节点、成功/失败终点和门",
+    "density": "每页 3–8 个主对象，字号大，关键词不超过 8 处",
+    "motion_note": "整页随旁白保留，笔尖按轮廓后填色"
+  },
+  "beats": [
+    {
+      "page": "p01",
+      "title": "没有回溯，就没有搜索",
+      "narration": "阶段 14，第 4 课：Tree of Thoughts 与 LATS。 单条思维链没有回溯的余地，推理真正需要的是搜索。 这一课把推理变成一棵树，再让蒙特卡洛树搜索来管它。",
+      "visual": "左侧一条竖直三步链，第二步被粗黑叉划掉；右侧一棵搜索树，根节点实心黑，左分支标死路，右下节点实心黑写 24，一条虚线回溯箭头从中间分支绕回 24 分支。",
+      "emphasis": "画面同时出现一条不能回头的三步链和一棵带虚线回溯箭头的搜索树。"
+    },
+    {
+      "page": "p02",
+      "title": "4% 到 74%",
+      "narration": "先看 Game of 24：四个数字，用加、减、乘、除凑出 24。 GPT-4 的思维链只有 4% 的准确率，它早早挑错了子表达式，再也回不来。 换成 Tree of Thoughts，同一个模型涨到 74%。",
+      "visual": "顶部一行 4 + 6 − 4 × 1 ÷ 和实心黑 24 圆章；下方两根准确率柱：CoT 黑色短柱标 4%，ToT 白底排线长柱标 74%，基线下方写 CoT / ToT。",
+      "emphasis": "4% 的黑色短柱与 74% 的排线长柱并排，顶部有 4、6、4、1 和 24。"
+    },
+    {
+      "page": "p03",
+      "title": "把推理框成搜索",
+      "narration": "搜索有三件套：节点是一个思考，边是展开，价值是它有多大希望。 根节点是从 4、6、4、1 里找出 24，每个节点再展开 K 个子思考。 自评是承重部件：分类、打分，或者在候选之间投票。",
+      "visual": "顶部实心黑根节点写 4,6,4,1 → 24，三条箭线连到三个白底子节点（思考 A/B/C），每个子节点右侧接一个分数小框；左下角三件套图例，右下角写展开 K 个子思考。",
+      "emphasis": "根节点、三条展开边、三个带分数的子节点，以及节点/边/价值三件套图例同屏。"
+    },
+    {
+      "page": "p04",
+      "title": "ToT：每个节点都自评",
+      "narration": "Tree of Thoughts 由 Yao 等人在 2023 年提出，把推理变成一棵树。 每个节点是一段连贯的中间步骤，模型用一个打分提示词给它自评。 遍历可以是 BFS、DFS 或者 beam，论文里最常用的是 BFS。",
+      "visual": "一棵三层树：实心黑根、三个实心黑打分子节点（7/3/9）、六个白底叶节点；右上角放大镜写自评，底部三组 BFS/DFS/beam 箭头。",
+      "emphasis": "每个子节点内写有分数，右上放大镜标自评，底部标出 BFS、DFS、beam。"
+    },
+    {
+      "page": "p05",
+      "title": "实跑：152 个节点，停在 27",
+      "narration": "跑一遍代码：数字是 4、6、4、1，目标是 24，用带自评的 BFS。 它展开 152 个节点，找到的最好轨迹最后一步是 24 加 3 等于 27。 终态停在 27 而不是 24——这次搜索失败了，如实记录。",
+      "visual": "一棵密集小节点树，一条加粗黑路径从根经过两层节点落到实心黑 27 方块；右侧用 ≠ 连接空心 24 圆章；下方写 152 次展开。",
+      "emphasis": "加粗路径终点是 27，旁边明确写出 ≠ 和一个未到达的 24。"
+    },
+    {
+      "page": "p06",
+      "title": "LATS：选择 · 扩展 · 模拟 · 回传",
+      "narration": "LATS 在蒙特卡洛树搜索之下，统一了 ToT、ReAct 和 Reflexion。 模型扮演三个角色：策略提候选，价值函数打分，自省器写反思。 每次迭代走四步：选择、扩展、模拟、回传。",
+      "visual": "四个白底方框按上右下左排成选择/扩展/模拟/回传环，顺时针粗箭头相连；中心圆内分三层写策略/价值/自省。",
+      "emphasis": "四个步骤名和顺时针箭头构成闭环，中心同时出现三个角色。"
+    },
+    {
+      "page": "p07",
+      "title": "实跑：286 次展开，找到 24",
+      "narration": "同一组数字再跑 LATS，用 UCT 平衡利用和探索。 286 次节点展开之后，它找到 6 乘 4 等于 24，再乘 1 还是 24。 这次成功了。论文里 HumanEval 的 pass@1 达到 92.7%。",
+      "visual": "水平链条 6 → ×4 → 24 → ×1，右端一个大勾；下方实心黑 24 方块；左侧写 286 次展开，右下标 HumanEval pass@1 92.7%。",
+      "emphasis": "6×4=24 的成功链、勾选标记、286 次展开和 92.7% 同屏。"
+    },
+    {
+      "page": "p08",
+      "title": "搜索不是免费的",
+      "narration": "搜索不是免费的：Game of 24 上，ToT 的 token 是 CoT 的 100 到 1000 倍。 值得花的场合有三个：单条轨迹明显不够、墙钟时间没正确性重要、价值函数廉价又可靠。 如果你的评估器有噪声，搜索会把事情弄得更糟，它会找到一个评分很高的错误答案。",
+      "visual": "顶部横条写噪声评估器会放大成高分错误答案并打叉；下方三根成本柱 CoT 1×、ToT 100×、LATS 1000×；底部一行三个条件。",
+      "emphasis": "1×、100×、1000× 三档成本并排，顶部有噪声评估器警告。"
+    },
+    {
+      "page": "p09",
+      "title": "把搜索当预算来花",
+      "narration": "2026 年，大多数生产 agent 不跑 LATS，跑的是带工具验证的 ReAct。 搜索藏在任务复杂度超过阈值的门后，编码 agent 把单元测试当价值函数。 留一个问题给你：你的任务，值不值得为一次推理付 100 倍 token？",
+      "visual": "左侧 ReAct + 工具验证方框，中间实心黑门写复杂度阈值，右侧搜索 ToT/LATS 方框；底部一行值不值得付 100× token 的问题。",
+      "emphasis": "搜索位于复杂度阈值门后，左侧是 ReAct 生产路径，底部是成本问题。"
+    }
+  ],
+  "cover": {
+    "title": "Tree of Thoughts 与 LATS",
+    "subtitle": "把推理变成搜索",
+    "main_visual": "inputs/p01.png",
+    "note": "封面复用 p01 主视觉，标题由渲染器以可编辑文字层合成，不另生图。"
+  },
+  "asset_prompts": [
+    {
+      "page": "p01",
+      "method": "composed_with_verified_layers",
+      "source": "design/illustration-gen.py",
+      "brief_file": "briefs/p01.md",
+      "prompt_file": "prompts/p01.txt",
+      "note": "本地代码绘制黑白线稿，不使用图像生成或视频生成接口。"
+    },
+    {
+      "page": "p02",
+      "method": "composed_with_verified_layers",
+      "source": "design/illustration-gen.py",
+      "brief_file": "briefs/p02.md",
+      "prompt_file": "prompts/p02.txt",
+      "note": "本地代码绘制黑白线稿，不使用图像生成或视频生成接口。"
+    },
+    {
+      "page": "p03",
+      "method": "composed_with_verified_layers",
+      "source": "design/illustration-gen.py",
+      "brief_file": "briefs/p03.md",
+      "prompt_file": "prompts/p03.txt",
+      "note": "本地代码绘制黑白线稿，不使用图像生成或视频生成接口。"
+    },
+    {
+      "page": "p04",
+      "method": "composed_with_verified_layers",
+      "source": "design/illustration-gen.py",
+      "brief_file": "briefs/p04.md",
+      "prompt_file": "prompts/p04.txt",
+      "note": "本地代码绘制黑白线稿，不使用图像生成或视频生成接口。"
+    },
+    {
+      "page": "p05",
+      "method": "composed_with_verified_layers",
+      "source": "design/illustration-gen.py",
+      "brief_file": "briefs/p05.md",
+      "prompt_file": "prompts/p05.txt",
+      "note": "本地代码绘制黑白线稿，不使用图像生成或视频生成接口。"
+    },
+    {
+      "page": "p06",
+      "method": "composed_with_verified_layers",
+      "source": "design/illustration-gen.py",
+      "brief_file": "briefs/p06.md",
+      "prompt_file": "prompts/p06.txt",
+      "note": "本地代码绘制黑白线稿，不使用图像生成或视频生成接口。"
+    },
+    {
+      "page": "p07",
+      "method": "composed_with_verified_layers",
+      "source": "design/illustration-gen.py",
+      "brief_file": "briefs/p07.md",
+      "prompt_file": "prompts/p07.txt",
+      "note": "本地代码绘制黑白线稿，不使用图像生成或视频生成接口。"
+    },
+    {
+      "page": "p08",
+      "method": "composed_with_verified_layers",
+      "source": "design/illustration-gen.py",
+      "brief_file": "briefs/p08.md",
+      "prompt_file": "prompts/p08.txt",
+      "note": "本地代码绘制黑白线稿，不使用图像生成或视频生成接口。"
+    },
+    {
+      "page": "p09",
+      "method": "composed_with_verified_layers",
+      "source": "design/illustration-gen.py",
+      "brief_file": "briefs/p09.md",
+      "prompt_file": "prompts/p09.txt",
+      "note": "本地代码绘制黑白线稿，不使用图像生成或视频生成接口。"
+    }
+  ]
+}

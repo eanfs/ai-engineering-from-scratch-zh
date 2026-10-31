@@ -1,0 +1,44 @@
+{
+  "language": {
+    "value": "zh-CN",
+    "status": "explicit",
+    "evidence": "14-04 沿用中文课程旁白"
+  },
+  "duration_seconds": {
+    "value": 170.288,
+    "status": "explicit",
+    "evidence": "复用 14-04 已锁定的完整旁白母带口播.wav，170.288 秒"
+  },
+  "canvas": {
+    "value": {
+      "width": 1920,
+      "height": 1080,
+      "ratio": "16:9"
+    },
+    "status": "explicit",
+    "evidence": "用户选择 1920×1080 横屏"
+  },
+  "style": {
+    "value": {
+      "mode": "catalog",
+      "catalog_id": "12",
+      "name": "工业设计马克笔手绘"
+    },
+    "status": "explicit",
+    "evidence": "用户要求换成 07-04 同款手绘风格：12 工业设计马克笔 + teacher-pen"
+  },
+  "hand": {
+    "value": "teacher-pen",
+    "status": "explicit",
+    "evidence": "用户要求 07-04 同款白衬衫讲师中性笔"
+  },
+  "music": {
+    "value": {
+      "mode": "user_supplied",
+      "source": "inputs/music.wav",
+      "gain": 0.14
+    },
+    "status": "explicit",
+    "evidence": "用户选择复用 07-04 任务的配乐 music.wav"
+  }
+}

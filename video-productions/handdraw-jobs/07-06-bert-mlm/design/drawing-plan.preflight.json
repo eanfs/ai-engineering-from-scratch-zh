@@ -1,0 +1,16 @@
+{
+  "status": "ready_for_generation",
+  "plan_sha256": "321cac50e8ff5cba4831a30a99027b40fed400daf3a2950bd84768e75aa96464",
+  "style_sha256": "de190b487fa9ae0479682e8e80163742cf868ef0d3290312b7d303963197e062",
+  "illustrations": [
+    "ill-p01",
+    "ill-p02",
+    "ill-p03",
+    "ill-p04",
+    "ill-p05",
+    "ill-p06",
+    "ill-p07",
+    "ill-p08",
+    "ill-p09"
+  ]
+}

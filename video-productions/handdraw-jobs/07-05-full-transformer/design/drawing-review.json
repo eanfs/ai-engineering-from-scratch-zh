@@ -1,0 +1,168 @@
+{
+  "style_sha256": "3b4c47b0ad8553f0ce2088bc62e3acc5b680c73c6c3ae182cf62d9b70a9187bb",
+  "plan_sha256": "2dd9b81e48cac06835f8f619346b0f8bd416e236485ab44f04301e1e9121ba95",
+  "illustrations": [
+    {
+      "plan_id": "ill-p01",
+      "status": "pass",
+      "source_sha256": "8c534898e971d1723ef7c5f0738f196b287a75b47321c10a64129b2348cff83d",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为纯图解对象，没有人物或动物解剖；方框、箭头与色块之间保留纸色分隔，遮挡只发生在箭头压到框边的少量区域，按图形层处理。",
+      "part_boundaries": "单一主体区域覆盖整页墨迹：深灰外轮廓、方框接缝、箭头连线、暖黄/暖棕实心块和文字轮廓都可由纸色分隔线独立追踪；暖黄区域先描外轮廓再铺色。",
+      "stroke_breaks": "按从左到右、从上到下的顺序起笔；每个方框、箭头和文字块之间抬笔，不跨纸色空隙连线。",
+      "outline_then_fill": "整页轮廓先完成，再按同一区域顺序填充暖黄、金属灰与深色块；轮廓与填色不反向。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req",
+          "status": "pass",
+          "evidence": "实际查看 p01.png：左侧单层自注意力与下方两行说明完整，右侧四层 block 堆叠与语言模型框分离清楚，没有重叠或越界。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p02",
+      "status": "pass",
+      "source_sha256": "6f9ae6c7b4a8c5737825aa1b277dbfd4fda0a75e976264021d3f266470990b65",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为纯图解对象，没有人物或动物解剖；方框、箭头与色块之间保留纸色分隔，遮挡只发生在箭头压到框边的少量区域，按图形层处理。",
+      "part_boundaries": "单一主体区域覆盖整页墨迹：深灰外轮廓、方框接缝、箭头连线、暖黄/暖棕实心块和文字轮廓都可由纸色分隔线独立追踪；暖黄区域先描外轮廓再铺色。",
+      "stroke_breaks": "按从左到右、从上到下的顺序起笔；每个方框、箭头和文字块之间抬笔，不跨纸色空隙连线。",
+      "outline_then_fill": "整页轮廓先完成，再按同一区域顺序填充暖黄、金属灰与深色块；轮廓与填色不反向。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req",
+          "status": "pass",
+          "evidence": "实际查看 p02.png：六张卡片等距排列，编号圆点、标题与说明各行分离，文字未压线。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p03",
+      "status": "pass",
+      "source_sha256": "d1e038987e09edf96a62b77daeacdafe1e2372f5f36cef14714ead9a8c5e459c",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为纯图解对象，没有人物或动物解剖；方框、箭头与色块之间保留纸色分隔，遮挡只发生在箭头压到框边的少量区域，按图形层处理。",
+      "part_boundaries": "单一主体区域覆盖整页墨迹：深灰外轮廓、方框接缝、箭头连线、暖黄/暖棕实心块和文字轮廓都可由纸色分隔线独立追踪；暖黄区域先描外轮廓再铺色。",
+      "stroke_breaks": "按从左到右、从上到下的顺序起笔；每个方框、箭头和文字块之间抬笔，不跨纸色空隙连线。",
+      "outline_then_fill": "整页轮廓先完成，再按同一区域顺序填充暖黄、金属灰与深色块；轮廓与填色不反向。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req",
+          "status": "pass",
+          "evidence": "实际查看 p03.png：解码器六个方框完整落在画面内，虚线从编码器右侧绕下接入交叉注意方框，K, V 标注未压线。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p04",
+      "status": "pass",
+      "source_sha256": "0a184fd9d1c89267b7c1b89b561bd4515e46d98d01c15ccb7224a8153f3a0093",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为纯图解对象，没有人物或动物解剖；方框、箭头与色块之间保留纸色分隔，遮挡只发生在箭头压到框边的少量区域，按图形层处理。",
+      "part_boundaries": "单一主体区域覆盖整页墨迹：深灰外轮廓、方框接缝、箭头连线、暖黄/暖棕实心块和文字轮廓都可由纸色分隔线独立追踪；暖黄区域先描外轮廓再铺色。",
+      "stroke_breaks": "按从左到右、从上到下的顺序起笔；每个方框、箭头和文字块之间抬笔，不跨纸色空隙连线。",
+      "outline_then_fill": "整页轮廓先完成，再按同一区域顺序填充暖黄、金属灰与深色块；轮廓与填色不反向。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req",
+          "status": "pass",
+          "evidence": "实际查看 p04.png：残差虚线在标题下方完整绕过子层并进入加号，两张归一化卡片各占一半，文字没有互相遮挡。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p05",
+      "status": "pass",
+      "source_sha256": "d1c1543df336b9a3bd211a3e994b77f0b9bda269b50580156df6f6351d28044f",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为纯图解对象，没有人物或动物解剖；方框、箭头与色块之间保留纸色分隔，遮挡只发生在箭头压到框边的少量区域，按图形层处理。",
+      "part_boundaries": "单一主体区域覆盖整页墨迹：深灰外轮廓、方框接缝、箭头连线、暖黄/暖棕实心块和文字轮廓都可由纸色分隔线独立追踪；暖黄区域先描外轮廓再铺色。",
+      "stroke_breaks": "按从左到右、从上到下的顺序起笔；每个方框、箭头和文字块之间抬笔，不跨纸色空隙连线。",
+      "outline_then_fill": "整页轮廓先完成，再按同一区域顺序填充暖黄、金属灰与深色块；轮廓与填色不反向。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req",
+          "status": "pass",
+          "evidence": "实际查看 p05.png：六行对照与右侧旁注互不重叠，暖黄方框与白色方框边界清楚，底部结论行完整。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p06",
+      "status": "pass",
+      "source_sha256": "86741247ce9c1aa1505e191ee546d77e8e7939e284dd3da8b508665f5ec23e77",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为纯图解对象，没有人物或动物解剖；方框、箭头与色块之间保留纸色分隔，遮挡只发生在箭头压到框边的少量区域，按图形层处理。",
+      "part_boundaries": "单一主体区域覆盖整页墨迹：深灰外轮廓、方框接缝、箭头连线、暖黄/暖棕实心块和文字轮廓都可由纸色分隔线独立追踪；暖黄区域先描外轮廓再铺色。",
+      "stroke_breaks": "按从左到右、从上到下的顺序起笔；每个方框、箭头和文字块之间抬笔，不跨纸色空隙连线。",
+      "outline_then_fill": "整页轮廓先完成，再按同一区域顺序填充暖黄、金属灰与深色块；轮廓与填色不反向。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req",
+          "status": "pass",
+          "evidence": "实际查看 p06.png：上下两条序列与编码器/解码器方框分离清楚，5×8 矩阵完整可数，底部三行说明互不压叠。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p07",
+      "status": "pass",
+      "source_sha256": "df954d5b01fb271c8b3c5200fe8d57c086a7f0b3c92b750788587be58d10b621",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为纯图解对象，没有人物或动物解剖；方框、箭头与色块之间保留纸色分隔，遮挡只发生在箭头压到框边的少量区域，按图形层处理。",
+      "part_boundaries": "单一主体区域覆盖整页墨迹：深灰外轮廓、方框接缝、箭头连线、暖黄/暖棕实心块和文字轮廓都可由纸色分隔线独立追踪；暖黄区域先描外轮廓再铺色。",
+      "stroke_breaks": "按从左到右、从上到下的顺序起笔；每个方框、箭头和文字块之间抬笔，不跨纸色空隙连线。",
+      "outline_then_fill": "整页轮廓先完成，再按同一区域顺序填充暖黄、金属灰与深色块；轮廓与填色不反向。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req",
+          "status": "pass",
+          "evidence": "实际查看 p07.png：两个公式框与加号分离，三行算式未与方框重叠，198M×32 层方框与 ≈7B 圆章之间的箭头清楚。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p08",
+      "status": "pass",
+      "source_sha256": "139e8f2d3bd1473325ef226c099115380c7d469a50a11208f444fb5e4f7d8dde",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为纯图解对象，没有人物或动物解剖；方框、箭头与色块之间保留纸色分隔，遮挡只发生在箭头压到框边的少量区域，按图形层处理。",
+      "part_boundaries": "单一主体区域覆盖整页墨迹：深灰外轮廓、方框接缝、箭头连线、暖黄/暖棕实心块和文字轮廓都可由纸色分隔线独立追踪；暖黄区域先描外轮廓再铺色。",
+      "stroke_breaks": "按从左到右、从上到下的顺序起笔；每个方框、箭头和文字块之间抬笔，不跨纸色空隙连线。",
+      "outline_then_fill": "整页轮廓先完成，再按同一区域顺序填充暖黄、金属灰与深色块；轮廓与填色不反向。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req",
+          "status": "pass",
+          "evidence": "实际查看 p08.png：三列卡片等高对齐，内部三个条目方框与底部结论行都没有压到卡片边框。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p09",
+      "status": "pass",
+      "source_sha256": "334922ecefcfb504e52a63fdf171227334fa858982289876647aed45ebe3d7ad",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为纯图解对象，没有人物或动物解剖；方框、箭头与色块之间保留纸色分隔，遮挡只发生在箭头压到框边的少量区域，按图形层处理。",
+      "part_boundaries": "单一主体区域覆盖整页墨迹：深灰外轮廓、方框接缝、箭头连线、暖黄/暖棕实心块和文字轮廓都可由纸色分隔线独立追踪；暖黄区域先描外轮廓再铺色。",
+      "stroke_breaks": "按从左到右、从上到下的顺序起笔；每个方框、箭头和文字块之间抬笔，不跨纸色空隙连线。",
+      "outline_then_fill": "整页轮廓先完成，再按同一区域顺序填充暖黄、金属灰与深色块；轮廓与填色不反向。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req",
+          "status": "pass",
+          "evidence": "实际查看 p09.png：左右两个方框等高，四个叉与四个勾对齐成列，底部 modeling_llama.py 方框与左侧说明分离。"
+        }
+      ]
+    }
+  ]
+}

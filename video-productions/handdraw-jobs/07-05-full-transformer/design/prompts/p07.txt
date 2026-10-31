@@ -1,0 +1,1 @@
+industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 上方两个方框分别写多头注意力 4·d² 与暖黄的 SwiGLU 前馈 3·r·d²，中间一个加号圆；下方三行算式写到每层约 198M，再用一个方框写 198M × 32 层 ≈ 6.3B，箭头指向暖黄圆章 ≈ 7B，旁边标 Llama 3 8B。 Visible: 算式从 4·d² 与 3·r·d² 推到每层 198M，再乘 32 层得到约 6.3B 与 7B。. No people, no photorealism, no dark background, no watermark.

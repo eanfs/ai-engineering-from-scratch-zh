@@ -1,0 +1,1 @@
+industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 两行三列的六张卡片，编号 1 到 6，分别写嵌入 + 位置、自注意力、前馈 FFN、残差、归一化、交叉注意力，每张卡片下方一行小字说明作用。 Visible: 六张编号卡片一字排开，覆盖嵌入与位置、自注意力、前馈、残差、归一化、交叉注意力。. No people, no photorealism, no dark background, no watermark.

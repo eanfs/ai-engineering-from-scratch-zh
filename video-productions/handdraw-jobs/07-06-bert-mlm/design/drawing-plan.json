@@ -1,0 +1,374 @@
+{
+  "version": 1,
+  "illustrations": [
+    {
+      "id": "ill-p01",
+      "page": "p01",
+      "composition": "左侧卡片标 GPT，三个词块后接一个暖黄色块写「好」；右侧卡片标 BERT，两个词块后是实心黑的 [MASK]，再跟一个词块，下方箭头标注「补回很」；底部三行说明 2018 年之前每个任务都要从零训练。",
+      "drawability_reason": "两张卡片、词块、箭头和文字都可独立追踪；实心黑只用于 [MASK] 与暖黄只用于被预测的词。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "图形外轮廓",
+            "方框与卡片接缝",
+            "箭头与连线",
+            "暖黄色块边界",
+            "标注文字轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req",
+          "narration_quote": "GPT 预测下一个词，BERT 预测被挖掉的词。",
+          "observable": "左边 GPT 只看左边猜下一个词，右边 BERT 中间留一个 [MASK] 由两边补全。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p02",
+      "page": "p02",
+      "composition": "一行九个英文词块，其中两处被换成实心黑的 [M]，下方箭头指向原来的 quick 与 over；中部两行说明标签与损失；下半部一块暖黄横条写「编码器是双向的」。",
+      "drawability_reason": "九个词块、两个箭头与暖黄横条都是独立轮廓，实心黑只用于被遮位置。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "图形外轮廓",
+            "方框与卡片接缝",
+            "箭头与连线",
+            "暖黄色块边界",
+            "标注文字轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req",
+          "narration_quote": "一句话随机遮住百分之十五的位置，让模型把原词补回来。",
+          "observable": "九个词里两个被遮掉，箭头指回原词 quick 与 over，暖黄横条说明双向。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p03",
+      "page": "p03",
+      "composition": "三根柱状条表示 80%、10%、10%，分别填暖黄、金属灰和留白，柱顶标百分比，柱下标用途；底部两行回答为什么不全部用 [MASK]。",
+      "drawability_reason": "三根柱子与文字标签都是规则轮廓，三种填充区分明显。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "图形外轮廓",
+            "方框与卡片接缝",
+            "箭头与连线",
+            "暖黄色块边界",
+            "标注文字轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req",
+          "narration_quote": "为什么不全部用掩码，因为推理时根本不会出现掩码符号。",
+          "observable": "80% 换成 [MASK]、10% 换成随机词、10% 保持原样三条同时可见。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p04",
+      "page": "p04",
+      "composition": "四张数据卡并排，分别写 15.03%、79.80%、10.15%、10.04%，第一张整块暖黄；卡片下方一条分隔线与三行代码路径说明。",
+      "drawability_reason": "四张卡片规则等高，数字与标签层次清楚，暖黄只用于被选中那一项。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "图形外轮廓",
+            "方框与卡片接缝",
+            "箭头与连线",
+            "暖黄色块边界",
+            "标注文字轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req",
+          "narration_quote": "其中百分之七十九点八换成掩码，百分之十点一五换成随机词。",
+          "observable": "四个实测百分比并排出现，与目标值 15%、80%、10%、10% 逐项对照。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p05",
+      "page": "p05",
+      "composition": "左侧上下两个句子框由箭头连接，中间一个问号圆问「B 是否紧跟 A？」，右侧一个大叉与「RoBERTa 2019 消融」；下方两行结论与一条暖黄横条。",
+      "drawability_reason": "句子框、问号圆、大叉与暖黄横条都是清晰轮廓，叉用两根粗线即可描出。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "图形外轮廓",
+            "方框与卡片接缝",
+            "箭头与连线",
+            "暖黄色块边界",
+            "标注文字轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req",
+          "narration_quote": "RoBERTa 在二零一九年做了消融，发现这个任务帮倒忙。",
+          "observable": "两个句子、一个问号和一个大叉同时出现，说明 NSP 被消融掉。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p06",
+      "page": "p06",
+      "composition": "一行六个 token：白底 [CLS]、四个实心黑的子词、白底 [SEP]，下方一个方括号跨度标出整词范围；中部两行说明；下半部暖黄横条写「忽略索引 = -100」。",
+      "drawability_reason": "六个 token 框、跨度括号与暖黄横条都可独立描线，实心黑只用于被遮子词。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "图形外轮廓",
+            "方框与卡片接缝",
+            "箭头与连线",
+            "暖黄色块边界",
+            "标注文字轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req",
+          "narration_quote": "序列开头加分类符号，句子之间加分隔符号，被遮位置之外全部记为忽略。",
+          "observable": "整词跨度括号把四个子词一起括住，[CLS]、[SEP] 与被遮位置区分清楚。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p07",
+      "page": "p07",
+      "composition": "一条横时间轴，四个节点依次是 2018 BERT、+18 个月横扫榜单、2020 每个搜索、2026 每 token 快 5–10×，最后一个节点填暖黄；中部两行说明；下方两张卡片，右侧暖黄写「检索栈的脊梁」。",
+      "drawability_reason": "时间轴、四个节点圆、两张卡片都是独立轮廓，暖黄只用于最后一个节点与右侧卡片。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "图形外轮廓",
+            "方框与卡片接缝",
+            "箭头与连线",
+            "暖黄色块边界",
+            "标注文字轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req",
+          "narration_quote": "到二零二零年，每个搜索引擎、内容审核和语义检索系统里都装着一个 BERT。",
+          "observable": "时间轴从 2018 走到 2026，节点上标出横扫榜单、每个搜索与 5–10 倍加速。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p08",
+      "page": "p08",
+      "composition": "一张六行对照表，左列部件名，中间列 2018 的取值，箭头指向右侧 2024 的取值方框，其中归一化与上下文两行填暖黄；表格右上一个说明框写 8K 时比 DeBERTa-v3 快 2–3 倍。",
+      "drawability_reason": "表格线、箭头与方框都是规则轮廓，暖黄只填两行被强调的替换。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "图形外轮廓",
+            "方框与卡片接缝",
+            "箭头与连线",
+            "暖黄色块边界",
+            "标注文字轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req",
+          "narration_quote": "位置换成 RoPE，激活换成 GeGLU，归一化换成前置 RMSNorm。",
+          "observable": "六行同时给出 2018 与 2024 的取值，暖黄标出前置 RMSNorm 与 8192 上下文。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p09",
+      "page": "p09",
+      "composition": "左边白底卡片写「别选」，三条各配一个叉；右边整块暖黄写「该选」，四条各配一个勾；下方分隔线与三行说明。",
+      "drawability_reason": "两张卡片、三叉四勾都是独立图形，暖黄整块只用于右侧。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "图形外轮廓",
+            "方框与卡片接缝",
+            "箭头与连线",
+            "暖黄色块边界",
+            "标注文字轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req",
+          "narration_quote": "第二个边界：十亿参数以下，一个小解码器往往更灵活。",
+          "observable": "左边三条打叉、右边四条打勾，列出生成任务与检索分类两类边界。"
+        }
+      ]
+    }
+  ]
+}

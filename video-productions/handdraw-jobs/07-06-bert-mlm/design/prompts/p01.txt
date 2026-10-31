@@ -1,0 +1,1 @@
+industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 左侧卡片标 GPT，三个词块后接一个暖黄色块写「好」；右侧卡片标 BERT，两个词块后是实心黑的 [MASK]，再跟一个词块，下方箭头标注「补回很」；底部三行说明 2018 年之前每个任务都要从零训练。 Visible: 左边 GPT 只看左边猜下一个词，右边 BERT 中间留一个 [MASK] 由两边补全。. No people, no photorealism, no dark background, no watermark.

@@ -1,0 +1,1 @@
+industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 上半部编码器一行四个方框 LN → 自注意力 → LN → FFN，自注意力填暖黄；下半部解码器一行六个方框 LN → 掩码自注意 → LN → 交叉注意 → LN → FFN，交叉注意填暖黄；一条虚线从编码器末端绕到交叉注意方框顶端，标注 K, V。 Visible: 编码器四个方框、解码器六个方框同时可见，虚线把编码器输出接到交叉注意力。. No people, no photorealism, no dark background, no watermark.

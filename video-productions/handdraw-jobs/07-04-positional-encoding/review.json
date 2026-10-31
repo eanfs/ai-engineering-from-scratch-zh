@@ -1,0 +1,28 @@
+{
+  "video_sha256": "c8fae78e160d70394bbb65133fc48ef9b644bcb9a506b1c53c34e2dc69a28396",
+  "content": {
+    "status": "pass",
+    "evidence": "按 83 句旁白校正稿核对字幕与画面；逐页确认标题、插画与旁白语义对应，技术表述保留「原理示意」限定，未出现训练指标宣称。"
+  },
+  "visual": {
+    "status": "pass",
+    "evidence": "实际查看 decoded-00..11 与 page-00..10、decoded-contact：11 页主体都在画布内，标题与字幕分层清晰，无越界与压字。"
+  },
+  "motion": {
+    "status": "pass",
+    "evidence": "查看 representative 连续帧与最终 mp4 抽帧：逐笔描线→上色顺序一致，笔尖位置连续，页间切换为滑动，无突然补色。"
+  },
+  "audio": {
+    "status": "pass",
+    "evidence": "工程检查：旁白母带与 alignment 哈希一致、loudness -19.x LUFS、AAC 编码后与 mix 相关度>0.99、末句完整；主观听感未验收（无听音环节）。"
+  },
+  "privacy": {
+    "status": "pass",
+    "evidence": "11 张插画均经 clean_image.py 重编码并写 clean-p*.json，嵌入元数据为空、像素不变；扩展属性不可用已记录，不宣称消除 AI 来源识别。"
+  },
+  "limitations": [
+    "未做主观听音验收（只做 ASR 与音轨/响度工程检查）",
+    "1080p/30fps 版本因本机内存压力未能完成，本次交付为 1280×720/24fps",
+    "标题字体使用 Noto Sans CJK，非手写字体"
+  ]
+}

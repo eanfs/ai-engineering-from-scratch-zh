@@ -1,0 +1,626 @@
+{
+  "version": 1,
+  "title": "BERT：掩码语言建模",
+  "design_file": "design.json",
+  "art_direction": {
+    "record": "design/art-direction.json"
+  },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "cover": {
+    "source": "inputs/cover.png",
+    "seconds": 1.0
+  },
+  "hand": {
+    "preset": "teacher-pen",
+    "scale": 0.26
+  },
+  "narration": {
+    "source": "inputs/narration/master.wav",
+    "alignment": "inputs/narration/alignment.json"
+  },
+  "audio": {
+    "end_hold_seconds": 0.65,
+    "music": {
+      "source": "inputs/music.wav",
+      "gain": 0.14,
+      "user_instruction": "用户选择复用 07-04 任务的科普轻电子配乐，作为低音量铺底，不压过旁白"
+    }
+  },
+  "font": {
+    "path": "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf",
+    "index": 0
+  },
+  "captions": {
+    "font": {
+      "path": "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf",
+      "index": 0
+    },
+    "font_size": 42,
+    "color": "#FFFFFF",
+    "bottom_margin": 54,
+    "max_width_ratio": 0.86,
+    "max_lines": 2,
+    "stroke_width": 4,
+    "stroke_color": "#1E1E1E",
+    "background": null
+  },
+  "paper": "#FFFDF7",
+  "ending": {
+    "fade_seconds": 0.55
+  },
+  "drawing_plan": "design/drawing-plan.json",
+  "drawing_review": "design/drawing-review.json",
+  "pages": [
+    {
+      "id": "p01",
+      "title": "预测下一个词 vs 完整填空",
+      "illustration": "p01",
+      "beats": [
+        {
+          "id": "p01-b01",
+          "text": "阶段 7，第 6 课：BERT 与掩码语言建模。"
+        },
+        {
+          "id": "p01-b02",
+          "text": "GPT 预测下一个词，BERT 预测被挖掉的词。"
+        },
+        {
+          "id": "p01-b03",
+          "text": "二零一八年之前，每个 NLP 任务都要在自己的标注数据上从零训练。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p01.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p01",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p02",
+      "title": "一句话遮 15%",
+      "illustration": "p02",
+      "beats": [
+        {
+          "id": "p02-b01",
+          "text": "BERT 拿一个编码器，在全部互联网文本上做填空。"
+        },
+        {
+          "id": "p02-b02",
+          "text": "一句话随机遮住百分之十五的位置，让模型把原词补回来。"
+        },
+        {
+          "id": "p02-b03",
+          "text": "编码器是双向的，补中间那个词时，两边的上下文都用得上。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p02.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p02",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p03",
+      "title": "三分规则",
+      "illustration": "p03",
+      "beats": [
+        {
+          "id": "p03-b01",
+          "text": "被选中的位置里，八成换成掩码符号，一成换成随机词，一成保持原样。"
+        },
+        {
+          "id": "p03-b02",
+          "text": "为什么不全部用掩码，因为推理时根本不会出现掩码符号。"
+        },
+        {
+          "id": "p03-b03",
+          "text": "训练时百分之百期待掩码，预训练和微调之间就出现了分布偏移。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p03.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p03",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p04",
+      "title": "实跑：一万次抽样",
+      "illustration": "p04",
+      "beats": [
+        {
+          "id": "p04-b01",
+          "text": "跑一万次抽样：被选中的是百分之十五点零三。"
+        },
+        {
+          "id": "p04-b02",
+          "text": "其中百分之七十九点八换成掩码，百分之十点一五换成随机词。"
+        },
+        {
+          "id": "p04-b03",
+          "text": "剩下百分之十点零四保持原样，三分规则确实在按比例执行。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p04.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p04",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p05",
+      "title": "下一句预测被砍",
+      "illustration": "p05",
+      "beats": [
+        {
+          "id": "p05-b01",
+          "text": "原版 BERT 还训练了下一句预测：给两句话，判断后一句是不是跟着前一句。"
+        },
+        {
+          "id": "p05-b02",
+          "text": "RoBERTa 在二零一九年做了消融，发现这个任务帮倒忙。"
+        },
+        {
+          "id": "p05-b03",
+          "text": "所以现代编码器直接跳过它，只留下掩码语言建模。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p05.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p05",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p06",
+      "title": "整词掩码与忽略索引",
+      "illustration": "p06",
+      "beats": [
+        {
+          "id": "p06-b01",
+          "text": "整词掩码是另一个改进：一个词被切成几个子词，就一起遮住或者一起不遮。"
+        },
+        {
+          "id": "p06-b02",
+          "text": "序列开头加分类符号，句子之间加分隔符号，被遮位置之外全部记为忽略。"
+        },
+        {
+          "id": "p06-b03",
+          "text": "忽略索引让损失只算被遮的那几个位置。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p06.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p06",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p07",
+      "title": "十八个月横扫榜单",
+      "illustration": "p07",
+      "beats": [
+        {
+          "id": "p07-b01",
+          "text": "结果很直接：十八个月内，BERT 系列横扫了当时所有 NLP 榜单。"
+        },
+        {
+          "id": "p07-b02",
+          "text": "到二零二零年，每个搜索引擎、内容审核和语义检索系统里都装着一个 BERT。"
+        },
+        {
+          "id": "p07-b03",
+          "text": "二零二六年它仍然每 token 快五到十倍，是检索栈的脊梁。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p07.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p07",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p08",
+      "title": "ModernBERT 的六项替换",
+      "illustration": "p08",
+      "beats": [
+        {
+          "id": "p08-b01",
+          "text": "二零二四年底的 ModernBERT，用现代原语重建了同一个编码器。"
+        },
+        {
+          "id": "p08-b02",
+          "text": "位置换成 RoPE，激活换成 GeGLU，归一化换成前置 RMSNorm。"
+        },
+        {
+          "id": "p08-b03",
+          "text": "注意力交替使用一百二十八的局部窗口和全局注意力，上下文从五百一十二拉到八千一百九十二。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p08.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p08",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p09",
+      "title": "别选与该选",
+      "illustration": "p09",
+      "beats": [
+        {
+          "id": "p09-b01",
+          "text": "第一个边界：凡是生成任务，都别选编码器。"
+        },
+        {
+          "id": "p09-b02",
+          "text": "第二个边界：十亿参数以下，一个小解码器往往更灵活。"
+        },
+        {
+          "id": "p09-b03",
+          "text": "该选的时候很明确：检索、分类、命名实体识别，还有交叉编码器重排。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p09.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p09",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 一行六个 token：白底 [CLS]、四个实心黑的子词、白底 [SEP]，下方一个方括号跨度标出整词范围；中部两行说明；下半部暖黄横条写「忽略索引 = -100」。 Visible: 整词跨度括号把四个子词一起括住，[CLS]、[SEP] 与被遮位置区分清楚。. No people, no photorealism, no dark background, no watermark.

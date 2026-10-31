@@ -1,0 +1,31 @@
+{
+  "video_sha256": "6a511f7178ef8a4b1f6215090b853689d484aa0648541114b59b7408da23b124",
+  "content": {
+    "status": "pass",
+    "evidence": "逐页对照课程正文与旁白：p02 的自回归 GPT 与双向 BERT 对照、p03 的 15% 选位与 80/10/10 三分、p04 的实跑 15.03%/79.80%/10.15%/10.04%、p05 的 NSP 被 RoBERTa 消融、p06 的整词掩码与 -100 忽略索引、p07 的 2018→2026 时间线、p08 的 ModernBERT 六项替换（RoPE / GeGLU / 前置 RMSNorm / 局部 128+全局 / 8192 / BPE）、p09 的别选与该选均与 phases/07-transformers-deep-dive/06-bert-mlm/docs/zh.md 及 code/main.py 实跑输出一致；四个百分比直接取自学程运行结果。"
+  },
+  "visual": {
+    "status": "pass",
+    "evidence": "实际查看 outputs/cover.png 与 9 页完成帧（16.10/32.25/51.20/68.60/85.90/104.71/124.06/145.67/162.80s）：12 工业设计马克笔风格、teacher-pen 白衬衫手、#FFFDF7 暖白纸与暖黄/暖棕/金属灰配色；每页只保留一个标题，图解与字幕带无重叠（含此前修好的 p06「忽略索引 = -100」色块），并以 -100 遮罩与 80/10/10 柱状图承载重点。"
+  },
+  "motion": {
+    "status": "pass",
+    "evidence": "抽查 9 页页面结束帧与代表段预览：teacher-pen 笔尖沿轮廓推进，暖黄区域在轮廓后铺色，每页绘制在最后一句结束前完成并移出画面；未以人眼完整正常速度播放全片。"
+  },
+  "audio": {
+    "status": "pass",
+    "evidence": "verify 报告音轨相关度 0.99998、末句后总静音 1.15s（≤1.2s）、响度归一化到 -17 LUFS 左右；字幕与 alignment 逐句一致。文字/音轨检查通过，主观听感未验收。"
+  },
+  "privacy": {
+    "status": "pass",
+    "evidence": "10 张插图与封面均由本地 PIL 绘制，并逐张运行 clean_image.py 重编码；work/clean-*.json 显示 embedded_metadata_empty=true、pixels_unchanged=true、xattrs_remaining=[]（xattr_check 在当前环境为 unavailable）。不承诺 AI 来源识别。"
+  },
+  "limitations": [
+    "未以人眼完整正常速度播放约 164 秒全片；运动流畅度基于各页结束帧与代表段预览。",
+    "未实际听音；旁白自然度与配乐听感未验收。",
+    "插图是本地几何图解，笔触比生成式插画更规整；与 07-04、07-05、14-04 共用画风、配色、纸张与手部。",
+    "p08 的长字幕在画面底部折成两行，仍在安全区内，但比单行页更靠近下边缘。",
+    "配乐复用 07-04 任务素材，不是为 07-06 单独制作。",
+    "旁白母带只裁掉了末尾外层静音，master-original.wav 保留原始文件。"
+  ]
+}

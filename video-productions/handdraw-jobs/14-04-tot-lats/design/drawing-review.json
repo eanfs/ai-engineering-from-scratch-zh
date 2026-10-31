@@ -1,0 +1,168 @@
+{
+  "style_sha256": "036099009ec8b7789d9d2613e6c7fe64d045ce56d93a53a4f139da13261cd628",
+  "plan_sha256": "1214dbe1c2c2ef9eb686f65d1274e7d9249d008105abbc405ba20096aacbdce9",
+  "illustrations": [
+    {
+      "plan_id": "ill-p01",
+      "status": "pass",
+      "source_sha256": "d455af09e89b3a6235db523bcf4d5c4cc108548a6e4bcab6937b0bcb6b47052a",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为纯图解对象，没有人物或动物解剖；节点、方框、箭头和文字之间保留白色分隔，遮挡只发生在箭头压到节点边缘的少量区域，按图形层处理。",
+      "part_boundaries": "单一主体区域覆盖整页墨迹：深灰外轮廓、节点/方框接缝、箭头连线、暖黄/暖棕实心块和文字轮廓都可由暖白分隔线独立追踪；暖黄与暖棕区域先描外轮廓再铺色。",
+      "stroke_breaks": "按从左到右、从上到下的顺序起笔；每个节点、方框、箭头和文字块之间抬笔，不跨白色空隙连线。",
+      "outline_then_fill": "整页轮廓先完成，再按同一区域顺序填充实心黑与排线；轮廓与填色不反向。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req-p01",
+          "status": "pass",
+          "evidence": "实际查看 p01.png：画面同时出现一条不能回头的三步链和一棵带虚线回溯箭头的搜索树。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p02",
+      "status": "pass",
+      "source_sha256": "cc71e71975a6b6ff0cb7be1aacb54db57fa360f780a5d43dc8e47d7244d39c8c",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为纯图解对象，没有人物或动物解剖；节点、方框、箭头和文字之间保留白色分隔，遮挡只发生在箭头压到节点边缘的少量区域，按图形层处理。",
+      "part_boundaries": "单一主体区域覆盖整页墨迹：深灰外轮廓、节点/方框接缝、箭头连线、暖黄/暖棕实心块和文字轮廓都可由暖白分隔线独立追踪；暖黄与暖棕区域先描外轮廓再铺色。",
+      "stroke_breaks": "按从左到右、从上到下的顺序起笔；每个节点、方框、箭头和文字块之间抬笔，不跨白色空隙连线。",
+      "outline_then_fill": "整页轮廓先完成，再按同一区域顺序填充实心黑与排线；轮廓与填色不反向。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req-p02",
+          "status": "pass",
+          "evidence": "实际查看 p02.png：4% 的黑色短柱与 74% 的排线长柱并排，顶部有 4、6、4、1 和 24。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p03",
+      "status": "pass",
+      "source_sha256": "363d6a615ff684dd3fd5c4e07dd00dc46a509909cde517ed0fd0f3fa7f874be2",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为纯图解对象，没有人物或动物解剖；节点、方框、箭头和文字之间保留白色分隔，遮挡只发生在箭头压到节点边缘的少量区域，按图形层处理。",
+      "part_boundaries": "单一主体区域覆盖整页墨迹：深灰外轮廓、节点/方框接缝、箭头连线、暖黄/暖棕实心块和文字轮廓都可由暖白分隔线独立追踪；暖黄与暖棕区域先描外轮廓再铺色。",
+      "stroke_breaks": "按从左到右、从上到下的顺序起笔；每个节点、方框、箭头和文字块之间抬笔，不跨白色空隙连线。",
+      "outline_then_fill": "整页轮廓先完成，再按同一区域顺序填充实心黑与排线；轮廓与填色不反向。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req-p03",
+          "status": "pass",
+          "evidence": "实际查看 p03.png：根节点、三条展开边、三个带分数的子节点，以及节点/边/价值三件套图例同屏。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p04",
+      "status": "pass",
+      "source_sha256": "aebc8edfa31ea126a4f3af2c2a920552bf1503247bc2441b67fc129792eca964",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为纯图解对象，没有人物或动物解剖；节点、方框、箭头和文字之间保留白色分隔，遮挡只发生在箭头压到节点边缘的少量区域，按图形层处理。",
+      "part_boundaries": "单一主体区域覆盖整页墨迹：深灰外轮廓、节点/方框接缝、箭头连线、暖黄/暖棕实心块和文字轮廓都可由暖白分隔线独立追踪；暖黄与暖棕区域先描外轮廓再铺色。",
+      "stroke_breaks": "按从左到右、从上到下的顺序起笔；每个节点、方框、箭头和文字块之间抬笔，不跨白色空隙连线。",
+      "outline_then_fill": "整页轮廓先完成，再按同一区域顺序填充实心黑与排线；轮廓与填色不反向。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req-p04",
+          "status": "pass",
+          "evidence": "实际查看 p04.png：每个子节点内写有分数，右上放大镜标自评，底部标出 BFS、DFS、beam。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p05",
+      "status": "pass",
+      "source_sha256": "496f9122bac1f7fb98e718cca902de44d2f1790c84d2504c9eb5312bcfd8bede",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为纯图解对象，没有人物或动物解剖；节点、方框、箭头和文字之间保留白色分隔，遮挡只发生在箭头压到节点边缘的少量区域，按图形层处理。",
+      "part_boundaries": "单一主体区域覆盖整页墨迹：深灰外轮廓、节点/方框接缝、箭头连线、暖黄/暖棕实心块和文字轮廓都可由暖白分隔线独立追踪；暖黄与暖棕区域先描外轮廓再铺色。",
+      "stroke_breaks": "按从左到右、从上到下的顺序起笔；每个节点、方框、箭头和文字块之间抬笔，不跨白色空隙连线。",
+      "outline_then_fill": "整页轮廓先完成，再按同一区域顺序填充实心黑与排线；轮廓与填色不反向。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req-p05",
+          "status": "pass",
+          "evidence": "实际查看 p05.png：加粗路径终点是 27，旁边明确写出 ≠ 和一个未到达的 24。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p06",
+      "status": "pass",
+      "source_sha256": "8fc93073b51779b29246e168dc15c31366778900f9c564ac462055adfb84f834",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为纯图解对象，没有人物或动物解剖；节点、方框、箭头和文字之间保留白色分隔，遮挡只发生在箭头压到节点边缘的少量区域，按图形层处理。",
+      "part_boundaries": "单一主体区域覆盖整页墨迹：深灰外轮廓、节点/方框接缝、箭头连线、暖黄/暖棕实心块和文字轮廓都可由暖白分隔线独立追踪；暖黄与暖棕区域先描外轮廓再铺色。",
+      "stroke_breaks": "按从左到右、从上到下的顺序起笔；每个节点、方框、箭头和文字块之间抬笔，不跨白色空隙连线。",
+      "outline_then_fill": "整页轮廓先完成，再按同一区域顺序填充实心黑与排线；轮廓与填色不反向。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req-p06",
+          "status": "pass",
+          "evidence": "实际查看 p06.png：四个步骤名和顺时针箭头构成闭环，中心同时出现三个角色。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p07",
+      "status": "pass",
+      "source_sha256": "ad8733eafe785b9e4782902d320eff4744cba09966cc1bdae17daeca94515684",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为纯图解对象，没有人物或动物解剖；节点、方框、箭头和文字之间保留白色分隔，遮挡只发生在箭头压到节点边缘的少量区域，按图形层处理。",
+      "part_boundaries": "单一主体区域覆盖整页墨迹：深灰外轮廓、节点/方框接缝、箭头连线、暖黄/暖棕实心块和文字轮廓都可由暖白分隔线独立追踪；暖黄与暖棕区域先描外轮廓再铺色。",
+      "stroke_breaks": "按从左到右、从上到下的顺序起笔；每个节点、方框、箭头和文字块之间抬笔，不跨白色空隙连线。",
+      "outline_then_fill": "整页轮廓先完成，再按同一区域顺序填充实心黑与排线；轮廓与填色不反向。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req-p07",
+          "status": "pass",
+          "evidence": "实际查看 p07.png：6×4=24 的成功链、勾选标记、286 次展开和 92.7% 同屏。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p08",
+      "status": "pass",
+      "source_sha256": "be96327e1e1b18ca996a700806314f566a43d99c6b3146cd725ab9086159e8cf",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为纯图解对象，没有人物或动物解剖；节点、方框、箭头和文字之间保留白色分隔，遮挡只发生在箭头压到节点边缘的少量区域，按图形层处理。",
+      "part_boundaries": "单一主体区域覆盖整页墨迹：深灰外轮廓、节点/方框接缝、箭头连线、暖黄/暖棕实心块和文字轮廓都可由暖白分隔线独立追踪；暖黄与暖棕区域先描外轮廓再铺色。",
+      "stroke_breaks": "按从左到右、从上到下的顺序起笔；每个节点、方框、箭头和文字块之间抬笔，不跨白色空隙连线。",
+      "outline_then_fill": "整页轮廓先完成，再按同一区域顺序填充实心黑与排线；轮廓与填色不反向。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req-p08",
+          "status": "pass",
+          "evidence": "实际查看 p08.png：1×、100×、1000× 三档成本并排，顶部有噪声评估器警告。"
+        }
+      ]
+    },
+    {
+      "plan_id": "ill-p09",
+      "status": "pass",
+      "source_sha256": "04ac63783ba4027dbc0b70f08885734da1cec1c453413de7db113351eaf0771d",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为纯图解对象，没有人物或动物解剖；节点、方框、箭头和文字之间保留白色分隔，遮挡只发生在箭头压到节点边缘的少量区域，按图形层处理。",
+      "part_boundaries": "单一主体区域覆盖整页墨迹：深灰外轮廓、节点/方框接缝、箭头连线、暖黄/暖棕实心块和文字轮廓都可由暖白分隔线独立追踪；暖黄与暖棕区域先描外轮廓再铺色。",
+      "stroke_breaks": "按从左到右、从上到下的顺序起笔；每个节点、方框、箭头和文字块之间抬笔，不跨白色空隙连线。",
+      "outline_then_fill": "整页轮廓先完成，再按同一区域顺序填充实心黑与排线；轮廓与填色不反向。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "req-p09",
+          "status": "pass",
+          "evidence": "实际查看 p09.png：搜索位于复杂度阈值门后，左侧是 ReAct 生产路径，底部是成本问题。"
+        }
+      ]
+    }
+  ]
+}
