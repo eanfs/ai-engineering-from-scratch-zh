@@ -1,0 +1,43 @@
+{
+  "language": {
+    "value": "zh-CN",
+    "status": "explicit",
+    "evidence": "用户指定中文旁白 mp3"
+  },
+  "duration_seconds": {
+    "value": 331.795,
+    "status": "explicit",
+    "evidence": "用户提供完整旁白 位置编码完整旁白.mp3，时长 331.795 s"
+  },
+  "canvas": {
+    "value": {
+      "width": 1920,
+      "height": 1080,
+      "ratio": "16:9"
+    },
+    "status": "explicit",
+    "evidence": "用户选择 横屏 16:9 · 1920×1080"
+  },
+  "style": {
+    "value": {
+      "mode": "catalog",
+      "catalog_id": "12",
+      "name": "工业设计马克笔手绘"
+    },
+    "status": "explicit",
+    "evidence": "用户选择 12 工业设计马克笔手绘"
+  },
+  "hand": {
+    "value": "teacher-pen",
+    "status": "explicit",
+    "evidence": "用户选择 teacher-pen 白衬衫中性笔"
+  },
+  "music": {
+    "value": {
+      "mode": "user_supplied",
+      "source": null
+    },
+    "status": "explicit",
+    "evidence": "用户选择我提供音乐文件，文件路径待给出"
+  }
+}

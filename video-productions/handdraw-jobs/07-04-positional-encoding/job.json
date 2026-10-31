@@ -1,0 +1,1050 @@
+{
+  "version": 1,
+  "title": "位置编码：注意力怎么知道顺序",
+  "design_file": "design.json",
+  "art_direction": {
+    "record": "design/art-direction.json"
+  },
+  "canvas": {
+    "width": 1280,
+    "height": 720,
+    "fps": 24
+  },
+  "cover": {
+    "source": "inputs/p01.png",
+    "seconds": 1.0
+  },
+  "hand": {
+    "preset": "teacher-pen"
+  },
+  "narration": {
+    "source": "inputs/narration/master.wav",
+    "alignment": "inputs/narration/alignment.json"
+  },
+  "audio": {
+    "end_hold_seconds": 0.8,
+    "music": {
+      "source": "inputs/music.wav",
+      "gain": 0.3,
+      "user_instruction": "用户提供的科普轻电子背景音乐（已循环到片长并加 2.5 s 尾淡出），作为低音量铺底，不压过旁白"
+    }
+  },
+  "font": {
+    "path": "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf",
+    "index": 0
+  },
+  "captions": {
+    "font": {
+      "path": "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf",
+      "index": 0
+    },
+    "font_size": 28,
+    "color": "#FFFFFF",
+    "bottom_margin": 36,
+    "max_width_ratio": 0.86,
+    "max_lines": 2,
+    "stroke_width": 3,
+    "stroke_color": "#1E1E1E",
+    "background": null
+  },
+  "paper": "#FFFDF7",
+  "ending": {
+    "fade_seconds": 0.6
+  },
+  "drawing_plan": "design/drawing-plan.json",
+  "drawing_review": "design/drawing-review.json",
+  "pages": [
+    {
+      "id": "p01",
+      "title": "位置一丢，顺序就没了",
+      "illustration": "p01",
+      "beats": [
+        {
+          "id": "p01-b01",
+          "text": "把 the cat sat on the mat 六个词打乱，句子的意思就变了。"
+        },
+        {
+          "id": "p01-b02",
+          "text": "但如果没有位置信息，也没有因果掩码，"
+        },
+        {
+          "id": "p01-b03",
+          "text": "纯自注意力的输出只会跟着词的排列一起变化。"
+        },
+        {
+          "id": "p01-b04",
+          "text": "注意力分数由查询向量和键向量计算。"
+        },
+        {
+          "id": "p01-b05",
+          "text": "这个公式本身没有告诉模型，某个词排在前面还是后面。"
+        },
+        {
+          "id": "p01-b06",
+          "text": "所以问题就来了：注意力怎么知道谁在前、谁在后？"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 5,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "text",
+              "text": "位置一丢，顺序就没了",
+              "x": 100,
+              "y": 56,
+              "size": 42,
+              "color": "#2B2F33",
+              "weight": 0.45
+            },
+            {
+              "type": "illustration",
+              "source": "inputs/p01.png",
+              "x": 280,
+              "y": 168,
+              "width": 720,
+              "height": 405,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p01",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p02",
+      "title": "为什么这是致命的",
+      "illustration": "p02",
+      "beats": [
+        {
+          "id": "p02-b01",
+          "text": "在词袋模型里，这不算问题。"
+        },
+        {
+          "id": "p02-b02",
+          "text": "一袋词本来就没有顺序，打乱还是同一袋。"
+        },
+        {
+          "id": "p02-b03",
+          "text": "但语言、代码、音频、视频，凡是顺序承载意义的东西，"
+        },
+        {
+          "id": "p02-b04",
+          "text": "打乱就可能变成另一句话、另一个程序、另一段声音。"
+        },
+        {
+          "id": "p02-b05",
+          "text": "狗咬人和人咬狗包含相同的词，却表达不同的关系。"
+        },
+        {
+          "id": "p02-b06",
+          "text": "没有位置线索的自注意力，只能得到随排列重排的分数矩阵。"
+        },
+        {
+          "id": "p02-b07",
+          "text": "不能凭这个机制识别语序。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 6,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "text",
+              "text": "为什么这是致命的",
+              "x": 100,
+              "y": 56,
+              "size": 42,
+              "color": "#2B2F33",
+              "weight": 0.45
+            },
+            {
+              "type": "illustration",
+              "source": "inputs/p02.png",
+              "x": 280,
+              "y": 168,
+              "width": 720,
+              "height": 405,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p02",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p03",
+      "title": "三个时代的答案",
+      "illustration": "p03",
+      "beats": [
+        {
+          "id": "p03-b01",
+          "text": "第一个经典答案来自 2017 年的 Transformer。"
+        },
+        {
+          "id": "p03-b02",
+          "text": "把位置对应的正弦和余弦数值加到词向量上，"
+        },
+        {
+          "id": "p03-b03",
+          "text": "叫绝对正弦位置编码。"
+        },
+        {
+          "id": "p03-b04",
+          "text": "第二个答案是 2021 年提出的 RoPE，它不直接修改输入嵌入，"
+        },
+        {
+          "id": "p03-b05",
+          "text": "而是在注意力计算中按位置旋转查询和键向量。"
+        },
+        {
+          "id": "p03-b06",
+          "text": "第三个答案是 ALiBi。"
+        },
+        {
+          "id": "p03-b07",
+          "text": "它在 2021 年公开，发表于 2022 年。"
+        },
+        {
+          "id": "p03-b08",
+          "text": "直接给注意力分数加入随距离增大的线性惩罚。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 7,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "text",
+              "text": "三个时代的答案",
+              "x": 100,
+              "y": 56,
+              "size": 42,
+              "color": "#2B2F33",
+              "weight": 0.45
+            },
+            {
+              "type": "illustration",
+              "source": "inputs/p03.png",
+              "x": 280,
+              "y": 168,
+              "width": 720,
+              "height": 405,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p03",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p04",
+      "title": "正弦：给每个维度一个频率",
+      "illustration": "p04",
+      "beats": [
+        {
+          "id": "p04-b01",
+          "text": "先看正弦方案：预计算一张位置数乘以模型维度的表。"
+        },
+        {
+          "id": "p04-b02",
+          "text": "偶数维使用正弦，奇数维使用余弦。"
+        },
+        {
+          "id": "p04-b03",
+          "text": "每一对维度对应一种频率。"
+        },
+        {
+          "id": "p04-b04",
+          "text": "维度索引越小，变化越快。"
+        },
+        {
+          "id": "p04-b05",
+          "text": "索引越大，变化越慢。"
+        },
+        {
+          "id": "p04-b06",
+          "text": "像把不同刻度的尺子放在一起。"
+        },
+        {
+          "id": "p04-b07",
+          "text": "把某个位置的这一行加到词向量上，"
+        },
+        {
+          "id": "p04-b08",
+          "text": "就给内容附上了位置线索。"
+        },
+        {
+          "id": "p04-b09",
+          "text": "编码表本身不需要可训练参数，"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 8,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "text",
+              "text": "正弦：给每个维度一个频率",
+              "x": 100,
+              "y": 56,
+              "size": 42,
+              "color": "#2B2F33",
+              "weight": 0.45
+            },
+            {
+              "type": "illustration",
+              "source": "inputs/p04.png",
+              "x": 280,
+              "y": 168,
+              "width": 720,
+              "height": 405,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p04",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p05",
+      "title": "正弦的边界",
+      "illustration": "p05",
+      "beats": [
+        {
+          "id": "p05-b01",
+          "text": "但能计算新位置不等于模型能可靠理解新位置。"
+        },
+        {
+          "id": "p05-b02",
+          "text": "正弦公式可以继续往后算，"
+        },
+        {
+          "id": "p05-b03",
+          "text": "模型却未必见过这些更长的序列。"
+        },
+        {
+          "id": "p05-b04",
+          "text": "超过训练长度后，性能可能下降。"
+        },
+        {
+          "id": "p05-b05",
+          "text": "问题是泛化是否可靠，而不是正弦函数突然失效。"
+        },
+        {
+          "id": "p05-b06",
+          "text": "原始 Transformer 使用过这种方案。"
+        },
+        {
+          "id": "p05-b07",
+          "text": "需要区分的是，经典 BERT 使用的是学习式绝对位置嵌入，"
+        },
+        {
+          "id": "p05-b08",
+          "text": "而不是这张固定的正弦表。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 7,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "text",
+              "text": "正弦的边界",
+              "x": 100,
+              "y": 56,
+              "size": 42,
+              "color": "#2B2F33",
+              "weight": 0.45
+            },
+            {
+              "type": "illustration",
+              "source": "inputs/p05.png",
+              "x": 280,
+              "y": 168,
+              "width": 720,
+              "height": 405,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p05",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p06",
+      "title": "RoPE：旋转查询和键",
+      "illustration": "p06",
+      "beats": [
+        {
+          "id": "p06-b01",
+          "text": "再看 RoPE，它把查询和键向量的维度两两配对，"
+        },
+        {
+          "id": "p06-b02",
+          "text": "在每个二维平面里按位置旋转。"
+        },
+        {
+          "id": "p06-b03",
+          "text": "旋转角度等于位置乘以该维度对的频率，"
+        },
+        {
+          "id": "p06-b04",
+          "text": "频率由基数和维度决定。"
+        },
+        {
+          "id": "p06-b05",
+          "text": "一万是常见的早期设置，不是所有模型统一的默认值。"
+        },
+        {
+          "id": "p06-b06",
+          "text": "位置不同，旋转角度不同，"
+        },
+        {
+          "id": "p06-b07",
+          "text": "但查询和键使用同一套旋转规则，关键就在这套一致的规则。"
+        },
+        {
+          "id": "p06-b08",
+          "text": "旋转后的查询和键做点积，两次旋转可以合并成相对角度。"
+        },
+        {
+          "id": "p06-b09",
+          "text": "因此，位置影响通过两者的位置差进入分数。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 8,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "text",
+              "text": "RoPE：旋转查询和键",
+              "x": 100,
+              "y": 56,
+              "size": 42,
+              "color": "#2B2F33",
+              "weight": 0.45
+            },
+            {
+              "type": "illustration",
+              "source": "inputs/p06.png",
+              "x": 280,
+              "y": 168,
+              "width": 720,
+              "height": 405,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p06",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p07",
+      "title": "只取决于相对距离",
+      "illustration": "p07",
+      "beats": [
+        {
+          "id": "p07-b01",
+          "text": "这里必须保留一个条件。"
+        },
+        {
+          "id": "p07-b02",
+          "text": "查询和键的内容向量固定时，"
+        },
+        {
+          "id": "p07-b03",
+          "text": "相同的相对距离才会得到相同的旋转后点积。"
+        },
+        {
+          "id": "p07-b04",
+          "text": "内容变了，分数当然也会变化。"
+        },
+        {
+          "id": "p07-b05",
+          "text": "例如把位置三和五一起平移到七和九，"
+        },
+        {
+          "id": "p07-b06",
+          "text": "两者距离仍是二，就保留相同的相对旋转。"
+        },
+        {
+          "id": "p07-b07",
+          "text": "这里是原理示意，不把位置和键的数字当成本次实验结果。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 6,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "text",
+              "text": "只取决于相对距离",
+              "x": 100,
+              "y": 56,
+              "size": 42,
+              "color": "#2B2F33",
+              "weight": 0.45
+            },
+            {
+              "type": "illustration",
+              "source": "inputs/p07.png",
+              "x": 280,
+              "y": 168,
+              "width": 720,
+              "height": 405,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p07",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p08",
+      "title": "把 base 当旋钮",
+      "illustration": "p08",
+      "beats": [
+        {
+          "id": "p08-b01",
+          "text": "想把上下文窗口扩长，直接使用训练范围之外的相位模式可能不够。"
+        },
+        {
+          "id": "p08-b02",
+          "text": "调整基数是改变部分频率的一种办法。"
+        },
+        {
+          "id": "p08-b03",
+          "text": "增大基数通常会降低低频索引对应的旋转频率，"
+        },
+        {
+          "id": "p08-b04",
+          "text": "但不是把所有维度都等比例减速。"
+        },
+        {
+          "id": "p08-b05",
+          "text": "更慢的变化也不自动保证更好的长文本理解。"
+        },
+        {
+          "id": "p08-b06",
+          "text": "位置插值、NTK-aware、YaRN 和 LongRoPE 使用不同的频率或位置缩放策略，"
+        },
+        {
+          "id": "p08-b07",
+          "text": "还可能需要长序列训练与评估，不能简单看成同一个旋钮。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 6,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "text",
+              "text": "把 base 当旋钮",
+              "x": 100,
+              "y": 56,
+              "size": 42,
+              "color": "#2B2F33",
+              "weight": 0.45
+            },
+            {
+              "type": "illustration",
+              "source": "inputs/p08.png",
+              "x": 280,
+              "y": 168,
+              "width": 720,
+              "height": 405,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p08",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p09",
+      "title": "ALiBi：加距离惩罚",
+      "illustration": "p09",
+      "beats": [
+        {
+          "id": "p09-b01",
+          "text": "ALiBi 则换了一个思路，它不添加位置嵌入，"
+        },
+        {
+          "id": "p09-b02",
+          "text": "而是在 softmax 之前从注意力分数中减去与距离成正比的偏置。"
+        },
+        {
+          "id": "p09-b03",
+          "text": "不同注意力头使用不同斜率，有些头对远距离惩罚更强，有些头更弱。"
+        },
+        {
+          "id": "p09-b04",
+          "text": "在因果注意力中，未来位置仍有掩码排除。"
+        },
+        {
+          "id": "p09-b05",
+          "text": "这种方法不需要额外学习位置参数，但不等于训练零成本，"
+        },
+        {
+          "id": "p09-b06",
+          "text": "也不保证任何任务上都能无限外推。"
+        },
+        {
+          "id": "p09-b07",
+          "text": "最终效果仍需要测试，实际选型时不能把某种方案简单说成已经退场。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 6,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "text",
+              "text": "ALiBi：加距离惩罚",
+              "x": 100,
+              "y": 56,
+              "size": 42,
+              "color": "#2B2F33",
+              "weight": 0.45
+            },
+            {
+              "type": "illustration",
+              "source": "inputs/p09.png",
+              "x": 280,
+              "y": 168,
+              "width": 720,
+              "height": 405,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p09",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p10",
+      "title": "2026 年怎么选",
+      "illustration": "p10",
+      "beats": [
+        {
+          "id": "p10-b01",
+          "text": "任务类型、模型架构、训练长度和部署成本都会影响选择。"
+        },
+        {
+          "id": "p10-b02",
+          "text": "RoPE 在许多现代大语言模型中广泛使用。"
+        },
+        {
+          "id": "p10-b03",
+          "text": "具体模型采用哪个基数、哪种缩放方式，应查看对应版本的公开配置。"
+        },
+        {
+          "id": "p10-b04",
+          "text": "ALiBi 也用于一些模型，比较长"
+        },
+        {
+          "id": "p10-b05",
+          "text": "上下文能力时要同时看训练设置、位置策略和真实任务表现，而不能只看标称窗口。"
+        },
+        {
+          "id": "p10-b06",
+          "text": "现在把三种方案摆在一起：正弦是给输入加一张固定的表。"
+        },
+        {
+          "id": "p10-b07",
+          "text": "RoPE 是按位置旋转查询和键。"
+        },
+        {
+          "id": "p10-b08",
+          "text": "ALiBi 是给距离加惩罚，三种位置机制都可以不引入额外可训练的位置参数。"
+        },
+        {
+          "id": "p10-b09",
+          "text": "但这不意味着整个模型没有参数，也不意味着长度外推天然可靠。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 8,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "text",
+              "text": "2026 年怎么选",
+              "x": 100,
+              "y": 56,
+              "size": 42,
+              "color": "#2B2F33",
+              "weight": 0.45
+            },
+            {
+              "type": "illustration",
+              "source": "inputs/p10.png",
+              "x": 280,
+              "y": 168,
+              "width": 720,
+              "height": 405,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p10",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p11",
+      "title": "位置是注入的，不是学来的",
+      "illustration": "p12",
+      "beats": [
+        {
+          "id": "p11-b01",
+          "text": "它们的取舍在于位置线索从哪里进入、计算怎样与内容互动，以及超出训练范围后是否经过验证。"
+        },
+        {
+          "id": "p11-b02",
+          "text": "所以，今天这三种方案都是把位置结构显式注入模型；更广义的位置编码，"
+        },
+        {
+          "id": "p11-b03",
+          "text": "也可以使用学习得到的位置嵌入。记住三个动作：加表、旋转、加惩罚。"
+        },
+        {
+          "id": "p11-b04",
+          "text": "再遇到新模型时，就可以顺着这条线索去读它的注意力实现。"
+        },
+        {
+          "id": "p11-b05",
+          "text": "你的模型用的是哪一种？欢迎在评论区分享。"
+        },
+        {
+          "id": "p11-b06",
+          "text": "下一课，我们把这些部件装成完整的 Transformer。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 5,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "text",
+              "text": "位置是注入的，不是学来的",
+              "x": 100,
+              "y": 56,
+              "size": 42,
+              "color": "#2B2F33",
+              "weight": 0.45
+            },
+            {
+              "type": "illustration",
+              "source": "inputs/p12.png",
+              "x": 280,
+              "y": 168,
+              "width": 720,
+              "height": 405,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ill-p12",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

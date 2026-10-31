@@ -1,0 +1,445 @@
+{
+  "version": 1,
+  "illustrations": [
+    {
+      "id": "ill-p01",
+      "page": "p01",
+      "composition": "斜放的白色展示板占据画面中央，板上 6x6 暖黄叠色网格；上方两排小方块牌，第一排原序、第二排打乱。",
+      "drawability_reason": "板面外轮廓、网格线、牌块三类边界都清晰，可先描轮廓再按分件上色；草图重叠线只产生短碎线，自动简化后仍可分辨。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "主体外轮廓",
+            "分件接缝",
+            "内部细节线",
+            "接地阴影轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req-p01",
+          "narration_quote": "把 the cat sat on the mat 六个词打乱",
+          "observable": "画面必须出现斜放的白色展示板占据画面中央，板上 6x6 暖黄叠色网格；上方两排小方块牌，第一排原序、第二排打乱。，让观众能把它和这句旁白对上。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p02",
+      "page": "p02",
+      "composition": "两块并排卡片：左卡狗指向人形剪影，右卡人形剪影指向狗，中间一个等号。",
+      "drawability_reason": "两块卡、两个剪影、三支箭头边界独立，适合按卡片分件描线；剪影是纯轮廓动物/人形，非人物表演。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "主体外轮廓",
+            "分件接缝",
+            "内部细节线",
+            "接地阴影轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req-p02",
+          "narration_quote": "狗咬人和人咬狗包含相同的词",
+          "observable": "画面必须出现两块并排卡片：左卡狗指向人形剪影，右卡人形剪影指向狗，中间一个等号。，让观众能把它和这句旁白对上。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p03",
+      "page": "p03",
+      "composition": "水平时间轴横贯画面，三个基座分别托着正弦波板、旋转圆环、下斜坡。",
+      "drawability_reason": "轴、基座、三种物件各自闭合，按左到右顺序描线；无细碎纹理。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "主体外轮廓",
+            "分件接缝",
+            "内部细节线",
+            "接地阴影轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req-p03",
+          "narration_quote": "第一个经典答案来自 2017 年的 Transformer",
+          "observable": "画面必须出现水平时间轴横贯画面，三个基座分别托着正弦波板、旋转圆环、下斜坡。，让观众能把它和这句旁白对上。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p04",
+      "page": "p04",
+      "composition": "左侧 8x8 渐变网格板，右侧三条不同波长波浪带。",
+      "drawability_reason": "网格板与波浪带轮廓清晰，色块随笔尖出现；网格线细但规整。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "主体外轮廓",
+            "分件接缝",
+            "内部细节线",
+            "接地阴影轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req-p04",
+          "narration_quote": "每一对维度对应一种频率",
+          "observable": "画面必须出现左侧 8x8 渐变网格板，右侧三条不同波长波浪带。，让观众能把它和这句旁白对上。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p05",
+      "page": "p05",
+      "composition": "横放长尺：左半实心暖黄刻度，右半红灰虚线并在中段断开。",
+      "drawability_reason": "尺身、刻度、断口三类边界明确，适合按尺身与断口分件。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "主体外轮廓",
+            "分件接缝",
+            "内部细节线",
+            "接地阴影轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req-p05",
+          "narration_quote": "超过训练长度后，性能可能下降",
+          "observable": "画面必须出现横放长尺：左半实心暖黄刻度，右半红灰虚线并在中段断开。，让观众能把它和这句旁白对上。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p06",
+      "page": "p06",
+      "composition": "倾斜圆盘：盘面细刻度，两支从圆心出发的箭头（实线与虚线），一条圆弧箭头。",
+      "drawability_reason": "圆盘、箭头、弧线均闭合可追踪；含少量细刻度。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "主体外轮廓",
+            "分件接缝",
+            "内部细节线",
+            "接地阴影轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req-p06",
+          "narration_quote": "在每个二维平面里按位置旋转",
+          "observable": "画面必须出现倾斜圆盘：盘面细刻度，两支从圆心出发的箭头（实线与虚线），一条圆弧箭头。，让观众能把它和这句旁白对上。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p07",
+      "page": "p07",
+      "composition": "四行成对小方块，每行箭头指向右侧一个空白圆角槽位，四行箭头形状一致。",
+      "drawability_reason": "方块与箭头重复但边界独立，按行描线即可；空白槽位留白。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "主体外轮廓",
+            "分件接缝",
+            "内部细节线",
+            "接地阴影轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req-p07",
+          "narration_quote": "相同的相对距离才会得到相同的旋转后点积",
+          "observable": "画面必须出现四行成对小方块，每行箭头指向右侧一个空白圆角槽位，四行箭头形状一致。，让观众能把它和这句旁白对上。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p08",
+      "page": "p08",
+      "composition": "立在底座上的工业旋钮，背后三个同心圆环由内向外变大。",
+      "drawability_reason": "旋钮、底座、三个圆环分件清楚，滚花是短线纹理，随上色出现。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "主体外轮廓",
+            "分件接缝",
+            "内部细节线",
+            "接地阴影轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req-p08",
+          "narration_quote": "调整基数是改变部分频率的一种办法",
+          "observable": "画面必须出现立在底座上的工业旋钮，背后三个同心圆环由内向外变大。，让观众能把它和这句旁白对上。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p09",
+      "page": "p09",
+      "composition": "左侧 6x6 网格沿对角线最浅、越往左下越深；右侧四段长度不同的斜坡。",
+      "drawability_reason": "网格与斜坡都是规整边界；渐层用叠色表现。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "主体外轮廓",
+            "分件接缝",
+            "内部细节线",
+            "接地阴影轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req-p09",
+          "narration_quote": "从注意力分数中减去与距离成正比的偏置",
+          "observable": "画面必须出现左侧 6x6 网格沿对角线最浅、越往左下越深；右侧四段长度不同的斜坡。，让观众能把它和这句旁白对上。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p10",
+      "page": "p10",
+      "composition": "四张竖卡并排，卡面分别有正弦波、方格、圆环、斜坡符号，第三张暖黄高亮。",
+      "drawability_reason": "卡片与浮雕符号边界清晰，按卡片为单位描线。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "主体外轮廓",
+            "分件接缝",
+            "内部细节线",
+            "接地阴影轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req-p10",
+          "narration_quote": "任务类型、模型架构、训练长度和部署成本都会影响选择",
+          "observable": "画面必须出现四张竖卡并排，卡面分别有正弦波、方格、圆环、斜坡符号，第三张暖黄高亮。，让观众能把它和这句旁白对上。"
+        }
+      ]
+    },
+    {
+      "id": "ill-p12",
+      "page": "p11",
+      "composition": "三个小物件（波板、圆环、斜坡）用箭头汇入中央一个大箭头形凹槽。",
+      "drawability_reason": "三个物件与箭头各自闭合，按左到右汇入顺序描线。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "obj",
+          "kind": "object"
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "obj",
+          "role": "主体结构",
+          "stroke_groups": [
+            "主体外轮廓",
+            "分件接缝",
+            "内部细节线",
+            "接地阴影轮廓"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "req-p12",
+          "narration_quote": "记住三个动作：加表、旋转、加惩罚",
+          "observable": "画面必须出现三个小物件（波板、圆环、斜坡）用箭头汇入中央一个大箭头形凹槽。，让观众能把它和这句旁白对上。"
+        }
+      ]
+    }
+  ]
+}

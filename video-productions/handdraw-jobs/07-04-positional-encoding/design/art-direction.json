@@ -1,0 +1,127 @@
+{
+  "dependency_sha256": "fbbfd33d70f729011b6a6bc232851c116cd4a89ead2adea4462888a6ce26fc1a",
+  "style_sha256": "398095734fd46e59bc2882113a8540e99d28072f93dfef7a8a81af8b6dd5fffd",
+  "images": [
+    {
+      "source": "../inputs/p01.png",
+      "sha256": "984573d219f5db0184b4def24eebef1718867f817820c393d1672c9d60a13b9e",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p01.md",
+      "brief_sha256": "d7d01cf40aeb2cce18cf59f6f4d45e478cc66288b2d836020192a01d6ee22071",
+      "prompt_file": "prompts/p01.txt",
+      "prompt_sha256": "40f3a7722b0983784f68be1c08da1ea673fee6043b04c361a467caad1e1df70a",
+      "status": "pass",
+      "evidence": "已看原图：主体轮廓闭合、纯白背景、暖黄主色与灰色接地阴影成立，无伪文字；可作为单主体分件描线。"
+    },
+    {
+      "source": "../inputs/p02.png",
+      "sha256": "07594bff498f1f4016cbdd72acb6729d01101e56df67eae2c7ed9713ad6b0d08",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p02.md",
+      "brief_sha256": "b3596d97d8ecb60bd3e5562a580a53a8d9d8fb2c08a279578fab92fa6238041c",
+      "prompt_file": "prompts/p02.txt",
+      "prompt_sha256": "8ceba0cbc07227bfbdc3b2d0e0b4995eaedc38a861991173b53bffd8d0d99087",
+      "status": "pass",
+      "evidence": "已看原图：主体轮廓闭合、纯白背景、暖黄主色与灰色接地阴影成立，无伪文字；可作为单主体分件描线。"
+    },
+    {
+      "source": "../inputs/p03.png",
+      "sha256": "5008b2bf2785f5dd5d7e58c8a3d21ecc8869f1ccc03dab911c0595ea0d7e9dc2",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p03.md",
+      "brief_sha256": "a3bba2170ad72bdf62d6b2c6a8ff98c12ae8b30fbcd3613489c0ed1bd8e59468",
+      "prompt_file": "prompts/p03.txt",
+      "prompt_sha256": "e9201027ab6c4f8ebc916f86aeda3f8c3991f9870c9f97e43c4dce70e365b22b",
+      "status": "pass",
+      "evidence": "已看原图：主体轮廓闭合、纯白背景、暖黄主色与灰色接地阴影成立，无伪文字；可作为单主体分件描线。"
+    },
+    {
+      "source": "../inputs/p04.png",
+      "sha256": "7f1f4e83f505494dd96c9fb2777394b5aae6bedf9301177a601d7e1920ed1d69",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p04.md",
+      "brief_sha256": "aaf6ed07b72d4eced2ce6c17ef1b267eb5d60c6b3a8fc806300f3f925652ff2b",
+      "prompt_file": "prompts/p04.txt",
+      "prompt_sha256": "bcfa66075a764075ef1a212284c27df94c5c733d2fd245ffd3df63503fb784be",
+      "status": "pass",
+      "evidence": "已看原图：主体轮廓闭合、纯白背景、暖黄主色与灰色接地阴影成立，无伪文字；可作为单主体分件描线。"
+    },
+    {
+      "source": "../inputs/p05.png",
+      "sha256": "8050c7017595f8be36f216abf1358404edb24ff52e650152427239cc8ebaa223",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p05.md",
+      "brief_sha256": "b9957445de7f55686728b06942d0aeb56614ee3c539db01febcdba6e20ba13c3",
+      "prompt_file": "prompts/p05.txt",
+      "prompt_sha256": "445fb296bfd67aecd7d234af29cdb7ec252a885862f32120d29989f443c5ce18",
+      "status": "pass",
+      "evidence": "已看原图：主体轮廓闭合、纯白背景、暖黄主色与灰色接地阴影成立，无伪文字；可作为单主体分件描线。"
+    },
+    {
+      "source": "../inputs/p06.png",
+      "sha256": "dde7d14f9cfe8bc69a6b21c2325ec68ae1b16cc3a046518de8d34e887478244f",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p06.md",
+      "brief_sha256": "1cdbaa924695fa0d084ef1239708b52ecc911fd7dc9581ca25119ca1944734e2",
+      "prompt_file": "prompts/p06.txt",
+      "prompt_sha256": "285cc1c4b2e2e6ee2be2638b0f971e65f8e7c78683f3b519f546c37881ac19ad",
+      "status": "pass",
+      "evidence": "已看原图：主体轮廓闭合、纯白背景、暖黄主色与灰色接地阴影成立，无伪文字；可作为单主体分件描线。"
+    },
+    {
+      "source": "../inputs/p07.png",
+      "sha256": "19e6f9090f1d9068f5850d7391d5083c9888ebc161b1022c00fe01c6a9d75083",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p07.md",
+      "brief_sha256": "0d36f5dcf1a80a837ba28ea17af109d9a4fa61896f0f7ebdc36020dfa62b0aad",
+      "prompt_file": "prompts/p07.txt",
+      "prompt_sha256": "be73bf0c00efa9c23705ebc80708087ff4730cb408cd7d9439834e5000c594c7",
+      "status": "pass",
+      "evidence": "已看原图：主体轮廓闭合、纯白背景、暖黄主色与灰色接地阴影成立，无伪文字；可作为单主体分件描线。"
+    },
+    {
+      "source": "../inputs/p08.png",
+      "sha256": "1aedf1b59d08430a85b1a4dc15f48ab386a317040e6addab2c3ebcb4425c851d",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p08.md",
+      "brief_sha256": "225a316d0a07ddd782fa2f3b1cd2230c30c8dc0902fcd713444a04885c0a781a",
+      "prompt_file": "prompts/p08.txt",
+      "prompt_sha256": "72ce1c2b94c49141b974dc41201a743daa8e51f23b2e3278dc450546154023cf",
+      "status": "pass",
+      "evidence": "已看原图：主体轮廓闭合、纯白背景、暖黄主色与灰色接地阴影成立，无伪文字；可作为单主体分件描线。"
+    },
+    {
+      "source": "../inputs/p09.png",
+      "sha256": "3d3462336f5d626d19364f6265a2a1cc49496af9b6870a44f78dd79d0e1257cf",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p09.md",
+      "brief_sha256": "b47101180143d229e5e3fb72bbacfe42c3d30746e6656fcda5a7a56a49678830",
+      "prompt_file": "prompts/p09.txt",
+      "prompt_sha256": "756890e947afe1ab0c2c1c5114974104932c261d956955af87fd26e1567ae0b5",
+      "status": "pass",
+      "evidence": "已看原图：主体轮廓闭合、纯白背景、暖黄主色与灰色接地阴影成立，无伪文字；可作为单主体分件描线。"
+    },
+    {
+      "source": "../inputs/p10.png",
+      "sha256": "9cccbb2c35df0f4952388ac7af088ec95c0a9e8fbc2b988d1a654c355eda867a",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p10.md",
+      "brief_sha256": "fbcf10d40e82c02a8c51081cef911dd82616dbdd1bb46d8652a6d397fb96642c",
+      "prompt_file": "prompts/p10.txt",
+      "prompt_sha256": "e375912e84ae5eae7a5ebcf0353682286b658e8e674e22cb33847365520df87e",
+      "status": "pass",
+      "evidence": "已看原图：主体轮廓闭合、纯白背景、暖黄主色与灰色接地阴影成立，无伪文字；可作为单主体分件描线。"
+    },
+    {
+      "source": "../inputs/p12.png",
+      "sha256": "c4b9c958597f87a1753332962fd135c84facdc3eef37f2ed87b1180329f12d20",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p12.md",
+      "brief_sha256": "d94d96aed3ec6016106d26f9eae406fa1fe092247a347bbe070155912eb7b8b7",
+      "prompt_file": "prompts/p12.txt",
+      "prompt_sha256": "c69fa85a73e23ee0cec3bb654afe58011e52304f4c413ab1c3e25fc336180e70",
+      "status": "pass",
+      "evidence": "已看原图：主体轮廓闭合、纯白背景、暖黄主色与灰色接地阴影成立，无伪文字；可作为单主体分件描线。"
+    }
+  ]
+}
