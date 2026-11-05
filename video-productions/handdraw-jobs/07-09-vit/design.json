@@ -1,0 +1,121 @@
+{
+  "narrative_route": {
+    "decision": "default_life_concept",
+    "reason": "用日常疑问引入，再拆到结构细节",
+    "director_review": "默认生活问题路线适用"
+  },
+  "topic": "Vision Transformer",
+  "audience": "想理解该机制原理的开发者",
+  "explanation_goal": "看完能说出核心机制与关键数字",
+  "source_scope": {
+    "type": "original",
+    "basis": "phases/07-transformers-deep-dive 对应课程讲义与实跑输出"
+  },
+  "visual_direction": {
+    "character": "无人物，工业设计马克笔",
+    "palette": "暖黄+金属灰，纯白背景",
+    "line": "深灰勾线",
+    "scene_density": "每页一个主体，10 页"
+  },
+  "beats": [
+    {
+      "page": "p01",
+      "title": "钩子：一张图当成一句话",
+      "narration": [
+        "一张图片，凭什么能被当成一句话来读？",
+        "把它切成 16 乘 16 的小块，每一块就是一个词。",
+        "这就是 Vision Transformer 做的事。"
+      ]
+    },
+    {
+      "page": "p02",
+      "title": "片头",
+      "narration": [
+        "阶段 7，第 9 课：Vision Transformers。",
+        "2020 年之前，视觉几乎等于卷积。",
+        "这篇论文把卷积彻底丢掉，只留下切块和注意力。"
+      ]
+    },
+    {
+      "page": "p03",
+      "title": "卷积的统治",
+      "narration": [
+        "ImageNet、COCO、检测基准，每个 SOTA 都用 CNN 骨干。",
+        "transformer 当时是给语言用的，没人觉得它适合图像。",
+        "Dosovitskiy 等人 2020 年的论文打破了这个假设。"
+      ]
+    },
+    {
+      "page": "p04",
+      "title": "第一步 patchify",
+      "narration": [
+        "把 224 乘 224 的图像切成 16 乘 16 的小块，得到 196 个 patch。",
+        "每个 patch 摊平成长度 768 的向量。",
+        "在代码里就是一次按行扫描，顺序和所有 ViT 一致。"
+      ]
+    },
+    {
+      "page": "p05",
+      "title": "第二步 线性嵌入",
+      "narration": [
+        "一个学到的矩阵把每个 patch 投影到 d_model。",
+        "它等价于一个卷积核大小为 16、步长也为 16 的卷积。",
+        "PyTorch 里两行就能写完，但它是整个视觉化的入口。"
+      ]
+    },
+    {
+      "page": "p06",
+      "title": "第三步 CLS 与位置",
+      "narration": [
+        "在最前面加一个可学习的 CLS token。",
+        "它的最终隐藏状态就是整张图的表示。",
+        "位置编码告诉模型每个 patch 原本在哪个位置。"
+      ]
+    },
+    {
+      "page": "p07",
+      "title": "第四步 标准编码器",
+      "narration": [
+        "然后就是原封不动的 BERT 编码器：层归一化、自注意力、前馈。",
+        "没有视觉专用的层，这是论文最漂亮的地方。",
+        "卷积、池化，一个都没留下。"
+      ]
+    },
+    {
+      "page": "p08",
+      "title": "第五步 分类头",
+      "narration": [
+        "分类时取 CLS 的输出，接一个线性层和 softmax。",
+        "DINOv2 和 SAM 会丢掉 CLS，直接用 patch 嵌入。",
+        "同一个骨架，换个头就能做分割和检测。"
+      ]
+    },
+    {
+      "page": "p09",
+      "title": "为什么需要海量数据",
+      "narration": [
+        "ViT 没有卷积的归纳偏置：既没有平移不变性，也没有局部性。",
+        "所以要上亿张图或者强自监督，才能追平 CNN。",
+        "DeiT 用蒸馏修了一半，DINOv2 用自监督彻底修好。"
+      ]
+    },
+    {
+      "page": "p10",
+      "title": "结尾互动",
+      "narration": [
+        "如果你只有一个小数据集，你会用 ViT 还是 CNN？",
+        "把你的判断写在评论区，顺便说说你会怎么选 patch 大小。",
+        "关注这个系列，下一集讲 Whisper 怎么把音频变成 token。"
+      ]
+    }
+  ],
+  "cover": {
+    "title": "Vision Transformer",
+    "visual": "主体组合",
+    "consistency": "与正文同画风"
+  },
+  "asset_prompts": {
+    "source": "Grok imagine + clean_image",
+    "contains_text": false
+  }
+}

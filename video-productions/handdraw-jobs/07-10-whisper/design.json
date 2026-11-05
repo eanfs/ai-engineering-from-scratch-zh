@@ -1,0 +1,121 @@
+{
+  "narrative_route": {
+    "decision": "default_life_concept",
+    "reason": "用日常疑问引入，再拆到结构细节",
+    "director_review": "默认生活问题路线适用"
+  },
+  "topic": "音频 Transformer 与 Whisper",
+  "audience": "想理解该机制原理的开发者",
+  "explanation_goal": "看完能说出核心机制与关键数字",
+  "source_scope": {
+    "type": "original",
+    "basis": "phases/07-transformers-deep-dive 对应课程讲义与实跑输出"
+  },
+  "visual_direction": {
+    "character": "无人物，工业设计马克笔",
+    "palette": "暖黄+金属灰，纯白背景",
+    "line": "深灰勾线",
+    "scene_density": "每页一个主体，10 页"
+  },
+  "beats": [
+    {
+      "page": "p01",
+      "title": "钩子：音频当成图像读",
+      "narration": [
+        "一段语音，为什么能被当成图像来读？",
+        "把它变成频率随时间的谱图，就成了二维输入。",
+        "Whisper 就是这么干的。"
+      ]
+    },
+    {
+      "page": "p02",
+      "title": "片头",
+      "narration": [
+        "阶段 7，第 10 课：音频 Transformer 与 Whisper。",
+        "它吃一张 mel 频谱图，再开口说回来。",
+        "一个编码器-解码器，没有声码器，也没有 CTC。"
+      ]
+    },
+    {
+      "page": "p03",
+      "title": "三个赌注",
+      "narration": [
+        "Whisper 下了三个赌：什么都拿来训、多任务单模型、标准 transformer。",
+        "68 万小时弱标注音频，横跨 97 种语言。",
+        "结果是对口音和噪声都很鲁棒。"
+      ]
+    },
+    {
+      "page": "p04",
+      "title": "第一步 频谱图",
+      "narration": [
+        "16 kHz 音频，裁剪或填充到 30 秒。",
+        "算 80 个 mel bin、10 毫秒步长的 log-mel 频谱图。",
+        "得到约 3000 帧，这就是 Whisper 看到的输入图像。"
+      ]
+    },
+    {
+      "page": "p05",
+      "title": "第二步 卷积茎",
+      "narration": [
+        "两个卷积核为 3、步长为 2 的卷积层。",
+        "把 3000 帧降到 1500，参数量增加很少。",
+        "这是整个模型里唯一的卷积。"
+      ]
+    },
+    {
+      "page": "p06",
+      "title": "第三步 编码器",
+      "narration": [
+        "1500 个时间步进 24 层 transformer 编码器。",
+        "正弦位置编码、自注意力、GELU 前馈。",
+        "输出 1500 乘 1280 的隐藏状态。"
+      ]
+    },
+    {
+      "page": "p07",
+      "title": "第四步 任务 token",
+      "narration": [
+        "解码器从 BPE 词表自回归地产出文本。",
+        "开头几个特殊 token 决定任务：语言、转写还是翻译。",
+        "这就是语音版的指令微调，一条四 token 前缀。"
+      ]
+    },
+    {
+      "page": "p08",
+      "title": "第五步 输出",
+      "narration": [
+        "beam search 宽度是 5，带 log 概率阈值。",
+        "每 0.02 秒预测一个时间戳。",
+        "输出就是带时间的转写文本。"
+      ]
+    },
+    {
+      "page": "p09",
+      "title": "模型档位",
+      "narration": [
+        "从 tiny 的 3900 万到 large-v3 的 15 亿，一共六档。",
+        "turbo 把解码器从 32 层砍到 4 层，解码快 8 倍。",
+        "代价是词错误率回退不到一个点，这是实时语音的关键。"
+      ]
+    },
+    {
+      "page": "p10",
+      "title": "结尾互动",
+      "narration": [
+        "如果你要做实时语音助手，你会选哪一档？",
+        "评论区说说你的取舍：延迟优先还是准确率优先。",
+        "关注这个系列，下一集讲 MoE，参数和计算量怎么解耦。"
+      ]
+    }
+  ],
+  "cover": {
+    "title": "音频 Transformer 与 Whisper",
+    "visual": "主体组合",
+    "consistency": "与正文同画风"
+  },
+  "asset_prompts": {
+    "source": "Grok imagine + clean_image",
+    "contains_text": false
+  }
+}

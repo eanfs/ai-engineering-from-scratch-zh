@@ -1,0 +1,127 @@
+{
+  "dependency_sha256": "fbbfd33d70f729011b6a6bc232851c116cd4a89ead2adea4462888a6ce26fc1a",
+  "style_sha256": "9456eeaa8ed267f5a7212b35c31fe0ca51cb31e9ba1783cbb6c1d16f16b20af5",
+  "images": [
+    {
+      "source": "../inputs/cover.png",
+      "sha256": "11cb00cae4ed641f4171d8d131aac0a29dc02f1e270646268304f64b4e35ba6b",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/cover.md",
+      "brief_sha256": "110e4d012285a71980a80b825530bdfde37f498c8b1a68a0c953ea76834c2dc2",
+      "prompt_file": "prompts/cover.txt",
+      "prompt_sha256": "224103eed4b23eb0c34d978ecb86f0b3fe25ec973156ed3ff56edf190ce4124c",
+      "status": "pass",
+      "evidence": "封面有主体组合与留白，符合本集主题"
+    },
+    {
+      "source": "../inputs/p01.png",
+      "sha256": "e12a43a941e6bcc16a1833ec8d74f091bb0b61c0ffeea7692623bf879074cd45",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p01.md",
+      "brief_sha256": "a458d0590128b2324ead75851cf207a55771b37968118b5fcea79d27baaac17c",
+      "prompt_file": "prompts/p01.txt",
+      "prompt_sha256": "6e3dd86c0898e426307234ff09ce8147ab03f258b3aa0d6b2a99b87fd5fcce53",
+      "status": "pass",
+      "evidence": "画面有一张被切块的图与一句话气泡并排"
+    },
+    {
+      "source": "../inputs/p02.png",
+      "sha256": "bd192a4eb14b4ff669c6e9a2a292e2cf38e9bf410b50756341d5dd82645dd5db",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p02.md",
+      "brief_sha256": "c3759257c324e52238909949f07dd8f765a0ad0df47c1a7e3854ac2e8d0e1e8d",
+      "prompt_file": "prompts/p02.txt",
+      "prompt_sha256": "afc80a7ec451a7f755a0f2055885b6c53b131250ddcfdae29a805da3c8bd0597",
+      "status": "pass",
+      "evidence": "画面有方块与网格并排"
+    },
+    {
+      "source": "../inputs/p03.png",
+      "sha256": "fa351be5e6957724fd11a0efc69bebcb8dec5ff8134710c59c984fa3fa7d5e55",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p03.md",
+      "brief_sha256": "f0afd3eaef404821dbd0bbb7eb021e19b0d58b953d5a9b21dc73edefed2a5946",
+      "prompt_file": "prompts/p03.txt",
+      "prompt_sha256": "cd9862729959d0048ba3ef569083a02cd33c2803656256e5be377b7d3b7edeb1",
+      "status": "pass",
+      "evidence": "画面有左右两种结构对比"
+    },
+    {
+      "source": "../inputs/p04.png",
+      "sha256": "7668afc905e29eb5023da4e0f0b453c55aac9b2527e2017c2eaf453480767ff5",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p04.md",
+      "brief_sha256": "154738ca62d9d2a37243c8e8c399d9525614929dc31add37011f1fe81948f158",
+      "prompt_file": "prompts/p04.txt",
+      "prompt_sha256": "1e808d3a832d4196118fb1abc6b043a8d65e077d98cbeacfca22a453de2c1d3c",
+      "status": "pass",
+      "evidence": "画面有图像切块并摊平成长条"
+    },
+    {
+      "source": "../inputs/p05.png",
+      "sha256": "85740cc8d4f5e7ef53f6d785aa90f6bb21508db34f1189bfe3f8250a6f50b48e",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p05.md",
+      "brief_sha256": "0aa8563fe55ccaa211b69a040f557a60f01810abe81d6c13b96cf50d98219c46",
+      "prompt_file": "prompts/p05.txt",
+      "prompt_sha256": "0371ec67e3e4f0d9bbaf0b1229cbae2c57b39231587b783c2f913fbb6ccefc3e",
+      "status": "pass",
+      "evidence": "画面有长条通过漏斗投影成向量"
+    },
+    {
+      "source": "../inputs/p06.png",
+      "sha256": "59955fcd65657b0b12ecc8d3c7bcac44a9ea8d9b8ddcf192bdd5109407b55931",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p06.md",
+      "brief_sha256": "9a5c0ee4fa74dffbc95766e0153569f9b12848f64c4390e20073089e18fecb64",
+      "prompt_file": "prompts/p06.txt",
+      "prompt_sha256": "910df49a0e90a2256f710fb10febb612feb6720098a9eb24dfb0c3822888dde1",
+      "status": "pass",
+      "evidence": "画面有一行块且头部一个不同色块"
+    },
+    {
+      "source": "../inputs/p07.png",
+      "sha256": "f7a542b5a438b89d642a8828981d8f5e646f51b1395ecfe7a835b8a79ac5382f",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p07.md",
+      "brief_sha256": "a5a8861943446ab31f19b83ea96a032f1e38009b93d09eadb37d49d0eda8e9a4",
+      "prompt_file": "prompts/p07.txt",
+      "prompt_sha256": "a5b23ae907e9f4fa7e73c284bcafcf45eac97d074172098e9647f6f94efd4740",
+      "status": "pass",
+      "evidence": "画面有堆叠模块"
+    },
+    {
+      "source": "../inputs/p08.png",
+      "sha256": "87b216a40c013d325f31f63edcc0fb400d9db7b479b1f444849068162e493556",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p08.md",
+      "brief_sha256": "570654715047bdaa5a2d86092de32b4b277a7574f04b68480b2bf8e9e2852aac",
+      "prompt_file": "prompts/p08.txt",
+      "prompt_sha256": "e4902b0e812c148bb951a9b367d107a9c352f3a95e81ee1114230203f4428c0f",
+      "status": "pass",
+      "evidence": "画面有块流进入一个标签"
+    },
+    {
+      "source": "../inputs/p09.png",
+      "sha256": "b05c7663ee6d56169cf9c07c2f0be5dbbcdb0e09b93239e81ff64c510c6bce22",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p09.md",
+      "brief_sha256": "38cec8d4e6c3814f0818f313603007daa006d65ef58305b3b635bac0f11a38d7",
+      "prompt_file": "prompts/p09.txt",
+      "prompt_sha256": "97d03ca01bd930e949106c76647d8170ea3dc2aec720214485cc01b8d09ef321",
+      "status": "pass",
+      "evidence": "画面有天平与两堆照片"
+    },
+    {
+      "source": "../inputs/p10.png",
+      "sha256": "241538659592b586aab74a194f8238d0a5bd79d9eebc7f1bf94c53e38018e6c3",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p10.md",
+      "brief_sha256": "de5eef4f170b7555a2b74b2de7e7d3b6697d4f401a0fe607f4d8d7b23ee8e2c0",
+      "prompt_file": "prompts/p10.txt",
+      "prompt_sha256": "a282ea317b4778e0a217c508948fed29a5e9d80e729ae9cb548223a319254feb",
+      "status": "pass",
+      "evidence": "画面有评论气泡与心形"
+    }
+  ]
+}
