@@ -1,0 +1,204 @@
+{
+  "style_sha256": "7ef21cd6d6968e47b2856b7b3f29f8fee743e8ebb76448640bf91bd374679d10",
+  "plan_sha256": "d70b47eadaf026d67bf880d9d8e0d8e6c895b02d5952071e0d9f0a7a05bf2ed7",
+  "illustrations": [
+    {
+      "plan_id": "cover",
+      "status": "pass",
+      "source_sha256": "8e527c2e5763b2c79dfc73c9b6bc0450870f4e571873c72e99d8b9227dd48e60",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
+      "stroke_breaks": "从上到下、从左到右起笔，分件之间抬笔。",
+      "outline_then_fill": "先完成全部可见轮廓，再按同一顺序铺暖黄与金属灰。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "cover-visual",
+          "status": "pass",
+          "evidence": "封面有方块组合与双向箭头，顶部留白足够。"
+        }
+      ]
+    },
+    {
+      "plan_id": "hook-three-tasks",
+      "status": "pass",
+      "source_sha256": "fe928a52b312a027549e971d169e6e27e57542daa43dd9a607b54c33e79a5109",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
+      "stroke_breaks": "从上到下、从左到右起笔，分件之间抬笔。",
+      "outline_then_fill": "先完成全部可见轮廓，再按同一顺序铺暖黄与金属灰。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "p01",
+          "status": "pass",
+          "evidence": "三个小图标被竖线分成两半，对应三类任务共用一套架构"
+        }
+      ]
+    },
+    {
+      "plan_id": "title-t5-bart",
+      "status": "pass",
+      "source_sha256": "5c857f9110ff6b06f9caa79c5118357baa2b138947bda3e948a41671140893c8",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
+      "stroke_breaks": "从上到下、从左到右起笔，分件之间抬笔。",
+      "outline_then_fill": "先完成全部可见轮廓，再按同一顺序铺暖黄与金属灰。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "p02",
+          "status": "pass",
+          "evidence": "T5 与 BART 两个方块并排，对应两篇论文"
+        }
+      ]
+    },
+    {
+      "plan_id": "why-two-halves",
+      "status": "pass",
+      "source_sha256": "7ebe1ad53f1c935868e74823a3227e59ff3c7dc3c0a7fbb1b1bbd6d4a4c354d1",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
+      "stroke_breaks": "从上到下、从左到右起笔，分件之间抬笔。",
+      "outline_then_fill": "先完成全部可见轮廓，再按同一顺序铺暖黄与金属灰。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "p03",
+          "status": "pass",
+          "evidence": "实心与空心方块并列并有四个标签牌，对应输入到输出"
+        }
+      ]
+    },
+    {
+      "plan_id": "forward-loop",
+      "status": "pass",
+      "source_sha256": "32409563c522654bb20a5ff8f37422b4234e286075d1ce9f1a127be075973934",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
+      "stroke_breaks": "从上到下、从左到右起笔，分件之间抬笔。",
+      "outline_then_fill": "先完成全部可见轮廓，再按同一顺序铺暖黄与金属灰。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "p04",
+          "status": "pass",
+          "evidence": "左右两叠三层方块与粗箭头，对应交叉注意力"
+        }
+      ]
+    },
+    {
+      "plan_id": "t5-span",
+      "status": "pass",
+      "source_sha256": "bfe1958e8bfb4cffdca5580448894461e46f30b64bf835b7c241298e05af9fcc",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
+      "stroke_breaks": "从上到下、从左到右起笔，分件之间抬笔。",
+      "outline_then_fill": "先完成全部可见轮廓，再按同一顺序铺暖黄与金属灰。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "p05",
+          "status": "pass",
+          "evidence": "文本条带两个缺口与橙色标记，对应 span 破坏"
+        }
+      ]
+    },
+    {
+      "plan_id": "run-span",
+      "status": "pass",
+      "source_sha256": "8487b232f9ede25f8a6c478d6901595ef897f41ab66ab9b41b418cdd561ed1e8",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
+      "stroke_breaks": "从上到下、从左到右起笔，分件之间抬笔。",
+      "outline_then_fill": "先完成全部可见轮廓，再按同一顺序铺暖黄与金属灰。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "p06",
+          "status": "pass",
+          "evidence": "两行条带上一行缺口下一行拼回，对应实跑输出"
+        }
+      ]
+    },
+    {
+      "plan_id": "bart-noises",
+      "status": "pass",
+      "source_sha256": "bf283f821cefe87cba7c7f774438e37634099b7a12be2350d7601c1f0ab3684d",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
+      "stroke_breaks": "从上到下、从左到右起笔，分件之间抬笔。",
+      "outline_then_fill": "先完成全部可见轮廓，再按同一顺序铺暖黄与金属灰。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "p07",
+          "status": "pass",
+          "evidence": "五个不同纹理小方块排成一行，对应五种加噪"
+        }
+      ]
+    },
+    {
+      "plan_id": "run-noises",
+      "status": "pass",
+      "source_sha256": "856d9df3783a8c97ecf76825435c5d387beb403f12ed9e067d3a324fdb4f5534",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
+      "stroke_breaks": "从上到下、从左到右起笔，分件之间抬笔。",
+      "outline_then_fill": "先完成全部可见轮廓，再按同一顺序铺暖黄与金属灰。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "p08",
+          "status": "pass",
+          "evidence": "五行不同程度破坏的条带，对应实跑结果"
+        }
+      ]
+    },
+    {
+      "plan_id": "when-to-choose",
+      "status": "pass",
+      "source_sha256": "fb5e000966a2c98c3f55814f9cb7ab3648130b0df477b86de0eef26aec3185fe",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
+      "stroke_breaks": "从上到下、从左到右起笔，分件之间抬笔。",
+      "outline_then_fill": "先完成全部可见轮廓，再按同一顺序铺暖黄与金属灰。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "p09",
+          "status": "pass",
+          "evidence": "打勾与打叉两列清单，对应何时选编码器-解码器"
+        }
+      ]
+    },
+    {
+      "plan_id": "outro",
+      "status": "pass",
+      "source_sha256": "c880474c93ace4f99a69933dd947539b821785c56c241f6a9908b15b74bbeb6e",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
+      "stroke_breaks": "从上到下、从左到右起笔，分件之间抬笔。",
+      "outline_then_fill": "先完成全部可见轮廓，再按同一顺序铺暖黄与金属灰。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "p10",
+          "status": "pass",
+          "evidence": "评论气泡与心形图标，对应邀请留言"
+        }
+      ]
+    }
+  ]
+}

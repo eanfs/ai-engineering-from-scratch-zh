@@ -1,0 +1,423 @@
+{
+  "style": "工业设计马克笔手绘",
+  "illustrations": [
+    {
+      "id": "p01",
+      "composition": "为什么只会往后写？：单一主体居中，主体下方有接地阴影，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，马克笔色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "why-backward",
+          "narration_quote": "你每天用的 AI 聊天，为什么只会往后写？",
+          "observable": "画面必须有一个被三角形挡住视线的对话气泡，并有一个禁止叉号"
+        }
+      ]
+    },
+    {
+      "id": "p02",
+      "composition": "GPT 与因果语言建模：单一主体居中，主体下方有接地阴影，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，马克笔色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "title-card",
+          "narration_quote": "阶段 7，第 7 课：GPT 与因果语言建模。",
+          "observable": "画面必须有方块状字母元素与三角形、圆形并列，表示两条路线"
+        }
+      ]
+    },
+    {
+      "id": "p03",
+      "composition": "语言模型在学什么：单一主体居中，主体下方有接地阴影，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，马克笔色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "next-token",
+          "narration_quote": "语言模型回答一个问题：给定前面的 token，下一个 token 的概率是多少？",
+          "observable": "画面必须有一排方块，最后一个上方有问号，表示预测下一个词"
+        }
+      ]
+    },
+    {
+      "id": "p04",
+      "composition": "因果掩码：单一主体居中，主体下方有接地阴影，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，马克笔色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "causal-mask",
+          "narration_quote": "因果掩码是一个上三角矩阵，上三角填的是负无穷。",
+          "observable": "画面必须有一个方格矩阵，左下三角被填色、右上三角留白"
+        }
+      ]
+    },
+    {
+      "id": "p05",
+      "composition": "三角形从何而来：单一主体居中，主体下方有接地阴影，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，马克笔色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "triangle-origin",
+          "narration_quote": "把掩码想成前缀平均，就不神秘了。位置 i 取 0 到 i 的均值。",
+          "observable": "画面必须有三个并排矩阵与箭头，表示三阶段递进"
+        }
+      ]
+    },
+    {
+      "id": "p06",
+      "composition": "实跑：注意力矩阵：单一主体居中，主体下方有接地阴影，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，马克笔色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "run-matrix",
+          "narration_quote": "跑一遍代码，打印出 softmax 之后的因果注意力矩阵。",
+          "observable": "画面必须有一个密集数字矩阵面板，下三角有读数"
+        }
+      ]
+    },
+    {
+      "id": "p07",
+      "composition": "解码：从分布里挑一个词：单一主体居中，主体下方有接地阴影，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，马克笔色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "decoding",
+          "narration_quote": "训练完成后，采样方式比大家想的更重要。",
+          "observable": "画面必须有长短不一的条形图与指向最长条的指针"
+        }
+      ]
+    },
+    {
+      "id": "p08",
+      "composition": "GPT 配方为什么有效：单一主体居中，主体下方有接地阴影，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，马克笔色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "recipe",
+          "narration_quote": "纯解码器，没有编码器的开销，一层只有一次注意力加一个前馈网络。",
+          "observable": "画面必须有垂直堆叠的模块塔，表示层堆叠"
+        }
+      ]
+    },
+    {
+      "id": "p09",
+      "composition": "BERT 与 GPT 一行对比：单一主体居中，主体下方有接地阴影，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，马克笔色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "bert-vs-gpt",
+          "narration_quote": "GPT 预测的是 P(下一个词 | 前面的词)，BERT 预测的是被掩掉的词。",
+          "observable": "画面必须有两个左右对比的开口模块与对比箭头"
+        }
+      ]
+    },
+    {
+      "id": "p10",
+      "composition": "来说说你的看法：单一主体居中，主体下方有接地阴影，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，马克笔色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "outro",
+          "narration_quote": "如果你在做聊天应用，你觉得是采样参数重要，还是数据更重要？",
+          "observable": "画面必须有评论气泡与心形图标，表示邀请留言"
+        }
+      ]
+    }
+  ],
+  "cover": {
+    "id": "cover",
+    "composition": "为什么只会往后写？：单一主体居中，主体下方有接地阴影，四周留白。",
+    "drawability_reason": "主体由清晰勾线包围，马克笔色块边界明确，适合先描线后填色。",
+    "outline_strategy": "visible_source_ink",
+    "subjects": [
+      {
+        "id": "main",
+        "kind": "object",
+        "omitted_roles": []
+      }
+    ],
+    "parts": [
+      {
+        "id": "body",
+        "subject": "main",
+        "role": "主体",
+        "stroke_groups": [
+          "外轮廓一笔",
+          "内部分件线若干"
+        ]
+      }
+    ],
+    "outline_order": [
+      "body"
+    ],
+    "fill_order": [
+      "body"
+    ],
+    "spatial_order": "top_to_bottom_left_to_right",
+    "narrative_requirements": [
+      {
+        "id": "cover-visual",
+        "narration_quote": "你每天用的 AI 聊天，为什么只会往后写？",
+        "observable": "封面主视觉必须有三角形与气泡组合，顶部留白用于标题"
+      }
+    ]
+  }
+}

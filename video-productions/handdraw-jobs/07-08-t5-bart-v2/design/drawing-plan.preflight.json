@@ -1,0 +1,17 @@
+{
+  "status": "ready_for_generation",
+  "plan_sha256": "d70b47eadaf026d67bf880d9d8e0d8e6c895b02d5952071e0d9f0a7a05bf2ed7",
+  "style_sha256": "7ef21cd6d6968e47b2856b7b3f29f8fee743e8ebb76448640bf91bd374679d10",
+  "illustrations": [
+    "hook-three-tasks",
+    "title-t5-bart",
+    "why-two-halves",
+    "forward-loop",
+    "t5-span",
+    "run-span",
+    "bart-noises",
+    "run-noises",
+    "when-to-choose",
+    "outro"
+  ]
+}

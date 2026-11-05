@@ -1,0 +1,423 @@
+{
+  "style": "工业设计马克笔手绘",
+  "illustrations": [
+    {
+      "id": "hook-three-tasks",
+      "composition": "一套架构干三类活：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p01",
+          "narration_quote": "翻译、长文摘要、语音转文字，这三件事为什么能共用一套架构？",
+          "observable": "画面有三个小图标被一条竖线分成两半，对应三类任务共用一套架构"
+        }
+      ]
+    },
+    {
+      "id": "title-t5-bart",
+      "composition": "T5 与 BART：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p02",
+          "narration_quote": "阶段 7，第 8 课：T5 与 BART，编码器-解码器模型。",
+          "observable": "画面有 T5 与 BART 两个方块并排，对应两篇论文的架构"
+        }
+      ]
+    },
+    {
+      "id": "why-two-halves",
+      "composition": "为什么需要两半：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p03",
+          "narration_quote": "纯解码器的 GPT 和纯编码器的 BERT，各自为不同目标精简了架构。",
+          "observable": "画面有实心与空心方块并列，并有四个小标签牌，对应输入到输出的任务"
+        }
+      ]
+    },
+    {
+      "id": "forward-loop",
+      "composition": "前向循环：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p04",
+          "narration_quote": "源 token 进编码器，产出每个输入位置的稠密表示。",
+          "observable": "画面有左右两叠三层方块与一条粗箭头，对应编码器与解码器之间的交叉注意力"
+        }
+      ]
+    },
+    {
+      "id": "t5-span",
+      "composition": "T5：一切文本到文本：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p05",
+          "narration_quote": "T5 来自 2019 年的论文，把所有任务都重构成文本进、文本出。",
+          "observable": "画面有被挖出两个缺口的文本条带与橙色标记，对应 span 破坏"
+        }
+      ]
+    },
+    {
+      "id": "run-span",
+      "composition": "实跑：span 破坏：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p06",
+          "narration_quote": "跑一遍代码：输入句子里的片段被换成 extra id 零和 extra id 一。",
+          "observable": "画面有两行文本条带，上一行有缺口下一行拼回，对应实跑输出"
+        }
+      ]
+    },
+    {
+      "id": "bart-noises",
+      "composition": "BART：五种加噪：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p07",
+          "narration_quote": "BART 的思路是去噪自编码器，它对输入施加噪声再让解码器重建。",
+          "observable": "画面有五个不同纹理的小方块排成一行，对应五种加噪方式"
+        }
+      ]
+    },
+    {
+      "id": "run-noises",
+      "composition": "实跑：五种噪声：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p08",
+          "narration_quote": "同一句话跑五种噪声，差别一眼能看出来。",
+          "observable": "画面有五行不同程度破坏的条带，对应实跑的五种噪声结果"
+        }
+      ]
+    },
+    {
+      "id": "when-to-choose",
+      "composition": "什么时候还选它：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p09",
+          "narration_quote": "翻译和语音转文本，编码器-解码器仍然是首选，比如 Whisper。",
+          "observable": "画面有打勾与打叉两列清单，对应何时选编码器-解码器"
+        }
+      ]
+    },
+    {
+      "id": "outro",
+      "composition": "来说说你的选择：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p10",
+          "narration_quote": "如果你要做一个翻译或摘要产品，你会选 T5，还是直接用大模型？",
+          "observable": "画面有评论气泡与心形图标，对应邀请留言"
+        }
+      ]
+    }
+  ],
+  "cover": {
+    "id": "cover",
+    "composition": "一套架构干三类活：单一主体居中，四周留白。",
+    "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+    "outline_strategy": "visible_source_ink",
+    "subjects": [
+      {
+        "id": "main",
+        "kind": "object",
+        "omitted_roles": []
+      }
+    ],
+    "parts": [
+      {
+        "id": "body",
+        "subject": "main",
+        "role": "主体",
+        "stroke_groups": [
+          "外轮廓一笔",
+          "内部分件线若干"
+        ]
+      }
+    ],
+    "outline_order": [
+      "body"
+    ],
+    "fill_order": [
+      "body"
+    ],
+    "spatial_order": "top_to_bottom_left_to_right",
+    "narrative_requirements": [
+      {
+        "id": "cover-visual",
+        "narration_quote": "翻译、长文摘要、语音转文字，这三件事为什么能共用一套架构？",
+        "observable": "封面有方块组合与双向箭头，顶部留白放标题"
+      }
+    ]
+  }
+}

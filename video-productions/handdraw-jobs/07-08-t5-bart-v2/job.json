@@ -1,0 +1,688 @@
+{
+  "version": 1,
+  "title": "07-08 T5 与 BART",
+  "design_file": "design.json",
+  "art_direction": {
+    "record": "design/art-direction.json"
+  },
+  "drawing_plan": "design/drawing-plan.json",
+  "drawing_review": "design/drawing-review.json",
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "cover": {
+    "source": "inputs/cover.png",
+    "seconds": 1.0
+  },
+  "hand": {
+    "preset": "teacher-pen"
+  },
+  "narration": {
+    "source": "inputs/narration/master.wav",
+    "alignment": "inputs/narration/alignment.json"
+  },
+  "audio": {
+    "end_hold_seconds": 0.3,
+    "music": {
+      "source": "inputs/music.wav",
+      "gain": 0.3,
+      "user_instruction": "用户选择添加背景音乐，铺底不压旁白"
+    }
+  },
+  "font": {
+    "path": "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf",
+    "index": 0
+  },
+  "captions": {
+    "font": {
+      "path": "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf",
+      "index": 0
+    },
+    "font_size": 42,
+    "color": "#FFFFFF",
+    "bottom_margin": 54,
+    "max_width_ratio": 0.82,
+    "max_lines": 2,
+    "stroke_width": 4,
+    "stroke_color": "#1E1E1E",
+    "background": null
+  },
+  "paper": "#FFFFFF",
+  "ending": {
+    "fade_seconds": 0.25
+  },
+  "pages": [
+    {
+      "id": "p01",
+      "title": "一套架构干三类活",
+      "illustration": "hook-three-tasks",
+      "beats": [
+        {
+          "id": "p01-b01",
+          "text": "翻译、长文摘要、语音转文字，这三件事为什么能共用一套架构？"
+        },
+        {
+          "id": "p01-b02",
+          "text": "因为它们都是输入端到输出端，而模型可以拆成两半。"
+        },
+        {
+          "id": "p01-b03",
+          "text": "一半负责读懂，一半负责生成，这就是编码器-解码器。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p01.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "hook-three-tasks",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p02",
+      "title": "T5 与 BART",
+      "illustration": "title-t5-bart",
+      "beats": [
+        {
+          "id": "p02-b01",
+          "text": "阶段 7，第 8 课：T5 与 BART，编码器-解码器模型。"
+        },
+        {
+          "id": "p02-b02",
+          "text": "编码器负责理解，解码器负责生成。"
+        },
+        {
+          "id": "p02-b03",
+          "text": "两篇论文，定下了现代序列到序列的标准打法。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p02.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "title-t5-bart",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p03",
+      "title": "为什么需要两半",
+      "illustration": "why-two-halves",
+      "beats": [
+        {
+          "id": "p03-b01",
+          "text": "纯解码器的 GPT 和纯编码器的 BERT，各自为不同目标精简了架构。"
+        },
+        {
+          "id": "p03-b02",
+          "text": "但很多任务天然是输入到输出：翻译、摘要、语音识别、结构化抽取。"
+        },
+        {
+          "id": "p03-b03",
+          "text": "对这些任务，编码器-解码器是最干净的契合。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p03.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "why-two-halves",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p04",
+      "title": "前向循环",
+      "illustration": "forward-loop",
+      "beats": [
+        {
+          "id": "p04-b01",
+          "text": "源 token 进编码器，产出每个输入位置的稠密表示。"
+        },
+        {
+          "id": "p04-b02",
+          "text": "解码器每一步都对这同一份表示做交叉注意力，所以编码器只跑一次。"
+        },
+        {
+          "id": "p04-b03",
+          "text": "解码器自回归地跑，训练时在输出端错位一格，损失和 GPT 一样。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p04.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "forward-loop",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p05",
+      "title": "T5：一切文本到文本",
+      "illustration": "t5-span",
+      "beats": [
+        {
+          "id": "p05-b01",
+          "text": "T5 来自 2019 年的论文，把所有任务都重构成文本进、文本出。"
+        },
+        {
+          "id": "p05-b02",
+          "text": "预训练用 span 破坏：随机挑出片段换成哨兵 token，解码器只解出这些片段。"
+        },
+        {
+          "id": "p05-b03",
+          "text": "单一架构、单一词表、单一损失，这就是它的统一。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p05.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "t5-span",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p06",
+      "title": "实跑：span 破坏",
+      "illustration": "run-span",
+      "beats": [
+        {
+          "id": "p06-b01",
+          "text": "跑一遍代码：输入句子里的片段被换成 extra id 零和 extra id 一。"
+        },
+        {
+          "id": "p06-b02",
+          "text": "目标是哨兵前缀加被挖掉的词：brown，还有 stitch in。"
+        },
+        {
+          "id": "p06-b03",
+          "text": "把未破坏的源 token 和还原出的片段拼起来，和原句完全一致。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p06.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "run-span",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p07",
+      "title": "BART：五种加噪",
+      "illustration": "bart-noises",
+      "beats": [
+        {
+          "id": "p07-b01",
+          "text": "BART 的思路是去噪自编码器，它对输入施加噪声再让解码器重建。"
+        },
+        {
+          "id": "p07-b02",
+          "text": "一共五种：掩码、删除、文本填充、句子打乱、文档旋转。"
+        },
+        {
+          "id": "p07-b03",
+          "text": "文本填充加句子打乱组合效果最好，代价是预训练算力比 T5 更高。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p07.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "bart-noises",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p08",
+      "title": "实跑：五种噪声",
+      "illustration": "run-noises",
+      "beats": [
+        {
+          "id": "p08-b01",
+          "text": "同一句话跑五种噪声，差别一眼能看出来。"
+        },
+        {
+          "id": "p08-b02",
+          "text": "掩码留下占位符，删除是真的删掉，填充只留一个掩码让模型猜长度。"
+        },
+        {
+          "id": "p08-b03",
+          "text": "句子打乱换掉顺序，文档旋转把开头搬到结尾。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p08.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "run-noises",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p09",
+      "title": "什么时候还选它",
+      "illustration": "when-to-choose",
+      "beats": [
+        {
+          "id": "p09-b01",
+          "text": "翻译和语音转文本，编码器-解码器仍然是首选，比如 Whisper。"
+        },
+        {
+          "id": "p09-b02",
+          "text": "聊天、代码补全这类没有固定输入的任务，纯解码器更合适。"
+        },
+        {
+          "id": "p09-b03",
+          "text": "摘要和结构化抽取两种都能做，看你对延迟和质量的要求。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p09.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "when-to-choose",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p10",
+      "title": "来说说你的选择",
+      "illustration": "outro",
+      "beats": [
+        {
+          "id": "p10-b01",
+          "text": "如果你要做一个翻译或摘要产品，你会选 T5，还是直接用大模型？"
+        },
+        {
+          "id": "p10-b02",
+          "text": "把你的理由写在评论区，我会挑几个典型展开讲。"
+        },
+        {
+          "id": "p10-b03",
+          "text": "关注这个系列，下一集讲 Vision Transformer。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p10.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "outro",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

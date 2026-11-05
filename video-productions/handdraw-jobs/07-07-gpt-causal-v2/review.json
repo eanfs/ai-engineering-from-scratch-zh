@@ -1,0 +1,31 @@
+{
+  "video_sha256": "1f69fd521e3f10e1dedbf159294d4de61f79dcceec4e3a1b1f59d335ad7938cf",
+  "content": {
+    "status": "pass",
+    "evidence": "逐页对照讲义与 code/main.py 实跑：p04 因果掩码上三角 -inf、p06 的 6x6 下三角概率矩阵（1.000/0.646/0.354 等实测值）、p07 的贪心 the、温度 0.7 jumped、温度 2.0 mat 与 Top-k/Top-p/Min-p 截断结论，均与 phases/07-transformers-deep-dive/07-gpt-causal-language-modeling/docs/zh.md 及 main.py 输出一致。"
+  },
+  "visual": {
+    "status": "pass",
+    "evidence": "实际查看 outputs/cover.png 与成片帧 2s/8s/30s/90s/160s：12 号工业设计马克笔风格（暖黄+金属灰、纯白底、接地阴影）、teacher-pen 白衬衫手；矩阵与条形图在勾线铺色后仍可辨，字幕位于底部安全区。"
+  },
+  "motion": {
+    "status": "pass",
+    "evidence": "抽查 15 秒预览段与 30/90/160s 成片帧：笔尖沿轮廓推进、暖黄在轮廓之后铺色、每页在最后一句结束前完成主体绘制；未以人眼完整正常速度播放全片。"
+  },
+  "audio": {
+    "status": "pass",
+    "evidence": "verify 工程检查通过：响度落在 -20~-14 LUFS 区间、末句后总静音 ≤1.2s、字幕与 alignment 逐句一致；旁白整篇一次合成，仅做尾部静音裁剪与整体响度归一化。主观听感未验收。"
+  },
+  "privacy": {
+    "status": "pass",
+    "evidence": "10 张页面图与封面由 Grok imagine 生成后经 clean_image.py 重编码； design/audit-*.json 显示 embedded_metadata_empty=true、pixels_unchanged=true、xattrs_remaining=[]。不承诺 AI 来源识别。"
+  },
+  "limitations": [
+    "未以人眼完整正常速度播放 164 秒全片；运动流畅度基于代表帧与预览段。",
+    "未实际听音，旁白自然度与配乐听感未验收。",
+    "插图由 Grok imagine 文本生图生成，与本地 PIL 绘制的其他集在笔触细节上不完全一致。",
+    "配乐复用既有素材（inputs/music.wav），非为本集单独制作。",
+    "固定手部素材位于画面中央，部分页面会遮住插画中段；字幕仍在底部安全区。",
+    "旁白母带裁掉尾部自然静音到 0.28 秒并做整体响度归一化，共 2 处编辑；正文样本未切割。"
+  ]
+}
