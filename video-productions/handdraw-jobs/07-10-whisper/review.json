@@ -1,0 +1,29 @@
+{
+  "video_sha256": "7bdb2556485b86598fe78d583a2d8f95f5469801ece84234fec610a983f63007",
+  "content": {
+    "status": "pass",
+    "evidence": "逐页对照 phases/07-transformers-deep-dive/10-audio-transformers-whisper 讲义与 code/main.py 实跑：1s→98 帧、5s→498 帧、pad 30s→3000 帧、任务 token 三种组合、tiny 39M→turbo 809M 尺寸表，均与实跑输出一致。"
+  },
+  "visual": {
+    "status": "pass",
+    "evidence": "实际查看 outputs/cover.png 与成片帧：12 号工业设计马克笔风格、teacher-pen 白衬衫手；插画由英文提示词生成，画面无伪文字。"
+  },
+  "motion": {
+    "status": "pass",
+    "evidence": "抽查预览段与成片代表帧：笔尖沿轮廓推进、色块在轮廓后铺色；未以人眼完整正常速度播放全片。"
+  },
+  "audio": {
+    "status": "pass",
+    "evidence": "verify 工程检查通过：响度在 -20~-14 LUFS 区间、末句后总静音 ≤1.2s、字幕与 alignment 逐句一致；女声 zh-CN-XiaoxiaoNeural 整篇一次合成，配乐为动感电子。主观听感未验收。"
+  },
+  "privacy": {
+    "status": "pass",
+    "evidence": "11 张图由 Grok imagine 生成后经 clean_image.py 重编码；audit json 显示 embedded_metadata_empty=true。不承诺 AI 来源识别。"
+  },
+  "limitations": [
+    "未以人眼完整正常速度播放全片。",
+    "未实际听音，旁白与配乐听感未验收。",
+    "插画由 Grok 生成，笔触与本地 PIL 集不完全一致。",
+    "固定手部素材位于画面中央，部分页面遮住插画中段。"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "video_sha256": "10e341212291b6b41897a0ab5e56e131ad0759dac6f7726fdf98767089a5b9c3",
+  "content": {
+    "status": "pass",
+    "evidence": "逐页对照 phases/07-transformers-deep-dive/09-vision-transformers 讲义与 code/main.py 实跑：24×24×3 图像、6×6 patch → 4×4=16 patches、flat 108、d_model 48、序列 17，以及 ViT-Tiny 5.7M / Base 86.5M / Huge 631.7M 参数表，均与实跑输出一致。"
+  },
+  "visual": {
+    "status": "pass",
+    "evidence": "实际查看 outputs/cover.png 与成片帧：12 号工业设计马克笔风格（暖黄+金属灰、纯白底、接地阴影）、teacher-pen 白衬衫手；插画由英文提示词生成，画面无伪文字。"
+  },
+  "motion": {
+    "status": "pass",
+    "evidence": "抽查预览段与成片代表帧：笔尖沿轮廓推进、色块在轮廓后铺色、每页在最后一句结束前完成主体绘制；未以人眼完整正常速度播放全片。"
+  },
+  "audio": {
+    "status": "pass",
+    "evidence": "verify 工程检查通过：响度落在 -20~-14 LUFS 区间、末句后总静音 ≤1.2s、字幕与 alignment 逐句一致；女声 zh-CN-XiaoxiaoNeural 整篇一次合成，配乐为动感电子，仅做尾部静音裁剪与整体响度归一化。主观听感未验收。"
+  },
+  "privacy": {
+    "status": "pass",
+    "evidence": "11 张图（封面 + 10 页）由 Grok imagine 生成后经 clean_image.py 重编码；design/audit-*.json 显示 embedded_metadata_empty=true、pixels_unchanged=true。不承诺 AI 来源识别。"
+  },
+  "limitations": [
+    "未以人眼完整正常速度播放全片；运动流畅度基于代表帧。",
+    "未实际听音，旁白自然度与配乐听感未验收。",
+    "插画由 Grok 生成，与本地 PIL 绘制集在笔触细节上不完全一致。",
+    "固定手部素材位于画面中央，部分页面会遮住插画中段。"
+  ]
+}

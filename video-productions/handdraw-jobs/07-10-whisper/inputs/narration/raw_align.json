@@ -1,0 +1,362 @@
+{
+	"systeminfo": "WHISPER : VITISAI = 0 | COREML = 0 | OPENVINO = 0 | MTL : EMBED_LIBRARY = 1 | CPU : NEON = 1 | ARM_FMA = 1 | FP16_VA = 1 | MATMUL_INT8 = 1 | DOTPROD = 1 | SME = 1 | ACCELERATE = 1 | OPENMP = 1 | REPACK = 1 | ",
+	"model": {
+		"type": "small",
+		"multilingual": true,
+		"vocab": 51865,
+		"audio": {
+			"ctx": 1500,
+			"state": 768,
+			"head": 12,
+			"layer": 12
+		},
+		"text": {
+			"ctx": 448,
+			"state": 768,
+			"head": 12,
+			"layer": 12
+		},
+		"mels": 80,
+		"ftype": 1
+	},
+	"params": {
+		"model": "/Users/lirichen/whisper-models/ggml-small.bin",
+		"language": "zh",
+		"translate": false
+	},
+	"result": {
+		"language": "zh"
+	},
+	"transcription": [
+		{
+			"timestamps": {
+				"from": "00:00:00,000",
+				"to": "00:00:03,500"
+			},
+			"offsets": {
+				"from": 0,
+				"to": 3500
+			},
+			"text": "一段语音,为什么能被当成图像来读?"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:03,500",
+				"to": "00:00:07,800"
+			},
+			"offsets": {
+				"from": 3500,
+				"to": 7800
+			},
+			"text": "把它变成频率随时间的普图,就成了二维输入。"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:07,800",
+				"to": "00:00:10,200"
+			},
+			"offsets": {
+				"from": 7800,
+				"to": 10200
+			},
+			"text": "Whisper就是这么干的。"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:10,200",
+				"to": "00:00:14,800"
+			},
+			"offsets": {
+				"from": 10200,
+				"to": 14800
+			},
+			"text": "阶段期,第十课,音频Transformer与Whisper。"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:14,800",
+				"to": "00:00:18,300"
+			},
+			"offsets": {
+				"from": 14800,
+				"to": 18300
+			},
+			"text": "他吃一张Mile屏普图,再开口说回来。"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:18,300",
+				"to": "00:00:23,100"
+			},
+			"offsets": {
+				"from": 18300,
+				"to": 23100
+			},
+			"text": "一个编码器,解码器,没有生码器,也没有CTC。"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:23,100",
+				"to": "00:00:29,300"
+			},
+			"offsets": {
+				"from": 23100,
+				"to": 29300
+			},
+			"text": "Whisper下了三个读,什么都拿来讯,多任务单模型,标准Transformer。"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:29,300",
+				"to": "00:00:34,100"
+			},
+			"offsets": {
+				"from": 29300,
+				"to": 34100
+			},
+			"text": "68万小时弱标注音频,横跨97种语言。"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:34,100",
+				"to": "00:00:37,600"
+			},
+			"offsets": {
+				"from": 34100,
+				"to": 37600
+			},
+			"text": "结果,是对口音和噪声,都很鲁棒。"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:37,600",
+				"to": "00:00:42,000"
+			},
+			"offsets": {
+				"from": 37600,
+				"to": 42000
+			},
+			"text": "16000Hz音频,采检或填充到30秒。"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:42,000",
+				"to": "00:00:46,500"
+			},
+			"offsets": {
+				"from": 42000,
+				"to": 46500
+			},
+			"text": "算80个Mile Beam,10毫秒不长的LogMile屏普图。"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:46,500",
+				"to": "00:00:51,300"
+			},
+			"offsets": {
+				"from": 46500,
+				"to": 51300
+			},
+			"text": "得到约3000帧,这就是Whisper看到的输入图像。"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:51,300",
+				"to": "00:00:55,100"
+			},
+			"offsets": {
+				"from": 51300,
+				"to": 55100
+			},
+			"text": "两个卷机合为3,不长为2的卷机层。"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:55,100",
+				"to": "00:00:59,400"
+			},
+			"offsets": {
+				"from": 55100,
+				"to": 59400
+			},
+			"text": "把3000帧降到1500,参数量增加很少。"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:59,400",
+				"to": "00:01:02,500"
+			},
+			"offsets": {
+				"from": 59400,
+				"to": 62500
+			},
+			"text": "这是整个模型里,唯一的卷机。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:02,500",
+				"to": "00:01:07,300"
+			},
+			"offsets": {
+				"from": 62500,
+				"to": 67300
+			},
+			"text": "1500的时间,不近24层Transformer编码器。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:07,300",
+				"to": "00:01:11,800"
+			},
+			"offsets": {
+				"from": 67300,
+				"to": 71800
+			},
+			"text": "正弦位置编码,自助异理,GELU前溃。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:11,800",
+				"to": "00:01:16,000"
+			},
+			"offsets": {
+				"from": 71800,
+				"to": 76000
+			},
+			"text": "输出1500乘1280的隐藏状态。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:16,000",
+				"to": "00:01:20,300"
+			},
+			"offsets": {
+				"from": 76000,
+				"to": 80300
+			},
+			"text": "解码器,从BPE磁表自回归地产出文本。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:20,300",
+				"to": "00:01:25,600"
+			},
+			"offsets": {
+				"from": 80300,
+				"to": 85600
+			},
+			"text": "开头几个特殊token决定任务,语言、转写还是翻译。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:25,600",
+				"to": "00:01:29,900"
+			},
+			"offsets": {
+				"from": 85600,
+				"to": 89900
+			},
+			"text": "这就是语音版的指令微调,一条4token前坠。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:29,900",
+				"to": "00:01:33,700"
+			},
+			"offsets": {
+				"from": 89900,
+				"to": 93700
+			},
+			"text": "BIM Search,宽度是5,Dialog概率预值。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:33,700",
+				"to": "00:01:36,900"
+			},
+			"offsets": {
+				"from": 93700,
+				"to": 96900
+			},
+			"text": "每0.02秒预测一个时间戳。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:36,900",
+				"to": "00:01:39,900"
+			},
+			"offsets": {
+				"from": 96900,
+				"to": 99900
+			},
+			"text": "输出就是带时间的转写文本。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:39,900",
+				"to": "00:01:45,100"
+			},
+			"offsets": {
+				"from": 99900,
+				"to": 105100
+			},
+			"text": "从Tiny的3900万到Large V3的15亿,一共6档。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:45,100",
+				"to": "00:01:50,200"
+			},
+			"offsets": {
+				"from": 105100,
+				"to": 110200
+			},
+			"text": "Turbo,把解码器从32层砍到4层,解码快8倍。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:50,200",
+				"to": "00:01:55,700"
+			},
+			"offsets": {
+				"from": 110200,
+				"to": 115700
+			},
+			"text": "代价是,此错误率回退不到一个点,这是实时语音的关键。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:55,700",
+				"to": "00:01:59,500"
+			},
+			"offsets": {
+				"from": 115700,
+				"to": 119500
+			},
+			"text": "如果你要做实时语音助手,你会选哪一档。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:59,500",
+				"to": "00:02:04,500"
+			},
+			"offsets": {
+				"from": 119500,
+				"to": 124500
+			},
+			"text": "评论区说说你的曲舍,延迟优先,还是准确率优先。"
+		},
+		{
+			"timestamps": {
+				"from": "00:02:04,500",
+				"to": "00:02:10,000"
+			},
+			"offsets": {
+				"from": 124500,
+				"to": 130000
+			},
+			"text": "关注这个系列,下一集讲猫,参数和计算量,怎么截偶。"
+		}
+	]
+}
