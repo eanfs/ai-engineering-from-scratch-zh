@@ -1,0 +1,1 @@
+industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 左侧参数量纵轴：124M、1.5B、175B、数万亿；右侧 2×2 四张卡片：纯解码器、扩展、上下文学习、RLHF；底部写 pre-norm + RoPE + SwiGLU。 Visible: 四个里程碑与四张配方卡一一可见；底部点出真正拉开差距的因素。. No people, no photorealism, no dark background, no watermark.

@@ -1,0 +1,626 @@
+{
+ "version": 1,
+ "title": "GPT —— 因果语言建模",
+ "design_file": "design.json",
+ "art_direction": {
+  "record": "design/art-direction.json"
+ },
+ "canvas": {
+  "width": 1920,
+  "height": 1080,
+  "fps": 30
+ },
+ "cover": {
+  "source": "inputs/cover.png",
+  "seconds": 1.0
+ },
+ "hand": {
+  "preset": "teacher-pen",
+  "scale": 0.26
+ },
+ "narration": {
+  "source": "inputs/narration/master.wav",
+  "alignment": "inputs/narration/alignment.json"
+ },
+ "audio": {
+  "end_hold_seconds": 0.65,
+  "music": {
+   "source": "inputs/music.wav",
+   "gain": 0.14,
+   "user_instruction": "用户选择复用 07-04 任务的科普轻电子配乐，作为低音量铺底，不压过旁白"
+  }
+ },
+ "font": {
+  "path": "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf",
+  "index": 0
+ },
+ "captions": {
+  "font": {
+   "path": "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf",
+   "index": 0
+  },
+  "font_size": 42,
+  "color": "#FFFFFF",
+  "bottom_margin": 54,
+  "max_width_ratio": 0.86,
+  "max_lines": 2,
+  "stroke_width": 4,
+  "stroke_color": "#1E1E1E",
+  "background": null
+ },
+ "paper": "#FFFDF7",
+ "ending": {
+  "fade_seconds": 0.55
+ },
+ "drawing_plan": "design/drawing-plan.json",
+ "drawing_review": "design/drawing-review.json",
+ "pages": [
+  {
+   "id": "p01",
+   "title": "预测下一个词",
+   "illustration": "p01",
+   "beats": [
+    {
+     "id": "p01-b01",
+     "text": "阶段 7，第 7 课：GPT 与因果语言建模。"
+    },
+    {
+     "id": "p01-b02",
+     "text": "预测下一个词，是今天所有大模型共用的训练信号。"
+    },
+    {
+     "id": "p01-b03",
+     "text": "要并行训练整段序列，每个位置就只能看前面。"
+    }
+   ],
+   "visual_groups": [
+    {
+     "start_beat": 0,
+     "end_beat": 2,
+     "lead": 0.54,
+     "hold": 0.72,
+     "actions": [
+      {
+       "type": "illustration",
+       "source": "inputs/p01.png",
+       "x": 320,
+       "y": 120,
+       "width": 1280,
+       "height": 720,
+       "weight": 3,
+       "parts": [
+        {
+         "id": "body",
+         "polygon": [
+          [
+           0,
+           0
+          ],
+          [
+           1,
+           0
+          ],
+          [
+           1,
+           1
+          ],
+          [
+           0,
+           1
+          ]
+         ]
+        }
+       ],
+       "drawing_plan_id": "ill-p01",
+       "stroke_style": "calm"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p02",
+   "title": "三角掩码",
+   "illustration": "p02",
+   "beats": [
+    {
+     "id": "p02-b01",
+     "text": "给注意力分数加上三角掩码，未来位置全部填负无穷。"
+    },
+    {
+     "id": "p02-b02",
+     "text": "softmax 之后，未来的权重恰好变成零。"
+    },
+    {
+     "id": "p02-b03",
+     "text": "所以第一行只能看自己，最后一行能看到全部六个位置。"
+    }
+   ],
+   "visual_groups": [
+    {
+     "start_beat": 0,
+     "end_beat": 2,
+     "lead": 0.54,
+     "hold": 0.72,
+     "actions": [
+      {
+       "type": "illustration",
+       "source": "inputs/p02.png",
+       "x": 320,
+       "y": 120,
+       "width": 1280,
+       "height": 720,
+       "weight": 3,
+       "parts": [
+        {
+         "id": "body",
+         "polygon": [
+          [
+           0,
+           0
+          ],
+          [
+           1,
+           0
+          ],
+          [
+           1,
+           1
+          ],
+          [
+           0,
+           1
+          ]
+         ]
+        }
+       ],
+       "drawing_plan_id": "ill-p02",
+       "stroke_style": "calm"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p03",
+   "title": "实跑：6 × 6",
+   "illustration": "p03",
+   "beats": [
+    {
+     "id": "p03-b01",
+     "text": "实跑一个六乘六的注意力矩阵，最后一行是 0.327、0.041，一直到 0.444。"
+    },
+    {
+     "id": "p03-b02",
+     "text": "每一行只在当前位置和更早的列上有概率，加起来正好是一。"
+    },
+    {
+     "id": "p03-b03",
+     "text": "整个机制就是一行代码：下三角，加负无穷。"
+    }
+   ],
+   "visual_groups": [
+    {
+     "start_beat": 0,
+     "end_beat": 2,
+     "lead": 0.54,
+     "hold": 0.72,
+     "actions": [
+      {
+       "type": "illustration",
+       "source": "inputs/p03.png",
+       "x": 320,
+       "y": 120,
+       "width": 1280,
+       "height": 720,
+       "weight": 3,
+       "parts": [
+        {
+         "id": "body",
+         "polygon": [
+          [
+           0,
+           0
+          ],
+          [
+           1,
+           0
+          ],
+          [
+           1,
+           1
+          ],
+          [
+           0,
+           1
+          ]
+         ]
+        }
+       ],
+       "drawing_plan_id": "ill-p03",
+       "stroke_style": "calm"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p04",
+   "title": "三角从哪来",
+   "illustration": "p04",
+   "beats": [
+    {
+     "id": "p04-b01",
+     "text": "这个三角不是事后补丁，它来自前缀平均。"
+    },
+    {
+     "id": "p04-b02",
+     "text": "先做均匀平均，再换成学到的权重，最后换成查询和键的点积。"
+    },
+    {
+     "id": "p04-b03",
+     "text": "三步都只是用下三角矩阵乘序列。"
+    }
+   ],
+   "visual_groups": [
+    {
+     "start_beat": 0,
+     "end_beat": 2,
+     "lead": 0.54,
+     "hold": 0.72,
+     "actions": [
+      {
+       "type": "illustration",
+       "source": "inputs/p04.png",
+       "x": 320,
+       "y": 120,
+       "width": 1280,
+       "height": 720,
+       "weight": 3,
+       "parts": [
+        {
+         "id": "body",
+         "polygon": [
+          [
+           0,
+           0
+          ],
+          [
+           1,
+           0
+          ],
+          [
+           1,
+           1
+          ],
+          [
+           0,
+           1
+          ]
+         ]
+        }
+       ],
+       "drawing_plan_id": "ill-p04",
+       "stroke_style": "calm"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p05",
+   "title": "并行训练，串行推理",
+   "illustration": "p05",
+   "beats": [
+    {
+     "id": "p05-b01",
+     "text": "训练时整段序列一次前向，一次算出 N 个损失。"
+    },
+    {
+     "id": "p05-b02",
+     "text": "推理时只能一个 token 一个 token 地生成。"
+    },
+    {
+     "id": "p05-b03",
+     "text": "KV 缓存省掉重复计算，但串行长度就是输出长度。"
+    }
+   ],
+   "visual_groups": [
+    {
+     "start_beat": 0,
+     "end_beat": 2,
+     "lead": 0.54,
+     "hold": 0.72,
+     "actions": [
+      {
+       "type": "illustration",
+       "source": "inputs/p05.png",
+       "x": 320,
+       "y": 120,
+       "width": 1280,
+       "height": 720,
+       "weight": 3,
+       "parts": [
+        {
+         "id": "body",
+         "polygon": [
+          [
+           0,
+           0
+          ],
+          [
+           1,
+           0
+          ],
+          [
+           1,
+           1
+          ],
+          [
+           0,
+           1
+          ]
+         ]
+        }
+       ],
+       "drawing_plan_id": "ill-p05",
+       "stroke_style": "calm"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p06",
+   "title": "错位一格",
+   "illustration": "p06",
+   "beats": [
+    {
+     "id": "p06-b01",
+     "text": "损失错位一格：输入前三个词，目标就是后三个词。"
+    },
+    {
+     "id": "p06-b02",
+     "text": "实跑：偏置过的 logits 损失是 1.145，随机 logits 是 2.418。"
+    },
+    {
+     "id": "p06-b03",
+     "text": "随机基线正好是 ln 十，也就是 2.303。"
+    }
+   ],
+   "visual_groups": [
+    {
+     "start_beat": 0,
+     "end_beat": 2,
+     "lead": 0.54,
+     "hold": 0.72,
+     "actions": [
+      {
+       "type": "illustration",
+       "source": "inputs/p06.png",
+       "x": 320,
+       "y": 120,
+       "width": 1280,
+       "height": 720,
+       "weight": 3,
+       "parts": [
+        {
+         "id": "body",
+         "polygon": [
+          [
+           0,
+           0
+          ],
+          [
+           1,
+           0
+          ],
+          [
+           1,
+           1
+          ],
+          [
+           0,
+           1
+          ]
+         ]
+        }
+       ],
+       "drawing_plan_id": "ill-p06",
+       "stroke_style": "calm"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p07",
+   "title": "六种取法",
+   "illustration": "p07",
+   "beats": [
+    {
+     "id": "p07-b01",
+     "text": "同一组 logits，换一种采样就换出一个词。"
+    },
+    {
+     "id": "p07-b02",
+     "text": "贪心取 the，温度 0.7 取 jumped，温度 2.0 取 mat。"
+    },
+    {
+     "id": "p07-b03",
+     "text": "top-k 和 top-p 都回到 the，min-p 取 dog。"
+    }
+   ],
+   "visual_groups": [
+    {
+     "start_beat": 0,
+     "end_beat": 2,
+     "lead": 0.54,
+     "hold": 0.72,
+     "actions": [
+      {
+       "type": "illustration",
+       "source": "inputs/p07.png",
+       "x": 320,
+       "y": 120,
+       "width": 1280,
+       "height": 720,
+       "weight": 3,
+       "parts": [
+        {
+         "id": "body",
+         "polygon": [
+          [
+           0,
+           0
+          ],
+          [
+           1,
+           0
+          ],
+          [
+           1,
+           1
+          ],
+          [
+           0,
+           1
+          ]
+         ]
+        }
+       ],
+       "drawing_plan_id": "ill-p07",
+       "stroke_style": "calm"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p08",
+   "title": "GPT 配方",
+   "illustration": "p08",
+   "beats": [
+    {
+     "id": "p08-b01",
+     "text": "GPT 的配方很朴素：纯解码器，每层一次注意力加一次前馈。"
+    },
+    {
+     "id": "p08-b02",
+     "text": "从一亿两千万到一千七百五十亿，核心架构几乎没变。"
+    },
+    {
+     "id": "p08-b03",
+     "text": "真正拉开差距的，是数据、规模和 RLHF 后训练。"
+    }
+   ],
+   "visual_groups": [
+    {
+     "start_beat": 0,
+     "end_beat": 2,
+     "lead": 0.54,
+     "hold": 0.72,
+     "actions": [
+      {
+       "type": "illustration",
+       "source": "inputs/p08.png",
+       "x": 320,
+       "y": 120,
+       "width": 1280,
+       "height": 720,
+       "weight": 3,
+       "parts": [
+        {
+         "id": "body",
+         "polygon": [
+          [
+           0,
+           0
+          ],
+          [
+           1,
+           0
+          ],
+          [
+           1,
+           1
+          ],
+          [
+           0,
+           1
+          ]
+         ]
+        }
+       ],
+       "drawing_plan_id": "ill-p08",
+       "stroke_style": "calm"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p09",
+   "title": "GPT vs BERT",
+   "illustration": "p09",
+   "beats": [
+    {
+     "id": "p09-b01",
+     "text": "GPT 建模的是给定前缀下一个词的概率。"
+    },
+    {
+     "id": "p09-b02",
+     "text": "BERT 建模的是给定其余位置被遮词的概率。"
+    },
+    {
+     "id": "p09-b03",
+     "text": "损失决定了一个模型能不能生成。"
+    }
+   ],
+   "visual_groups": [
+    {
+     "start_beat": 0,
+     "end_beat": 2,
+     "lead": 0.54,
+     "hold": 0.72,
+     "actions": [
+      {
+       "type": "illustration",
+       "source": "inputs/p09.png",
+       "x": 320,
+       "y": 120,
+       "width": 1280,
+       "height": 720,
+       "weight": 3,
+       "parts": [
+        {
+         "id": "body",
+         "polygon": [
+          [
+           0,
+           0
+          ],
+          [
+           1,
+           0
+          ],
+          [
+           1,
+           1
+          ],
+          [
+           0,
+           1
+          ]
+         ]
+        }
+       ],
+       "drawing_plan_id": "ill-p09",
+       "stroke_style": "calm"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

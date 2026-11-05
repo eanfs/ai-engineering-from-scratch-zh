@@ -1,0 +1,1 @@
+industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 左侧编码器堆叠三层「双向自注意力」；右侧解码器包含「masked 自注意力」「交叉注意力」「前馈」；箭头从编码器指向交叉注意力并标 K,V；右侧写「Q 来自目标 / 编码器信息进入解码器的唯一通道」。 Visible: 交叉注意力是两栈唯一的连接；K,V 箭头落在交叉注意力块上。. No people, no photorealism, no dark background, no watermark.

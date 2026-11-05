@@ -1,0 +1,1 @@
+industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 五个并排卡片：token 掩码（词→<mask>）、token 删除、文本填充（span→<mask>）、句子打乱、文档旋转；文本填充与句子打乱两张用暖黄强调；下方写「下游分数最好」与「算力比 T5 更高」。 Visible: 五张卡片齐全；被强调的两张是文本填充与句子打乱。. No people, no photorealism, no dark background, no watermark.

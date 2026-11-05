@@ -1,0 +1,127 @@
+{
+  "dependency_sha256": "fbbfd33d70f729011b6a6bc232851c116cd4a89ead2adea4462888a6ce26fc1a",
+  "style_sha256": "30517a151aae9f47cff610934a112edfc2a964fe91c6342600c6be7f0ef8def2",
+  "images": [
+    {
+      "source": "../inputs/cover.png",
+      "sha256": "fc575f8224e35177f2ab96c4564a97bf995fc65a4189b1e8e41e4241fc43b5c5",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/cover.md",
+      "brief_sha256": "9e976357990658b5ea9600e9a66f192647cc3ff75bf803911e4616f7dfe03257",
+      "prompt_file": "prompts/cover.txt",
+      "prompt_sha256": "fde777be0cc30f4dcacadb1a21ac472abea2f800fa540ed25990cb7d96267772",
+      "status": "pass",
+      "evidence": "封面主视觉为三角形与气泡组合，暖黄+金属灰马克笔，纯白背景，顶部留有标题空白；无文字、无人物。"
+    },
+    {
+      "source": "../inputs/p01.png",
+      "sha256": "c73f0d44fd53efb2aac17e62f3da6e40159cf21f66bd620631747b3db97258f4",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p01.md",
+      "brief_sha256": "4d8198245282cabbe8b9d601bcb79eebe0606cf69fe5dbf14406d609a8650c5c",
+      "prompt_file": "prompts/p01.txt",
+      "prompt_sha256": "75f211b68e5c58754813894d4b0d24193ed296758a2c70c8d910018df240d2f8",
+      "status": "pass",
+      "evidence": "对话气泡为主体，橙色三角形压在气泡上，右下方红色叉号；轮廓清晰，白底与接地阴影分离，可先描线后分块填色。"
+    },
+    {
+      "source": "../inputs/p02.png",
+      "sha256": "195821066d91a2dd5d2c88f96840e84394c6f1c0b4b7bcaa1eb3cd0a1c0e0857",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p02.md",
+      "brief_sha256": "97b03436bfa3d17f9a2965c88a5ae3784882d4b7a7ce8de2fb68ed9266093dfd",
+      "prompt_file": "prompts/p02.txt",
+      "prompt_sha256": "cf132f6856b315a110dbe8c768557ccc4166a9efa9840bca612c085243f77bd5",
+      "status": "pass",
+      "evidence": "方块字母与橙三角、蓝圆并列，分件接缝清晰，色块边界明确，适合先描外轮廓再铺色。"
+    },
+    {
+      "source": "../inputs/p03.png",
+      "sha256": "7d5fc4fa417cc771da6d036529ea54cd988a63225e927cdac1e0cfa28b26e394",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p03.md",
+      "brief_sha256": "494f9ffadd54f8bcbbd44e3874d04af91e291f6e6c5e66b761422a0298f50976",
+      "prompt_file": "prompts/p03.txt",
+      "prompt_sha256": "f7bc3ec311043069f6e17e2dd7ade6862b224ada1a4b989b226f33f285e4b65f",
+      "status": "pass",
+      "evidence": "一排立方体方块，末端上方问号，方块间有纸色缝隙，可逐块描线填色。"
+    },
+    {
+      "source": "../inputs/p04.png",
+      "sha256": "580dc7c8b1b87cb8b44a2a6941ade0b354de1be3613a52dd275790a4ddc33176",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p04.md",
+      "brief_sha256": "ff7e1606388e9f3f7cf9c13cf059c61499b61f8fa148b07bc6bdb5f69e4d346e",
+      "prompt_file": "prompts/p04.txt",
+      "prompt_sha256": "72fb1cf3f0edae010a93247d68341a200d377ef83c25d37c4a5fca13bd2efcc8",
+      "status": "pass",
+      "evidence": "方格矩阵，左下三角橙色实心、右上留白带斜线，格线可独立追踪。"
+    },
+    {
+      "source": "../inputs/p05.png",
+      "sha256": "59b31574cad882f19718bfdcdbbe2c7a72174523a559f9c26013a57e88a7b829",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p05.md",
+      "brief_sha256": "82df16c435f3c635eac29e1a3dac185b02795cb7efde757b6462cb1080b1b346",
+      "prompt_file": "prompts/p05.txt",
+      "prompt_sha256": "943216e59c3471083bf12cb16c2f78e564266dd51edfec7bd763e13f23a32cf3",
+      "status": "pass",
+      "evidence": "三个小矩阵并排，中间箭头连接，色彩分层边界清楚。"
+    },
+    {
+      "source": "../inputs/p06.png",
+      "sha256": "5033fbe5095dca6397d378576155042db68aa265e2897005df4e9939fefc38ac",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p06.md",
+      "brief_sha256": "0e032e5242d7c85cc07fd17942576babbe81d4014736780010d0066d7da1ca39",
+      "prompt_file": "prompts/p06.txt",
+      "prompt_sha256": "a26ab49e6acaa930fe23853e5a8ba0d46b455eb40acd236476f89bfeb95b3f3f",
+      "status": "pass",
+      "evidence": "密集数字面板，下三角有读数，整体为单一矩形结构，可按主体+地面两部分处理。"
+    },
+    {
+      "source": "../inputs/p07.png",
+      "sha256": "5e1a914cdcf086456f73cf39a2b934de9561add3fdf7996fc5312ad68cdd806a",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p07.md",
+      "brief_sha256": "ec7b794d4b13a3363b52317053524d855ce85d8c1766331f18f624bc965db7e3",
+      "prompt_file": "prompts/p07.txt",
+      "prompt_sha256": "73817e43b1e45cd6c3f568243a056bf62768871f6fb088e2ed6a37e5e984ec2b",
+      "status": "pass",
+      "evidence": "条形图七根色柱，长短分明，最短与最长对比醒目，柱间纸色分隔可独立描线。"
+    },
+    {
+      "source": "../inputs/p08.png",
+      "sha256": "b5dcc514434a84c11153ef260c99de25e59f558bf19c537bd2c2c4d180abeb37",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p08.md",
+      "brief_sha256": "edb39f696e9e59c1b782be2ab10d6a86f8a1b0c7eca41b13a251671f45e88a9f",
+      "prompt_file": "prompts/p08.txt",
+      "prompt_sha256": "0d4a5f2b3b8c2933b51db91ea2b2213c7d0aca0042f562f7c59eb92671b96044",
+      "status": "pass",
+      "evidence": "三块模块垂直堆叠，接缝清晰，塔身与接地阴影可分开处理。"
+    },
+    {
+      "source": "../inputs/p09.png",
+      "sha256": "da3c077344bd2cdc415c4ab164683eae8a9541a52edc5d505238020b038473ed",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p09.md",
+      "brief_sha256": "e7d9a0e8ae0e7afab99b3b5077cc7733c670dae217f898787d735cd1a7ca95df",
+      "prompt_file": "prompts/p09.txt",
+      "prompt_sha256": "13bc5605ed94b29e7c5055b9a8784696131044153455667bbaeca5776e49ea31",
+      "status": "pass",
+      "evidence": "左右两个开口模块与中间箭头，结构对称，边界清楚。"
+    },
+    {
+      "source": "../inputs/p10.png",
+      "sha256": "89a4e999670d1483481b19e2c47adaa83581321f0b4ffbe13b4e5d3ad079d3b1",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p10.md",
+      "brief_sha256": "a53727c9bb00edb147c859d927cc84d0f4e825f90391efd56bca71d2bdc2e718",
+      "prompt_file": "prompts/p10.txt",
+      "prompt_sha256": "e6bdfc8bdaee366c329a70219c8bffdd7b91d148f5851601d4b360514913d2b3",
+      "status": "pass",
+      "evidence": "评论气泡与心形图标，圆形边缘平滑，白底与阴影分离。"
+    }
+  ]
+}

@@ -125,8 +125,16 @@ video-productions/handdraw-jobs/*/work/
 video-productions/handdraw-jobs/*/outputs/film.mp4
 video-productions/handdraw-jobs/*/outputs/verification.json
 video-productions/handdraw-jobs/*/outputs/verification.txt
+video-productions/handdraw-jobs/*/outputs/maxdesign/*.mp4
+video-productions/handdraw-jobs/*/outputs/maxdesign/*.png
 video-productions/handdraw-jobs/*/inputs/narration/master.wav
 video-productions/handdraw-jobs/*/inputs/narration/master-original.wav
 video-productions/handdraw-jobs/*/inputs/narration/master.mp3
 video-productions/handdraw-jobs/*/inputs/music.wav
 video-productions/handdraw-jobs/*/inputs/music.mp3
+
+# 本地工具与凭证（不入库）
+.grok-home/
+.venv-handdraw/
+uv.toml
+video-productions/previews/

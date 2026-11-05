@@ -1,0 +1,90 @@
+{
+ "narrative_route": {
+  "decision": "concept_mechanism_contrast",
+  "reason": "07-08 的机制点是「两个栈怎么拼起来、两种预训练目标差在哪」。用编码器-解码器结构开篇，再拆交叉注意力、teacher forcing、T5 span 破坏与实跑、BART 五种噪声、beam 推理、2026 选型，最后对比 T5 与 BART。",
+  "director_review": "九页按「结构 → 对话位置 → 训练方式 → T5 目标 → T5 实跑 → BART 噪声 → 推理 → 选型 → 两者对比」推进；p05 的源句和目标直接取自 code/main.py 输出，必须与脚本一致。",
+  "director_plan": "p01 编码器-解码器结构；p02 交叉注意力；p03 错位损失与 teacher forcing；p04 T5 span 破坏；p05 T5 实跑；p06 BART 五种噪声；p07 beam 推理；p08 2026 选型；p09 T5 与 BART 对比。"
+ },
+ "topic": "T5 与 BART：编码器-解码器",
+ "audience": "了解 BERT 与 GPT、想弄清输入输出型任务该选什么架构的工程师和学生",
+ "explanation_goal": "看完能说清编码器-解码器如何接线、T5 与 BART 的预训练目标差别，以及 2026 年什么任务仍该选双栈。",
+ "source_scope": {
+  "type": "课程改编",
+  "links": [
+   "phases/07-transformers-deep-dive/08-t5-bart-encoder-decoder/docs/zh.md"
+  ],
+  "evidence": "旁白与图解取自课程正文与 code/main.py 实跑输出：被破坏源句「the quick <extra_id_0> fox jumps over the lazy dog a <extra_id_1> time saves nine」、目标「<extra_id_0> brown <extra_id_1> stitch in <extra_id_2>」、还原校验 YES；BART 五种噪声输出来自同一脚本。"
+ },
+ "visual_direction": {
+  "approach": "工业设计马克笔图解，不画人物",
+  "palette": "暖白纸面 #FFFDF7，主色暖黄 #E8B84B，辅以暖棕 #8A6A3B、金属灰 #9AA3A8、深黑灰 #2B2F33",
+  "line": "粗重外轮廓配细线连接，实心色块只用于被强调的部件",
+  "density": "每页 3–8 个主对象，字号大，关键词不超过 8 处",
+  "motion_note": "整页随旁白保留，笔尖按轮廓描线后填色"
+ },
+ "beats": [
+  {
+   "page": "p01",
+   "title": "编码器-解码器",
+   "narration": "阶段 7，第 8 课：T5 与 BART。编码器负责理解，解码器负责生成。把两个拼回去，就有了输入到输出的模型。",
+   "visual": "左边编码器卡（双向、只跑一次），右边解码器卡（自回归、交叉注意力高亮），中间箭头标 K,V；下方 T5 与 BART 两个标签。",
+   "emphasis": "编码器理解、解码器生成，中间用交叉注意力连接。"
+  },
+  {
+   "page": "p02",
+   "title": "交叉注意力",
+   "narration": "编码器双向读完整段输入，整段只跑一次。解码器自回归生成，每一步都对编码器输出做交叉注意力。编码器输出可以缓存，长输入几乎是免费的。",
+   "visual": "左编码器堆叠三层双向自注意力，右侧解码器堆叠含交叉注意力，中间箭头标 K,V，右侧文字说明 Q 来自目标。",
+   "emphasis": "Q 来自解码器，K 和 V 来自编码器。"
+  },
+  {
+   "page": "p03",
+   "title": "错位一格",
+   "narration": "训练时解码器吃真实的上一词，这叫 teacher forcing。输出端错位一格，损失和 GPT 完全一样。区别只在于，额外条件来自编码器输出。",
+   "visual": "上一行解码器输入 <bos> 我 爱 你，下一行暖黄目标 我 爱 你 <eos>，斜箭头连接；右侧卡片写与 GPT 同一个损失。",
+   "emphasis": "teacher forcing：喂真实上一词，输出端错位一格。"
+  },
+  {
+   "page": "p04",
+   "title": "T5 span 破坏",
+   "narration": "T5 把输入里的随机 span 换成哨兵 token。平均每段三个词，总共遮住百分之十五。解码器只输出被破坏的那几段，比重建整句便宜。",
+   "visual": "上行源序列 The quick [extra_id_0] fox jumps [extra_id_1] dog，暖黄标出哨兵；下行目标 [extra_id_0] brown [extra_id_1] over the lazy，金属灰标哨兵。",
+   "emphasis": "T5 把 span 换成哨兵，解码器只输出被破坏的段。"
+  },
+  {
+   "page": "p05",
+   "title": "T5 实跑",
+   "narration": "实跑：源句里的 brown 和 stitch in 被换成了 extra_id 哨兵。目标只剩下两段被挖掉的内容。把源里的词和目标拼回去，能完整还原原句。",
+   "visual": "两个方框分别放被破坏的源与解码目标，底部暖黄条写「拼回去 = 原句：YES」。",
+   "emphasis": "把非哨兵源词与解出的 span 拼回去，正好还原原句。"
+  },
+  {
+   "page": "p06",
+   "title": "BART 五种噪声",
+   "narration": "BART 试了五种加噪：掩码、删除、文本填充、句子打乱、文档旋转。文本填充加句子打乱，下游分数最好。但解码器要重建整句，预训练算力比 T5 更高。",
+   "visual": "五个并排卡片：token 掩码、token 删除、文本填充、句子打乱、文档旋转；文本填充与句子打乱用暖黄强调。",
+   "emphasis": "BART 用五种加噪，解码器重建整句。"
+  },
+  {
+   "page": "p07",
+   "title": "beam 推理",
+   "narration": "推理和 GPT 一样自回归，贪心和 beam 都能用。翻译和摘要输出分布窄，beam 宽度四到五最稳。聊天没有固定的输入，beam 反而帮不上忙。",
+   "visual": "左侧 <bos> 分出四条候选的 beam 树，右侧勾出翻译与摘要、叉掉聊天。",
+   "emphasis": "翻译和摘要用 beam 4–5；聊天不适合 beam。"
+  },
+  {
+   "page": "p08",
+   "title": "2026 选型",
+   "narration": "翻译、语音转写、摘要，编码器-解码器仍然合适。聊天、代码补全、推理，纯解码器已经接管。原因是指令微调和 RLHF，都假设有一个解码器。",
+   "visual": "左卡片「编码器-解码器仍合适」列翻译、语音转写、摘要、结构化抽取；右卡片「纯解码器已接管」列聊天、代码、长上下文、RLHF 助手。",
+   "emphasis": "输入输出模态不同或 beam 重要时用双栈，其余归纯解码器。"
+  },
+  {
+   "page": "p09",
+   "title": "T5 vs BART",
+   "narration": "T5 把一切任务改成文本进、文本出。BART 用去噪自编码器重建整句。架构没有输，输的是规模和后训练的主战场。",
+   "visual": "左卡片 T5：文本进文本出、只解 span、算力更省；右卡片 BART：五种噪声、重建整句、算力更高。",
+   "emphasis": "同是双栈，预训练目标不同。"
+  }
+ ]
+}

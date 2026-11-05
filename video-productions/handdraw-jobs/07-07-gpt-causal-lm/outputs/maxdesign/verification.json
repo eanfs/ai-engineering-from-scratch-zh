@@ -1,0 +1,45 @@
+{
+ "film": "preview.mp4",
+ "checks": {
+  "dimensions": {
+   "ok": true,
+   "value": [
+    1920,
+    1080
+   ]
+  },
+  "frame_rate": {
+   "ok": true,
+   "value": "30/1"
+  },
+  "codecs": {
+   "ok": true,
+   "value": [
+    "h264",
+    "aac"
+   ]
+  },
+  "duration": {
+   "ok": true,
+   "value": [
+    146.367,
+    146.353
+   ]
+  },
+  "decode": {
+   "ok": true,
+   "value": ""
+  },
+  "loudness": {
+   "ok": true,
+   "value": "-17.12"
+  },
+  "audio_correlation": {
+   "ok": true,
+   "value": 0.9991414,
+   "length_delta_seconds": 0.612
+  }
+ },
+ "preview": true,
+ "ok": true
+}

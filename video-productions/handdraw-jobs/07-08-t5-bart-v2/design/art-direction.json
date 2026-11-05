@@ -1,0 +1,127 @@
+{
+  "dependency_sha256": "fbbfd33d70f729011b6a6bc232851c116cd4a89ead2adea4462888a6ce26fc1a",
+  "style_sha256": "7ef21cd6d6968e47b2856b7b3f29f8fee743e8ebb76448640bf91bd374679d10",
+  "images": [
+    {
+      "source": "../inputs/cover.png",
+      "sha256": "806be63b56f528e8703e253b4b4b3e1779da7971086fe2574ea0e91fb090c7a0",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/cover.md",
+      "brief_sha256": "e4cbb2675c4460f8dc759096ef150922617c42c78b099c9a17af53283db80e99",
+      "prompt_file": "prompts/cover.txt",
+      "prompt_sha256": "495556b8dfe1af9de65a368b580e9e3a1651bf64b91f268c927e1a51853b7ad4",
+      "status": "pass",
+      "evidence": "封面为两个方块与双向箭头组合，暖黄+金属灰，白底，顶部留白；无文字、无人物。"
+    },
+    {
+      "source": "../inputs/p01.png",
+      "sha256": "49977caec4780434bb5d8c4f8b696c19745473631abecbf01844fcf78ee2afae",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p01.md",
+      "brief_sha256": "0558607770a2160c52dcebcb14a8a8bbeacea34077ca166ff26dd26e8ea4fc24",
+      "prompt_file": "prompts/p01.txt",
+      "prompt_sha256": "11e9f33f0b6b1d1f5b3fddd513e64247aeb28ce2dede6630841d0e6649ce6d08",
+      "status": "pass",
+      "evidence": "三个小图标被竖线分成两半，对应三类任务共用一套架构"
+    },
+    {
+      "source": "../inputs/p02.png",
+      "sha256": "d99460619a7666c7c2631620f4dae9b2015b8043218c261c11dc04768b85af3f",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p02.md",
+      "brief_sha256": "3228521298fad952609e4138910f8a6875f26e8c155bfb98bf892eb836a7d928",
+      "prompt_file": "prompts/p02.txt",
+      "prompt_sha256": "6bda57d6aea931589272eefa9dba7bccb123d764e0ff326a9b02c8108ff6b671",
+      "status": "pass",
+      "evidence": "T5 与 BART 两个方块并排，对应两篇论文"
+    },
+    {
+      "source": "../inputs/p03.png",
+      "sha256": "a7a203fd55030e2e7fb2e67a31885cae06c630f46d3791b67e0b253d9db7d35f",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p03.md",
+      "brief_sha256": "83b9ed54151d5323f89d98eb0a70c2f43883efece2198512820125d6ead9c513",
+      "prompt_file": "prompts/p03.txt",
+      "prompt_sha256": "db1a2a9ceddaa332ce7919b7c83207e326eb1933e9f3a1bcb374bc9051eee908",
+      "status": "pass",
+      "evidence": "实心与空心方块并列并有四个标签牌，对应输入到输出"
+    },
+    {
+      "source": "../inputs/p04.png",
+      "sha256": "a8062605581d1ab243dcf922ef3eed26eed32a26613ffab78cbc3fc6e208ac04",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p04.md",
+      "brief_sha256": "ea5d757f97eaae96e663c4cfab50f7fdd9a266386c298194e93c49bccdf89f10",
+      "prompt_file": "prompts/p04.txt",
+      "prompt_sha256": "fc4469af12729be2fac0939041155fa7a1ba0a1d601da91df91d72f0a71c772d",
+      "status": "pass",
+      "evidence": "左右两叠三层方块与粗箭头，对应交叉注意力"
+    },
+    {
+      "source": "../inputs/p05.png",
+      "sha256": "e6e135accad2f1b12f7d9882ce5a581618cc4c8473bdbc4a4edeb8f49c8225be",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p05.md",
+      "brief_sha256": "1044d5dc0422cc0638ede0efabc928f79b56d0f73ebdf4d2259132aff4944ace",
+      "prompt_file": "prompts/p05.txt",
+      "prompt_sha256": "57dcd851dca0a49225713b561ce8240bc6c1e47ef394f803d47b00f8faa027c2",
+      "status": "pass",
+      "evidence": "文本条带两个缺口与橙色标记，对应 span 破坏"
+    },
+    {
+      "source": "../inputs/p06.png",
+      "sha256": "39558abfc3905f632f9e3e77feb51cfbb9f9422458bc6e5197bff2730c708106",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p06.md",
+      "brief_sha256": "ec4f084d4ce660da61324afd4e196873210b7f9d0d4aac91ce56708cb8d4c21b",
+      "prompt_file": "prompts/p06.txt",
+      "prompt_sha256": "832f7a5e850781b2315df02286fbcc303cda73b2f7bd41e859835ec525954884",
+      "status": "pass",
+      "evidence": "两行条带上一行缺口下一行拼回，对应实跑输出"
+    },
+    {
+      "source": "../inputs/p07.png",
+      "sha256": "b3d405bc3c45955e521751d25d59e44295e89c9ed23c7bd543afa395117ee6ec",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p07.md",
+      "brief_sha256": "1162dc34f2d2fbf903e8076955387673e5abcc919ff074de10243c1af68fa622",
+      "prompt_file": "prompts/p07.txt",
+      "prompt_sha256": "1202aa613d67c9e504813f1a62cfe9cc0d73846fbb870d7bfb7f6214413958fc",
+      "status": "pass",
+      "evidence": "五个不同纹理小方块排成一行，对应五种加噪"
+    },
+    {
+      "source": "../inputs/p08.png",
+      "sha256": "929ff348ee855daba1d4aa102227660a2865aba5e6b528ec927d6273411d81ab",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p08.md",
+      "brief_sha256": "1104a922d2bd17538425392141430cf055e0011853cdcda4154e2d46ee282db3",
+      "prompt_file": "prompts/p08.txt",
+      "prompt_sha256": "7b18ca24346150d809ff911ef593640801ef3bcda12c38f19093bd1fdece0eba",
+      "status": "pass",
+      "evidence": "五行不同程度破坏的条带，对应实跑结果"
+    },
+    {
+      "source": "../inputs/p09.png",
+      "sha256": "7c6e808200168b199171ded2f99793a14cacc268c5d539ea709b6a8b0e0572e4",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p09.md",
+      "brief_sha256": "bc839cfbb52a820ee1081a7c8f16a5d4aa75e8d029a5edf6df8db7c3414af2c5",
+      "prompt_file": "prompts/p09.txt",
+      "prompt_sha256": "bfcb2a90826ea6f86ee7b91ac20a597a715c9d4a729e1ed4e3346852f4934e0f",
+      "status": "pass",
+      "evidence": "打勾与打叉两列清单，对应何时选编码器-解码器"
+    },
+    {
+      "source": "../inputs/p10.png",
+      "sha256": "6f5a0434b88f274c498b630478187494fbe71a07de86632199c9fd040e9092a0",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p10.md",
+      "brief_sha256": "55b2616162262db0a21952162af651d384d3fa467c6ebb661bb74ccc317b64e5",
+      "prompt_file": "prompts/p10.txt",
+      "prompt_sha256": "ec0e70b1fc3d08be9824854aad3e0f4f73cb146f26031220cd44902cf4286d0c",
+      "status": "pass",
+      "evidence": "评论气泡与心形图标，对应邀请留言"
+    }
+  ]
+}

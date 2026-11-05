@@ -1,0 +1,1 @@
+industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 左侧卡片 T5：一切任务文本进文本出、预训练只解被挖掉的 span、算力更省；右侧卡片 BART：五种噪声任意组合、解码器重建整句、算力更高；底部写「架构没有输，输的是规模和后训练的主战场」。 Visible: 两张卡片各四条；底部一句话收束。. No people, no photorealism, no dark background, no watermark.

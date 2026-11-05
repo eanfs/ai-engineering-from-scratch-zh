@@ -12,9 +12,16 @@
 | 14-03 | Reflexion | 173.0 秒 / 14.6 MiB | 9 / 27 | 55 | 37 |
 | 14-02 | ReWOO 与规划执行 | 267.5 秒 / 22.5 MiB | 10 / 30 | 87 | 40 |
 | 14-04 | Tree of Thoughts 与 LATS | 171.6 秒 / 14.4 MiB | 9 / 27 | 53 | 36 |
+| 07-07 | GPT 因果语言建模 | 175.3 秒 / 14.7 MiB | 10 / 30 | 54 | 38 |
+| 07-08 | T5 与 BART（编码器-解码器） | 173.4 秒 / 14.5 MiB | 10 / 30 | 58 | 39 |
+| 07-07 | GPT 因果语言建模（逐笔手绘·女声） | 174.2 秒 / 27.3 MiB | 10 / 30 | 30 | — |
+| 07-08 | T5 与 BART（逐笔手绘·女声） | 175.3 秒 / 27.6 MiB | 10 / 30 | 30 | — |
 
 14-02 沿用 hypit 已审阅的 9 场文案（27 句），**前面加一场封面**（3 句），共 10 场 30 句；
 14-04 的**第 1 场是封面**（集号 + 主标题 + 三件套色块），随后 8 场讲 ToT 的 BFS 自评与 LATS 的 MCTS 四步。
+07-07、07-08 按小红书数据（5 秒完播率低于同类）改成**钩子前置**：第 1 场直接抛问题、画面领先旁白（0.2–1.5 秒就开始写字），标题卡挪到第 2 场，末场固定提问 + 评论区引导。
+
+逐笔手绘版用 `handdrawn-explainer-video` 流水线（画风 12 工业设计马克笔 + teacher-pen 手部 + 16:9 1080p），配音用 edge-tts 女声 `zh-CN-XiaoxiaoNeural`，配乐为动感电子；插画由 Grok imagine 生成，合成与字幕在本地完成；任务目录在 `handdraw-jobs/07-07-gpt-causal-v2/` 与 `handdraw-jobs/07-08-t5-bart-v2/`，`outputs/film.mp4` 与 `work/` 不入库。
 
 成片（1920×1080、30 fps、H.264 + AAC）在本地 `output/dashi-*-handdrawn.mp4`，
 已加入 `.gitignore` 不入库；按下面的步骤可以整片重建。
@@ -55,10 +62,17 @@ $OM render . --blur                                  # 成片写进 out/
 | 14-04 | Tree of Thoughts 与 LATS | `handdraw-jobs/14-04-tot-lats/outputs/film.mp4` | 9 / 27 | teacher-pen | 1920×1080 · 30 fps |
 | 07-05 | 完整的 Transformer | `handdraw-jobs/07-05-full-transformer/outputs/film.mp4` | 9 / 27 | teacher-pen | 1920×1080 · 30 fps |
 | 07-06 | BERT 掩码语言建模 | `handdraw-jobs/07-06-bert-mlm/outputs/film.mp4` | 9 / 27 | teacher-pen | 1920×1080 · 30 fps |
+| 07-07 | GPT 因果语言建模 | 交接中，见 `handoff/RUNBOOK.md` | 9 / 27 | teacher-pen | 1920×1080 · 30 fps |
+| 07-08 | T5 与 BART | 交接中，见 `handoff/RUNBOOK.md` | 9 / 27 | teacher-pen | 1920×1080 · 30 fps |
 
 四集共用 12 号「工业设计马克笔手绘」、#FFFDF7 暖白纸与 07-04 的科普轻电子配乐。
 旁白用 edge-tts 整篇一次合成（`zh-CN-XiaoxiaoNeural`），句级时间戳取自 TTS 返回的
 `SentenceBoundary`，逐句比对原稿后写入 `inputs/narration/alignment.json`。
+
+07-07、07-08 尚未出片：插图与旁白母带已就绪，`design/art-direction.json` 与
+`design/drawing-review.json` 两份审核记录未写，本地产线因此还不能 `build`。
+这两集的画面改由 `handoff/` 里的交接单在 MiniMax Design 里重画，装配仍走本地脚本
+（`handoff/handoff_assemble.py`），操作步骤见 `handoff/RUNBOOK.md`。
 
 ```bash
 J="$PWD/video-productions/handdraw-jobs/07-05-full-transformer"

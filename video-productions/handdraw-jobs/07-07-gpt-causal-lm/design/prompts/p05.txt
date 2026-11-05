@@ -1,0 +1,1 @@
+industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 左侧卡片训练：整段序列条向下分出四个损失框；右侧卡片推理：t1→t2→t3 串成链，箭头折下接到暖黄 t4，并标注 KV 缓存。 Visible: 训练侧四个损失同时在；推理侧链条明显是串行，t4 在链条末端。. No people, no photorealism, no dark background, no watermark.

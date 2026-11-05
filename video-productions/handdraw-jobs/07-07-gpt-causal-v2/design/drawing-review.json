@@ -1,0 +1,204 @@
+{
+  "style_sha256": "30517a151aae9f47cff610934a112edfc2a964fe91c6342600c6be7f0ef8def2",
+  "plan_sha256": "c8138e652c07bae1e9d07d1fb362dbc7e5a34f089d4f17dfd6ab65be5efcc209",
+  "illustrations": [
+    {
+      "plan_id": "cover",
+      "status": "pass",
+      "source_sha256": "fc575f8224e35177f2ab96c4564a97bf995fc65a4189b1e8e41e4241fc43b5c5",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影之间由纸色过渡分隔，遮挡仅发生在阴影压住主体底缘处，按地面部位处理。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按产品分件（主体块面、接缝、问号/箭头等附件）逐块追踪；接地阴影为独立地面部位。",
+      "stroke_breaks": "从上到下、从左到右起笔；每个分件轮廓之间抬笔，不跨纸色缝隙连线。",
+      "outline_then_fill": "先用深灰勾线完成全部可见轮廓，再按同一顺序铺暖黄与金属灰，最后处理接地阴影。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "cover-visual",
+          "status": "pass",
+          "evidence": "封面有三角形与气泡组合，顶部留白足够放标题。"
+        }
+      ]
+    },
+    {
+      "plan_id": "p01",
+      "status": "pass",
+      "source_sha256": "c73f0d44fd53efb2aac17e62f3da6e40159cf21f66bd620631747b3db97258f4",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影之间由纸色过渡分隔，遮挡仅发生在阴影压住主体底缘处，按地面部位处理。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按产品分件（主体块面、接缝、问号/箭头等附件）逐块追踪；接地阴影为独立地面部位。",
+      "stroke_breaks": "从上到下、从左到右起笔；每个分件轮廓之间抬笔，不跨纸色缝隙连线。",
+      "outline_then_fill": "先用深灰勾线完成全部可见轮廓，再按同一顺序铺暖黄与金属灰，最后处理接地阴影。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "why-backward",
+          "status": "pass",
+          "evidence": "画面有一个被三角形挡住视线的对话气泡与禁止叉号，符合旁白对视线被锁死的描述。"
+        }
+      ]
+    },
+    {
+      "plan_id": "p02",
+      "status": "pass",
+      "source_sha256": "195821066d91a2dd5d2c88f96840e84394c6f1c0b4b7bcaa1eb3cd0a1c0e0857",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影之间由纸色过渡分隔，遮挡仅发生在阴影压住主体底缘处，按地面部位处理。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按产品分件（主体块面、接缝、问号/箭头等附件）逐块追踪；接地阴影为独立地面部位。",
+      "stroke_breaks": "从上到下、从左到右起笔；每个分件轮廓之间抬笔，不跨纸色缝隙连线。",
+      "outline_then_fill": "先用深灰勾线完成全部可见轮廓，再按同一顺序铺暖黄与金属灰，最后处理接地阴影。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "title-card",
+          "status": "pass",
+          "evidence": "画面有方块字母元素与三角形、圆形并列，对应理解与生成两条路线。"
+        }
+      ]
+    },
+    {
+      "plan_id": "p03",
+      "status": "pass",
+      "source_sha256": "7d5fc4fa417cc771da6d036529ea54cd988a63225e927cdac1e0cfa28b26e394",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影之间由纸色过渡分隔，遮挡仅发生在阴影压住主体底缘处，按地面部位处理。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按产品分件（主体块面、接缝、问号/箭头等附件）逐块追踪；接地阴影为独立地面部位。",
+      "stroke_breaks": "从上到下、从左到右起笔；每个分件轮廓之间抬笔，不跨纸色缝隙连线。",
+      "outline_then_fill": "先用深灰勾线完成全部可见轮廓，再按同一顺序铺暖黄与金属灰，最后处理接地阴影。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "next-token",
+          "status": "pass",
+          "evidence": "画面有一排方块且最后一个上方有问号，对应预测下一个词。"
+        }
+      ]
+    },
+    {
+      "plan_id": "p04",
+      "status": "pass",
+      "source_sha256": "580dc7c8b1b87cb8b44a2a6941ade0b354de1be3613a52dd275790a4ddc33176",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影之间由纸色过渡分隔，遮挡仅发生在阴影压住主体底缘处，按地面部位处理。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按产品分件（主体块面、接缝、问号/箭头等附件）逐块追踪；接地阴影为独立地面部位。",
+      "stroke_breaks": "从上到下、从左到右起笔；每个分件轮廓之间抬笔，不跨纸色缝隙连线。",
+      "outline_then_fill": "先用深灰勾线完成全部可见轮廓，再按同一顺序铺暖黄与金属灰，最后处理接地阴影。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "causal-mask",
+          "status": "pass",
+          "evidence": "画面有一个方格矩阵，左下三角被填色、右上三角留白，对应因果掩码。"
+        }
+      ]
+    },
+    {
+      "plan_id": "p05",
+      "status": "pass",
+      "source_sha256": "59b31574cad882f19718bfdcdbbe2c7a72174523a559f9c26013a57e88a7b829",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影之间由纸色过渡分隔，遮挡仅发生在阴影压住主体底缘处，按地面部位处理。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按产品分件（主体块面、接缝、问号/箭头等附件）逐块追踪；接地阴影为独立地面部位。",
+      "stroke_breaks": "从上到下、从左到右起笔；每个分件轮廓之间抬笔，不跨纸色缝隙连线。",
+      "outline_then_fill": "先用深灰勾线完成全部可见轮廓，再按同一顺序铺暖黄与金属灰，最后处理接地阴影。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "triangle-origin",
+          "status": "pass",
+          "evidence": "画面有三个并排矩阵与箭头，对应三阶段递进。"
+        }
+      ]
+    },
+    {
+      "plan_id": "p06",
+      "status": "pass",
+      "source_sha256": "5033fbe5095dca6397d378576155042db68aa265e2897005df4e9939fefc38ac",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影之间由纸色过渡分隔，遮挡仅发生在阴影压住主体底缘处，按地面部位处理。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按产品分件（主体块面、接缝、问号/箭头等附件）逐块追踪；接地阴影为独立地面部位。",
+      "stroke_breaks": "从上到下、从左到右起笔；每个分件轮廓之间抬笔，不跨纸色缝隙连线。",
+      "outline_then_fill": "先用深灰勾线完成全部可见轮廓，再按同一顺序铺暖黄与金属灰，最后处理接地阴影。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "run-matrix",
+          "status": "pass",
+          "evidence": "画面有密集数字矩阵面板，下三角有读数，对应实跑输出。"
+        }
+      ]
+    },
+    {
+      "plan_id": "p07",
+      "status": "pass",
+      "source_sha256": "5e1a914cdcf086456f73cf39a2b934de9561add3fdf7996fc5312ad68cdd806a",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影之间由纸色过渡分隔，遮挡仅发生在阴影压住主体底缘处，按地面部位处理。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按产品分件（主体块面、接缝、问号/箭头等附件）逐块追踪；接地阴影为独立地面部位。",
+      "stroke_breaks": "从上到下、从左到右起笔；每个分件轮廓之间抬笔，不跨纸色缝隙连线。",
+      "outline_then_fill": "先用深灰勾线完成全部可见轮廓，再按同一顺序铺暖黄与金属灰，最后处理接地阴影。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "decoding",
+          "status": "pass",
+          "evidence": "画面有长短不一的条形图与指针，对应从分布采样。"
+        }
+      ]
+    },
+    {
+      "plan_id": "p08",
+      "status": "pass",
+      "source_sha256": "b5dcc514434a84c11153ef260c99de25e59f558bf19c537bd2c2c4d180abeb37",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影之间由纸色过渡分隔，遮挡仅发生在阴影压住主体底缘处，按地面部位处理。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按产品分件（主体块面、接缝、问号/箭头等附件）逐块追踪；接地阴影为独立地面部位。",
+      "stroke_breaks": "从上到下、从左到右起笔；每个分件轮廓之间抬笔，不跨纸色缝隙连线。",
+      "outline_then_fill": "先用深灰勾线完成全部可见轮廓，再按同一顺序铺暖黄与金属灰，最后处理接地阴影。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "recipe",
+          "status": "pass",
+          "evidence": "画面有垂直堆叠的模块塔，对应解码器层堆叠。"
+        }
+      ]
+    },
+    {
+      "plan_id": "p09",
+      "status": "pass",
+      "source_sha256": "da3c077344bd2cdc415c4ab164683eae8a9541a52edc5d505238020b038473ed",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影之间由纸色过渡分隔，遮挡仅发生在阴影压住主体底缘处，按地面部位处理。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按产品分件（主体块面、接缝、问号/箭头等附件）逐块追踪；接地阴影为独立地面部位。",
+      "stroke_breaks": "从上到下、从左到右起笔；每个分件轮廓之间抬笔，不跨纸色缝隙连线。",
+      "outline_then_fill": "先用深灰勾线完成全部可见轮廓，再按同一顺序铺暖黄与金属灰，最后处理接地阴影。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "bert-vs-gpt",
+          "status": "pass",
+          "evidence": "画面有两个左右对比的开口模块与箭头，对应两种架构。"
+        }
+      ]
+    },
+    {
+      "plan_id": "p10",
+      "status": "pass",
+      "source_sha256": "89a4e999670d1483481b19e2c47adaa83581321f0b4ffbe13b4e5d3ad079d3b1",
+      "crop": null,
+      "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影之间由纸色过渡分隔，遮挡仅发生在阴影压住主体底缘处，按地面部位处理。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按产品分件（主体块面、接缝、问号/箭头等附件）逐块追踪；接地阴影为独立地面部位。",
+      "stroke_breaks": "从上到下、从左到右起笔；每个分件轮廓之间抬笔，不跨纸色缝隙连线。",
+      "outline_then_fill": "先用深灰勾线完成全部可见轮廓，再按同一顺序铺暖黄与金属灰，最后处理接地阴影。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "outro",
+          "status": "pass",
+          "evidence": "画面有评论气泡与心形图标，对应邀请留言。"
+        }
+      ]
+    }
+  ]
+}

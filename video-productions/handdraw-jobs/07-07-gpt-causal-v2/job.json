@@ -1,0 +1,688 @@
+{
+  "version": 1,
+  "title": "07-07 GPT 因果语言建模",
+  "design_file": "design.json",
+  "art_direction": {
+    "record": "design/art-direction.json"
+  },
+  "drawing_plan": "design/drawing-plan.json",
+  "drawing_review": "design/drawing-review.json",
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "cover": {
+    "source": "inputs/cover.png",
+    "seconds": 1.0
+  },
+  "hand": {
+    "preset": "teacher-pen"
+  },
+  "narration": {
+    "source": "inputs/narration/master.wav",
+    "alignment": "inputs/narration/alignment.json"
+  },
+  "audio": {
+    "end_hold_seconds": 0.3,
+    "music": {
+      "source": "inputs/music.wav",
+      "gain": 0.3,
+      "user_instruction": "用户选择添加背景音乐；作为铺底，增益 0.55，不压过旁白"
+    }
+  },
+  "font": {
+    "path": "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf",
+    "index": 0
+  },
+  "captions": {
+    "font": {
+      "path": "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf",
+      "index": 0
+    },
+    "font_size": 42,
+    "color": "#FFFFFF",
+    "bottom_margin": 54,
+    "max_width_ratio": 0.82,
+    "max_lines": 2,
+    "stroke_width": 4,
+    "stroke_color": "#1E1E1E",
+    "background": null
+  },
+  "paper": "#FFFFFF",
+  "ending": {
+    "fade_seconds": 0.25
+  },
+  "pages": [
+    {
+      "id": "p01",
+      "title": "为什么只会往后写",
+      "illustration": "p01",
+      "beats": [
+        {
+          "id": "p01-b01",
+          "text": "你每天用的 AI 聊天，为什么只会往后写？"
+        },
+        {
+          "id": "p01-b02",
+          "text": "因为它的视线，被一个三角形锁死了。"
+        },
+        {
+          "id": "p01-b03",
+          "text": "这行代码，就是今天要拆的因果掩码。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p01.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "p01",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p02",
+      "title": "GPT 与因果语言建模",
+      "illustration": "p02",
+      "beats": [
+        {
+          "id": "p02-b01",
+          "text": "阶段 7，第 7 课：GPT 与因果语言建模。"
+        },
+        {
+          "id": "p02-b02",
+          "text": "BERT 看两边，GPT 只看过去。"
+        },
+        {
+          "id": "p02-b03",
+          "text": "一个三角掩码，撑起了今天几乎所有的大模型。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p02.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "p02",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p03",
+      "title": "语言模型在学什么",
+      "illustration": "p03",
+      "beats": [
+        {
+          "id": "p03-b01",
+          "text": "语言模型回答一个问题：给定前面的 token，下一个 token 的概率是多少？"
+        },
+        {
+          "id": "p03-b02",
+          "text": "在这个信号上训练，就能一次生成一个 token，组成任意文本。"
+        },
+        {
+          "id": "p03-b03",
+          "text": "但要并行训练整段序列，每个位置只能依赖更早的位置，否则模型会作弊。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p03.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "p03",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p04",
+      "title": "因果掩码",
+      "illustration": "p04",
+      "beats": [
+        {
+          "id": "p04-b01",
+          "text": "因果掩码是一个上三角矩阵，上三角填的是负无穷。"
+        },
+        {
+          "id": "p04-b02",
+          "text": "它在 softmax 之前加到注意力分数上，softmax 之后那些位置就变成零。"
+        },
+        {
+          "id": "p04-b03",
+          "text": "于是每个位置只关注自己和更早的位置，一次前向就得到全部的下一个 token 预测。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p04.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "p04",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p05",
+      "title": "三角形从何而来",
+      "illustration": "p05",
+      "beats": [
+        {
+          "id": "p05-b01",
+          "text": "把掩码想成前缀平均，就不神秘了。位置 i 取 0 到 i 的均值。"
+        },
+        {
+          "id": "p05-b02",
+          "text": "这个均值可以写成一个下三角矩阵乘以序列，对角线上方的零就是因果性。"
+        },
+        {
+          "id": "p05-b03",
+          "text": "从均匀平均到学习权重，再到依赖内容的注意力，三角形始终保留着。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p05.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "p05",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p06",
+      "title": "实跑：注意力矩阵",
+      "illustration": "p06",
+      "beats": [
+        {
+          "id": "p06-b01",
+          "text": "跑一遍代码，打印出 softmax 之后的因果注意力矩阵。"
+        },
+        {
+          "id": "p06-b02",
+          "text": "第一行只有第一个位置有权重，第二行只在前两列有权重，依此类推。"
+        },
+        {
+          "id": "p06-b03",
+          "text": "每一行都是一个只覆盖更早位置的概率分布，这就是因果性的样子。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p06.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "p06",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p07",
+      "title": "解码：从分布里挑一个词",
+      "illustration": "p07",
+      "beats": [
+        {
+          "id": "p07-b01",
+          "text": "训练完成后，采样方式比大家想的更重要。"
+        },
+        {
+          "id": "p07-b02",
+          "text": "同一个分布，贪心取最高的 the，温度 0.7 取到了 jumped，温度 2 取到了 mat。"
+        },
+        {
+          "id": "p07-b03",
+          "text": "Top-k、Top-p、Min-p 各自截断长尾，决定了输出是保守还是发散。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p07.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "p07",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p08",
+      "title": "GPT 配方为什么有效",
+      "illustration": "p08",
+      "beats": [
+        {
+          "id": "p08-b01",
+          "text": "纯解码器，没有编码器的开销，一层只有一次注意力加一个前馈网络。"
+        },
+        {
+          "id": "p08-b02",
+          "text": "规模扩大，in-context learning 在大约六十亿参数左右涌现。"
+        },
+        {
+          "id": "p08-b03",
+          "text": "核心架构自 GPT-2 起几乎没变，真正拉开差距的是数据、规模和后训练。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p08.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "p08",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p09",
+      "title": "BERT 与 GPT 一行对比",
+      "illustration": "p09",
+      "beats": [
+        {
+          "id": "p09-b01",
+          "text": "GPT 预测的是 P(下一个词 | 前面的词)，BERT 预测的是被掩掉的词。"
+        },
+        {
+          "id": "p09-b02",
+          "text": "损失函数决定了模型能不能生成：GPT 能，BERT 不能。"
+        },
+        {
+          "id": "p09-b03",
+          "text": "理解用编码器，生成用解码器，这是两条不同的路线。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p09.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "p09",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p10",
+      "title": "来说说你的看法",
+      "illustration": "p10",
+      "beats": [
+        {
+          "id": "p10-b01",
+          "text": "如果你在做聊天应用，你觉得是采样参数重要，还是数据更重要？"
+        },
+        {
+          "id": "p10-b02",
+          "text": "欢迎在评论区留下你的答案，或者你遇到过的生成奇怪现象。"
+        },
+        {
+          "id": "p10-b03",
+          "text": "关注这个系列，下一集讲 T5 与 BART 的编码器到解码器架构。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p10.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "p10",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
