@@ -5,7 +5,7 @@
     {
       "plan_id": "cover",
       "status": "pass",
-      "source_sha256": "a9c07c8b9c8c0f6f33d82f65386504af7b8bb0c41897f390732443401efc974e",
+      "source_sha256": "fc575f8224e35177f2ab96c4564a97bf995fc65a4189b1e8e41e4241fc43b5c5",
       "crop": null,
       "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影之间由纸色过渡分隔，遮挡仅发生在阴影压住主体底缘处，按地面部位处理。",
       "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按产品分件（主体块面、接缝、问号/箭头等附件）逐块追踪；接地阴影为独立地面部位。",
@@ -23,7 +23,7 @@
     {
       "plan_id": "p01",
       "status": "pass",
-      "source_sha256": "5a655a7f25827b7b0ba571691d4c03a5534c733660d84290be18e9414f60eee0",
+      "source_sha256": "c73f0d44fd53efb2aac17e62f3da6e40159cf21f66bd620631747b3db97258f4",
       "crop": null,
       "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影之间由纸色过渡分隔，遮挡仅发生在阴影压住主体底缘处，按地面部位处理。",
       "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按产品分件（主体块面、接缝、问号/箭头等附件）逐块追踪；接地阴影为独立地面部位。",
@@ -41,7 +41,7 @@
     {
       "plan_id": "p02",
       "status": "pass",
-      "source_sha256": "3b0194555f7306faf44b566527b5f473bbacc08be98041c5cb17da14682154c8",
+      "source_sha256": "195821066d91a2dd5d2c88f96840e84394c6f1c0b4b7bcaa1eb3cd0a1c0e0857",
       "crop": null,
       "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影之间由纸色过渡分隔，遮挡仅发生在阴影压住主体底缘处，按地面部位处理。",
       "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按产品分件（主体块面、接缝、问号/箭头等附件）逐块追踪；接地阴影为独立地面部位。",
@@ -59,7 +59,7 @@
     {
       "plan_id": "p03",
       "status": "pass",
-      "source_sha256": "05783dec3c62f7bb6e79dcd91d941352ec0e69f12e6b8d6f743bd673da5ae68c",
+      "source_sha256": "7d5fc4fa417cc771da6d036529ea54cd988a63225e927cdac1e0cfa28b26e394",
       "crop": null,
       "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影之间由纸色过渡分隔，遮挡仅发生在阴影压住主体底缘处，按地面部位处理。",
       "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按产品分件（主体块面、接缝、问号/箭头等附件）逐块追踪；接地阴影为独立地面部位。",
@@ -77,7 +77,7 @@
     {
       "plan_id": "p04",
       "status": "pass",
-      "source_sha256": "6bedc0a05cae02c61172fa237efee4ac0d9282e9f47a1ea60c7cca99d7218f45",
+      "source_sha256": "580dc7c8b1b87cb8b44a2a6941ade0b354de1be3613a52dd275790a4ddc33176",
       "crop": null,
       "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影之间由纸色过渡分隔，遮挡仅发生在阴影压住主体底缘处，按地面部位处理。",
       "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按产品分件（主体块面、接缝、问号/箭头等附件）逐块追踪；接地阴影为独立地面部位。",
@@ -95,7 +95,7 @@
     {
       "plan_id": "p05",
       "status": "pass",
-      "source_sha256": "76fc4e26850a15bae5896674c131c41bdcfe9b49bb2e89da43eba153ba1a426d",
+      "source_sha256": "59b31574cad882f19718bfdcdbbe2c7a72174523a559f9c26013a57e88a7b829",
       "crop": null,
       "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影之间由纸色过渡分隔，遮挡仅发生在阴影压住主体底缘处，按地面部位处理。",
       "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按产品分件（主体块面、接缝、问号/箭头等附件）逐块追踪；接地阴影为独立地面部位。",
@@ -113,7 +113,7 @@
     {
       "plan_id": "p06",
       "status": "pass",
-      "source_sha256": "536d30cc04dff1a73b044ee957fdecc90f3b5e912a85428efeaf1fcc6c7fa0ca",
+      "source_sha256": "5033fbe5095dca6397d378576155042db68aa265e2897005df4e9939fefc38ac",
       "crop": null,
       "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影之间由纸色过渡分隔，遮挡仅发生在阴影压住主体底缘处，按地面部位处理。",
       "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按产品分件（主体块面、接缝、问号/箭头等附件）逐块追踪；接地阴影为独立地面部位。",
@@ -131,7 +131,7 @@
     {
       "plan_id": "p07",
       "status": "pass",
-      "source_sha256": "1e3ec1abf9c4986cce1bd57c4e643c9904b1e1cfe70c68b78b1f1064fada03a4",
+      "source_sha256": "5e1a914cdcf086456f73cf39a2b934de9561add3fdf7996fc5312ad68cdd806a",
       "crop": null,
       "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影之间由纸色过渡分隔，遮挡仅发生在阴影压住主体底缘处，按地面部位处理。",
       "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按产品分件（主体块面、接缝、问号/箭头等附件）逐块追踪；接地阴影为独立地面部位。",
@@ -149,7 +149,7 @@
     {
       "plan_id": "p08",
       "status": "pass",
-      "source_sha256": "1f5e0701b821a48366201a0d17c4a2ebdebae49acfd2c07c91fd8dceee7671af",
+      "source_sha256": "b5dcc514434a84c11153ef260c99de25e59f558bf19c537bd2c2c4d180abeb37",
       "crop": null,
       "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影之间由纸色过渡分隔，遮挡仅发生在阴影压住主体底缘处，按地面部位处理。",
       "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按产品分件（主体块面、接缝、问号/箭头等附件）逐块追踪；接地阴影为独立地面部位。",
@@ -167,7 +167,7 @@
     {
       "plan_id": "p09",
       "status": "pass",
-      "source_sha256": "4b807a9bad8f7412e09d2d1ecfc5c9f046ad2eb370af25786c8f9aa1fac0ce03",
+      "source_sha256": "da3c077344bd2cdc415c4ab164683eae8a9541a52edc5d505238020b038473ed",
       "crop": null,
       "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影之间由纸色过渡分隔，遮挡仅发生在阴影压住主体底缘处，按地面部位处理。",
       "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按产品分件（主体块面、接缝、问号/箭头等附件）逐块追踪；接地阴影为独立地面部位。",
@@ -185,7 +185,7 @@
     {
       "plan_id": "p10",
       "status": "pass",
-      "source_sha256": "828bf639838a12ccb371edd433bf3524e2a2e7794327a5956d3e74c052f376c5",
+      "source_sha256": "89a4e999670d1483481b19e2c47adaa83581321f0b4ffbe13b4e5d3ad079d3b1",
       "crop": null,
       "anatomy_and_occlusion": "本页为无人物物体图，不存在人体解剖；主体与接地阴影之间由纸色过渡分隔，遮挡仅发生在阴影压住主体底缘处，按地面部位处理。",
       "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按产品分件（主体块面、接缝、问号/箭头等附件）逐块追踪；接地阴影为独立地面部位。",

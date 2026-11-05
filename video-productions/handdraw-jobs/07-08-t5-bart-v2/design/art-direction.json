@@ -4,7 +4,7 @@
   "images": [
     {
       "source": "../inputs/cover.png",
-      "sha256": "8e527c2e5763b2c79dfc73c9b6bc0450870f4e571873c72e99d8b9227dd48e60",
+      "sha256": "806be63b56f528e8703e253b4b4b3e1779da7971086fe2574ea0e91fb090c7a0",
       "method": "generated_under_guidance",
       "brief_file": "briefs/cover.md",
       "brief_sha256": "e4cbb2675c4460f8dc759096ef150922617c42c78b099c9a17af53283db80e99",
@@ -15,7 +15,7 @@
     },
     {
       "source": "../inputs/p01.png",
-      "sha256": "fe928a52b312a027549e971d169e6e27e57542daa43dd9a607b54c33e79a5109",
+      "sha256": "49977caec4780434bb5d8c4f8b696c19745473631abecbf01844fcf78ee2afae",
       "method": "generated_under_guidance",
       "brief_file": "briefs/p01.md",
       "brief_sha256": "0558607770a2160c52dcebcb14a8a8bbeacea34077ca166ff26dd26e8ea4fc24",
@@ -26,7 +26,7 @@
     },
     {
       "source": "../inputs/p02.png",
-      "sha256": "5c857f9110ff6b06f9caa79c5118357baa2b138947bda3e948a41671140893c8",
+      "sha256": "d99460619a7666c7c2631620f4dae9b2015b8043218c261c11dc04768b85af3f",
       "method": "generated_under_guidance",
       "brief_file": "briefs/p02.md",
       "brief_sha256": "3228521298fad952609e4138910f8a6875f26e8c155bfb98bf892eb836a7d928",
@@ -37,7 +37,7 @@
     },
     {
       "source": "../inputs/p03.png",
-      "sha256": "7ebe1ad53f1c935868e74823a3227e59ff3c7dc3c0a7fbb1b1bbd6d4a4c354d1",
+      "sha256": "a7a203fd55030e2e7fb2e67a31885cae06c630f46d3791b67e0b253d9db7d35f",
       "method": "generated_under_guidance",
       "brief_file": "briefs/p03.md",
       "brief_sha256": "83b9ed54151d5323f89d98eb0a70c2f43883efece2198512820125d6ead9c513",
@@ -48,7 +48,7 @@
     },
     {
       "source": "../inputs/p04.png",
-      "sha256": "32409563c522654bb20a5ff8f37422b4234e286075d1ce9f1a127be075973934",
+      "sha256": "a8062605581d1ab243dcf922ef3eed26eed32a26613ffab78cbc3fc6e208ac04",
       "method": "generated_under_guidance",
       "brief_file": "briefs/p04.md",
       "brief_sha256": "ea5d757f97eaae96e663c4cfab50f7fdd9a266386c298194e93c49bccdf89f10",
@@ -59,7 +59,7 @@
     },
     {
       "source": "../inputs/p05.png",
-      "sha256": "bfe1958e8bfb4cffdca5580448894461e46f30b64bf835b7c241298e05af9fcc",
+      "sha256": "e6e135accad2f1b12f7d9882ce5a581618cc4c8473bdbc4a4edeb8f49c8225be",
       "method": "generated_under_guidance",
       "brief_file": "briefs/p05.md",
       "brief_sha256": "1044d5dc0422cc0638ede0efabc928f79b56d0f73ebdf4d2259132aff4944ace",
@@ -70,7 +70,7 @@
     },
     {
       "source": "../inputs/p06.png",
-      "sha256": "8487b232f9ede25f8a6c478d6901595ef897f41ab66ab9b41b418cdd561ed1e8",
+      "sha256": "39558abfc3905f632f9e3e77feb51cfbb9f9422458bc6e5197bff2730c708106",
       "method": "generated_under_guidance",
       "brief_file": "briefs/p06.md",
       "brief_sha256": "ec4f084d4ce660da61324afd4e196873210b7f9d0d4aac91ce56708cb8d4c21b",
@@ -81,7 +81,7 @@
     },
     {
       "source": "../inputs/p07.png",
-      "sha256": "bf283f821cefe87cba7c7f774438e37634099b7a12be2350d7601c1f0ab3684d",
+      "sha256": "b3d405bc3c45955e521751d25d59e44295e89c9ed23c7bd543afa395117ee6ec",
       "method": "generated_under_guidance",
       "brief_file": "briefs/p07.md",
       "brief_sha256": "1162dc34f2d2fbf903e8076955387673e5abcc919ff074de10243c1af68fa622",
@@ -92,7 +92,7 @@
     },
     {
       "source": "../inputs/p08.png",
-      "sha256": "856d9df3783a8c97ecf76825435c5d387beb403f12ed9e067d3a324fdb4f5534",
+      "sha256": "929ff348ee855daba1d4aa102227660a2865aba5e6b528ec927d6273411d81ab",
       "method": "generated_under_guidance",
       "brief_file": "briefs/p08.md",
       "brief_sha256": "1104a922d2bd17538425392141430cf055e0011853cdcda4154e2d46ee282db3",
@@ -103,7 +103,7 @@
     },
     {
       "source": "../inputs/p09.png",
-      "sha256": "fb5e000966a2c98c3f55814f9cb7ab3648130b0df477b86de0eef26aec3185fe",
+      "sha256": "7c6e808200168b199171ded2f99793a14cacc268c5d539ea709b6a8b0e0572e4",
       "method": "generated_under_guidance",
       "brief_file": "briefs/p09.md",
       "brief_sha256": "bc839cfbb52a820ee1081a7c8f16a5d4aa75e8d029a5edf6df8db7c3414af2c5",
@@ -114,7 +114,7 @@
     },
     {
       "source": "../inputs/p10.png",
-      "sha256": "c880474c93ace4f99a69933dd947539b821785c56c241f6a9908b15b74bbeb6e",
+      "sha256": "6f5a0434b88f274c498b630478187494fbe71a07de86632199c9fd040e9092a0",
       "method": "generated_under_guidance",
       "brief_file": "briefs/p10.md",
       "brief_sha256": "55b2616162262db0a21952162af651d384d3fa467c6ebb661bb74ccc317b64e5",

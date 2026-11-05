@@ -1,12 +1,12 @@
 {
-  "video_sha256": "589b9b948040fcbb90e7b62602e6efa273858bb34f8733aa8e2a6b05c5d7f9b4",
+  "video_sha256": "fe176870e1af5dfbbe57ffd598032f866fa697686a37acd8e74195dc9f5e799e",
   "content": {
     "status": "pass",
     "evidence": "逐页对照讲义与 code/main.py 实跑：p04 因果掩码上三角 -inf、p06 的 6x6 下三角概率矩阵（1.000/0.646/0.354 等实测值）、p07 的贪心 the、温度 0.7 jumped、温度 2.0 mat 与 Top-k/Top-p/Min-p 截断结论，均与 phases/07-transformers-deep-dive/07-gpt-causal-language-modeling/docs/zh.md 及 main.py 输出一致。"
   },
   "visual": {
     "status": "pass",
-    "evidence": "实际查看 outputs/cover.png 与成片帧 2s/8s/30s/90s/160s：12 号工业设计马克笔风格（暖黄+金属灰、纯白底、接地阴影）、teacher-pen 白衬衫手；矩阵与条形图在勾线铺色后仍可辨，字幕位于底部安全区。"
+    "evidence": "实际查看 outputs/cover.png 与成片帧：12 号工业设计马克笔风格（暖黄+金属灰、纯白底、接地阴影）、teacher-pen 白衬衫手；插画改用英文提示词重生成，画面无任何伪文字；矩阵、条带与清单在勾线铺色后可辨，字幕位于底部安全区。"
   },
   "motion": {
     "status": "pass",

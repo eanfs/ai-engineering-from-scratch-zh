@@ -1,12 +1,12 @@
 {
-  "video_sha256": "4da8a8b02c2ccb7664962a8ac2febc4854cf1aa3788249267fad1b4fd45479fa",
+  "video_sha256": "3cad7f70fb1870bb3178b52512eb7a3613e5dfe00c74af56f22568a5465fb892",
   "content": {
     "status": "pass",
     "evidence": "逐页对照讲义与 code/main.py 实跑：p03 的输入到输出任务、p04 的编码器-解码器与交叉注意力、p05 的 T5 span 破坏与哨兵、p06 的实跑（extra_id 零/一、brown 与 stitch in、还原一致 YES）、p07 的五种加噪、p08 的实跑五种噪声输出，均与 phases/07-transformers-deep-dive/08-t5-bart-encoder-decoder/docs/zh.md 及 main.py 一致。"
   },
   "visual": {
     "status": "pass",
-    "evidence": "实际查看 outputs/cover.png 与成片帧：12 号工业设计马克笔风格（暖黄+金属灰、白底、接地阴影）、teacher-pen 白衬衫手；方块叠、条带缺口与清单在勾线铺色后可辨，字幕位于底部安全区。"
+    "evidence": "实际查看 outputs/cover.png 与成片帧：12 号工业设计马克笔风格（暖黄+金属灰、纯白底、接地阴影）、teacher-pen 白衬衫手；插画改用英文提示词重生成，画面无任何伪文字；矩阵、条带与清单在勾线铺色后可辨，字幕位于底部安全区。"
   },
   "motion": {
     "status": "pass",
