@@ -151,6 +151,41 @@ node scripts/check_og_cards.js --require-manifests
 2. 明确列出执行结果、warning 和验证边界。
 3. 通过 PR 合并，再验证 `https://aieng-zh.cn` 的受影响页面。
 
+## 视频制作（默认方案）
+
+课程视频默认用下面这套方案，已跑通 07-07、07-08 两集，不要临时改用 dashi 手绘笔记或 MiniMax 生视频。
+
+| 项 | 默认值 |
+|---|---|
+| 流水线 | `~/.hub/skills/handdrawn-explainer-video`（逐笔手绘 + 真人手） |
+| 画风 | 12 工业设计马克笔手绘 |
+| 手部 | teacher-pen（白衬衫中性笔） |
+| 画幅 | 16:9 · 1920×1080 · 30 fps |
+| 时长 | 按内容决定，通常约 3 分钟（10 页 × 3 句） |
+| 插画 | Grok imagine（`grok-imagine-image`，xAI 接口），生成后 `clean_image.py` 重编码 |
+| 配音 | edge-tts **女声** `zh-CN-XiaoxiaoNeural`，整篇一次合成，不逐句拼接 |
+| 字幕 | 由 alignment 在本地烧录，单层，字号 42，底部 54px |
+| 音乐 | 添加，作为铺底 |
+
+结构固定为：**钩子前置**（第 1 页直接抛问题，画面领先旁白约 0.2 秒开始写）→ 标题页放到第 2 页 → 正文 → 末页提问并引导评论区留言。小红书数据表明前 5 秒报集号会显著拉低完播率。
+
+### 关键约束（踩过的坑）
+
+- 生图能力用 Grok：凭证在 `~/.grok/auth.json`，沙箱下需 `GROK_HOME` 指向工作区内副本；模型名用 `grok-imagine-image`（`grok-2-image` 已不存在）。
+- 音乐 `audio.music.gain` 上限 0.3；超过会被 build 拒绝。响度不够时提高音乐源本身或调 `end_hold_seconds`，不要突破 gain 上限。
+- `ending.fade_seconds` 必须小于 `audio.end_hold_seconds`；尾部静音合计不得超过 1.2 秒。
+- 成片响度必须落在 -20 ~ -14 LUFS，true peak < -1 dBTP；渲染管线会把旁白归一化到 -20，所以要靠音乐层补足。
+- 每个 drawing part 必须有可描轮廓；纯阴影区域（如“地面”）会报 `Part has no drawable outline`，改用单一主体 part。
+- `alignment.json` 的 `script_sha256` 用原文直接拼接（含标点），beat id 必须与 `job.json` 一致。
+- 任务目录放 `video-productions/handdraw-jobs/<集>-v2/`；`outputs/film.mp4`、`work/`、`inputs/narration/master.wav` 按 `.gitignore` 不入库。
+- 交付前必须写 `review.json`（content/visual/motion/audio/privacy 五项 + limitations）再 `finalize`；verify 会覆盖未填写的 review。
+
+### 交付物
+
+每集产出 `outputs/film.mp4`、`outputs/cover.png`、`outputs/script.txt`、`outputs/editing/captions.srt`、`outputs/verification.json`。成片复制到 `video-productions/output/` 供发布，源文件留在任务目录。
+
+---
+
 ## 同步与冲突
 
 - 只跟踪 `upstream/main`，以 `.sync-upstream-base` 作为已检视基准。同步前读取 `.sync-upstream-pending.json`（若存在），先处理其中未完成的批次；上游新增提交数为 0 不表示这些批次已完成。每项通过对应本地和线上验证后移出 pending 清单。
@@ -160,4 +195,4 @@ node scripts/check_og_cards.js --require-manifests
 
 ---
 
-最后审校：2026-10-12。
+最后审校：2026-11-05。
