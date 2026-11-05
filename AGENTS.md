@@ -29,6 +29,10 @@ certifications/claude/
   tracks/*.json               # 考试蓝图、路线和学习计划
   lessons/NN-slug/            # 认证课程
   assessments/<exam-code>/    # 诊断和完整模拟题
+projects/                      # 独立实战层（76 项就绪项目、308 阶段）
+manuals/                       # 独立技术手册层（2 本）
+video-productions/             # 视频剧集源码与制作任务（成片不入库）
+skills/                        # 课程配套技能
 glossary/terms.md              # 术语表唯一数据源
 site/                          # 静态页面与构建器
 api/                           # Vercel 只读 REST / MCP 接口
@@ -48,6 +52,7 @@ scripts/                       # 审计和构建工具
 8. 不提交构建产物 `site/sitemap.xml`、`site/llms.txt`、`site/build-meta.js`、`site/certification-data.js`、`site/lessons/`。
 9. 项目、手册、Hub、OG 数据与目录从中文源构建；不提交 `site/projects-data.js`、`site/project-content/`、`site/manuals-data.js`、`site/manuals.html`、`site/manual-*.html`、`site/hubs/`、`site/lesson-terms.json` 或 `site/og-cards.json`。
 10. `site/data.js` 是中文仓跟踪的构建产物；课程、术语或站点数据变动后必须重建并与源文件一起提交。
+11. 视频成片与中间产物不入库：`video-productions/output/*.mp4`、`handdraw-jobs/*/work/`、`handdraw-jobs/*/outputs/film.mp4`、母带音频与 `handdraw-jobs/*/inputs/narration/master.wav` 均由 `.gitignore` 排除；只提交剧集源码（`lesson.json`、`story_*.json`、`scenes_*.js`）与任务配置（`job.json`、`design.json`、briefs、prompts、输入源图）。
 
 ## 依赖约束
 
@@ -129,6 +134,12 @@ node scripts/check_figure_loader.js
 node scripts/test_tts.js
 ```
 
+视频剧集改动还需在对应任务目录运行（技能位于 `~/.hub/skills/handdrawn-explainer-video`）：
+
+```bash
+python3 ~/.hub/skills/handdrawn-explainer-video/scripts/handdraw_video.py doctor .
+```
+
 项目与手册整合还需运行：
 
 ```bash
@@ -196,4 +207,4 @@ node scripts/check_og_cards.js --require-manifests
 
 ---
 
-最后审校：2026-11-05。
+最后审校：2026-11-06。
