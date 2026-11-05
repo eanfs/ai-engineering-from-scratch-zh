@@ -1,0 +1,1 @@
+industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 左侧卡片标 GPT，三个词块「今天 天气 很」后接暖黄块「好」；右侧卡片写「整段一次前向 → N 个位置的损失」；底部方框写「每个位置只能看前面」。 Visible: 左侧暖黄块标出要预测的下一个词；右侧强调一次前向并行算出 N 个损失。. No people, no photorealism, no dark background, no watermark.

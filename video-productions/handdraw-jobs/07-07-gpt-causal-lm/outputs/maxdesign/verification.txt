@@ -1,0 +1,9 @@
+PASS  /Users/lirichen/Work/GithubRepo/ai-engineering-from-scratch-zh/video-productions/handdraw-jobs/07-07-gpt-causal-lm/outputs/maxdesign/preview.mp4
+duration 146.353s  canvas 1920x1080  30 fps
+  ok    dimensions: [1920, 1080]
+  ok    frame_rate: 30/1
+  ok    codecs: ['h264', 'aac']
+  ok    duration: [146.367, 146.353]
+  ok    decode: 
+  ok    loudness: -17.12
+  ok    audio_correlation: 0.9991414

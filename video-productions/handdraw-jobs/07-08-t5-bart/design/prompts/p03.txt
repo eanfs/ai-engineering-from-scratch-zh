@@ -1,0 +1,1 @@
+industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 上一行解码器输入 <bos> 我 爱 你，下一行暖黄目标 我 爱 你 <eos>，斜箭头逐位连接；右侧卡片写「和 GPT 完全一样，只算错位一格的交叉熵，只是多了编码器条件」。 Visible: 错位关系清楚；右侧点明损失与 GPT 相同、条件来自编码器。. No people, no photorealism, no dark background, no watermark.

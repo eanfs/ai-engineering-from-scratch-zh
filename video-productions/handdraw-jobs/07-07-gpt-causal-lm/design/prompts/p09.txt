@@ -1,0 +1,1 @@
+industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 两张卡片：GPT 写 P(x_t | x_<t)，打勾「能自回归生成」；BERT 写 P(x_masked | 其余)，打叉「不能自回归输出」；底部写「同一个 Transformer，换一个损失，就换一种能力」。 Visible: 勾与叉对照清楚；两张卡片都写出概率形式。. No people, no photorealism, no dark background, no watermark.

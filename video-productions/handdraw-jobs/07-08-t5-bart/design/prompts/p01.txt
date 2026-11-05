@@ -1,0 +1,1 @@
+industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 左侧编码器卡片写「双向读完整段输入，只跑一次」与自注意力/前馈；右侧解码器卡片写「自回归生成」与 masked 自注意力、高亮交叉注意力、前馈；中间箭头标 K,V；下方两个标签 T5、BART。 Visible: 两张卡片分别是编码器与解码器；只有交叉注意力行被暖黄强调；箭头从编码器指向解码器。. No people, no photorealism, no dark background, no watermark.

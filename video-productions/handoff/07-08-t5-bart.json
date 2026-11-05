@@ -1,0 +1,191 @@
+{
+ "episode": "07-08-t5-bart",
+ "project_name": "07-08 T5 与 BART",
+ "project_id": null,
+ "source_job": "video-productions/handdraw-jobs/07-08-t5-bart",
+ "canvas": {
+  "width": 1920,
+  "height": 1080,
+  "fps": 30
+ },
+ "aspect_ratio": "16:9",
+ "image_model": {
+  "id": "generate_image:gpt-image-2.5-sunburst",
+  "resolution": "2k",
+  "quality": "high",
+  "references": "style/anchors/1.jpg, style/anchors/5.jpg, inputs/cover.png"
+ },
+ "video_model": {
+  "id": "generate_video:MiniMax-H3",
+  "mode": "reference",
+  "resolution": "2k",
+  "aspect_ratio": "16:9",
+  "audio": false,
+  "duration": 15
+ },
+ "audio": {
+  "source": "video-productions/handdraw-jobs/07-08-t5-bart/inputs/narration/master.wav",
+  "note": "Use the existing edge-tts master; mute generated clip audio."
+ },
+ "pages": [
+  {
+   "page": "p01",
+   "title": "编码器-解码器",
+   "narration": [
+    "阶段 7，第 8 课：T5 与 BART。",
+    "编码器负责理解，解码器负责生成。",
+    "把两个拼回去，就有了输入到输出的模型。"
+   ],
+   "image_prompt": "industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 左侧编码器卡片写「双向读完整段输入，只跑一次」与自注意力/前馈；右侧解码器卡片写「自回归生成」与 masked 自注意力、高亮交叉注意力、前馈；中间箭头标 K,V；下方两个标签 T5、BART。 Visible: 两张卡片分别是编码器与解码器；只有交叉注意力行被暖黄强调；箭头从编码器指向解码器。. No people, no photorealism, no dark background, no watermark.",
+   "video_prompt": "Animate the supplied hand-drawn marker diagram for page p01 (编码器-解码器). Slow push-in with slight parallax; ink lines settle and warm-yellow fills stay put. No new objects, no text changes, no label morphing, no camera cuts. Keep the warm off-white paper background.",
+   "target_seconds": 12,
+   "page_seconds": 12.101,
+   "clip_plan": [
+    15
+   ]
+  },
+  {
+   "page": "p02",
+   "title": "交叉注意力",
+   "narration": [
+    "编码器双向读完整段输入，整段只跑一次。",
+    "解码器自回归生成，每一步都对编码器输出做交叉注意力。",
+    "编码器输出可以缓存，长输入几乎是免费的。"
+   ],
+   "image_prompt": "industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 左侧编码器堆叠三层「双向自注意力」；右侧解码器包含「masked 自注意力」「交叉注意力」「前馈」；箭头从编码器指向交叉注意力并标 K,V；右侧写「Q 来自目标 / 编码器信息进入解码器的唯一通道」。 Visible: 交叉注意力是两栈唯一的连接；K,V 箭头落在交叉注意力块上。. No people, no photorealism, no dark background, no watermark.",
+   "video_prompt": "Animate the supplied hand-drawn marker diagram for page p02 (交叉注意力). Slow push-in with slight parallax; ink lines settle and warm-yellow fills stay put. No new objects, no text changes, no label morphing, no camera cuts. Keep the warm off-white paper background.",
+   "target_seconds": 15,
+   "page_seconds": 15.864,
+   "clip_plan": [
+    8,
+    8
+   ]
+  },
+  {
+   "page": "p03",
+   "title": "错位一格",
+   "narration": [
+    "训练时解码器吃真实的上一词，这叫 teacher forcing。",
+    "输出端错位一格，损失和 GPT 完全一样。",
+    "区别只在于，额外条件来自编码器输出。"
+   ],
+   "image_prompt": "industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 上一行解码器输入 <bos> 我 爱 你，下一行暖黄目标 我 爱 你 <eos>，斜箭头逐位连接；右侧卡片写「和 GPT 完全一样，只算错位一格的交叉熵，只是多了编码器条件」。 Visible: 错位关系清楚；右侧点明损失与 GPT 相同、条件来自编码器。. No people, no photorealism, no dark background, no watermark.",
+   "video_prompt": "Animate the supplied hand-drawn marker diagram for page p03 (错位一格). Slow push-in with slight parallax; ink lines settle and warm-yellow fills stay put. No new objects, no text changes, no label morphing, no camera cuts. Keep the warm off-white paper background.",
+   "target_seconds": 14,
+   "page_seconds": 14.495,
+   "clip_plan": [
+    15
+   ]
+  },
+  {
+   "page": "p04",
+   "title": "T5 span 破坏",
+   "narration": [
+    "T5 把输入里的随机 span 换成哨兵 token。",
+    "平均每段三个词，总共遮住百分之十五。",
+    "解码器只输出被破坏的那几段，比重建整句便宜。"
+   ],
+   "image_prompt": "industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 上行源序列：The quick [extra_id_0] fox jumps [extra_id_1] dog，哨兵用暖黄标出；下行解码目标：[extra_id_0] brown [extra_id_1] over the lazy，哨兵用金属灰标出；左侧三行说明 15%、平均 3 个词、只解 span。 Visible: 源与目标里的哨兵一一对应；说明文字点出 15% 与平均 span 长度。. No people, no photorealism, no dark background, no watermark.",
+   "video_prompt": "Animate the supplied hand-drawn marker diagram for page p04 (T5 span 破坏). Slow push-in with slight parallax; ink lines settle and warm-yellow fills stay put. No new objects, no text changes, no label morphing, no camera cuts. Keep the warm off-white paper background.",
+   "target_seconds": 14,
+   "page_seconds": 13.936,
+   "clip_plan": [
+    15
+   ]
+  },
+  {
+   "page": "p05",
+   "title": "T5 实跑",
+   "narration": [
+    "实跑：源句里的 brown 和 stitch in 被换成了 extra_id 哨兵。",
+    "目标只剩下两段被挖掉的内容。",
+    "把源里的词和目标拼回去，能完整还原原句。"
+   ],
+   "image_prompt": "industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 上方方框写被破坏的源「the quick <extra_id_0> fox jumps over the lazy dog a <extra_id_1> time saves nine」，中间方框写目标「<extra_id_0> brown <extra_id_1> stitch in <extra_id_2>」，底部暖黄条写「拼回去 = 原句：YES」。 Visible: 两行文本完整可读；底部 YES 用对勾标出。. No people, no photorealism, no dark background, no watermark.",
+   "video_prompt": "Animate the supplied hand-drawn marker diagram for page p05 (T5 实跑). Slow push-in with slight parallax; ink lines settle and warm-yellow fills stay put. No new objects, no text changes, no label morphing, no camera cuts. Keep the warm off-white paper background.",
+   "target_seconds": 15,
+   "page_seconds": 14.788,
+   "clip_plan": [
+    15
+   ]
+  },
+  {
+   "page": "p06",
+   "title": "BART 五种噪声",
+   "narration": [
+    "BART 试了五种加噪：掩码、删除、文本填充、句子打乱、文档旋转。",
+    "文本填充加句子打乱，下游分数最好。",
+    "但解码器要重建整句，预训练算力比 T5 更高。"
+   ],
+   "image_prompt": "industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 五个并排卡片：token 掩码（词→<mask>）、token 删除、文本填充（span→<mask>）、句子打乱、文档旋转；文本填充与句子打乱两张用暖黄强调；下方写「下游分数最好」与「算力比 T5 更高」。 Visible: 五张卡片齐全；被强调的两张是文本填充与句子打乱。. No people, no photorealism, no dark background, no watermark.",
+   "video_prompt": "Animate the supplied hand-drawn marker diagram for page p06 (BART 五种噪声). Slow push-in with slight parallax; ink lines settle and warm-yellow fills stay put. No new objects, no text changes, no label morphing, no camera cuts. Keep the warm off-white paper background.",
+   "target_seconds": 15,
+   "page_seconds": 16.795,
+   "clip_plan": [
+    9,
+    8
+   ]
+  },
+  {
+   "page": "p07",
+   "title": "beam 推理",
+   "narration": [
+    "推理和 GPT 一样自回归，贪心和 beam 都能用。",
+    "翻译和摘要输出分布窄，beam 宽度四到五最稳。",
+    "聊天没有固定的输入，beam 反而帮不上忙。"
+   ],
+   "image_prompt": "industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 左侧从 <bos> 分出候选 1–4 的 beam 树；右侧：翻译与摘要打勾，聊天打叉并注明「beam 反而让回答变得死板」；下方两条推理建议。 Visible: 四条候选彼此分开；勾叉分别落在翻译/摘要与聊天上。. No people, no photorealism, no dark background, no watermark.",
+   "video_prompt": "Animate the supplied hand-drawn marker diagram for page p07 (beam 推理). Slow push-in with slight parallax; ink lines settle and warm-yellow fills stay put. No new objects, no text changes, no label morphing, no camera cuts. Keep the warm off-white paper background.",
+   "target_seconds": 14,
+   "page_seconds": 13.923,
+   "clip_plan": [
+    15
+   ]
+  },
+  {
+   "page": "p08",
+   "title": "2026 选型",
+   "narration": [
+    "翻译、语音转写、摘要，编码器-解码器仍然合适。",
+    "聊天、代码补全、推理，纯解码器已经接管。",
+    "原因是指令微调和 RLHF，都假设有一个解码器。"
+   ],
+   "image_prompt": "industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 左侧暖黄卡片「编码器-解码器仍合适」列翻译、语音转写、摘要、结构化抽取；右侧卡片「纯解码器已接管」列聊天与推理、代码补全、长上下文、RLHF 助手；底部说明指令微调与 RLHF 都假设有解码器。 Visible: 两张卡片各四项，标签与条目对应清楚。. No people, no photorealism, no dark background, no watermark.",
+   "video_prompt": "Animate the supplied hand-drawn marker diagram for page p08 (2026 选型). Slow push-in with slight parallax; ink lines settle and warm-yellow fills stay put. No new objects, no text changes, no label morphing, no camera cuts. Keep the warm off-white paper background.",
+   "target_seconds": 15,
+   "page_seconds": 17.087,
+   "clip_plan": [
+    9,
+    9
+   ]
+  },
+  {
+   "page": "p09",
+   "title": "T5 vs BART",
+   "narration": [
+    "T5 把一切任务改成文本进、文本出。",
+    "BART 用去噪自编码器重建整句。",
+    "架构没有输，输的是规模和后训练的主战场。"
+   ],
+   "image_prompt": "industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 左侧卡片 T5：一切任务文本进文本出、预训练只解被挖掉的 span、算力更省；右侧卡片 BART：五种噪声任意组合、解码器重建整句、算力更高；底部写「架构没有输，输的是规模和后训练的主战场」。 Visible: 两张卡片各四条；底部一句话收束。. No people, no photorealism, no dark background, no watermark.",
+   "video_prompt": "Animate the supplied hand-drawn marker diagram for page p09 (T5 vs BART). Slow push-in with slight parallax; ink lines settle and warm-yellow fills stay put. No new objects, no text changes, no label morphing, no camera cuts. Keep the warm off-white paper background.",
+   "target_seconds": 13,
+   "page_seconds": 12.705,
+   "clip_plan": [
+    15
+   ]
+  }
+ ],
+ "acceptance": [
+  "All 9 pages keep the exact Chinese labels shown in the reference images; no garbled or invented characters.",
+  "Warm off-white paper, dark marker outline, warm-yellow fill, brown streaks; no photoreal elements, no people, no watermark.",
+  "Each clip contains no camera cuts and no text animation; labels stay static and legible.",
+  "Final 1920x1080, 30 fps, H.264; narration matches the provided master.wav sample for sample."
+ ],
+ "assembly": [
+  "The assembly is scripted; see video-productions/handoff/RUNBOOK.md.",
+  "python3 video-productions/handoff/handoff_maxdesign.py fetch <episode> downloads every clip into outputs/maxdesign/ as pXXa.mp4, pXXb.mp4.",
+  "$VENV video-productions/handoff/handoff_assemble.py <episode> cross-fades multi-clip pages, retimes each page onto its window, insets the picture on the paper margins, burns captions from alignment.json, muxes master.wav with a 1.0 s cover lead and 0.65 s end hold, and writes verification.json/.txt.",
+  "$VENV video-productions/handoff/handoff_assemble.py <episode> --preview rehearses the whole chain from the local page images at zero cost."
+ ]
+}

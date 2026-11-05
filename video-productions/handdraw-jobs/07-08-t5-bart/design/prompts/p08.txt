@@ -1,0 +1,1 @@
+industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 左侧暖黄卡片「编码器-解码器仍合适」列翻译、语音转写、摘要、结构化抽取；右侧卡片「纯解码器已接管」列聊天与推理、代码补全、长上下文、RLHF 助手；底部说明指令微调与 RLHF 都假设有解码器。 Visible: 两张卡片各四项，标签与条目对应清楚。. No people, no photorealism, no dark background, no watermark.

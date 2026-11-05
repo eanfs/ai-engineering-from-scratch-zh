@@ -1,0 +1,17 @@
+{
+  "status": "resolved",
+  "mode": "catalog",
+  "catalog_id": "12",
+  "selection_sha256": "b7a115426cced56179bf37b08aa6be10d17426f5aa2079bf59df0042b487cdd9",
+  "recipe_sha256": "5c14366e71b24ed051ddb056a0a96a841c27819906d1782bac628f18b49a84e6",
+  "style_name": "工业设计马克笔手绘(industrial-marker-sketch)",
+  "rationale": "07-07 的核心是三角掩码、错位损失与采样：注意力矩阵、错位箭头、概率条形都能用色块和箭头讲清。",
+  "content_fit": "九页分别是下一个词预测、三角掩码、六乘六实跑、前缀平均三步、训练并行与推理串行、错位损失实跑、采样对照、GPT 配方、与 BERT 的对比。",
+  "style_spec": {
+    "line": "深灰黑勾线笔，外轮廓与分件接缝较重，内部细节较细，保留草图式重叠线迹",
+    "palette": "主色暖黄 #E8B84B，辅以暖棕 #8A6A3B、金属灰 #9AA3A8、深黑灰 #2B2F33，纸面暖白 #FFFDF7",
+    "shading": "马克笔铺色叠色，同色系深色压暗部，留白提白表现反光",
+    "texture": "可见笔触条纹与轻微重线，边缘保留手绘抖动",
+    "background": "暖白纸面，主体下方一道灰调接地阴影"
+  }
+}

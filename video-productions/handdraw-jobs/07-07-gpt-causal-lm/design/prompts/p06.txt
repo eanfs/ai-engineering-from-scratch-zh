@@ -1,0 +1,1 @@
+industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 上一行输入 t1 t2 t3，下一行暖黄目标 t2 t3 t4，斜箭头逐位连接；右侧三张数字卡：1.145 偏置 logits、2.418 随机 logits、2.303 ln 10 基线。 Visible: 错位关系清楚；三个数字完整可读，2.303 标为基线。. No people, no photorealism, no dark background, no watermark.

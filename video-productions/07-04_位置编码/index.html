@@ -1,0 +1,913 @@
+<!doctype html>
+<html lang="zh-CN" data-composition-variables='[
+  {"id":"lesson","type":"string","label":"课号","default":"07-04","group":"文字"},
+  {"id":"topic","type":"string","label":"主题","default":"位置编码","group":"文字"},
+  {"id":"endLine","type":"string","label":"结尾第一行","default":"位置不是加进去的","group":"文字"},
+  {"id":"endLine2","type":"string","label":"结尾第二行","default":"是转进去的","group":"文字"},
+  {"id":"cyan","type":"color","label":"正弦色","default":"#5ad7d0","group":"配色"},
+  {"id":"amber","type":"color","label":"RoPE 色","default":"#f0b35e","group":"配色"},
+  {"id":"violet","type":"color","label":"ALiBi 色","default":"#b49af2","group":"配色"},
+  {"id":"red","type":"color","label":"问题色","default":"#ef7d7d","group":"配色"},
+  {"id":"endHold","type":"number","label":"结尾停留（秒）","default":0.6,"min":0,"max":5,"step":0.1,"group":"节奏"}
+]'>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1920, height=1080">
+<title>07-04 · 位置编码</title>
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/om.js"></script>
+<style id="om-fonts">
+@font-face { font-family: "Noto Sans SC"; src: url("assets/fonts/NotoSansSC-500.woff") format("woff"); font-weight: 500; font-style: normal; }
+@font-face { font-family: "Noto Sans SC"; src: url("assets/fonts/NotoSansSC-900.woff") format("woff"); font-weight: 900; font-style: normal; }
+@font-face { font-family: "CMU Serif"; src: url("assets/fonts/cmunrm.woff") format("woff"); font-weight: 400; font-style: normal; }
+@font-face { font-family: "CMU Serif"; src: url("assets/fonts/cmunti.woff") format("woff"); font-weight: 400; font-style: italic; }
+</style>
+<style>
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #070a11; }
+  #film { position: relative; width: 100%; height: 100%; overflow: hidden;
+          --bg:#070a11; --ink:#e8eef8; --dim:#8b98ad; --line:#22304a;
+          --cyan:#5ad7d0; --amber:#f0b35e; --violet:#b49af2; --red:#ef7d7d;
+          background: var(--bg); color: var(--ink);
+          font-family: "Noto Sans SC", sans-serif; font-weight: 500; }
+  svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  text { font-family: "Noto Sans SC", sans-serif; font-weight: 500; }
+  .kick { font-family: Menlo, monospace; font-size: 20px; letter-spacing: 5px; fill: var(--dim); }
+  .lbl { font-size: 26px; fill: var(--dim); }
+  .note { font-size: 25px; fill: #a9b6cc; }
+  .mono { font-family: Menlo, monospace; }
+  .math { font-family: "CMU Serif", "Songti SC", serif; font-style: italic; }
+  .math-u { font-family: "CMU Serif", "Songti SC", serif; font-style: normal; }
+  .sub { font-size: 34px; fill: #e2e9f5; }
+  .h1 { font-size: 58px; font-weight: 900; fill: var(--ink); }
+</style>
+</head>
+<body>
+<div id="film" data-composition-id="film" data-width="1920" data-height="1080">
+  <audio id="om-voice" src="assets/voice.wav" data-start="0" data-duration="68.184" data-track-index="9" data-volume="1"></audio>
+  <audio id="om-sound" src="assets/sound.wav" data-start="0" data-duration="68.207" data-track-index="8" data-volume="1"></audio>
+  <svg id="board" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+        <path d="M64 0H0V64" fill="none" stroke="#1b2740" stroke-width="1" opacity=".38"/>
+      </pattern>
+      <marker id="headA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0 0L10 5L0 10z" fill="var(--amber)"/>
+      </marker>
+      <marker id="headC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0 0L10 5L0 10z" fill="var(--cyan)"/>
+      </marker>
+    </defs>
+    <rect width="1920" height="1080" fill="var(--bg)"/>
+    <rect width="1920" height="1080" fill="url(#grid)"/>
+  </svg>
+</div>
+
+<script type="application/json" id="om-cues">{"source":"recording:ms-xiaoxiao.mp3","precision":"asr+script","offset":0,"duration":68.184,"words":[
+{"word":"注意力","start":0.191,"end":0.733},
+{"word":"其实","start":1.014,"end":1.397},
+{"word":"看不见","start":1.397,"end":1.971},
+{"word":"顺序","start":1.971,"end":2.354},
+{"word":"把","start":3.005,"end":3.183},
+{"word":"同","start":3.183,"end":3.362},
+{"word":"一句","start":3.362,"end":3.718},
+{"word":"话","start":3.718,"end":3.896},
+{"word":"打","start":3.896,"end":4.075},
+{"word":"乱","start":4.075,"end":4.253},
+{"word":"注意力","start":4.637,"end":5.224},
+{"word":"矩阵","start":5.224,"end":5.616},
+{"word":"还是","start":5.616,"end":6.007},
+{"word":"同一","start":6.007,"end":6.399},
+{"word":"套数","start":6.399,"end":6.79},
+{"word":"分数","start":7.506,"end":7.899},
+{"word":"只","start":7.899,"end":8.095},
+{"word":"来自","start":8.095,"end":8.488},
+{"word":"两两","start":8.488,"end":8.881},
+{"word":"相似","start":8.881,"end":9.274},
+{"word":"度","start":9.274,"end":9.47},
+{"word":"位置","start":9.849,"end":10.17},
+{"word":"根本","start":10.17,"end":10.492},
+{"word":"没有","start":10.492,"end":10.813},
+{"word":"参与","start":10.813,"end":11.134},
+{"word":"所以","start":11.793,"end":12.175},
+{"word":"必须","start":12.175,"end":12.556},
+{"word":"有人","start":12.556,"end":12.938},
+{"word":"把","start":13.179,"end":13.364},
+{"word":"位置","start":13.364,"end":13.734},
+{"word":"塞进去","start":13.734,"end":14.288},
+{"word":"第一","start":14.944,"end":15.298},
+{"word":"代","start":15.298,"end":15.474},
+{"word":"答案","start":15.474,"end":15.828},
+{"word":"正弦","start":16.137,"end":16.55},
+{"word":"编码","start":16.55,"end":16.963},
+{"word":"给","start":17.629,"end":17.815},
+{"word":"每","start":17.815,"end":18.001},
+{"word":"个","start":18.001,"end":18.186},
+{"word":"位置","start":18.186,"end":18.558},
+{"word":"配","start":18.892,"end":19.063},
+{"word":"一","start":19.063,"end":19.234},
+{"word":"组","start":19.234,"end":19.405},
+{"word":"不同","start":19.405,"end":19.747},
+{"word":"频率","start":19.747,"end":20.089},
+{"word":"的","start":20.089,"end":20.26},
+{"word":"波","start":20.26,"end":20.431},
+{"word":"维","start":21.105,"end":21.303},
+{"word":"度","start":21.303,"end":21.502},
+{"word":"越高","start":21.502,"end":21.898},
+{"word":"波","start":22.22,"end":22.404},
+{"word":"越","start":22.404,"end":22.587},
+{"word":"慢","start":22.587,"end":22.771},
+{"word":"模型","start":23.417,"end":23.838},
+{"word":"从","start":23.838,"end":24.049},
+{"word":"相位","start":24.049,"end":24.47},
+{"word":"里","start":24.47,"end":24.681},
+{"word":"读","start":24.952,"end":25.144},
+{"word":"出","start":25.144,"end":25.337},
+{"word":"位置","start":25.337,"end":25.721},
+{"word":"可","start":26.379,"end":26.563},
+{"word":"它","start":26.563,"end":26.747},
+{"word":"只","start":26.747,"end":26.932},
+{"word":"见过","start":26.932,"end":27.3},
+{"word":"训练","start":27.3,"end":27.669},
+{"word":"长度","start":27.669,"end":28.037},
+{"word":"再","start":28.711,"end":28.924},
+{"word":"往后","start":28.924,"end":29.349},
+{"word":"就","start":29.59,"end":29.756},
+{"word":"没有","start":29.756,"end":30.089},
+{"word":"定义","start":30.089,"end":30.422},
+{"word":"第二","start":31.077,"end":31.422},
+{"word":"代","start":31.422,"end":31.595},
+{"word":"RoPE","start":31.936,"end":32.183},
+{"word":"不","start":32.854,"end":33.046},
+{"word":"碰","start":33.046,"end":33.238},
+{"word":"嵌入","start":33.238,"end":33.621},
+{"word":"直接","start":33.908,"end":34.331},
+{"word":"旋转","start":34.331,"end":34.753},
+{"word":"Q","start":34.753,"end":34.964},
+{"word":"和","start":34.964,"end":35.176},
+{"word":"K","start":35.176,"end":35.387},
+{"word":"角度","start":36.047,"end":36.444},
+{"word":"随","start":36.444,"end":36.642},
+{"word":"位置","start":36.642,"end":37.038},
+{"word":"增加","start":37.038,"end":37.435},
+{"word":"点","start":37.794,"end":38.007},
+{"word":"积","start":38.007,"end":38.22},
+{"word":"里","start":38.22,"end":38.433},
+{"word":"就","start":38.433,"end":38.646},
+{"word":"只剩","start":38.646,"end":39.073},
+{"word":"相对","start":39.073,"end":39.499},
+{"word":"距离","start":39.499,"end":39.925},
+{"word":"位置","start":40.582,"end":40.966},
+{"word":"加","start":40.966,"end":41.157},
+{"word":"三","start":41.157,"end":41.349},
+{"word":"和","start":41.661,"end":41.842},
+{"word":"位置","start":41.842,"end":42.204},
+{"word":"加","start":42.204,"end":42.385},
+{"word":"一千","start":42.385,"end":42.747},
+{"word":"只要","start":43.066,"end":43.452},
+{"word":"间隔","start":43.452,"end":43.839},
+{"word":"相同","start":43.839,"end":44.225},
+{"word":"分数","start":44.5,"end":44.868},
+{"word":"就","start":44.868,"end":45.052},
+{"word":"完全","start":45.052,"end":45.421},
+{"word":"一样","start":45.421,"end":45.789},
+{"word":"第三","start":46.454,"end":46.871},
+{"word":"代","start":46.871,"end":47.079},
+{"word":"ALiBi","start":47.404,"end":47.895},
+{"word":"连","start":48.549,"end":48.737},
+{"word":"嵌入","start":48.737,"end":49.113},
+{"word":"都不","start":49.113,"end":49.489},
+{"word":"加","start":49.489,"end":49.677},
+{"word":"只","start":49.966,"end":50.146},
+{"word":"按","start":50.146,"end":50.326},
+{"word":"距离","start":50.326,"end":50.687},
+{"word":"扣分","start":50.687,"end":51.047},
+{"word":"近","start":51.687,"end":51.881},
+{"word":"的","start":51.881,"end":52.076},
+{"word":"抬高","start":52.076,"end":52.464},
+{"word":"远","start":52.759,"end":52.94},
+{"word":"的","start":52.94,"end":53.121},
+{"word":"压低","start":53.121,"end":53.482},
+{"word":"每","start":54.117,"end":54.324},
+{"word":"个","start":54.324,"end":54.532},
+{"word":"头","start":54.532,"end":54.739},
+{"word":"一个","start":55.003,"end":55.334},
+{"word":"斜率","start":55.334,"end":55.665},
+{"word":"外","start":56.348,"end":56.558},
+{"word":"推","start":56.558,"end":56.768},
+{"word":"很好","start":56.768,"end":57.187},
+{"word":"但","start":57.572,"end":57.744},
+{"word":"2026","start":57.744,"end":58.433},
+{"word":"年","start":58.433,"end":58.605},
+{"word":"的","start":58.605,"end":58.777},
+{"word":"主流","start":58.777,"end":59.121},
+{"word":"是","start":59.343,"end":59.505},
+{"word":"RoPE","start":59.505,"end":59.829},
+{"word":"Llama","start":60.517,"end":60.91},
+{"word":"Qwen","start":61.228,"end":61.548},
+{"word":"Mistral","start":61.827,"end":62.334},
+{"word":"DeepSeek","start":62.624,"end":63.143},
+{"word":"都在","start":63.496,"end":63.855},
+{"word":"转","start":63.855,"end":64.034},
+{"word":"位置","start":64.694,"end":65.168},
+{"word":"不是","start":65.456,"end":65.785},
+{"word":"加进去","start":65.785,"end":66.279},
+{"word":"的","start":66.279,"end":66.444},
+{"word":"是","start":66.715,"end":66.893},
+{"word":"转","start":66.893,"end":67.072},
+{"word":"进去","start":67.072,"end":67.429},
+{"word":"的","start":67.429,"end":67.607}
+]}</script>
+
+<script>
+(function () {
+  const NS = 'http://www.w3.org/2000/svg';
+  const V = OM.vars();
+  const svg = document.getElementById('board');
+  const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+  const lerp = (a, b, p) => a + (b - a) * p;
+  const ease = (x) => { x = clamp(x); return x * x * (3 - 2 * x); };
+  const outBack = (x) => { x = clamp(x); const c = 1.70158; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+  const appear = (t, a, d = 0.4) => ease(clamp((t - a) / d));
+  const fade = (t, a, b, fi = 0.35, fo = 0.35) => Math.min(ease(clamp((t - a) / fi)), ease(clamp((b - t) / fo)));
+  const A = (x, y, s, cls, anchor = 'start', extra = '') =>
+    '<text x="' + x + '" y="' + y + '" class="' + cls + '" text-anchor="' + anchor + '" ' + extra + '>' + s + '</text>';
+  const mk = (tag, attrs = {}, parent) => {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  };
+  const world = mk('g', {}, svg);
+  const group = (html, parent = world) => { const g = mk('g', {}, parent); g.innerHTML = html; g.setAttribute('opacity', '0'); return g; };
+  const setOp = (g, v) => {
+    const o = clamp(v);
+    g.setAttribute('opacity', o.toFixed(3));
+    g.style.display = o <= 0.002 ? 'none' : '';
+  };
+
+  // ---- narration anchors -------------------------------------------------
+  const cue = (w, n) => { try { return OM.cue(w, n); } catch (e) { return 0; } };
+  const T = {
+    hook: 0,
+    blind: cue('把', 1),          // 2.78
+    why: cue('分数', 1),          // 7.28
+    inject: cue('所以'),          // 11.76
+    sine: cue('第一'),            // 15.03
+    waves: cue('维'),             // 21.05
+    phase: cue('模型'),           // 23.22
+    wall: cue('可'),              // 26.02
+    rope: cue('第二'),            // 30.76
+    relative: cue('角度'),        // 37.48
+    hero: cue('位置', 6),         // 42.05
+    alibi: cue('第三'),           // 48.60
+    bias: cue('近'),              // 53.92
+    slopes: cue('每', 2),         // 56.19
+    verdict: cue('外'),           // 58.21
+    models: cue('Llama'),         // 63.64
+    end: cue('位置', 8),          // 67.83
+  };
+  T.endFilm = (OM.words().length ? OM.words().at(-1).end : 71.31) + Number(V.endHold || 0.6);
+
+  // ---- 01 · attention cannot see order -----------------------------------
+  const g1 = group('');
+  (function () {
+    const names = ['The', 'cat', 'sat', 'on', 'the', 'mat'];
+    const o0 = [0, 1, 2, 3, 4, 5];
+    g1.__order0 = o0; g1.__order1 = [2, 0, 5, 1, 3, 4];
+    g1.__tokens = names.map((name) => {
+      const g = mk('g', {}, g1);
+      mk('rect', { x: 0, y: 0, width: 140, height: 72, rx: 10, fill: '#101827', stroke: '#2b3c5e', 'stroke-width': 1.5 }, g);
+      const t = mk('text', { x: 70, y: 47, 'text-anchor': 'middle', 'font-size': '34', fill: 'var(--ink)' }, g);
+      t.textContent = name;
+      g.setAttribute('style', 'transform-origin:70px 36px');
+      return g;
+    });
+    const mX0 = 807, mY0 = 470, cell = 48, gap = 3;
+    g1.__mtx = mk('g', {}, g1);
+    g1.__cells = [];
+    for (let i = 0; i < 6; i++) for (let j = 0; j < 6; j++) {
+      const v = 0.32 + 0.68 * Math.abs(Math.cos((i - j) * 1.15 + i * 0.62));
+      const r = mk('rect', { x: mX0 + j * (cell + gap), y: mY0 + i * (cell + gap), width: cell, height: cell, rx: 3,
+        fill: i === j ? 'var(--cyan)' : 'var(--ink)', opacity: (0.10 + 0.62 * v).toFixed(3) }, g1.__mtx);
+      g1.__cells.push({ el: r, i, j });
+    }
+    g1.__cap = mk('text', { x: 1450, y: 540, 'font-size': '26', fill: 'var(--dim)', opacity: 0 }, g1);
+    g1.__cap.textContent = '同一套数，只是换行';
+    const lab = mk('text', { x: 960, y: 412, 'text-anchor': 'middle', 'font-size': '24', fill: 'var(--dim)' }, g1);
+    lab.textContent = '注意力矩阵';
+    g1.__tag = mk('text', { x: 140, y: 160, 'font-size': '30', fill: 'var(--red)', opacity: 0 }, g1);
+    g1.__tag.textContent = '顺序没有参与';
+  })();
+
+  // ---- 02 · permutation equivariance -------------------------------------
+  const g2 = group(
+    '<rect x="168" y="334" width="860" height="156" rx="10" fill="none" stroke="var(--red)" stroke-width="2.2" stroke-dasharray="2200" opacity=".9"/>' +
+    A(960, 250, '注意力只做一件事：两两打分', 'h1', 'middle') +
+    '<text x="196" y="430" class="math-u" font-size="86" fill="var(--ink)">softmax(<tspan class="math" fill="var(--cyan)">Q</tspan><tspan class="math" fill="var(--cyan)">K</tspan><tspan font-size="52" baseline-shift="super" class="math">T</tspan> / √d)<tspan class="math" fill="var(--violet)">V</tspan></text>' +
+    '<text x="196" y="640" class="math-u" font-size="54" fill="var(--ink)">Attn(<tspan class="math" fill="var(--amber)">P</tspan>X) = <tspan class="math" fill="var(--amber)">P</tspan> · Attn(X)</text>' +
+    A(960, 760, '打乱输入，输出只是跟着换行。', 'note', 'middle') +
+    A(1230, 400, '没有一个位置项', 'note', 'start', 'fill="var(--red)" font-size="30"') +
+    '<line x1="1230" y1="424" x2="1440" y2="424" stroke="var(--red)" stroke-width="1.5" opacity=".6"/>'
+  );
+  g2.__box = g2.querySelector('rect');
+  g2.__scan = mk('circle', { cx: 196, cy: 486, r: 4, fill: 'var(--red)', opacity: 0 }, g2);
+
+  // ---- 03 · score ignores distance ---------------------------------------
+  const g3 = group('');
+  (function () {
+    const pairs = [
+      { x1: 300, x2: 520, gap: '距离 1' },
+      { x1: 1120, x2: 1600, gap: '距离 40' },
+    ];
+    g3.__dots = [];
+    g3.__lines = [];
+    pairs.forEach((p) => {
+      mk('circle', { cx: p.x1, cy: 400, r: 26, fill: '#101827', stroke: 'var(--cyan)', 'stroke-width': 2 }, g3);
+      mk('text', { x: p.x1, y: 410, 'text-anchor': 'middle', 'font-size': '26', class: 'math', fill: 'var(--cyan)' }, g3).textContent = 'q';
+      mk('circle', { cx: p.x2, cy: 400, r: 26, fill: '#101827', stroke: 'var(--cyan)', 'stroke-width': 2 }, g3);
+      mk('text', { x: p.x2, y: 410, 'text-anchor': 'middle', 'font-size': '26', class: 'math', fill: 'var(--cyan)' }, g3).textContent = 'k';
+      p.line = mk('line', { x1: p.x1 + 28, y1: 400, x2: p.x2 - 28, y2: 400, stroke: 'var(--line)', 'stroke-width': 2, 'stroke-dasharray': '7 9' }, g3);
+      g3.__lines.push(p.line);
+      mk('text', { x: (p.x1 + p.x2) / 2, y: 372, 'text-anchor': 'middle', 'font-size': '22', fill: 'var(--dim)' }, g3).textContent = p.gap;
+      mk('text', { x: (p.x1 + p.x2) / 2, y: 500, 'text-anchor': 'middle', 'font-size': '34', class: 'mono', fill: 'var(--ink)' }, g3).textContent = '0.87';
+      g3.__dots.push({ el: mk('circle', { cx: p.x1 + 28, cy: 400, r: 5, fill: 'var(--cyan)' }, g3), x1: p.x1, x2: p.x2, phase: g3.__dots.length * 0.5 });
+    });
+    g3.insertAdjacentHTML('beforeend', A(960, 300, '分数只来自两两相似度', 'h1', 'middle'));
+    g3.insertAdjacentHTML('beforeend', A(960, 640, 'score = q · k / √d', 'math-u', 'middle', 'font-size="52" fill="var(--ink)"'));
+    g3.insertAdjacentHTML('beforeend', A(960, 760, '公式里，没有位置这一项', 'note', 'middle'));
+    g3.insertAdjacentHTML('beforeend', A(960, 840, '位置呢？', 'h1', 'middle', 'fill="var(--amber)" font-size="76"'));
+  })();
+
+  // ---- 04 · three roads ---------------------------------------------------
+  const g4 = group('');
+  (function () {
+    mk('rect', { x: 900, y: 214, width: 120, height: 84, rx: 10, fill: '#101827', stroke: 'var(--ink)', 'stroke-width': 2 }, g4);
+    mk('text', { x: 960, y: 270, 'text-anchor': 'middle', 'font-size': '40', class: 'math', fill: 'var(--ink)' }, g4).textContent = 'X';
+    const roads = [
+      { x: 500, color: 'var(--cyan)', name: '正弦', sub: '加在嵌入上', glyph: 'M-30 8 Q -15 -18 0 8 T 30 8' },
+      { x: 960, color: 'var(--amber)', name: 'RoPE', sub: '旋转 Q、K', glyph: 'M0 0 L24 -14 M0 0 L18 18' },
+      { x: 1420, color: 'var(--violet)', name: 'ALiBi', sub: '加在分数上', glyph: 'M-28 -18 H28 M-28 0 H16 M-28 18 H4' },
+    ];
+    roads.forEach((r, i) => {
+      const p = mk('path', { d: 'M960 300 C960 470 ' + r.x + ' 470 ' + r.x + ' 620', fill: 'none', stroke: r.color, 'stroke-width': 2, pathLength: 1, 'stroke-dasharray': 1, 'stroke-dashoffset': 1, opacity: .85 }, g4);
+      const g = mk('g', { transform: 'translate(' + r.x + ',640)' }, g4);
+      mk('path', { d: r.glyph, fill: 'none', stroke: r.color, 'stroke-width': 2.4 }, g);
+      mk('text', { x: 0, y: 74, 'text-anchor': 'middle', 'font-size': '38', fill: r.color }, g).textContent = r.name;
+      mk('text', { x: 0, y: 112, 'text-anchor': 'middle', 'font-size': '23', fill: 'var(--dim)' }, g).textContent = r.sub;
+      r.path = p;
+      r.dot = mk('circle', { cx: 960, cy: 300, r: 5, fill: r.color, opacity: 0 }, g4);
+    });
+    g4.__roads = roads;
+    g4.insertAdjacentHTML('beforeend', A(960, 170, '把位置塞进去的三条路', 'h1', 'middle'));
+  })();
+
+  // ---- 05 · sinusoidal waves ---------------------------------------------
+  const W = { x: 636, y0: 312, w: 1000, amp: 25, gap: 68, posMax: 256, d: 16, n: 6 };
+  const PROBE = 24;
+  const g5 = group('');
+  (function () {
+    g5.insertAdjacentHTML('beforeend', A(150, 300, 'PE(pos, 2i)', 'math-u', 'start', 'font-size="52" fill="var(--ink)"'));
+    g5.insertAdjacentHTML('beforeend', A(150, 380, '= sin( pos · 10000', 'math-u', 'start', 'font-size="42" fill="var(--ink)"'));
+    g5.insertAdjacentHTML('beforeend', A(492, 358, '−2i/d', 'math-u', 'start', 'font-size="26" fill="var(--cyan)"'));
+    g5.insertAdjacentHTML('beforeend', A(560, 380, ' )', 'math-u', 'start', 'font-size="42" fill="var(--ink)"'));
+    g5.insertAdjacentHTML('beforeend', A(150, 440, '偶数维用 sin，奇数维用 cos', 'note', 'start'));
+    g5.insertAdjacentHTML('beforeend', A(W.x, 246, 'd = 16 · 前 6 个维度', 'lbl', 'start'));
+    mk('line', { x1: W.x, y1: 700, x2: W.x + W.w, y2: 700, stroke: 'var(--line)', 'stroke-width': 1.5 }, g5);
+    [0, 64, 128, 192, 256].forEach((p) => {
+      const x = W.x + (p / W.posMax) * W.w;
+      mk('line', { x1: x, y1: 700, x2: x, y2: 710, stroke: 'var(--line)', 'stroke-width': 1.5 }, g5);
+      mk('text', { x: x, y: 740, 'text-anchor': 'middle', 'font-size': '22', fill: 'var(--dim)' }, g5).textContent = p;
+    });
+    g5.insertAdjacentHTML('beforeend', A(W.x + W.w / 2, 812, '位置 pos', 'lbl', 'middle'));
+    g5.__sweep = mk('line', { x1: W.x, y1: 268, x2: W.x, y2: 700, stroke: 'var(--cyan)', 'stroke-width': 2, 'stroke-dasharray': '4 8', opacity: 0 }, g5);
+    g5.__sweepDot = mk('circle', { cx: W.x, cy: W.y0 + 2 * W.gap, r: 5, fill: 'var(--cyan)', opacity: 0 }, g5);
+    g5.__pos = mk('text', { x: W.x, y: 772, 'text-anchor': 'middle', 'font-size': '22', class: 'mono', fill: 'var(--cyan)', opacity: 0 }, g5);
+    g5.__waves = [];
+    for (let i = 0; i < W.n; i++) {
+      const col = i === 0 ? 'var(--cyan)' : 'hsl(' + (178 - i * 4) + ', ' + (52 - i * 5) + '%, ' + (62 - i * 5) + '%)';
+      const p = mk('path', { d: '', fill: 'none', stroke: col, 'stroke-width': 2.1, 'stroke-linecap': 'round' }, g5);
+      const lab = mk('text', { x: W.x - 16, y: W.y0 + i * W.gap + 8, 'text-anchor': 'end', 'font-size': '19', fill: 'var(--dim)', opacity: .8 }, g5);
+      lab.textContent = 'i=' + i;
+      g5.__waves.push({ el: p, i, lab });
+    }
+  })();
+
+  // ---- 06 · frequency annotation -----------------------------------------
+  const g6 = group(
+    A(1712, 350, 'i 增大', 'lbl', 'middle') +
+    '<line x1="1712" y1="372" x2="1712" y2="610" stroke="var(--cyan)" stroke-width="1.5" marker-end="url(#headC)"/>' +
+    A(1712, 646, '频率降低', 'lbl', 'middle', 'fill="var(--cyan)"') +
+    A(1712, 700, '波长变长', 'note', 'middle')
+  );
+
+  // ---- 07 · phase fingerprint --------------------------------------------
+  const g7 = group('');
+  (function () {
+    g7.__cursor = mk('line', { x1: W.x, y1: 268, x2: W.x, y2: 700, stroke: 'var(--cyan)', 'stroke-width': 1.5, 'stroke-dasharray': '6 6', opacity: .8 }, g7);
+    g7.__dots = [];
+    for (let i = 0; i < W.n; i++) g7.__dots.push(mk('circle', { cx: W.x, cy: W.y0 + i * W.gap, r: 5, fill: 'var(--cyan)' }, g7));
+    g7.insertAdjacentHTML('beforeend', A(150, 560, '位置 ' + PROBE + ' 的指纹', 'lbl', 'start'));
+    g7.__fp = [];
+    for (let i = 0; i < W.n; i++) {
+      g7.__fp.push(mk('text', { x: 150, y: 610 + i * 36, 'font-size': '25', class: 'mono', fill: 'var(--ink)' }, g7));
+    }
+  })();
+
+  // ---- 08 · the training-length wall -------------------------------------
+  const g8 = group('');
+  (function () {
+    const xw = W.x + (192 / W.posMax) * W.w;
+    g8.__wall = mk('line', { x1: xw, y1: 250, x2: xw, y2: 706, stroke: 'var(--red)', 'stroke-width': 2, 'stroke-dasharray': '8 8' }, g8);
+    mk('text', { x: xw, y: 232, 'text-anchor': 'middle', 'font-size': '24', class: 'mono', fill: 'var(--red)' }, g8).textContent = 'max_len';
+    mk('rect', { x: xw, y: 252, width: W.x + W.w - xw, height: 452, fill: 'var(--bg)', opacity: .82, 'data-layout-allow-occlusion': '' }, g8);
+    mk('text', { x: xw + 34, y: 470, 'font-size': '30', fill: 'var(--ink)' }, g8).textContent = '公式还能算';
+    mk('text', { x: xw + 34, y: 516, 'font-size': '30', fill: 'var(--red)' }, g8).textContent = '模型没见过';
+    mk('text', { x: W.x + W.w - 24, y: 640, 'text-anchor': 'end', 'font-size': '72', fill: 'var(--red)', opacity: .7 }, g8).textContent = '?';
+  })();
+
+  // ---- 09 · RoPE rotation -------------------------------------------------
+  const g9 = group('');
+  const C9 = { x: 1200, y: 548, r: 190 };
+  (function () {
+    mk('circle', { cx: C9.x, cy: C9.y, r: C9.r, fill: 'none', stroke: 'var(--line)', 'stroke-width': 1.5 }, g9);
+    mk('line', { x1: C9.x - C9.r - 26, y1: C9.y, x2: C9.x + C9.r + 26, y2: C9.y, stroke: 'var(--line)', 'stroke-width': 1, opacity: .6 }, g9);
+    mk('line', { x1: C9.x, y1: C9.y - C9.r - 26, x2: C9.x, y2: C9.y + C9.r + 26, stroke: 'var(--line)', 'stroke-width': 1, opacity: .6 }, g9);
+    g9.__q = mk('line', { x1: C9.x, y1: C9.y, x2: C9.x + C9.r, y2: C9.y, stroke: 'var(--amber)', 'stroke-width': 3.4, 'marker-end': 'url(#headA)' }, g9);
+    g9.__k = mk('line', { x1: C9.x, y1: C9.y, x2: C9.x + C9.r, y2: C9.y, stroke: 'var(--amber)', 'stroke-width': 2, opacity: .55, 'marker-end': 'url(#headA)' }, g9);
+    g9.__arc = mk('path', { d: '', fill: 'none', stroke: 'var(--amber)', 'stroke-width': 1.6, 'stroke-dasharray': '5 5', opacity: .6 }, g9);
+    g9.__ql = mk('text', { x: 0, y: 0, 'font-size': '28', class: 'math', fill: 'var(--amber)' }, g9);
+    g9.__kl = mk('text', { x: 0, y: 0, 'font-size': '28', class: 'math', fill: 'var(--amber)', opacity: .7 }, g9);
+    g9.__ql.textContent = 'q';
+    g9.__kl.textContent = 'k';
+    g9.__ang = mk('text', { x: C9.x, y: C9.y + C9.r + 62, 'text-anchor': 'middle', 'font-size': '26', class: 'mono', fill: 'var(--amber)' }, g9);
+    g9.insertAdjacentHTML('beforeend', A(150, 300, 'q′ = R(pos · θ) q', 'math-u', 'start', 'font-size="48" fill="var(--ink)"'));
+    g9.insertAdjacentHTML('beforeend', A(150, 372, '[ cos  −sin ]', 'math-u', 'start', 'font-size="38" fill="var(--amber)"'));
+    g9.insertAdjacentHTML('beforeend', A(150, 416, '[ sin   cos ]', 'math-u', 'start', 'font-size="38" fill="var(--amber)"'));
+    g9.insertAdjacentHTML('beforeend', '<text x="150" y="512" class="math-u" font-size="36" fill="var(--ink)">θ<tspan font-size="22" baseline-shift="sub" class="math">i</tspan> = 10000<tspan font-size="22" baseline-shift="super" class="math">−2i/d</tspan></text>');
+    g9.insertAdjacentHTML('beforeend', A(150, 600, '旋转 Q 和 K，嵌入不动', 'note', 'start'));
+    g9.insertAdjacentHTML('beforeend', A(150, 660, '角度随位置线性增加', 'note', 'start'));
+  })();
+
+  // ---- 10 · relative distance survives -----------------------------------
+  const g10 = group('');
+  const C10 = [{ x: 650, y: 500, r: 150 }, { x: 1290, y: 500, r: 150 }];
+  (function () {
+    g10.__pairs = C10.map((c) => {
+      mk('circle', { cx: c.x, cy: c.y, r: c.r, fill: 'none', stroke: 'var(--line)', 'stroke-width': 1.4 }, g10);
+      mk('circle', { cx: c.x, cy: c.y, r: 3, fill: 'var(--dim)' }, g10);
+      return {
+        c,
+        q: mk('line', { x1: c.x, y1: c.y, x2: c.x + c.r, y2: c.y, stroke: 'var(--amber)', 'stroke-width': 3, 'marker-end': 'url(#headA)' }, g10),
+        k: mk('line', { x1: c.x, y1: c.y, x2: c.x + c.r, y2: c.y, stroke: 'var(--amber)', 'stroke-width': 2, opacity: .5, 'marker-end': 'url(#headA)' }, g10),
+        arc: mk('path', { d: '', fill: 'none', stroke: 'var(--amber)', 'stroke-width': 1.6, 'stroke-dasharray': '5 5' }, g10),
+        lab: mk('text', { x: c.x, y: c.y + c.r + 42, 'text-anchor': 'middle', 'font-size': '24', class: 'mono', fill: 'var(--amber)' }, g10),
+      };
+    });
+    g10.insertAdjacentHTML('beforeend', A(960, 210, '同一间隔，两种绝对位置', 'h1', 'middle'));
+    g10.insertAdjacentHTML('beforeend', '<text x="960" y="780" text-anchor="middle" class="math-u" font-size="56" fill="var(--ink)">q′<tspan font-size="28" baseline-shift="sub" class="math" fill="var(--dim)">m</tspan> · k′<tspan font-size="28" baseline-shift="sub" class="math" fill="var(--dim)">n</tspan> = <tspan fill="var(--amber)">f(m − n)</tspan></text>');
+  })();
+
+  // ---- 11 · hero: the measured table -------------------------------------
+  const g11 = group('');
+  (function () {
+    g11.insertAdjacentHTML('beforeend', A(960, 168, '实跑输出：间隔相同，分数相同', 'h1', 'middle'));
+    const cols = [460, 760, 1030, 1370];
+    ['pos_q', 'pos_k', 'gap', 'q · k'].forEach((h, i) => {
+      g11.insertAdjacentHTML('beforeend', A(cols[i], 268, h, 'mono', 'middle', 'font-size="24" fill="var(--dim)"'));
+    });
+    mk('line', { x1: 330, y1: 292, x2: 1590, y2: 292, stroke: 'var(--line)', 'stroke-width': 1.5 }, g11);
+    const rows = [[3, 5], [7, 9], [100, 102], [1024, 1026]];
+    g11.__rows = rows.map((r, i) => {
+      const g = mk('g', { opacity: 0 }, g11);
+      const y = 392 + i * 104;
+      mk('text', { x: cols[0], y, 'text-anchor': 'middle', 'font-size': '52', class: 'mono', fill: 'var(--ink)' }, g).textContent = r[0];
+      mk('text', { x: cols[1], y, 'text-anchor': 'middle', 'font-size': '52', class: 'mono', fill: 'var(--ink)' }, g).textContent = r[1];
+      mk('text', { x: cols[2], y, 'text-anchor': 'middle', 'font-size': '52', class: 'mono', fill: 'var(--dim)' }, g).textContent = '2';
+      mk('text', { x: cols[3], y, 'text-anchor': 'middle', 'font-size': '50', class: 'mono', fill: 'var(--amber)' }, g).textContent = '−6.530165';
+      mk('line', { x1: 330, y1: y + 34, x2: 1590, y2: y + 34, stroke: 'var(--line)', 'stroke-width': 1, opacity: .5 }, g);
+      return g;
+    });
+    g11.__box = mk('rect', { x: 1128, y: 330, width: 484, height: 468, rx: 8, fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2, opacity: 0 }, g11);
+    g11.__verdict = mk('text', { x: 960, y: 872, 'text-anchor': 'middle', 'font-size': '64', fill: 'var(--amber)', opacity: 0 }, g11);
+    g11.__verdict.textContent = '全部相等';
+    g11.__side = mk('text', { x: 1590, y: 900, 'text-anchor': 'end', 'font-size': '19', class: 'mono', fill: 'var(--dim)', opacity: 0 }, g11);
+    g11.__side.textContent = 'phases/07-transformers-deep-dive/04-positional-encoding/code/main.py';
+  })();
+
+  // ---- 12 · ALiBi bias matrix --------------------------------------------
+  const g12 = group('');
+  (function () {
+    const x0 = 260, y0 = 292, cell = 54, gap = 2;
+    g12.__cells = [];
+    for (let i = 0; i < 8; i++) for (let j = 0; j < 8; j++) {
+      const d = Math.abs(i - j);
+      const r = mk('rect', { x: x0 + j * (cell + gap), y: y0 + i * (cell + gap), width: cell, height: cell, rx: 2,
+        fill: 'var(--violet)', opacity: (0.07 + 0.78 * Math.exp(-d / 2.1)).toFixed(3) }, g12);
+      g12.__cells.push({ el: r, i, j });
+    }
+    g12.__row = mk('rect', { x: x0 - 3, y: y0 + 3 * (cell + gap) - 3, width: 8 * (cell + gap) + 3, height: cell + 6, fill: 'none', stroke: 'var(--violet)', 'stroke-width': 2, opacity: 0 }, g12);
+    g12.insertAdjacentHTML('beforeend', A(x0 + 4 * (cell + gap) - gap / 2, y0 - 22, 'j →', 'mono', 'middle', 'font-size="20" fill="var(--dim)"'));
+    g12.insertAdjacentHTML('beforeend', A(960, 180, 'ALiBi：不给嵌入，给分数扣分', 'h1', 'middle'));
+    g12.insertAdjacentHTML('beforeend', '<text x="760" y="340" class="math-u" font-size="40" fill="var(--ink)">score = q · k / √d  −  m<tspan font-size="24" baseline-shift="sub" class="math" fill="var(--violet)">h</tspan> · |i − j|</text>');
+    g12.insertAdjacentHTML('beforeend', A(760, 412, '每个头一条斜率，越远扣得越多', 'note', 'start'));
+    g12.insertAdjacentHTML('beforeend', A(760, 500, '四个头的斜率', 'lbl', 'start'));
+    g12.__slopes = [0.25, 0.0625, 0.0156, 0.0039];
+    g12.__slopeTexts = g12.__slopes.map((s, i) =>
+      mk('text', { x: 760, y: 552 + i * 46, 'font-size': '30', class: 'mono', fill: 'var(--ink)' }, g12));
+    g12.__slopeTexts.forEach((t, i) => { t.textContent = 'h' + i + '   ' + g12.__slopes[i].toFixed(4); });
+    g12.insertAdjacentHTML('beforeend', A(960, 872, '偏置加在 softmax 之前', 'note', 'middle'));
+  })();
+
+  // ---- 13 · per-head slopes ----------------------------------------------
+  const g13 = group(A(960, 190, '头越深，斜率越小，看得越远', 'h1', 'middle'));
+  (function () {
+    g13.__bars = [];
+    const slopes = [0.25, 0.0625, 0.0156, 0.0039];
+    slopes.forEach((s, i) => {
+      const y = 330 + i * 108;
+      g13.insertAdjacentHTML('beforeend', A(250, y + 42, 'h' + i, 'mono', 'start', 'font-size="30" fill="var(--dim)"'));
+      const bar = mk('rect', { x: 350, y: y, width: 0, height: 58, rx: 4, fill: 'var(--violet)', opacity: .82 }, g13);
+      const val = mk('text', { x: 0, y: y + 42, 'font-size': '30', class: 'mono', fill: 'var(--ink)' }, g13);
+      val.textContent = s.toFixed(4);
+      g13.__bars.push({ bar, val, s });
+    });
+    g13.insertAdjacentHTML('beforeend', A(960, 820, '总有几头，盯得远一点', 'note', 'middle'));
+  })();
+
+  // ---- 14 · the 2026 verdict ---------------------------------------------
+  const g14 = group('');
+  (function () {
+    const col = [700, 1110, 1510];
+    ['正弦', 'RoPE', 'ALiBi'].forEach((h, i) => {
+      g14.insertAdjacentHTML('beforeend', A(col[i], 300, h, 'h1', 'middle', 'font-size="46"'));
+    });
+    const rows = [
+      ['外推', '差', '配缩放后良好', '极佳'],
+      ['训练成本', '免费', '免费', '免费'],
+      ['2026 用户', '历史', 'Llama · Qwen · Mistral · DeepSeek', 'BLOOM · MPT'],
+    ];
+    rows.forEach((r, ri) => {
+      const y = 430 + ri * 116;
+      g14.insertAdjacentHTML('beforeend', A(230, y, r[0], 'note', 'start', 'font-size="28" fill="var(--dim)"'));
+      for (let c = 0; c < 3; c++) {
+        const size = c === 1 && ri === 2 ? 24 : 30;
+        g14.insertAdjacentHTML('beforeend', A(col[c], y, r[c + 1], '', 'middle', 'font-size="' + size + '" fill="' + (c === 1 ? 'var(--amber)' : 'var(--ink)') + '"'));
+      }
+      mk('line', { x1: 210, y1: y + 40, x2: 1730, y2: y + 40, stroke: 'var(--line)', 'stroke-width': 1, opacity: .5 }, g14);
+    });
+    g14.__hi = mk('rect', { x: 880, y: 246, width: 460, height: 440, rx: 10, fill: 'var(--amber)', 'fill-opacity': '.05', stroke: 'var(--amber)', 'stroke-width': 2, opacity: 0 }, g14);
+    g14.__verdict = mk('text', { x: 960, y: 800, 'text-anchor': 'middle', 'font-size': '60', fill: 'var(--amber)', opacity: 0 }, g14);
+    g14.__verdict.textContent = '主流 = RoPE';
+  })();
+
+  // ---- 15 · the models ----------------------------------------------------
+  const g15 = group('');
+  (function () {
+    const names = [['Llama', 'Meta'], ['Qwen', '阿里'], ['Mistral', 'Mistral AI'], ['DeepSeek', 'DeepSeek']];
+    g15.__cards = names.map((n, i) => {
+      const x = 224 + i * 384;
+      const g = mk('g', { transform: 'translate(' + x + ',320)', opacity: 0 }, g15);
+      mk('rect', { x: 0, y: 0, width: 320, height: 280, rx: 12, fill: '#0e1625', stroke: 'var(--line)', 'stroke-width': 1.5 }, g);
+      const ring = mk('g', { transform: 'translate(160,92)' }, g);
+      mk('circle', { cx: 0, cy: 0, r: 44, fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2 }, ring);
+      mk('line', { x1: 0, y1: 0, x2: 44, y2: 0, stroke: 'var(--amber)', 'stroke-width': 3 }, ring);
+      mk('circle', { cx: 44, cy: 0, r: 4, fill: 'var(--amber)' }, ring);
+      mk('circle', { cx: 0, cy: 0, r: 54, fill: 'none', stroke: 'var(--amber)', 'stroke-width': 1, 'stroke-dasharray': '3 9', opacity: .55 }, ring);
+      mk('text', { x: 160, y: 208, 'text-anchor': 'middle', 'font-size': '48', fill: 'var(--ink)' }, g).textContent = n[0];
+      mk('text', { x: 160, y: 248, 'text-anchor': 'middle', 'font-size': '20', fill: 'var(--dim)' }, g).textContent = n[1];
+      g.setAttribute('style', 'transform-origin:160px 140px'); return { g, ring, i };
+    });
+    g15.__cap = mk('text', { x: 960, y: 700, 'text-anchor': 'middle', 'font-size': '64', fill: 'var(--amber)', opacity: 0 }, g15);
+    g15.__cap.textContent = '都在转';
+  })();
+
+  // ---- 16 · end -----------------------------------------------------------
+  const g16 = group('');
+  (function () {
+    g16.__ring = mk('g', { transform: 'translate(960,290)' }, g16);
+    mk('circle', { cx: 0, cy: 0, r: 92, fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2 }, g16.__ring);
+    mk('line', { x1: 0, y1: 0, x2: 92, y2: 0, stroke: 'var(--amber)', 'stroke-width': 4 }, g16.__ring);
+    mk('text', { x: 960, y: 302, 'text-anchor': 'middle', 'font-size': '34', class: 'mono', fill: 'var(--ink)' }, g16).textContent = V.lesson;
+    g16.insertAdjacentHTML('beforeend', '<text x="960" y="520" text-anchor="middle" font-size="58" font-weight="900" fill="var(--ink)">' + V.endLine + '</text>');
+    g16.insertAdjacentHTML('beforeend', '<text x="960" y="632" text-anchor="middle" font-size="86" font-weight="900" fill="var(--amber)">' + V.endLine2 + '</text>');
+    mk('line', { x1: 760, y1: 690, x2: 1160, y2: 690, stroke: 'var(--line)', 'stroke-width': 1.5 }, g16);
+    g16.insertAdjacentHTML('beforeend', A(960, 762, 'Positional Encoding · 阶段 7 · 第 4 课', 'lbl', 'middle'));
+    g16.insertAdjacentHTML('beforeend', A(960, 806, 'AI Engineering from Scratch · 中文', 'note', 'middle', 'fill="var(--dim)"'));
+  })();
+
+  // ---- HUD ----------------------------------------------------------------
+  const hud = group(
+    A(140, 82, V.lesson + ' / POSITIONAL ENCODING', 'kick') +
+    A(1780, 82, '注意力 · 位置', 'kick', 'end') +
+    '<line x1="140" y1="1044" x2="1780" y2="1044" stroke="#1b2740" stroke-width="2"/>'
+  );
+  svg.appendChild(hud);
+  hud.setAttribute('opacity', '1');
+  const prog = mk('rect', { x: 140, y: 1044, width: 0, height: 2, fill: 'var(--cyan)', opacity: .75 }, hud);
+  const subPlate = mk('rect', { x: 240, y: 952, width: 1440, height: 64, rx: 8, fill: '#04070d', opacity: 0 }, hud);
+  const sub = mk('text', { x: 960, y: 998, 'text-anchor': 'middle', class: 'sub', opacity: 0 }, hud);
+
+  // ---- subtitles ----------------------------------------------------------
+  const SUBS = [
+    [0.11, 2.60, '注意力，其实看不见顺序。'],
+    [2.92, 7.04, '把同一句话打乱，注意力矩阵还是同一套数。'],
+    [7.43, 11.38, '分数只来自两两相似度，位置根本没有参与。'],
+    [11.71, 14.54, '所以必须有人，把位置塞进去。'],
+    [14.86, 17.21, '第一代答案，正弦编码。'],
+    [17.55, 20.68, '给每个位置，配一组不同频率的波。'],
+    [21.03, 23.02, '维度越高，波越慢。'],
+    [23.34, 25.97, '模型从相位里，读出位置。'],
+    [26.30, 28.29, '可它只见过训练长度。'],
+    [28.63, 30.67, '再往后，就没有定义。'],
+    [31.00, 32.43, '第二代，RoPE。'],
+    [32.77, 35.64, '不碰嵌入，直接旋转 Q 和 K。'],
+    [35.97, 40.17, '角度随位置增加，点积里就只剩相对距离。'],
+    [40.50, 46.04, '位置加三，和位置加一千，只要间隔相同，分数就完全一样。'],
+    [46.37, 48.15, '第三代，ALiBi。'],
+    [48.47, 51.30, '连嵌入都不加，只按距离扣分。'],
+    [51.61, 53.73, '近的抬高，远的压低。'],
+    [54.04, 55.91, '每个头，一个斜率。'],
+    [56.27, 60.08, '外推很好，但 2026 年的主流，是 RoPE。'],
+    [60.44, 64.28, 'Llama、Qwen、Mistral、DeepSeek，都在转。'],
+    [64.61, 67.96, '位置，不是加进去的，是转进去的。'],
+  ];
+  let lastSub = -1;
+
+  // ---- drawing helpers ----------------------------------------------------
+  const arrowTip = (c, ang, r) => [c.x + r * Math.cos(ang), c.y - r * Math.sin(ang)];
+
+  function waveY(i, pos) {
+    return W.y0 + i * W.gap - Math.sin(pos * Math.pow(10000, -2 * i / W.d)) * W.amp;
+  }
+  function wavePath(i, posEnd) {
+    let d = '', started = false;
+    for (let p = 0; p <= posEnd + 0.001; p += 0.4) {
+      const x = W.x + (p / W.posMax) * W.w;
+      const y = waveY(i, p);
+      d += (started ? ' L' : 'M') + x.toFixed(2) + ' ' + y.toFixed(2);
+      started = true;
+    }
+    return d;
+  }
+
+  function draw(t) {
+    // 01
+    setOp(g1, fade(t, T.hook, T.blind, 0.35, 0.18));
+    if (t < T.blind + 0.4) {
+      const p = ease(clamp((t - 0.9) / 0.85));
+      const o0 = g1.__order0, o1 = g1.__order1;
+      const tokX0 = 500, tokW = 140, tokGap = 16, tokY = 250;
+      g1.__tokens.forEach((g, i) => {
+        const q = ease(clamp((p - i * 0.035) / 0.46));
+        const sy = Math.max(0.02, Math.abs(Math.cos(Math.PI * q)));
+        const slot = q < 0.5 ? o0[i] : o1[i];
+        g.setAttribute('transform', 'translate(' + (tokX0 + slot * (tokW + tokGap)) + ',' + tokY + ') scale(1,' + sy.toFixed(3) + ')');
+      });
+      const mX0 = 807, mY0 = 470, cell = 48, gap = 3;
+      const swap = p < 0.5 ? o0 : o1;
+      g1.__cells.forEach((c) => {
+        c.el.setAttribute('x', (mX0 + swap[c.j] * (cell + gap)).toFixed(2));
+        c.el.setAttribute('y', (mY0 + swap[c.i] * (cell + gap)).toFixed(2));
+      });
+      g1.__mtx.setAttribute('opacity', (1 - 0.55 * Math.sin(Math.PI * p)).toFixed(3));
+      g1.__cap.setAttribute('opacity', appear(t, 1.75, 0.4).toFixed(3));
+      g1.__tag.setAttribute('opacity', appear(t, 2.02, 0.35).toFixed(3));
+    }
+
+    // 02
+    setOp(g2, fade(t, T.blind, T.why, 0.35, 0.18));
+    g2.__box.setAttribute('stroke-dashoffset', (2200 * (1 - appear(t, T.blind + 0.55, 0.9))).toFixed(1));
+    const su = ((t - T.blind) % 3.2) / 3.2;
+    g2.__scan.setAttribute('cx', (196 + 812 * su).toFixed(2));
+    g2.__scan.setAttribute('opacity', (0.85 * appear(t, T.blind + 0.9, 0.4)).toFixed(2));
+
+    // 03
+    setOp(g3, fade(t, T.why, T.inject, 0.35, 0.18));
+
+    // 04
+    setOp(g4, fade(t, T.inject, T.sine, 0.35, 0.18));
+    g4.__roads.forEach((r, i) => {
+      r.path.setAttribute('stroke-dashoffset', (1 - appear(t, T.inject + 0.35 + i * 0.22, 0.7)).toFixed(3));
+      const u = (((t - T.inject - 0.9) * 0.42 + i * 0.31) % 1 + 1) % 1;
+      try {
+        const pt = r.path.getPointAtLength(r.path.getTotalLength() * u);
+        r.dot.setAttribute('cx', pt.x.toFixed(2));
+        r.dot.setAttribute('cy', pt.y.toFixed(2));
+      } catch (e) { /* path not laid out yet */ }
+      r.dot.setAttribute('opacity', (0.9 * appear(t, T.inject + 1.1 + i * 0.2, 0.5)).toFixed(2));
+    });
+
+    // 05 / 06 / 07 / 08 share the wave field
+    setOp(g5, fade(t, T.sine, T.rope + 0.3, 0.5, 0.5));
+    setOp(g6, fade(t, T.waves, T.phase + 0.3));
+    setOp(g7, fade(t, T.phase, T.wall + 0.3));
+    setOp(g8, fade(t, T.wall, T.rope + 0.3));
+    g5.__waves.forEach((w) => {
+      const rev = ease(clamp((t - (T.sine + 0.18 + w.i * 0.12)) / 1.15));
+      w.el.setAttribute('d', rev > 0.002 ? wavePath(w.i, W.posMax * rev) : '');
+      const emph = t >= T.waves ? (w.i === 0 || w.i === 5 ? 1 : 0.4) : 1;
+      w.el.setAttribute('opacity', emph.toFixed(2));
+      w.lab.setAttribute('opacity', (0.8 * emph).toFixed(2));
+    });
+    if (t >= T.phase - 0.5) {
+      const cp = ease(clamp((t - T.phase - 0.1) / 1.3));
+      const pos = PROBE * cp;
+      const cx = W.x + (pos / W.posMax) * W.w;
+      g7.__cursor.setAttribute('stroke-dashoffset', (-t * 24).toFixed(1));
+    g7.__cursor.setAttribute('x1', cx.toFixed(2));
+      g7.__cursor.setAttribute('x2', cx.toFixed(2));
+      g7.__dots.forEach((d, i) => {
+        d.setAttribute('cx', cx.toFixed(2));
+        d.setAttribute('cy', waveY(i, pos).toFixed(2));
+        d.setAttribute('opacity', cp.toFixed(2));
+      });
+      g7.__fp.forEach((tx, i) => {
+        const val = Math.sin(PROBE * Math.pow(10000, -2 * i / W.d));
+        tx.textContent = 'i=' + i + '   ' + (val >= 0 ? '+' : '') + val.toFixed(3);
+        tx.setAttribute('opacity', (cp * (i === 0 || i === 5 ? 1 : 0.55)).toFixed(2));
+      });
+    }
+    if (t >= T.wall) {
+      const wp = ease(clamp((t - T.wall - 0.15) / 0.7));
+      g8.setAttribute('opacity', wp.toFixed(3));
+      g8.__wall.setAttribute('stroke-dashoffset', (-t * 18).toFixed(1));
+    }
+
+    // 09
+    setOp(g9, fade(t, T.rope, T.relative, 0.35, 0.18));
+    if (t > T.rope - 0.2) {
+      const a = 0.35 + Math.max(0, t - T.rope) * 0.95;
+      const b = a + 2;
+      const [qx, qy] = arrowTip(C9, a, C9.r);
+      const [kx, ky] = arrowTip(C9, b, C9.r);
+      g9.__q.setAttribute('x2', qx.toFixed(2)); g9.__q.setAttribute('y2', qy.toFixed(2));
+      g9.__k.setAttribute('x2', kx.toFixed(2)); g9.__k.setAttribute('y2', ky.toFixed(2));
+      g9.__ql.setAttribute('x', (qx + 16).toFixed(2)); g9.__ql.setAttribute('y', (qy - 6).toFixed(2));
+      g9.__kl.setAttribute('x', (kx + 16).toFixed(2)); g9.__kl.setAttribute('y', (ky - 6).toFixed(2));
+      g9.__arc.setAttribute('d', 'M' + qx.toFixed(2) + ' ' + qy.toFixed(2) + ' A' + (C9.r + 26) + ' ' + (C9.r + 26) + ' 0 0 0 ' + kx.toFixed(2) + ' ' + ky.toFixed(2));
+      g9.__ang.textContent = 'pos · θ ≈ ' + a.toFixed(2) + ' rad';
+    }
+
+    // 10
+    setOp(g10, fade(t, T.relative, T.hero, 0.35, 0.18));
+    if (t > T.relative - 0.2) {
+      const base = 0.55 + Math.max(0, t - T.relative) * 0.75;
+      g10.__pairs.forEach((p, i) => {
+        const a = base + i * 2.35;
+        const b = a + 2;
+        const [qx, qy] = arrowTip(p.c, a, p.c.r);
+        const [kx, ky] = arrowTip(p.c, b, p.c.r);
+        p.q.setAttribute('x2', qx.toFixed(2)); p.q.setAttribute('y2', qy.toFixed(2));
+        p.k.setAttribute('x2', kx.toFixed(2)); p.k.setAttribute('y2', ky.toFixed(2));
+        p.arc.setAttribute('d', 'M' + qx.toFixed(2) + ' ' + qy.toFixed(2) + ' A' + p.c.r + ' ' + p.c.r + ' 0 0 0 ' + kx.toFixed(2) + ' ' + ky.toFixed(2));
+        p.lab.textContent = '夹角 2θ';
+      });
+    }
+
+    // 11
+    setOp(g11, fade(t, T.hero, T.alibi, 0.4, 0.18));
+    if (t > T.hero - 0.3) {
+      g11.__rows.forEach((r, i) => {
+        const p = appear(t, T.hero + 0.35 + i * 0.82, 0.38);
+        r.setAttribute('opacity', p.toFixed(3));
+        r.setAttribute('transform', 'translate(0,' + ((1 - p) * 22).toFixed(2) + ')');
+      });
+      g11.__box.setAttribute('opacity', appear(t, T.hero + 3.7, 0.4).toFixed(3));
+      g11.__box.setAttribute('stroke-dasharray', '12 9');
+      g11.__box.setAttribute('stroke-dashoffset', (-t * 22).toFixed(1));
+      const vp = appear(t, T.hero + 4.6, 0.5);
+      g11.__verdict.setAttribute('opacity', vp.toFixed(3));
+      const vs = 1 + 0.022 * Math.sin(t * 2.4);
+      g11.__verdict.setAttribute('transform', 'translate(960,872) scale(' + vs.toFixed(4) + ') translate(-960,-872)');
+      g11.__side.setAttribute('opacity', (0.7 * appear(t, T.hero + 5.4, 0.6)).toFixed(3));
+    }
+
+    // 12
+    setOp(g12, fade(t, T.alibi, T.slopes, 0.35, 0.18));
+    if (t > T.alibi - 0.2) {
+      const p = appear(t, T.bias, 0.5);
+      g12.__row.setAttribute('opacity', (0.9 * p).toFixed(3));
+      g12.__slopeTexts.forEach((tx, i) => tx.setAttribute('opacity', (0.45 + 0.55 * appear(t, T.alibi + 0.3 + i * 0.25, 0.4)).toFixed(2)));
+    }
+
+    // 13
+    setOp(g13, fade(t, T.slopes, T.verdict, 0.35, 0.18));
+    g13.__bars.forEach((b, i) => {
+      const p = appear(t, T.slopes + 0.15 + i * 0.3, 0.55);
+      const w = (b.s / 0.25) * 760 * ease(p);
+      b.bar.setAttribute('width', w.toFixed(2));
+      b.val.setAttribute('x', (350 + w + 18).toFixed(2));
+      b.val.setAttribute('opacity', p.toFixed(2));
+    });
+
+    // 14
+    setOp(g14, fade(t, T.verdict, T.models, 0.35, 0.18));
+    g14.__hi.setAttribute('opacity', (0.55 * appear(t, T.verdict + 0.4, 0.6) * (0.86 + 0.14 * Math.sin(t * 2.1))).toFixed(3));
+    g14.__hi.setAttribute('stroke-dasharray', '10 8');
+    g14.__hi.setAttribute('stroke-dashoffset', (-t * 20).toFixed(1));
+    g14.__verdict.setAttribute('opacity', appear(t, T.verdict + 3.4, 0.55).toFixed(3));
+
+    // 15
+    setOp(g15, fade(t, T.models, T.end, 0.25, 0.18));
+    const mt = [T.models, cue('Qwen'), cue('Mistral'), cue('DeepSeek')];
+    g15.__cards.forEach((c, i) => {
+      const p = clamp((t - mt[i]) / 0.38);
+      const s = 1.12 - 0.12 * outBack(p);
+      c.g.setAttribute('opacity', ease(p).toFixed(3));
+      c.g.setAttribute('transform', 'translate(' + (224 + i * 384) + ',320) scale(' + s.toFixed(3) + ')');
+      const rot = (t - mt[i]) * (60 + i * 20);
+      c.ring.setAttribute('transform', 'translate(160,92) rotate(' + rot.toFixed(1) + ')');
+    });
+    g15.__cap.setAttribute('opacity', appear(t, cue('都在'), 0.45).toFixed(3));
+
+    // 16
+    setOp(g16, fade(t, T.end, T.endFilm + 0.5, 0.5, 0.4));
+    g16.__ring.setAttribute('transform', 'translate(960,290) rotate(' + ((t - T.end) * 42).toFixed(1) + ')');
+
+    world.setAttribute('transform', 'translate(960,540) scale(' + (1.0015 + 0.0018 * Math.sin(t * 0.21)).toFixed(5) + ') translate(-960,-540) translate(' + (Math.sin(t * 0.17) * 4).toFixed(2) + ',' + (Math.cos(t * 0.13) * 3).toFixed(2) + ')');
+
+    // a dot crossing each distance line while the score stays the same
+    if (t > T.why - 0.3 && t < T.inject + 0.4) {
+      g3.__lines.forEach((l) => l.setAttribute('stroke-dashoffset', (-t * 26).toFixed(1)));
+    g3.__dots.forEach((d) => {
+        const u = (t * 0.45 + d.phase) % 1;
+        d.el.setAttribute('cx', lerp(d.x1 + 28, d.x2 - 28, ease(u)).toFixed(2));
+      });
+    }
+
+    // the read-head crossing the sinusoidal field before the probe locks on
+    if (t >= T.sine && t < T.phase) {
+      const u = clamp((t - T.sine - 0.2) / (T.phase - T.sine - 0.2));
+      const x = W.x + u * W.w;
+      const vis = 0.6 * Math.min(1, (t - T.sine) / 0.6);
+      g5.__sweep.setAttribute('x1', x.toFixed(2));
+      g5.__sweep.setAttribute('x2', x.toFixed(2));
+      g5.__sweep.setAttribute('stroke-dashoffset', (-t * 30).toFixed(1));
+      g5.__sweep.setAttribute('opacity', vis.toFixed(2));
+      const wy = waveY(2, u * W.posMax);
+      g5.__sweepDot.setAttribute('cx', x.toFixed(2));
+      g5.__sweepDot.setAttribute('cy', wy.toFixed(2));
+      g5.__sweepDot.setAttribute('opacity', vis.toFixed(2));
+      g5.__pos.textContent = 'pos ' + Math.round(u * W.posMax);
+      g5.__pos.setAttribute('x', x.toFixed(2));
+      g5.__pos.setAttribute('opacity', vis.toFixed(2));
+    } else {
+      g5.__sweep.setAttribute('opacity', 0);
+      g5.__sweepDot.setAttribute('opacity', 0);
+      g5.__pos.setAttribute('opacity', 0);
+    }
+
+    // HUD + subtitles
+    prog.setAttribute('width', (1396 * clamp(t / T.endFilm)).toFixed(1));
+    let idx = -1;
+    for (let i = 0; i < SUBS.length; i++) if (t >= SUBS[i][0] && t <= SUBS[i][1]) { idx = i; break; }
+    if (t >= T.end + 0.35) idx = -1;
+    if (idx !== lastSub) {
+      lastSub = idx;
+      if (idx >= 0) sub.textContent = SUBS[idx][2];
+    }
+    const sa = idx >= 0 ? 1 : 0;
+    sub.setAttribute('opacity', sa);
+    subPlate.setAttribute('opacity', (0.72 * sa).toFixed(2));
+  }
+
+  // ---- timeline -----------------------------------------------------------
+  const tl = gsap.timeline({ paused: true });
+  const S = [
+    ['hook', T.hook], ['blind', T.blind], ['why', T.why], ['inject', T.inject],
+    ['sine', T.sine], ['waves', T.waves], ['phase', T.phase], ['wall', T.wall],
+    ['rope', T.rope], ['relative', T.relative], ['hero', T.hero], ['alibi', T.alibi],
+    ['bias', T.bias], ['slopes', T.slopes], ['verdict', T.verdict], ['models', T.models], ['end', T.end],
+  ];
+  S.forEach(([name, at]) => tl.addLabel('scene:' + name, at));
+  OM.clock(tl, draw, T.endFilm);
+  window.__timelines['film'] = tl;
+
+  // ---- sound marks --------------------------------------------------------
+  OM.music({ style: 'mallet', bpm: 104, drop: 'hero', ending: 'ring' });
+  OM.sfx('whoosh', 0.9, { gain: .28 });
+  OM.sfx('tick', 2.02, { gain: .3 });
+  OM.sfx('tick', T.why + 0.2, { gain: .28 });
+  OM.sfx('whoosh', T.inject + 0.2, { gain: .3 });
+  OM.sfx('pop', T.sine, { gain: .32, note: 1 });
+  OM.sfx('tick', T.waves, { gain: .24 });
+  OM.sfx('pop', T.phase, { gain: .3, note: 2 });
+  OM.sfx('thud', T.wall + 0.1, { gain: .32 });
+  OM.sfx('whoosh', T.rope, { gain: .3 });
+  OM.sfx('pop', T.rope + 0.7, { gain: .26, note: 3 });
+  OM.sfx('tick', T.relative, { gain: .26 });
+  [0, 0.82, 1.64, 2.46].forEach((d, i) => OM.sfx('tick', T.hero + 0.35 + d, { gain: .3, note: i + 1 }));
+  OM.sfx('impact', T.hero + 3.7, { gain: .45 });
+  OM.sfx('thud', T.alibi, { gain: .3 });
+  OM.sfx('pop', T.alibi + 0.7, { gain: .3, note: 4 });
+  OM.sfx('tick', T.bias, { gain: .26 });
+  [0, 0.3, 0.6, 0.9].forEach((d, i) => OM.sfx('tick', T.slopes + 0.15 + d, { gain: .24, note: i + 1 }));
+  OM.sfx('tick', T.verdict, { gain: .26 });
+  OM.sfx('chime', T.verdict + 3.4, { gain: .4 });
+  [0, 0.64, 1.41, 2.26].forEach((d, i) => OM.sfx('hit', T.models + d, { gain: .4 + i * .03, pitch: 1 + i * .06 }));
+  OM.sfx('impact', T.end, { gain: .5 });
+  OM.sfx('chime', T.endFilm - 1.2, { gain: .35 });
+})();
+</script>
+</body>
+</html>

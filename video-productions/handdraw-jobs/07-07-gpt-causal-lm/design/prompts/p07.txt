@@ -1,0 +1,1 @@
+industrial marker sketch, warm off-white paper, dark grey marker outline, warm yellow fill, brown streaks, metal grey accents. 左侧六根概率柱：the 0.380、dog 0.255、mat 0.127、jump 0.069、cat 0.047、ran 0.038；右侧六行结果：贪心 the、温度 0.7 jumped、温度 2.0 mat、top-k=3 the、top-p=0.9 the、min-p=0.1 dog。 Visible: 六个结果与课程脚本输出一致；min-p 一行用暖黄强调。. No people, no photorealism, no dark background, no watermark.
