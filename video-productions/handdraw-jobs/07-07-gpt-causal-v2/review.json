@@ -1,5 +1,5 @@
 {
-  "video_sha256": "1f69fd521e3f10e1dedbf159294d4de61f79dcceec4e3a1b1f59d335ad7938cf",
+  "video_sha256": "589b9b948040fcbb90e7b62602e6efa273858bb34f8733aa8e2a6b05c5d7f9b4",
   "content": {
     "status": "pass",
     "evidence": "逐页对照讲义与 code/main.py 实跑：p04 因果掩码上三角 -inf、p06 的 6x6 下三角概率矩阵（1.000/0.646/0.354 等实测值）、p07 的贪心 the、温度 0.7 jumped、温度 2.0 mat 与 Top-k/Top-p/Min-p 截断结论，均与 phases/07-transformers-deep-dive/07-gpt-causal-language-modeling/docs/zh.md 及 main.py 输出一致。"
@@ -14,7 +14,7 @@
   },
   "audio": {
     "status": "pass",
-    "evidence": "verify 工程检查通过：响度落在 -20~-14 LUFS 区间、末句后总静音 ≤1.2s、字幕与 alignment 逐句一致；旁白整篇一次合成，仅做尾部静音裁剪与整体响度归一化。主观听感未验收。"
+    "evidence": "verify 工程检查通过：响度落在 -20~-14 LUFS 区间、末句后总静音 ≤1.2s、字幕与 alignment 逐句一致。旁白改为 edge-tts 女声 zh-CN-XiaoxiaoNeural 整篇一次合成，配乐改为动感电子（位置编码轻电子配乐），仅做尾部静音裁剪与整体响度归一化。主观听感未验收。"
   },
   "privacy": {
     "status": "pass",
@@ -22,10 +22,10 @@
   },
   "limitations": [
     "未以人眼完整正常速度播放 164 秒全片；运动流畅度基于代表帧与预览段。",
-    "未实际听音，旁白自然度与配乐听感未验收。",
     "插图由 Grok imagine 文本生图生成，与本地 PIL 绘制的其他集在笔触细节上不完全一致。",
-    "配乐复用既有素材（inputs/music.wav），非为本集单独制作。",
     "固定手部素材位于画面中央，部分页面会遮住插画中段；字幕仍在底部安全区。",
-    "旁白母带裁掉尾部自然静音到 0.28 秒并做整体响度归一化，共 2 处编辑；正文样本未切割。"
+    "旁白母带裁掉尾部自然静音到 0.28 秒并做整体响度归一化，共 2 处编辑；正文样本未切割。",
+    "未实际听音，旁白女声自然度与动感配乐听感未验收。",
+    "配乐为现成动感电子素材，非为本集单独制作。"
   ]
 }

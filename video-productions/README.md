@@ -14,14 +14,14 @@
 | 14-04 | Tree of Thoughts 与 LATS | 171.6 秒 / 14.4 MiB | 9 / 27 | 53 | 36 |
 | 07-07 | GPT 因果语言建模 | 175.3 秒 / 14.7 MiB | 10 / 30 | 54 | 38 |
 | 07-08 | T5 与 BART（编码器-解码器） | 173.4 秒 / 14.5 MiB | 10 / 30 | 58 | 39 |
-| 07-07 | GPT 因果语言建模（逐笔手绘） | 164.2 秒 / 26.0 MiB | 10 / 30 | 30 | — |
-| 07-08 | T5 与 BART（逐笔手绘） | 167.3 秒 / 26.6 MiB | 10 / 30 | 30 | — |
+| 07-07 | GPT 因果语言建模（逐笔手绘·女声） | 174.2 秒 / 27.3 MiB | 10 / 30 | 30 | — |
+| 07-08 | T5 与 BART（逐笔手绘·女声） | 175.3 秒 / 27.6 MiB | 10 / 30 | 30 | — |
 
 14-02 沿用 hypit 已审阅的 9 场文案（27 句），**前面加一场封面**（3 句），共 10 场 30 句；
 14-04 的**第 1 场是封面**（集号 + 主标题 + 三件套色块），随后 8 场讲 ToT 的 BFS 自评与 LATS 的 MCTS 四步。
 07-07、07-08 按小红书数据（5 秒完播率低于同类）改成**钩子前置**：第 1 场直接抛问题、画面领先旁白（0.2–1.5 秒就开始写字），标题卡挪到第 2 场，末场固定提问 + 评论区引导。
 
-逐笔手绘版用 `handdrawn-explainer-video` 流水线（画风 12 工业设计马克笔 + teacher-pen 手部 + 16:9 1080p），插画由 Grok imagine 生成，合成与字幕在本地完成；任务目录在 `handdraw-jobs/07-07-gpt-causal-v2/` 与 `handdraw-jobs/07-08-t5-bart-v2/`，`outputs/film.mp4` 与 `work/` 不入库。
+逐笔手绘版用 `handdrawn-explainer-video` 流水线（画风 12 工业设计马克笔 + teacher-pen 手部 + 16:9 1080p），配音用 edge-tts 女声 `zh-CN-XiaoxiaoNeural`，配乐为动感电子；插画由 Grok imagine 生成，合成与字幕在本地完成；任务目录在 `handdraw-jobs/07-07-gpt-causal-v2/` 与 `handdraw-jobs/07-08-t5-bart-v2/`，`outputs/film.mp4` 与 `work/` 不入库。
 
 成片（1920×1080、30 fps、H.264 + AAC）在本地 `output/dashi-*-handdrawn.mp4`，
 已加入 `.gitignore` 不入库；按下面的步骤可以整片重建。
