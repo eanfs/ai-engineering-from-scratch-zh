@@ -1,0 +1,139 @@
+{
+  "narrative_route": {
+    "decision": "default_life_concept",
+    "reason": "用日常疑问引入，再拆到结构细节",
+    "director_review": "默认生活问题路线适用"
+  },
+  "topic": "Mixture of Experts",
+  "audience": "想理解该机制原理的开发者",
+  "explanation_goal": "看完能说出核心机制与关键数字",
+  "source_scope": {
+    "type": "original",
+    "basis": "phases/07-transformers-deep-dive 对应课程讲义与实跑输出"
+  },
+  "visual_direction": {
+    "character": "无人物，工业设计马克笔",
+    "palette": "暖黄+金属灰，纯白背景",
+    "line": "深灰勾线",
+    "scene_density": "每页一个主体，10 页"
+  },
+  "beats": [
+    {
+      "page": "p01",
+      "title": "钩子：同样算力二十倍参数",
+      "narration": [
+        "一个稠密模型，每个 token 都要跑完所有参数。",
+        "但有个办法，让 6710 亿参数的模型每个 token 只算 370 亿。",
+        "它就是混合专家。"
+      ]
+    },
+    {
+      "page": "p02",
+      "title": "片头",
+      "narration": [
+        "阶段 7，第 11 课：Mixture of Experts。",
+        "2026 年的前沿模型几乎全是 MoE。",
+        "稀疏，是这十年最重要的扩展思路。"
+      ]
+    },
+    {
+      "page": "p03",
+      "title": "稠密模型的墙",
+      "narration": [
+        "稠密 transformer 的推理算力，等于参数量乘二。",
+        "把模型做大，每个 token 就付全额账单。",
+        "到 2024 年，前沿撞上了这堵墙。"
+      ]
+    },
+    {
+      "page": "p04",
+      "title": "替换 FFN",
+      "narration": [
+        "做法很简单：把每个 FFN 换成 E 个独立专家。",
+        "再加一个路由器，为每个 token 挑 k 个专家。",
+        "总参数随 E 涨，算力只随 k 涨。"
+      ]
+    },
+    {
+      "page": "p05",
+      "title": "路由器",
+      "narration": [
+        "路由器就是一个线性层，给每个 token 对每个专家打分。",
+        "取分数最高的 k 个，就是被激活的专家。",
+        "DeepSeek V3 的配置是 256 个专家，每个 token 选 8 个。"
+      ]
+    },
+    {
+      "page": "p06",
+      "title": "top-k 与门控",
+      "narration": [
+        "选中的专家各算一遍，输出按门控权重加权求和。",
+        "门控权重是原始分数的 softmax，不是加偏置之后的。",
+        "这一点很关键，讲均衡时会用到。"
+      ]
+    },
+    {
+      "page": "p07",
+      "title": "负载均衡问题",
+      "narration": [
+        "如果路由器把九成 token 都送进专家 3，其他专家就饿死了。",
+        "早期用辅助损失罚使用率方差，多一个超参和第二个梯度信号。",
+        "Switch Transformer 还用容量丢弃，溢出的 token 直接跳过这一层。"
+      ]
+    },
+    {
+      "page": "p08",
+      "title": "无辅助损失均衡",
+      "narration": [
+        "DeepSeek V3 换了个思路：给每个专家加一个学到的偏置。",
+        "偏置只影响选择，不影响门控权重。",
+        "每步训练后按使用率推正负，把路由和表达解耦了。"
+      ]
+    },
+    {
+      "page": "p09",
+      "title": "实跑数据",
+      "narration": [
+        "跑一千个 token，目标是每个专家二百五十个。",
+        "不加偏置时，使用率在两百零六到三百零一之间乱跳。",
+        "加偏置更新后，熵逼近 2.079，也就是 ln8，几乎完全均匀。"
+      ]
+    },
+    {
+      "page": "p10",
+      "title": "细粒度专家",
+      "narration": [
+        "经典 MoE 的专家和完整 FFN 一样宽，E 小 k 也小。",
+        "现代做法把专家切细：每个只有八分之一宽。",
+        "256 选 8，组合数是四百万亿种，质量上去延迟不动。"
+      ]
+    },
+    {
+      "page": "p11",
+      "title": "成本画像",
+      "narration": [
+        "DeepSeek V3 是 6710 亿总参数，每个 token 激活 370 亿。",
+        "Llama 3 70B 是 700 亿稠密，全部激活，V3 却几乎在每个基准上赢它。",
+        "但所有专家都活在 GPU 上，1.3 TB 显存，必须做专家并行。"
+      ]
+    },
+    {
+      "page": "p12",
+      "title": "结尾互动",
+      "narration": [
+        "如果你只有 8 张卡，你会选稠密还是 MoE？",
+        "评论区说说你的取舍：显存优先还是延迟优先。",
+        "关注这个系列，下一集讲位置编码怎么外推。"
+      ]
+    }
+  ],
+  "cover": {
+    "title": "Mixture of Experts",
+    "visual": "主体组合",
+    "consistency": "与正文同画风"
+  },
+  "asset_prompts": {
+    "source": "Grok imagine + clean_image",
+    "contains_text": false
+  }
+}
