@@ -172,17 +172,24 @@ node scripts/check_og_cards.js --require-manifests
 | 画风 | 12 工业设计马克笔手绘 |
 | 手部 | teacher-pen（白衬衫中性笔） |
 | 画幅 | 16:9 · 1920×1080 · 30 fps |
-| 时长 | 按内容决定，通常约 3 分钟（10 页 × 3 句） |
-| 插画 | Grok imagine（`grok-imagine-image`，xAI 接口），生成后 `clean_image.py` 重编码 |
+| 时长 | 约 175 秒（12 页 × 3 句） |
+| 插画 | **PIL 本地绘制**（`design/illustration-gen.py`），扁平信息图；不用图像生成 API |
 | 配音 | edge-tts **女声** `zh-CN-XiaoxiaoNeural`，整篇一次合成，不逐句拼接 |
 | 字幕 | 由 alignment 在本地烧录，单层，字号 42，底部 54px |
 | 音乐 | 添加，**动感电子**（节奏型铺底，不与旁白抢中频） |
 
 结构固定为：**钩子前置**（第 1 页直接抛问题，画面领先旁白约 0.2 秒开始写）→ 标题页放到第 2 页 → 正文 → 末页提问并引导评论区留言。小红书数据表明前 5 秒报集号会显著拉低完播率。
 
+**插画用 PIL 本地绘制，不用 AI 生图的 3D 渲染素材。** 实测 07-09/10 的 Grok 3D 插画曝光→观看转化率只有 7.4%，而 PIL 扁平信息图（07-05/07-06）是 29.8%；且信息图上要放中文数据卡片和结论文字，AI 生图做不到。绘制脚本随任务入库，可完全复现。
+
+每页信息密度要够：标题 + 图示 + 数据卡片 + 结论句，12 页约 36 句。
+
 ### 关键约束（踩过的坑）
 
-- 生图能力用 Grok：凭证在 `~/.grok/auth.json`，沙箱下需 `GROK_HOME` 指向工作区内副本；模型名用 `grok-imagine-image`（`grok-2-image` 已不存在）。
+- PIL 绘制的排版是手工坐标：柱子高度、底部结论句、长文本最容易压住别的元素或超出 900 画布。改完必须逐页看图。
+- 字体只有 Noto Sans CJK，**没有 ✓ ✗ 等符号字形**（会渲染成方框）；对勾和叉要用 `Sheet.check()` / `Sheet.cross()` 画。
+- 插画改动后 `drawing-review.json` 的 `source_sha256` 会失效，verify 报 "Semantic drawing review ... belongs to another image"；重跑 `build_ep.py` 重新生成 art-direction 与 drawing-review 再 build。
+- 若确需 AI 生图：凭证在 `~/.grok/auth.json`，沙箱下需 `GROK_HOME` 指向工作区内副本；模型名用 `grok-imagine-image`。但只用它补背景元素，主体信息图仍用 PIL。
 - 音乐 `audio.music.gain` 上限 0.3；超过会被 build 拒绝。响度不够时提高音乐源本身或调 `end_hold_seconds`，不要突破 gain 上限。
 - 配乐默认用动感电子（节奏型），素材见 `~/Movies/Hub/Projects/handdrawn-explainer-/位置编码轻电子配乐.mp3`；换曲后要重新 build，因为音乐文件参与指纹。
 - `ending.fade_seconds` 必须小于 `audio.end_hold_seconds`；尾部静音合计不得超过 1.2 秒。
@@ -196,6 +203,20 @@ node scripts/check_og_cards.js --require-manifests
 
 每集产出 `outputs/film.mp4`、`outputs/cover.png`、`outputs/script.txt`、`outputs/editing/captions.srt`、`outputs/verification.json`。成片复制到 `video-productions/output/` 供发布，源文件留在任务目录。
 
+### 发布到小红书
+
+| 项 | 做法 |
+|---|---|
+| 标题 | **「手绘讲透 XXX：一句具体的问题」**，20 字左右。问句 + 明确价值承诺，历史爆款都是这个格式 |
+| 标签 | 4 个大词（#AI #大模型 #Transformer #深度学习）+ 2 个具体模型词（#ViT #MoE #Whisper） |
+| 时段 | **19:00–21:00**（历史爆款都在这个窗口） |
+| 节奏 | **单日单发**。实测同一时段连发会被分流：07-09 拿到 2520 曝光，3 分钟后发的 07-10 只有 782 |
+| 封面 | 用视频第 1 帧（PIL 绘制的信息图），平台会自动截取；网页版的封面编辑器点不开，不要浪费时间 |
+
+发布 48 小时后看三个指标：**曝光、封面点击率、人均观看时长**。点击率低说明封面/标题不行，人均时长短说明前几秒没留住，曝光低说明发布节奏或账号权重问题——三者要分开判断，不要混成一个「数据不好」的结论。
+
+用 `orca computer` 操作 Chrome 上传时，文件选择框的 Return 键用 AppleScript 更稳：`osascript -e 'tell application "System Events" to keystroke return'`（CGEventPost 发 Return 对 NSOpenPanel 时灵时不灵）。
+
 ---
 
 ## 同步与冲突
@@ -207,4 +228,4 @@ node scripts/check_og_cards.js --require-manifests
 
 ---
 
-最后审校：2026-11-06。
+最后审校：2026-11-07。
