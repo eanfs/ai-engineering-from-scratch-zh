@@ -1,0 +1,373 @@
+{
+	"systeminfo": "WHISPER : VITISAI = 0 | COREML = 0 | OPENVINO = 0 | MTL : EMBED_LIBRARY = 1 | CPU : NEON = 1 | ARM_FMA = 1 | FP16_VA = 1 | MATMUL_INT8 = 1 | DOTPROD = 1 | SME = 1 | ACCELERATE = 1 | OPENMP = 1 | REPACK = 1 | ",
+	"model": {
+		"type": "small",
+		"multilingual": true,
+		"vocab": 51865,
+		"audio": {
+			"ctx": 1500,
+			"state": 768,
+			"head": 12,
+			"layer": 12
+		},
+		"text": {
+			"ctx": 448,
+			"state": 768,
+			"head": 12,
+			"layer": 12
+		},
+		"mels": 80,
+		"ftype": 1
+	},
+	"params": {
+		"model": "/Users/lirichen/whisper-models/ggml-small.bin",
+		"language": "zh",
+		"translate": false
+	},
+	"result": {
+		"language": "zh"
+	},
+	"transcription": [
+		{
+			"timestamps": {
+				"from": "00:00:00,000",
+				"to": "00:00:03,800"
+			},
+			"offsets": {
+				"from": 0,
+				"to": 3800
+			},
+			"text": "一张图片,凭什么能被当成一句话来读?"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:03,800",
+				"to": "00:00:08,300"
+			},
+			"offsets": {
+				"from": 3800,
+				"to": 8300
+			},
+			"text": "把它切成16*16的小块,每一块就是一个词。"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:08,300",
+				"to": "00:00:11,400"
+			},
+			"offsets": {
+				"from": 8300,
+				"to": 11400
+			},
+			"text": "这就是Vision Transformers做的事。"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:11,400",
+				"to": "00:00:15,200"
+			},
+			"offsets": {
+				"from": 11400,
+				"to": 15200
+			},
+			"text": "阶段期,第九课,Vision Transformers。"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:15,200",
+				"to": "00:00:19,000"
+			},
+			"offsets": {
+				"from": 15200,
+				"to": 19000
+			},
+			"text": "2020年之前,视觉几乎等于卷机。"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:19,000",
+				"to": "00:00:23,900"
+			},
+			"offsets": {
+				"from": 19000,
+				"to": 23900
+			},
+			"text": "这篇论文把卷机彻底丢掉,只留下切块和注意力。"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:23,900",
+				"to": "00:00:29,600"
+			},
+			"offsets": {
+				"from": 23900,
+				"to": 29600
+			},
+			"text": "ImageNet, Coco,检测基准,每个sota都用CNN骨干。"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:29,600",
+				"to": "00:00:34,600"
+			},
+			"offsets": {
+				"from": 29600,
+				"to": 34600
+			},
+			"text": "Transformers,当时是给语言用的,没人觉得它适合图像。"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:34,600",
+				"to": "00:00:39,500"
+			},
+			"offsets": {
+				"from": 34600,
+				"to": 39500
+			},
+			"text": "DosovicsP等人2020年的论文打破了这个假设。"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:39,500",
+				"to": "00:00:47,000"
+			},
+			"offsets": {
+				"from": 39500,
+				"to": 47000
+			},
+			"text": "把224*224的图像切成16*16的小块,得到196个patch。"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:47,000",
+				"to": "00:00:50,900"
+			},
+			"offsets": {
+				"from": 47000,
+				"to": 50900
+			},
+			"text": "每个patch摊平乘长度768的像量。"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:50,900",
+				"to": "00:00:56,200"
+			},
+			"offsets": {
+				"from": 50900,
+				"to": 56200
+			},
+			"text": "在代码里,就是一次按行扫描,顺序和所有VIT一致。"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:56,200",
+				"to": "00:01:01,000"
+			},
+			"offsets": {
+				"from": 56200,
+				"to": 61000
+			},
+			"text": "一个学道的矩阵,把每个patch投影到地下画线model。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:01,000",
+				"to": "00:01:06,400"
+			},
+			"offsets": {
+				"from": 61000,
+				"to": 66400
+			},
+			"text": "它等价于一个卷机和大小为16,不长也为16的卷机。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:06,400",
+				"to": "00:01:11,300"
+			},
+			"offsets": {
+				"from": 66400,
+				"to": 71300
+			},
+			"text": "Pet torch里两行就能写完,但它是整个视觉化的入口。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:11,300",
+				"to": "00:01:15,400"
+			},
+			"offsets": {
+				"from": 71300,
+				"to": 75400
+			},
+			"text": "在最前面,加一个可学习的CLS token。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:15,400",
+				"to": "00:01:19,200"
+			},
+			"offsets": {
+				"from": 75400,
+				"to": 79200
+			},
+			"text": "它的最终隐藏状态,就是整张图的表示。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:19,200",
+				"to": "00:01:23,600"
+			},
+			"offsets": {
+				"from": 79200,
+				"to": 83600
+			},
+			"text": "位置编码告诉模型,每个patch,原本在哪个位置。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:23,600",
+				"to": "00:01:27,000"
+			},
+			"offsets": {
+				"from": 83600,
+				"to": 87000
+			},
+			"text": "然后,就是原封不动的Bird编码器。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:27,000",
+				"to": "00:01:30,100"
+			},
+			"offsets": {
+				"from": 87000,
+				"to": 90100
+			},
+			"text": "层规一画,自助异理,前馈。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:30,100",
+				"to": "00:01:34,200"
+			},
+			"offsets": {
+				"from": 90100,
+				"to": 94200
+			},
+			"text": "没有视觉专用的层,这是论文最漂亮的地方。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:34,200",
+				"to": "00:01:37,400"
+			},
+			"offsets": {
+				"from": 94200,
+				"to": 97400
+			},
+			"text": "卷机、持画,一个都没留下。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:37,400",
+				"to": "00:01:42,800"
+			},
+			"offsets": {
+				"from": 97400,
+				"to": 102800
+			},
+			"text": "分类时取CLS的输出,接一个线性层和Softmax。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:42,800",
+				"to": "00:01:48,600"
+			},
+			"offsets": {
+				"from": 102800,
+				"to": 108600
+			},
+			"text": "DINOVR和SAM会丢掉CLS,直接用patch欠入。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:48,600",
+				"to": "00:01:52,700"
+			},
+			"offsets": {
+				"from": 108600,
+				"to": 112700
+			},
+			"text": "同一个股价,换个头,就能做分割和检测。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:52,700",
+				"to": "00:01:58,700"
+			},
+			"offsets": {
+				"from": 112700,
+				"to": 118700
+			},
+			"text": "VIT没有卷机的归纳编制,既没有平衣不变性,也没有局部性。"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:58,700",
+				"to": "00:02:03,900"
+			},
+			"offsets": {
+				"from": 118700,
+				"to": 123900
+			},
+			"text": "所以,要上一张图,或者强字监督,才能追平CNN。"
+		},
+		{
+			"timestamps": {
+				"from": "00:02:03,900",
+				"to": "00:02:09,900"
+			},
+			"offsets": {
+				"from": 123900,
+				"to": 129900
+			},
+			"text": "DIT用征流修了一半,DINOVR用字监督彻底修好。"
+		},
+		{
+			"timestamps": {
+				"from": "00:02:09,900",
+				"to": "00:02:15,100"
+			},
+			"offsets": {
+				"from": 129900,
+				"to": 135100
+			},
+			"text": "如果你只有一个小数据级,你会用VIT还是CNN。"
+		},
+		{
+			"timestamps": {
+				"from": "00:02:15,100",
+				"to": "00:02:20,500"
+			},
+			"offsets": {
+				"from": 135100,
+				"to": 140500
+			},
+			"text": "把你的判断写在评论区,顺便说说你会怎么选patch大小。"
+		},
+		{
+			"timestamps": {
+				"from": "00:02:20,500",
+				"to": "00:02:25,500"
+			},
+			"offsets": {
+				"from": 140500,
+				"to": 145500
+			},
+			"text": "关注这个系列,下一集讲Whisper怎么把音频变成token。"
+		}
+	]
+}

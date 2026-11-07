@@ -1,0 +1,127 @@
+{
+  "dependency_sha256": "fbbfd33d70f729011b6a6bc232851c116cd4a89ead2adea4462888a6ce26fc1a",
+  "style_sha256": "9456eeaa8ed267f5a7212b35c31fe0ca51cb31e9ba1783cbb6c1d16f16b20af5",
+  "images": [
+    {
+      "source": "../inputs/cover.png",
+      "sha256": "3b57ca1ec5472fc74e42e38321042114c25219ae8d68abad49ad03f19d3aeb9b",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/cover.md",
+      "brief_sha256": "110e4d012285a71980a80b825530bdfde37f498c8b1a68a0c953ea76834c2dc2",
+      "prompt_file": "prompts/cover.txt",
+      "prompt_sha256": "224103eed4b23eb0c34d978ecb86f0b3fe25ec973156ed3ff56edf190ce4124c",
+      "status": "pass",
+      "evidence": "封面有主体组合与留白，符合本集主题"
+    },
+    {
+      "source": "../inputs/p01.png",
+      "sha256": "9ad9e717fa5aa48296186811f2ebd439a703f4f43b8f7d37829612fac1a6d616",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p01.md",
+      "brief_sha256": "d4222401455227701520db48050272c046d9c60f0ced84798b37bc78acd955bb",
+      "prompt_file": "prompts/p01.txt",
+      "prompt_sha256": "abec43b5e8110d61d6d66d7c211c21f6f1dcb496b2d497ea6f4a8012f69015c9",
+      "status": "pass",
+      "evidence": "画面有声波与频谱图并排"
+    },
+    {
+      "source": "../inputs/p02.png",
+      "sha256": "3ac5cbb5fc9d0b0fb46fddad2022bedb6799c59b983c639e51607e73dccb733b",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p02.md",
+      "brief_sha256": "c3759257c324e52238909949f07dd8f765a0ad0df47c1a7e3854ac2e8d0e1e8d",
+      "prompt_file": "prompts/p02.txt",
+      "prompt_sha256": "8552d276d62453189a0bb790db049853d27dccca42f03de53be40cd9dd0e4055",
+      "status": "pass",
+      "evidence": "画面有编码器与解码器"
+    },
+    {
+      "source": "../inputs/p03.png",
+      "sha256": "ec0ba7a21fc1ee42724f79d511c93e69634ae7e4b1571e244ea74515cef914de",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p03.md",
+      "brief_sha256": "0cf8f1bee1acf5973457d6ef94b037ea87e42fb2282c5a1e73ce87e3a7267194",
+      "prompt_file": "prompts/p03.txt",
+      "prompt_sha256": "52a4b77ef78acaa0112d2633258556fb4b3bceed63f70afe10226d8c22667c5b",
+      "status": "pass",
+      "evidence": "画面有三块不同质感的方块"
+    },
+    {
+      "source": "../inputs/p04.png",
+      "sha256": "b1c47d13f7b6ee2d596acacd01df4d1e1cb05cbef05f101cc519c2ff9692d07c",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p04.md",
+      "brief_sha256": "dbde88609b436c50cc9392d886ef5f6398145ce7e8a45c2b6413bc21fcf0b4dd",
+      "prompt_file": "prompts/p04.txt",
+      "prompt_sha256": "3f933eb3d4d4d7ff602a92b25eed12d0d139601cf679f309b1fab37c35fb7766",
+      "status": "pass",
+      "evidence": "画面有密集网格频谱"
+    },
+    {
+      "source": "../inputs/p05.png",
+      "sha256": "8dfebe6d309729c98ace8a5940dc2f837ee4c4240ff91a07b27c756d44c9ac95",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p05.md",
+      "brief_sha256": "da510258d896fe4d7a8e6e4baa38cd9fd1014ee960b9281906528163c8839323",
+      "prompt_file": "prompts/p05.txt",
+      "prompt_sha256": "f77124e1fda7ad16299f32e56e49d321826580f2479c75105e6eac9ad27f5856",
+      "status": "pass",
+      "evidence": "画面有两级漏斗压缩"
+    },
+    {
+      "source": "../inputs/p06.png",
+      "sha256": "28ec0a46128be1cb2a488e7800cdf3123db9e27ad73569097a30a88f3ffdc77e",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p06.md",
+      "brief_sha256": "0d7cee4cbf4882316005d86021dd7a39588eb67ea90886472376c87f0bb331b5",
+      "prompt_file": "prompts/p06.txt",
+      "prompt_sha256": "f960ef733db7746da74ac5be8ed0c143321c62282a916c68ab2d7fd68680181b",
+      "status": "pass",
+      "evidence": "画面有高塔状堆叠"
+    },
+    {
+      "source": "../inputs/p07.png",
+      "sha256": "ad67176830b27fdd44c2f56b9c864183a956d0f98ad83d8ab026a27c584c7ed3",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p07.md",
+      "brief_sha256": "8ec449c7649cff882c0420f12f283ae582d4390ed9e662b5685ee67c11ab4a6a",
+      "prompt_file": "prompts/p07.txt",
+      "prompt_sha256": "fe9f7309c84212f456fbe5b829b33671a2c1e27df8b906e7fec2872a3989e949",
+      "status": "pass",
+      "evidence": "画面有解码器接收四个前缀块"
+    },
+    {
+      "source": "../inputs/p08.png",
+      "sha256": "e0defb19ff78330e08fa3304f2ca4ab823e7acd2d9af6e910062a9ec267cde3a",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p08.md",
+      "brief_sha256": "fd68692d300173511e55c81af35d5b2331c79a89f237043fb966ea441098473c",
+      "prompt_file": "prompts/p08.txt",
+      "prompt_sha256": "c1b6951b84bd7fd61d35e03ec7ea4e24fc677ea5ebc922b5f3cf1811f4e35f30",
+      "status": "pass",
+      "evidence": "画面有文本行与时间刻度"
+    },
+    {
+      "source": "../inputs/p09.png",
+      "sha256": "7b8eb8fab6afcdfd02847e5e076c40a427a82271cf8bd19fb3ffd762350eda98",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p09.md",
+      "brief_sha256": "e4a25a6dd641d9b885942072e777a9c604b9e0e0bf829ae818a8c429ad5995b4",
+      "prompt_file": "prompts/p09.txt",
+      "prompt_sha256": "0b0479132854820a2e89dbc23754ad9e2726b5168b420c742016f9aec804550f",
+      "status": "pass",
+      "evidence": "画面有六个递增方块"
+    },
+    {
+      "source": "../inputs/p10.png",
+      "sha256": "687651d53646ac776d01001722a92c03ed2e5382ba11d4a67b644ad239a799a6",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p10.md",
+      "brief_sha256": "de5eef4f170b7555a2b74b2de7e7d3b6697d4f401a0fe607f4d8d7b23ee8e2c0",
+      "prompt_file": "prompts/p10.txt",
+      "prompt_sha256": "a282ea317b4778e0a217c508948fed29a5e9d80e729ae9cb548223a319254feb",
+      "status": "pass",
+      "evidence": "画面有评论气泡与心形"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "status": "ready_for_generation",
+  "plan_sha256": "08d667863de6f1653976fbee1e78cc9eb0c3d0c87af7e76f58bfe9cb56a290f1",
+  "style_sha256": "9456eeaa8ed267f5a7212b35c31fe0ca51cb31e9ba1783cbb6c1d16f16b20af5",
+  "illustrations": [
+    "hook",
+    "title-whisper",
+    "three-bets",
+    "spectrogram",
+    "conv-stem",
+    "encoder",
+    "task-tokens",
+    "output",
+    "sizes",
+    "outro"
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "preset": "teacher-pen",
+  "confirmation": "explicit_user_request",
+  "evidence": "AGENTS.md 默认方案"
+}
