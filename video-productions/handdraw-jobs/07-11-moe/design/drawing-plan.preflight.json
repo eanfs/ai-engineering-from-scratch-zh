@@ -1,0 +1,19 @@
+{
+  "status": "ready_for_generation",
+  "plan_sha256": "037f013eb61730607689c3dd9e599483af3716ad59b66a92f272aeda1e0e6868",
+  "style_sha256": "ff6659ecfe01defcca0a49e40083acf1b13aa21d79479aadaf000c166b1618b8",
+  "illustrations": [
+    "hook",
+    "title-moe",
+    "dense-wall",
+    "ffn-swap",
+    "router",
+    "topk-gate",
+    "load-balance",
+    "aux-free",
+    "run-data",
+    "fine-grained",
+    "cost",
+    "outro"
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "dependency_sha256": "fbbfd33d70f729011b6a6bc232851c116cd4a89ead2adea4462888a6ce26fc1a",
+  "style_sha256": "ff6659ecfe01defcca0a49e40083acf1b13aa21d79479aadaf000c166b1618b8",
+  "images": [
+    {
+      "source": "../inputs/cover.png",
+      "sha256": "d39e6639490019b5fbef16c2f213e97579c3ed687ecba9f4b10e265a3e22322b",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/cover.md",
+      "brief_sha256": "440145546c02b96cdf59303213069c212116c0306275de16400de16da2c59c5e",
+      "prompt_file": "prompts/cover.txt",
+      "prompt_sha256": "09254aa766aff484c2b2721dc450800c706e426867913c3ef786652520763ef5",
+      "status": "pass",
+      "evidence": "封面有主体组合与留白，符合本集主题"
+    },
+    {
+      "source": "../inputs/p01.png",
+      "sha256": "1c62762a78f1089cebb1a8efc14a519b140fd582b1285770d80bd8b41cf3c40b",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p01.md",
+      "brief_sha256": "2a48e1aa85d0c5ccb70afee767a8ef9d466aa7977bec5fe16dadc398b11ec478",
+      "prompt_file": "prompts/p01.txt",
+      "prompt_sha256": "3b38e0c837b8b2073b893d6011ef31e02df24357b823df89ab9ee3c297185f3a",
+      "status": "pass",
+      "evidence": "左右对比稠密与 MoE 的激活量"
+    },
+    {
+      "source": "../inputs/p02.png",
+      "sha256": "17fa3a3c3e292b19cad63c9ee0e2fc689360606172b81b2bbae67473d46b4ddd",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p02.md",
+      "brief_sha256": "c3759257c324e52238909949f07dd8f765a0ad0df47c1a7e3854ac2e8d0e1e8d",
+      "prompt_file": "prompts/p02.txt",
+      "prompt_sha256": "3a3f0695215be1bbc79208ccacb5050aa57d5a63b1709a3f9ee83f10ac183544",
+      "status": "pass",
+      "evidence": "标题与 2026 前沿模型列表"
+    },
+    {
+      "source": "../inputs/p03.png",
+      "sha256": "691f16b0f79fa3e9790bde5b635f222617d7b06006b17ebf47f5dfb6902dc48a",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p03.md",
+      "brief_sha256": "3ced242b53c3453717672506d5f8554289a446a05cf8788a75f3aef3780accf3",
+      "prompt_file": "prompts/p03.txt",
+      "prompt_sha256": "51c269ac5cd48873a23717a0ceefb1ae15270e81b6900c0102e51e765abf2662",
+      "status": "pass",
+      "evidence": "公式与上升柱状图"
+    },
+    {
+      "source": "../inputs/p04.png",
+      "sha256": "1308dd7ef8e412bfc7fbfff056967987d1d160f362672806287a56fd38aff4c8",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p04.md",
+      "brief_sha256": "8e5cddb8240dba5df0487f35383ebe1370ed9040c52d92939dc01fc623be8ca1",
+      "prompt_file": "prompts/p04.txt",
+      "prompt_sha256": "8b84901f16da018b3a08dba1ae5230d6dba537270bf7441f44c1360e1c889d40",
+      "status": "pass",
+      "evidence": "FFN 换成专家"
+    },
+    {
+      "source": "../inputs/p05.png",
+      "sha256": "ffbcc370bf761af6fbfda5b994a9591a0886f29e7ba7fecd3c4ef3108e973c33",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p05.md",
+      "brief_sha256": "892f3f77b3988afdfb58e9547ac292b06d3778c5745303da814809c1e762ffc9",
+      "prompt_file": "prompts/p05.txt",
+      "prompt_sha256": "7f501db3ce9b87a8dc4a553291de9f6dfd1464e1f27e99c3b4ac1821576cf256",
+      "status": "pass",
+      "evidence": "路由器打分与 top-k"
+    },
+    {
+      "source": "../inputs/p06.png",
+      "sha256": "f88035d04e2f1d948254c89eae7f34c3c88fb6de53d1729ba88450b4e310ce8f",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p06.md",
+      "brief_sha256": "f6f61ce6381cf4bf1bc937a7693b62613a5c1c41dfba819aa3f9c47ab562c485",
+      "prompt_file": "prompts/p06.txt",
+      "prompt_sha256": "6d25b0c0e010670c711719db7adb44edc667431f225c1ab9b603675bfc872769",
+      "status": "pass",
+      "evidence": "门控加权求和"
+    },
+    {
+      "source": "../inputs/p07.png",
+      "sha256": "0d3103018e45b1a0c47c531a8f1ed30636f3f9b21f0eddcc74ee31c7cad3b2b1",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p07.md",
+      "brief_sha256": "8b9e4cfafe68766b86473294175661b6299064ed75a814d388893b9a18c5ec2b",
+      "prompt_file": "prompts/p07.txt",
+      "prompt_sha256": "e94ab103bf3b9c80a59fc5474b943238603ceccf032c3a166552fbf87744738e",
+      "status": "pass",
+      "evidence": "使用率不均与三种修法"
+    },
+    {
+      "source": "../inputs/p08.png",
+      "sha256": "338e370bf654b968608991820ee03b48a24a9aaa1831e214dd1e318040aa1a54",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p08.md",
+      "brief_sha256": "2f61d25abff1873507daaa5acfea3abc01273e2059667d6ff7a19ea1b6ee7119",
+      "prompt_file": "prompts/p08.txt",
+      "prompt_sha256": "6f402c516aad1382c8912f380276aa9e2c6ffc8fcdc568bcb1f13d48e65ee841",
+      "status": "pass",
+      "evidence": "偏置推正负与两条公式"
+    },
+    {
+      "source": "../inputs/p09.png",
+      "sha256": "7964f9d555660bc557517efed7f805c4a0dd72113a2b6081ef7d75a9d8d5683a",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p09.md",
+      "brief_sha256": "8e56dc7f941ad5cf79492a9b3a8a77bb3e954835230e1495cd142518c99566dc",
+      "prompt_file": "prompts/p09.txt",
+      "prompt_sha256": "e43f9c7456ab07acfaff7a1d026460cd4ed14c716ccb8ebd4b8d782965f76541",
+      "status": "pass",
+      "evidence": "250 目标、206-301 波动、2.079 熵"
+    },
+    {
+      "source": "../inputs/p10.png",
+      "sha256": "240beb83d3d760144b776822bb6ccf9edc826f4dde913dc2c7c1b38a07ebd8c8",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p10.md",
+      "brief_sha256": "eaab32f24ee7d46fa8b55567ee4405084ded4e55ab08cc5d6c7eea43d12a2e7f",
+      "prompt_file": "prompts/p10.txt",
+      "prompt_sha256": "92987e82835e6ff74b3c22aa099dd3445e76aa5b129656198b1e314ba0d56232",
+      "status": "pass",
+      "evidence": "经典与细粒度专家对比"
+    },
+    {
+      "source": "../inputs/p11.png",
+      "sha256": "402a3e01b31e5896b8a43fd32a3bc0dba9cba6a463736d2fbf0ff8e028bdfa2d",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p11.md",
+      "brief_sha256": "1d806d2b95886402560f077736ace63a224190f432d450b3156a3cf5dead94f3",
+      "prompt_file": "prompts/p11.txt",
+      "prompt_sha256": "098919269c950607cd1068256343c857686455449f160605d72ad37b9cda5ffc",
+      "status": "pass",
+      "evidence": "成本表与显存结论"
+    },
+    {
+      "source": "../inputs/p12.png",
+      "sha256": "4c452edd110adc1486d17eaf31d498865ce05d32af0b63f740be21924909aa9c",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p12.md",
+      "brief_sha256": "92a80b8dce060ee7b2571c25a679b63a17f13959d4b00d2850ace5fa39ed1e5e",
+      "prompt_file": "prompts/p12.txt",
+      "prompt_sha256": "062f0f36cccb4b5a4732f1c3b840163e86e7f997adb5c98181ad7f682d770fdf",
+      "status": "pass",
+      "evidence": "稠密与 MoE 对比与提问"
+    }
+  ]
+}

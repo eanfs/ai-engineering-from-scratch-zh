@@ -1,0 +1,28 @@
+{
+  "video_sha256": "0328aa3235aee3068311d2b8bbbbfc495463f04be63c6798dd30dfffa45c0af7",
+  "content": {
+    "status": "pass",
+    "evidence": "逐页对照 07-11 讲义与 code/main.py 实跑：8 专家 top-2、1000 token、目标 250/专家、无偏置波动 206-301、熵 2.072-2.076（上限 ln8=2.079）、V3 FFN 806B 总/28B 激活、Llama3-70B FFN 13B 全激活，均与实跑输出一致。"
+  },
+  "visual": {
+    "status": "pass",
+    "evidence": "PIL 本地绘制扁平信息图（暖黄/金属灰/深灰勾线、纯白底、含中文数据卡片），与 07-05/07-06 同风格；不含 3D 渲染素材。"
+  },
+  "motion": {
+    "status": "pass",
+    "evidence": "抽查预览段与成片代表帧：笔尖沿轮廓推进、色块在轮廓后铺色；未以人眼完整正常速度播放全片。"
+  },
+  "audio": {
+    "status": "pass",
+    "evidence": "verify 工程检查通过：响度在 -20~-14 LUFS、末句后总静音 ≤1.2s、字幕与 alignment 逐句一致；女声整篇一次合成，配乐动感电子。主观听感未验收。"
+  },
+  "privacy": {
+    "status": "pass",
+    "evidence": "13 张图全部由本地 PIL 脚本绘制，未调用图像生成 API；脚本随任务入库可复现。"
+  },
+  "limitations": [
+    "未以人眼完整正常速度播放全片。",
+    "未实际听音。",
+    "PIL 排版为手工坐标，个别间距靠目测。"
+  ]
+}
