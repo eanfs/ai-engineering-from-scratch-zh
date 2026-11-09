@@ -1,0 +1,814 @@
+{
+  "version": 1,
+  "title": "KV Cache 与 Flash Attention",
+  "design_file": "design.json",
+  "art_direction": {
+    "record": "design/art-direction.json"
+  },
+  "drawing_plan": "design/drawing-plan.json",
+  "drawing_review": "design/drawing-review.json",
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "cover": {
+    "source": "inputs/cover.png",
+    "seconds": 1.0
+  },
+  "hand": {
+    "preset": "teacher-pen"
+  },
+  "narration": {
+    "source": "inputs/narration/master.wav",
+    "alignment": "inputs/narration/alignment.json"
+  },
+  "audio": {
+    "end_hold_seconds": 0.3,
+    "music": {
+      "source": "inputs/music.wav",
+      "gain": 0.3,
+      "user_instruction": "动感电子铺底"
+    }
+  },
+  "font": {
+    "path": "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf",
+    "index": 0
+  },
+  "captions": {
+    "font": {
+      "path": "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf",
+      "index": 0
+    },
+    "font_size": 42,
+    "color": "#FFFFFF",
+    "bottom_margin": 54,
+    "max_width_ratio": 0.82,
+    "max_lines": 2,
+    "stroke_width": 4,
+    "stroke_color": "#1E1E1E",
+    "background": null
+  },
+  "paper": "#FFFFFF",
+  "ending": {
+    "fade_seconds": 0.25
+  },
+  "pages": [
+    {
+      "id": "p01",
+      "title": "钩子：第一个字为什么等这么久",
+      "illustration": "hook",
+      "beats": [
+        {
+          "id": "p01-b01",
+          "text": "你问 AI 一个问题，为什么第一个字要等那么久？"
+        },
+        {
+          "id": "p01-b02",
+          "text": "而且回答越长，后面每个字反而越快。"
+        },
+        {
+          "id": "p01-b03",
+          "text": "答案藏在一张不断变长的表里。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p01.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "hook",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p02",
+      "title": "片头",
+      "illustration": "title-kv",
+      "beats": [
+        {
+          "id": "p02-b01",
+          "text": "阶段 7，第 12 课：KV 缓存与 Flash Attention。"
+        },
+        {
+          "id": "p02-b02",
+          "text": "训练是并行的、受算力约束；推理是串行的、受显存约束。"
+        },
+        {
+          "id": "p02-b03",
+          "text": "瓶颈不同，招数也不同。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p02.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "title-kv",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p03",
+      "title": "朴素解码的浪费",
+      "illustration": "naive",
+      "beats": [
+        {
+          "id": "p03-b01",
+          "text": "最笨的做法，每生成一个词就把前面全部重算一遍。"
+        },
+        {
+          "id": "p03-b02",
+          "text": "生成第 N 个词，要重算 N 次注意力。"
+        },
+        {
+          "id": "p03-b03",
+          "text": "四千个词的回复，就是一千六百万次运算，绝大部分是重复的。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p03.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "naive",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p04",
+      "title": "KV 缓存",
+      "illustration": "kv-cache",
+      "beats": [
+        {
+          "id": "p04-b01",
+          "text": "但一个词的隐藏状态一旦算出来，就再也不会变。"
+        },
+        {
+          "id": "p04-b02",
+          "text": "于是把每个词的 K 和 V 存进一张表，新的词只查表，不重算。"
+        },
+        {
+          "id": "p04-b03",
+          "text": "这就是 KV 缓存，推理成本从平方降到线性。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p04.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "kv-cache",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p05",
+      "title": "代价：表越来越长",
+      "illustration": "cost",
+      "beats": [
+        {
+          "id": "p05-b01",
+          "text": "表不是免费的，它随上下文线性增长。"
+        },
+        {
+          "id": "p05-b02",
+          "text": "每个 token、每层、每个头，都要存一份 K 和一份 V。"
+        },
+        {
+          "id": "p05-b03",
+          "text": "上下文越长、批量越大，这张表越快把显存吃光。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p05.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "cost",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p06",
+      "title": "实测显存占用",
+      "illustration": "mem-table",
+      "beats": [
+        {
+          "id": "p06-b01",
+          "text": "拿七千亿参数级的模型算一下，fp16 精度。"
+        },
+        {
+          "id": "p06-b02",
+          "text": "三万两千上下文，光 KV 缓存就要 10.74 GB。"
+        },
+        {
+          "id": "p06-b03",
+          "text": "十二万八千上下文，要 42.95 GB，比一张 40G 的 A100 还大。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p06.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "mem-table",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p07",
+      "title": "GQA 与 MLA",
+      "illustration": "gqa-mla",
+      "beats": [
+        {
+          "id": "p07-b01",
+          "text": "所以现代模型都在压缩这张表。"
+        },
+        {
+          "id": "p07-b02",
+          "text": "GQA 让多个查询头共享一组 KV 头，Llama 3 是 64 个查询共享 8 个。"
+        },
+        {
+          "id": "p07-b03",
+          "text": "MLA 压得更狠，DeepSeek V3 在 128K 上下文只要 16.37 GB，是别人的三分之一。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p07.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "gqa-mla",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p08",
+      "title": "Flash Attention 的问题",
+      "illustration": "flash-problem",
+      "beats": [
+        {
+          "id": "p08-b01",
+          "text": "第二个瓶颈不是算力，是搬运。"
+        },
+        {
+          "id": "p08-b02",
+          "text": "标准注意力要物化一个 N 乘 N 的分数矩阵，写进显存再读出来。"
+        },
+        {
+          "id": "p08-b03",
+          "text": "N 到两千以上，注意力还没变成算力瓶颈，先变成了显存瓶颈。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p08.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "flash-problem",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p09",
+      "title": "显存墙",
+      "illustration": "memory-wall",
+      "beats": [
+        {
+          "id": "p09-b01",
+          "text": "H100 的显存带宽是每秒 3 TB，片上 SRAM 是每秒 30 TB。"
+        },
+        {
+          "id": "p09-b02",
+          "text": "每一次显存往返，都是十倍的减速。"
+        },
+        {
+          "id": "p09-b03",
+          "text": "所以关键不是少算，是少搬。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p09.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "memory-wall",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p10",
+      "title": "分块把戏",
+      "illustration": "tiling",
+      "beats": [
+        {
+          "id": "p10-b01",
+          "text": "Flash Attention 把 Q 切成小块，逐个搬进 SRAM。"
+        },
+        {
+          "id": "p10-b02",
+          "text": "K 和 V 也分块搬进来，在片上算完注意力，只把结果写回。"
+        },
+        {
+          "id": "p10-b03",
+          "text": "完整的 N 乘 N 矩阵永远不会落到显存里。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p10.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "tiling",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p11",
+      "title": "实测：逐位相同",
+      "illustration": "benchmark",
+      "beats": [
+        {
+          "id": "p11-b01",
+          "text": "滚动 softmax 跨块维护最大值和累加和，保证最终归一化是精确的。"
+        },
+        {
+          "id": "p11-b02",
+          "text": "跑实测：分块大小从 1 到 32，结果和标准 softmax 逐位相同。"
+        },
+        {
+          "id": "p11-b03",
+          "text": "误差只有 2 乘 10 的负 16 次方，是浮点重排的舍入，不是近似。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p11.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "benchmark",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p12",
+      "title": "结尾互动",
+      "illustration": "outro",
+      "beats": [
+        {
+          "id": "p12-b01",
+          "text": "如果你的显存只够跑一个 32K 上下文的 70B 模型，你会怎么选？"
+        },
+        {
+          "id": "p12-b02",
+          "text": "评论区说说：压 KV 缓存，还是砍上下文长度。"
+        },
+        {
+          "id": "p12-b03",
+          "text": "关注这个系列，下一集讲扩展定律。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p12.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "outro",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
