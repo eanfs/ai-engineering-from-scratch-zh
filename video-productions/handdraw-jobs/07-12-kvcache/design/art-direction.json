@@ -1,0 +1,149 @@
+{
+  "dependency_sha256": "fbbfd33d70f729011b6a6bc232851c116cd4a89ead2adea4462888a6ce26fc1a",
+  "style_sha256": "02f927db092c7d407a7f0acb80c3c1374d68769c38b61a5ce14e8b543c1e80b4",
+  "images": [
+    {
+      "source": "../inputs/cover.png",
+      "sha256": "5564cc7ac2fbe66d3027e61bf179357fed2dc343e389db871a77b7ef67723361",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/cover.md",
+      "brief_sha256": "440145546c02b96cdf59303213069c212116c0306275de16400de16da2c59c5e",
+      "prompt_file": "prompts/cover.txt",
+      "prompt_sha256": "a11c73546fda394f77beccf987a7157f7e2f5702e1db754522b7f93895de9a4a",
+      "status": "pass",
+      "evidence": "封面有主体组合与留白，符合本集主题"
+    },
+    {
+      "source": "../inputs/p01.png",
+      "sha256": "a07773ef8cc4d3518a73dc47eebfca37753f1d71420268cc392dab962ad08052",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p01.md",
+      "brief_sha256": "22d27e79b7bfdaf2714aeb82f73b9695bc8ac961b636a0be8c3bb78c2b091e16",
+      "prompt_file": "prompts/p01.txt",
+      "prompt_sha256": "e690a581eed764ef78ba8fdda53b8747054f5e0a72dd16cd408687bff68db524",
+      "status": "pass",
+      "evidence": "对话气泡与逐字耗时柱状图"
+    },
+    {
+      "source": "../inputs/p02.png",
+      "sha256": "3b8f2e7c1d3e45fe260a72eec7c47702a72ac9a6d3b5899e070fc6aa544d50c8",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p02.md",
+      "brief_sha256": "c3759257c324e52238909949f07dd8f765a0ad0df47c1a7e3854ac2e8d0e1e8d",
+      "prompt_file": "prompts/p02.txt",
+      "prompt_sha256": "de13f567aa7345ea6f6d82e1f5430ca33d6ad5c5c76824058bc87a282a730205",
+      "status": "pass",
+      "evidence": "训练与推理对比卡"
+    },
+    {
+      "source": "../inputs/p03.png",
+      "sha256": "0614582d81fbb92d16b74a0bd3d6c4a5c6aae750a0287f49cee94ea14287a483",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p03.md",
+      "brief_sha256": "520323dec9fa0d2ad6fd95ebbf9e0ce860a960350c5b43dc1c4e9eadf79f6107",
+      "prompt_file": "prompts/p03.txt",
+      "prompt_sha256": "466584fd8c68f1b1dd94c504ffcda78180660e5831d7848f05a14d29d5d5ac50",
+      "status": "pass",
+      "evidence": "下三角矩阵与运算次数公式"
+    },
+    {
+      "source": "../inputs/p04.png",
+      "sha256": "c91a6bad53856e598e14f981ae412c0dced42e0a1256695945b931cc91814ba2",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p04.md",
+      "brief_sha256": "39dbcb907e21523495ea050387295021d8e2c2f424647a5f7a69598de8fdde77",
+      "prompt_file": "prompts/p04.txt",
+      "prompt_sha256": "34f102457914f7e3c7058a3f13bf1434610b4216f407fb92f987fc0cd3289649",
+      "status": "pass",
+      "evidence": "增长的 KV 表与查询过程"
+    },
+    {
+      "source": "../inputs/p05.png",
+      "sha256": "04278d355f1462e2adbc27bfc0232c60973c0d2ff89ed994a5df8adf75d4f343",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p05.md",
+      "brief_sha256": "814ee98df1d1f92a5716ba22c1100dce0520b8a82a04ed7e6e7a2a487867dd7c",
+      "prompt_file": "prompts/p05.txt",
+      "prompt_sha256": "fa506f18380f2b548a2586b4f0a14c040edd7d4481ca47e2422232ac6267196e",
+      "status": "pass",
+      "evidence": "上下文长度与缓存增长柱状图"
+    },
+    {
+      "source": "../inputs/p06.png",
+      "sha256": "e92f6984827fb626e666c4bafe5e9399b896e3a713ca51f204140baf318ed125",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p06.md",
+      "brief_sha256": "ea55a7e09bc1a497a65084c5f52781aa0f8147c06cff0ee2fabb7ff653c785f6",
+      "prompt_file": "prompts/p06.txt",
+      "prompt_sha256": "477b2bc0e583b08c85caedec8c55cd299a8ad2eadb59603a1b5c120fc63427ea",
+      "status": "pass",
+      "evidence": "实测显存表，70B 高亮"
+    },
+    {
+      "source": "../inputs/p07.png",
+      "sha256": "f52596d35d0a43a1e77a7bb931d100628847d3705873215ca09c1116277055ae",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p07.md",
+      "brief_sha256": "d0187c71547082305a2f5285a766e4da93fc8f3aa3c436d8127a80016edcaeaf",
+      "prompt_file": "prompts/p07.txt",
+      "prompt_sha256": "fbc1c21832f000981f4a0e228240b449ebc48ca1f8eabb0e70da4101ee613ca5",
+      "status": "pass",
+      "evidence": "MHA 与 GQA 共享对比"
+    },
+    {
+      "source": "../inputs/p08.png",
+      "sha256": "d8083a50f4e0134ea335444469ae3f05ed042f2e73430dfd0deaa5c76d0f7dfe",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p08.md",
+      "brief_sha256": "6d0ec63e0e42b0f5bf26cbf5dd382fe94d40c1a1278096b72e620a35aa9222cd",
+      "prompt_file": "prompts/p08.txt",
+      "prompt_sha256": "82f3bc001c2032dd1d03ac6ba6f99206f269eed0159ddceb151ebe4220ff84f3",
+      "status": "pass",
+      "evidence": "N×N 矩阵与三次显存往返"
+    },
+    {
+      "source": "../inputs/p09.png",
+      "sha256": "02634d47bb4a582c276ecfcd8cbe4a615c15b2c01b4612875bbe0cf318307891",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p09.md",
+      "brief_sha256": "67e6aa63440740d737e7052bea4910edfce14b30e7645373b8952ac7d1512251",
+      "prompt_file": "prompts/p09.txt",
+      "prompt_sha256": "b0401a2a6f1cefc15842d51d99776ed7bf160628613ccf5992c1c0be66d550a5",
+      "status": "pass",
+      "evidence": "HBM 与 SRAM 带宽对比条"
+    },
+    {
+      "source": "../inputs/p10.png",
+      "sha256": "802fea1806a6b1e8e58406a36a4cda030d24898082606a21ed18fe69571ac335",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p10.md",
+      "brief_sha256": "528d7e582b66a8a097051a7ec3392d7cbc2b30aeb7f93a335481f11f3751189d",
+      "prompt_file": "prompts/p10.txt",
+      "prompt_sha256": "48944577b8238f9c724f2c3946db3ca9f82948e8a18cf4f6408fc6dd955b5f2c",
+      "status": "pass",
+      "evidence": "分块流动示意"
+    },
+    {
+      "source": "../inputs/p11.png",
+      "sha256": "85f4a03d1b773d19c1df379f7b38c15b84881e23f47a1bbb5f3c955d28c42ad4",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p11.md",
+      "brief_sha256": "ef25b106479de0df1de3d1eb02cf78aaf9f58bcea2e0dbf1fbb88e5ec46b4a6a",
+      "prompt_file": "prompts/p11.txt",
+      "prompt_sha256": "6f591e9228ca559045c3c2da20ccde9a578204983758414c85e52310903d20b0",
+      "status": "pass",
+      "evidence": "实测误差表与对勾"
+    },
+    {
+      "source": "../inputs/p12.png",
+      "sha256": "d74f8e144e92610c482f8340d26fcec6c92c13faa4f7c48cae5c44465664c974",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p12.md",
+      "brief_sha256": "92a80b8dce060ee7b2571c25a679b63a17f13959d4b00d2850ace5fa39ed1e5e",
+      "prompt_file": "prompts/p12.txt",
+      "prompt_sha256": "dc3a15120f0eb58a9a99667b67edd262dd9afd8e94372863edb00cff2c101553",
+      "status": "pass",
+      "evidence": "两种取舍对比与提问"
+    }
+  ]
+}

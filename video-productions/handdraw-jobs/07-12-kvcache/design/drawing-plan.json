@@ -1,0 +1,499 @@
+{
+  "style": "工业设计马克笔手绘",
+  "illustrations": [
+    {
+      "id": "hook",
+      "composition": "钩子：第一个字为什么等这么久：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p01",
+          "narration_quote": "你问 AI 一个问题，为什么第一个字要等那么久？",
+          "observable": "对话气泡与逐字耗时柱状图"
+        }
+      ]
+    },
+    {
+      "id": "title-kv",
+      "composition": "片头：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p02",
+          "narration_quote": "阶段 7，第 12 课：KV 缓存与 Flash Attention。",
+          "observable": "训练与推理对比卡"
+        }
+      ]
+    },
+    {
+      "id": "naive",
+      "composition": "朴素解码的浪费：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p03",
+          "narration_quote": "最笨的做法，每生成一个词就把前面全部重算一遍。",
+          "observable": "下三角矩阵与运算次数公式"
+        }
+      ]
+    },
+    {
+      "id": "kv-cache",
+      "composition": "KV 缓存：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p04",
+          "narration_quote": "但一个词的隐藏状态一旦算出来，就再也不会变。",
+          "observable": "增长的 KV 表与查询过程"
+        }
+      ]
+    },
+    {
+      "id": "cost",
+      "composition": "代价：表越来越长：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p05",
+          "narration_quote": "表不是免费的，它随上下文线性增长。",
+          "observable": "上下文长度与缓存增长柱状图"
+        }
+      ]
+    },
+    {
+      "id": "mem-table",
+      "composition": "实测显存占用：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p06",
+          "narration_quote": "拿七千亿参数级的模型算一下，fp16 精度。",
+          "observable": "实测显存表，70B 高亮"
+        }
+      ]
+    },
+    {
+      "id": "gqa-mla",
+      "composition": "GQA 与 MLA：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p07",
+          "narration_quote": "所以现代模型都在压缩这张表。",
+          "observable": "MHA 与 GQA 共享对比"
+        }
+      ]
+    },
+    {
+      "id": "flash-problem",
+      "composition": "Flash Attention 的问题：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p08",
+          "narration_quote": "第二个瓶颈不是算力，是搬运。",
+          "observable": "N×N 矩阵与三次显存往返"
+        }
+      ]
+    },
+    {
+      "id": "memory-wall",
+      "composition": "显存墙：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p09",
+          "narration_quote": "H100 的显存带宽是每秒 3 TB，片上 SRAM 是每秒 30 TB。",
+          "observable": "HBM 与 SRAM 带宽对比条"
+        }
+      ]
+    },
+    {
+      "id": "tiling",
+      "composition": "分块把戏：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p10",
+          "narration_quote": "Flash Attention 把 Q 切成小块，逐个搬进 SRAM。",
+          "observable": "分块流动示意"
+        }
+      ]
+    },
+    {
+      "id": "benchmark",
+      "composition": "实测：逐位相同：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p11",
+          "narration_quote": "滚动 softmax 跨块维护最大值和累加和，保证最终归一化是精确的。",
+          "observable": "实测误差表与对勾"
+        }
+      ]
+    },
+    {
+      "id": "outro",
+      "composition": "结尾互动：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p12",
+          "narration_quote": "如果你的显存只够跑一个 32K 上下文的 70B 模型，你会怎么选？",
+          "observable": "两种取舍对比与提问"
+        }
+      ]
+    }
+  ],
+  "cover": {
+    "id": "cover",
+    "composition": "钩子：第一个字为什么等这么久：单一主体居中，四周留白。",
+    "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+    "outline_strategy": "visible_source_ink",
+    "subjects": [
+      {
+        "id": "main",
+        "kind": "object",
+        "omitted_roles": []
+      }
+    ],
+    "parts": [
+      {
+        "id": "body",
+        "subject": "main",
+        "role": "主体",
+        "stroke_groups": [
+          "外轮廓一笔",
+          "内部分件线若干"
+        ]
+      }
+    ],
+    "outline_order": [
+      "body"
+    ],
+    "fill_order": [
+      "body"
+    ],
+    "spatial_order": "top_to_bottom_left_to_right",
+    "narrative_requirements": [
+      {
+        "id": "cover-visual",
+        "narration_quote": "你问 AI 一个问题，为什么第一个字要等那么久？",
+        "observable": "封面有主体组合与留白"
+      }
+    ]
+  }
+}

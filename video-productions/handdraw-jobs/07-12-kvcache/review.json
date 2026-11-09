@@ -1,0 +1,28 @@
+{
+  "video_sha256": "9e7f58d8b19bf2469c619573832393687682ecbf71797c09b43ba166115d16e9",
+  "content": {
+    "status": "pass",
+    "evidence": "逐页对照 phases/07-transformers-deep-dive/12-kv-cache-flash-attention 讲义与 code/main.py 实跑：N=10 时朴素 55 次注意力、分块 softmax 与标准结果误差 4.44e-16~2.22e-16（tile 1~32）、KV 缓存表 Llama-3-70B 32K=10.74GB / 128K=42.95GB、DeepSeek-V3 MLA 128K=16.37GB，均与实跑输出一致。"
+  },
+  "visual": {
+    "status": "pass",
+    "evidence": "PIL 本地绘制扁平信息图，暖黄/金属灰/深灰勾线、纯白底、含中文数据卡片；每页有可画的视觉主体（增长的表、下三角矩阵、带宽对比条、分块流动）。"
+  },
+  "motion": {
+    "status": "pass",
+    "evidence": "抽查预览段与成片代表帧：笔尖沿轮廓推进、色块在轮廓后铺色；未以人眼完整正常速度播放全片。"
+  },
+  "audio": {
+    "status": "pass",
+    "evidence": "verify 通过：响度在 -20~-14 LUFS、末句后总静音 ≤1.2s、字幕与 alignment 逐句一致；女声整篇一次合成，配乐动感电子。主观听感未验收。"
+  },
+  "privacy": {
+    "status": "pass",
+    "evidence": "13 张图全部由本地 PIL 脚本绘制，未调用图像生成 API；脚本随任务入库可复现。"
+  },
+  "limitations": [
+    "未以人眼完整正常速度播放全片。",
+    "未实际听音。",
+    "PIL 排版为手工坐标，个别间距靠目测。"
+  ]
+}
