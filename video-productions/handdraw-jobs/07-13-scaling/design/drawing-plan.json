@@ -1,0 +1,499 @@
+{
+  "style": "工业设计马克笔手绘",
+  "illustrations": [
+    {
+      "id": "hook",
+      "composition": "钩子：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p01",
+          "narration_quote": "GPT-3 有一千七百五十亿参数。",
+          "observable": "GPT-3 参数卡与结论卡"
+        }
+      ]
+    },
+    {
+      "id": "title-scaling",
+      "composition": "片头：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p02",
+          "narration_quote": "阶段 7，第 13 课：Scaling Laws，扩展定律。",
+          "observable": "两篇论文对比卡"
+        }
+      ]
+    },
+    {
+      "id": "two-buckets",
+      "composition": "算力的两个桶：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p03",
+          "narration_quote": "训练算力大约等于 6 乘参数乘 token。",
+          "observable": "公式与两种分配方案"
+        }
+      ]
+    },
+    {
+      "id": "kaplan",
+      "composition": "2020 堆参数：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p04",
+          "narration_quote": "Kaplan 等人 2020 年的结论是：把参数往死里推。",
+          "observable": "GPT 三代参数量柱状图"
+        }
+      ]
+    },
+    {
+      "id": "chinchilla-ratio",
+      "composition": "20 个 token：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p05",
+          "narration_quote": "Hoffmann 等人训了一族叫 Chinchilla 的模型。",
+          "observable": "1.7 与 20 的比例对比"
+        }
+      ]
+    },
+    {
+      "id": "equation",
+      "composition": "Chinchilla 定律：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p06",
+          "narration_quote": "损失由两部分组成：参数不够，和数据不够。",
+          "observable": "损失方程三项"
+        }
+      ]
+    },
+    {
+      "id": "frontier",
+      "composition": "最优前沿：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p07",
+          "narration_quote": "跑一遍算力最优前沿，从十的十八次方到十的二十五次方。",
+          "observable": "算力最优前沿表"
+        }
+      ]
+    },
+    {
+      "id": "overtrain",
+      "composition": "2026 过训：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p08",
+          "narration_quote": "结果很直接：Chinchilla 用 700 亿参数，打败了 1750 亿的 GPT-3。",
+          "observable": "训练一次与推理一辈子对比"
+        }
+      ]
+    },
+    {
+      "id": "ratio-bars",
+      "composition": "真实比例：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p09",
+          "narration_quote": "但到了 2026 年，前沿模型的训练比例远远超过 20。",
+          "observable": "三个模型的比例柱状图"
+        }
+      ]
+    },
+    {
+      "id": "how-to-choose",
+      "composition": "怎么选：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p10",
+          "narration_quote": "算一笔账。十的二十四次方算力下，最优是 425 亿参数。",
+          "observable": "两种策略对比"
+        }
+      ]
+    },
+    {
+      "id": "emergence",
+      "composition": "涌现可能是假的：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p11",
+          "narration_quote": "看真实模型的比例：GPT-3 是 1.7，训练不足。",
+          "observable": "离散指标与连续指标对比"
+        }
+      ]
+    },
+    {
+      "id": "outro",
+      "composition": "结尾互动：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p12",
+          "narration_quote": "如果这个模型只用于一次比赛、不打算长期服务，你会怎么选比例？",
+          "observable": "两种取舍与提问"
+        }
+      ]
+    }
+  ],
+  "cover": {
+    "id": "cover",
+    "composition": "钩子：单一主体居中，四周留白。",
+    "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+    "outline_strategy": "visible_source_ink",
+    "subjects": [
+      {
+        "id": "main",
+        "kind": "object",
+        "omitted_roles": []
+      }
+    ],
+    "parts": [
+      {
+        "id": "body",
+        "subject": "main",
+        "role": "主体",
+        "stroke_groups": [
+          "外轮廓一笔",
+          "内部分件线若干"
+        ]
+      }
+    ],
+    "outline_order": [
+      "body"
+    ],
+    "fill_order": [
+      "body"
+    ],
+    "spatial_order": "top_to_bottom_left_to_right",
+    "narrative_requirements": [
+      {
+        "id": "cover-visual",
+        "narration_quote": "GPT-3 有一千七百五十亿参数。",
+        "observable": "封面有主体组合与留白"
+      }
+    ]
+  }
+}
