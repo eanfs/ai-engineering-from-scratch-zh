@@ -1,0 +1,149 @@
+{
+  "dependency_sha256": "fbbfd33d70f729011b6a6bc232851c116cd4a89ead2adea4462888a6ce26fc1a",
+  "style_sha256": "02f927db092c7d407a7f0acb80c3c1374d68769c38b61a5ce14e8b543c1e80b4",
+  "images": [
+    {
+      "source": "../inputs/cover.png",
+      "sha256": "7e6c0831c0771bbd3c97785c093db437d2792335fc32e585050ff324c3f3857c",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/cover.md",
+      "brief_sha256": "440145546c02b96cdf59303213069c212116c0306275de16400de16da2c59c5e",
+      "prompt_file": "prompts/cover.txt",
+      "prompt_sha256": "4ddfcadfdcee5fa884203324f439376d80b9363ab1f00577681d579d24069cb4",
+      "status": "pass",
+      "evidence": "封面有主体组合与留白，符合本集主题"
+    },
+    {
+      "source": "../inputs/p01.png",
+      "sha256": "11a804922603caa69a960d4a85d1714e02a37e82348fbf2e3451b0e5caee3cdb",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p01.md",
+      "brief_sha256": "0a2c542e8511bb8d6d440d70e80d3125ecf5e3ae0dd5aefaa481b7a7950b630e",
+      "prompt_file": "prompts/p01.txt",
+      "prompt_sha256": "71ef03e5613a9fe707e67db4d19a2442badb79d239083a5dbd156a8c080a955b",
+      "status": "pass",
+      "evidence": "GPT-3 参数卡与结论卡"
+    },
+    {
+      "source": "../inputs/p02.png",
+      "sha256": "13adc0f69143a5dd59d0367a0645b976272cd86d047a01c4a803f94ce0ccace4",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p02.md",
+      "brief_sha256": "c3759257c324e52238909949f07dd8f765a0ad0df47c1a7e3854ac2e8d0e1e8d",
+      "prompt_file": "prompts/p02.txt",
+      "prompt_sha256": "61db839690f85e76c31e1da932ba4fbd921a9f31ccea2c554d025651c3e27693",
+      "status": "pass",
+      "evidence": "两篇论文对比卡"
+    },
+    {
+      "source": "../inputs/p03.png",
+      "sha256": "75bbbe4b56ca3fb7f0142d79f5349d0fd093673ea0409e940ce853c8298a514b",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p03.md",
+      "brief_sha256": "a4af7c0b5de99774c38784e30855c9b2d667f58726dd55c9542313bf9a5f8b0c",
+      "prompt_file": "prompts/p03.txt",
+      "prompt_sha256": "c132ab6978945bfacd4bb3dc4ff03414889a50f9e5246d16db5b7f9d74e8e5e5",
+      "status": "pass",
+      "evidence": "公式与两种分配方案"
+    },
+    {
+      "source": "../inputs/p04.png",
+      "sha256": "495db86198079d73493c5c8ad99311f4bcbd8aab93c66bb7edbe124995f546b0",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p04.md",
+      "brief_sha256": "9ff0a9a63067d94c5252ee98a8d8173ed824de823bdaffe8e07dc4274e993d6e",
+      "prompt_file": "prompts/p04.txt",
+      "prompt_sha256": "b03a727f5852a69f2ca68186c120d1f3e2a31876d5ee41e53bd4c4a797abbb49",
+      "status": "pass",
+      "evidence": "GPT 三代参数量柱状图"
+    },
+    {
+      "source": "../inputs/p05.png",
+      "sha256": "5afc03825ed0c6ff5e49ee7648a00b183ab934184d085fc59394d8177cf4048c",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p05.md",
+      "brief_sha256": "004bb1c8789db634280736e45131006308bd8f09077dbe718ddc83b247ee134f",
+      "prompt_file": "prompts/p05.txt",
+      "prompt_sha256": "0ed67abf34e5022c99c6ee064b29ef1c4ea8809503754d661ea72879c25530d6",
+      "status": "pass",
+      "evidence": "1.7 与 20 的比例对比"
+    },
+    {
+      "source": "../inputs/p06.png",
+      "sha256": "7b730958b628e5eb5e0c3a3eecb80c918da7c10b5d8cc60b98a64a155430a24f",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p06.md",
+      "brief_sha256": "65d82fd46dd54860cef33883adbf7bbb00a431f7f5687ac315b57268c345085c",
+      "prompt_file": "prompts/p06.txt",
+      "prompt_sha256": "617d04dedb7ddf7b7e9cd52c00a2ee2c7b342329710d8516a9e8f561d6c08766",
+      "status": "pass",
+      "evidence": "损失方程三项"
+    },
+    {
+      "source": "../inputs/p07.png",
+      "sha256": "8faeda0ea37a23cb49a900aa4227abac9838faedcf87086664b1b0a223b4749c",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p07.md",
+      "brief_sha256": "eef7ec72e7e85c8d47cdf3177050b0bdbc789eada7c9ff49172df91617774a63",
+      "prompt_file": "prompts/p07.txt",
+      "prompt_sha256": "d1a256c19acee64f606d49c2ec86759b774f81544c3bfe973c1c313573299373",
+      "status": "pass",
+      "evidence": "算力最优前沿表"
+    },
+    {
+      "source": "../inputs/p08.png",
+      "sha256": "eb370eb4e3908c8ecdbf5d84e6607de30b005a2b34abb80d3f5e9b88bdc4af4e",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p08.md",
+      "brief_sha256": "32af32428d062594e6b5a967cd8f94895e5fdfacb07ef0778cf05e9a9063d35d",
+      "prompt_file": "prompts/p08.txt",
+      "prompt_sha256": "6cbbe3a6f65f732f214dfbfa3f31a68dc7068f584eed5d7f106dc27d00e3bfff",
+      "status": "pass",
+      "evidence": "训练一次与推理一辈子对比"
+    },
+    {
+      "source": "../inputs/p09.png",
+      "sha256": "1e732fe00054b4739b9614c9e1a14559868092e43cf8b4a9f9b51894fcd460c4",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p09.md",
+      "brief_sha256": "38441e0aa0f770854c86a33135633ecaaefd8b6f7b01adca1bb1e3fd09a75c3f",
+      "prompt_file": "prompts/p09.txt",
+      "prompt_sha256": "f8081f7bb7ff6b14bb733f219420be868020adfeb68fab353d49272a9788e8b4",
+      "status": "pass",
+      "evidence": "三个模型的比例柱状图"
+    },
+    {
+      "source": "../inputs/p10.png",
+      "sha256": "4c00e868542d0a47084202dcce6368d618349ef7a1a40a01c72bf3261c4a0166",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p10.md",
+      "brief_sha256": "78dd46e90d06e800de21415a0dd60e689d409e133f20998145ec0716b29ea7ee",
+      "prompt_file": "prompts/p10.txt",
+      "prompt_sha256": "8affc3cbb60665778571fdbbe7ba4123b709441f055dc59fd9f17d8fd56d1d28",
+      "status": "pass",
+      "evidence": "两种策略对比"
+    },
+    {
+      "source": "../inputs/p11.png",
+      "sha256": "4cec83ea7e022cb932febaaa313bd96359f8f0a14c57087a8c6da501b2c4fb22",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p11.md",
+      "brief_sha256": "619dd972a27299e8e6badafd333dbcda781c7cc398f68abb60c438fa1a20abc6",
+      "prompt_file": "prompts/p11.txt",
+      "prompt_sha256": "2b6b91822e0f6b3c7500fa4631b05292eeca0f5f62e265160dff2910c7388932",
+      "status": "pass",
+      "evidence": "离散指标与连续指标对比"
+    },
+    {
+      "source": "../inputs/p12.png",
+      "sha256": "0792ddbfef112a0c8cf0ec4fdf5293c0696cdb79000fb08dae15300c06762eea",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p12.md",
+      "brief_sha256": "92a80b8dce060ee7b2571c25a679b63a17f13959d4b00d2850ace5fa39ed1e5e",
+      "prompt_file": "prompts/p12.txt",
+      "prompt_sha256": "406929a8ecbe3ef19ac12ab932581dd7b829284fae5219f6f787c0ff7136115e",
+      "status": "pass",
+      "evidence": "两种取舍与提问"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "video_sha256": "daa871086836b2fc5336771f657ce52aeb20d7e2af707569a70b4b5ecc9c6778",
+  "content": {
+    "status": "pass",
+    "evidence": "逐页对照 07-13 讲义与 code/main.py 实跑：Hoffmann 常数 A=406.4 B=410.7 α=0.34 β=0.28 E=1.69；算力最优前沿 1e18→N=78.4M/D=2.1B/D:N=27.1、1e25→117.6B/14.2T/120.5；过训代价 1e24 下 loss 1.911→1.971（+0.059）换 10 倍推理省；真实模型 GPT-3 D/N=1.7、Chinchilla=20、Llama 3 8B=1875、DeepSeek-V3=400，均与实跑一致。"
+  },
+  "visual": {
+    "status": "pass",
+    "evidence": "PIL 本地绘制扁平信息图，每页有可画主体：两桶分配、参数增长柱、比例对比柱、损失方程、最优前沿表、训练一次vs推理一辈子。"
+  },
+  "motion": {
+    "status": "pass",
+    "evidence": "抽查预览与成片代表帧：笔尖沿轮廓推进、色块轮廓后铺色；未人眼完整播放。"
+  },
+  "audio": {
+    "status": "pass",
+    "evidence": "verify 通过：响度 -20~-14 LUFS、尾部静音 ≤1.2s、字幕与 alignment 一致；女声一次合成，动感电子配乐。主观听感未验收。"
+  },
+  "privacy": {
+    "status": "pass",
+    "evidence": "13 张图全部本地 PIL 绘制，未调用图像生成 API。"
+  },
+  "limitations": [
+    "未人眼完整播放全片。",
+    "未实际听音。",
+    "PIL 排版手工坐标，个别间距靠目测。"
+  ]
+}
