@@ -1,0 +1,28 @@
+{
+  "video_sha256": "6a4eb0706a0658fbe6471e4b3e66241010528688286d56c11799edfa281109b3",
+  "content": {
+    "status": "pass",
+    "evidence": "逐页对照 07-15 讲义与 code/main.py 实跑：KV 缓存 128K 上下文完整 42.9GB、SWA-4096 1.3GB（32x）、SWA-1024 0.3GB（128x）、Gemma3 5:1 混合 7.4GB（5.8x）、差分 85.9GB（2x）；注意力权重单张 0.335 → 差分 0.169；局部+跨步 24/64 格，均与实跑一致。"
+  },
+  "visual": {
+    "status": "pass",
+    "evidence": "PIL 扁平信息图，关键页为注意力矩阵对比（完整三角 vs 滑动窗口带 vs 稀疏模式）与缓存大小表。"
+  },
+  "motion": {
+    "status": "pass",
+    "evidence": "抽查预览与代表帧；未人眼完整播放。"
+  },
+  "audio": {
+    "status": "pass",
+    "evidence": "verify 通过：响度合规、尾部静音达标、字幕与 alignment 一致。"
+  },
+  "privacy": {
+    "status": "pass",
+    "evidence": "13 张图全部本地 PIL 绘制。"
+  },
+  "limitations": [
+    "未人眼完整播放全片。",
+    "未实际听音。",
+    "首轮因最后一个 beat 超出音频 0.08 秒失败，已修正 alignment。"
+  ]
+}

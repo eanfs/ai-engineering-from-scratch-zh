@@ -1,0 +1,19 @@
+{
+  "status": "ready_for_generation",
+  "plan_sha256": "17a8acb83da04be67d5b8d69abdf9d94376663fb67654bdc8b5a0e01d768ab85",
+  "style_sha256": "02f927db092c7d407a7f0acb80c3c1374d68769c38b61a5ce14e8b543c1e80b4",
+  "illustrations": [
+    "hook",
+    "title-spec",
+    "math",
+    "three-steps",
+    "accept-rule",
+    "residual",
+    "chi-square",
+    "acceptance-table",
+    "tokens-per-call",
+    "implementations",
+    "when-works",
+    "outro"
+  ]
+}

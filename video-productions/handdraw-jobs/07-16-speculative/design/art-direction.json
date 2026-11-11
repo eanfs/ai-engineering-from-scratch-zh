@@ -1,0 +1,149 @@
+{
+  "dependency_sha256": "fbbfd33d70f729011b6a6bc232851c116cd4a89ead2adea4462888a6ce26fc1a",
+  "style_sha256": "02f927db092c7d407a7f0acb80c3c1374d68769c38b61a5ce14e8b543c1e80b4",
+  "images": [
+    {
+      "source": "../inputs/cover.png",
+      "sha256": "4b88c5b3fc97f066cece5786a536dd4a59cdcdec83b5ec1ed372f6de00ac0268",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/cover.md",
+      "brief_sha256": "440145546c02b96cdf59303213069c212116c0306275de16400de16da2c59c5e",
+      "prompt_file": "prompts/cover.txt",
+      "prompt_sha256": "b495a607b508470678102b02176947bac6e9ab6417c54e0f4870d08b7f12cb99",
+      "status": "pass",
+      "evidence": "封面有主体组合与留白，符合本集主题"
+    },
+    {
+      "source": "../inputs/p01.png",
+      "sha256": "ce8b78dacdf43c38fdba37d4cf2684d527f5cfef6f7661b8146cb8d81db7e2ee",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p01.md",
+      "brief_sha256": "0a2c542e8511bb8d6d440d70e80d3125ecf5e3ae0dd5aefaa481b7a7950b630e",
+      "prompt_file": "prompts/p01.txt",
+      "prompt_sha256": "1dc8dc77a367c5a56545573de046ad69d39b85130d1bf83445560e26cde0eb00",
+      "status": "pass",
+      "evidence": "直接生成与投机解码对比"
+    },
+    {
+      "source": "../inputs/p02.png",
+      "sha256": "4778428f957ecc171fc17acf33df7893706d636637f98e0f8442ee4a7c89e3fc",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p02.md",
+      "brief_sha256": "c3759257c324e52238909949f07dd8f765a0ad0df47c1a7e3854ac2e8d0e1e8d",
+      "prompt_file": "prompts/p02.txt",
+      "prompt_sha256": "f51113ff22e23a65afe32c449cef3a93327f021c7661d46d55e2e7d2efcaef65",
+      "status": "pass",
+      "evidence": "三步流程标题卡"
+    },
+    {
+      "source": "../inputs/p03.png",
+      "sha256": "70e0fb7c8de2973094ca37287c53d7f825cd49f9529dbd9d28404de73c61bab9",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p03.md",
+      "brief_sha256": "8e106944aa3aca01dd9b828ee4a7db0c530616739510e2dc821e84bbb3d1e265",
+      "prompt_file": "prompts/p03.txt",
+      "prompt_sha256": "4f5d967f62a9861216ffc977c399bd9675cf1fcadfcbe431513b77c9b88fb2ac",
+      "status": "pass",
+      "evidence": "时间对比 150ms vs 45ms"
+    },
+    {
+      "source": "../inputs/p04.png",
+      "sha256": "1f7fce263b6137bad0bbb39b837ccb605eb10a9260a31f249ad6760dc925cbc3",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p04.md",
+      "brief_sha256": "679329663177111cd8907187ecd484d70f58977596fb61e978d215634289e833",
+      "prompt_file": "prompts/p04.txt",
+      "prompt_sha256": "1356fdd70cafbdb27f27d3c651bb6dfb1c6689f2e255026e2ea17ef3559cbe87",
+      "status": "pass",
+      "evidence": "起草验证接受三步"
+    },
+    {
+      "source": "../inputs/p05.png",
+      "sha256": "178343ed76c740a179d9adf67a3912190668335259d101230ebedba775251cdd",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p05.md",
+      "brief_sha256": "47fdbc1b080989f270e740fcf1475bbebbdebed446f266386c7db332bf186d74",
+      "prompt_file": "prompts/p05.txt",
+      "prompt_sha256": "a7d53f0fe121edcc81943dcfd270ffe52fb9871070ceb588c12951deea22c8a5",
+      "status": "pass",
+      "evidence": "接受概率公式与两种情形"
+    },
+    {
+      "source": "../inputs/p06.png",
+      "sha256": "c914f2c20eb7a94b5a9e8e5df01bf58b91ac75b56e88b932a511ebb0fbc34bb4",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p06.md",
+      "brief_sha256": "070fbfa7a67d50b0eca4f6c1a24821ce75015d24d889e41f45303057a00e5357",
+      "prompt_file": "prompts/p06.txt",
+      "prompt_sha256": "40f78cdf96964f2ce1a037f5e3a522934ac86776abf9977d5d2f5ec9a98df332",
+      "status": "pass",
+      "evidence": "残差公式与等价性"
+    },
+    {
+      "source": "../inputs/p07.png",
+      "sha256": "f517c3f96e4bc49b2f7c0fc705e4d4ce33ea24d5694a3ae7206fe4bdd6dadfd8",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p07.md",
+      "brief_sha256": "71c6e43e9a2bcb3eefae0b09ab42580d05589ba05ea5c35a0dc062273cd8ee4e",
+      "prompt_file": "prompts/p07.txt",
+      "prompt_sha256": "361d2bed39b061a7486406b5a0e7bc2ca9f8881d8180f2eaae763f9dae0d010a",
+      "status": "pass",
+      "evidence": "分布柱状图与卡方检验"
+    },
+    {
+      "source": "../inputs/p08.png",
+      "sha256": "ff5e0f4fcd33f6548953baf35b4fd093a84b205c59db36f1ab8d877f7ca0e4c4",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p08.md",
+      "brief_sha256": "890da2e9e5d6ec3977678df4ef3690200e98714fcca94503bc45fa82ebc5e40f",
+      "prompt_file": "prompts/p08.txt",
+      "prompt_sha256": "d7630aab080a58e48fa96f22b241aa8d3ecffbd1e233d92e4763cef4c77af44f",
+      "status": "pass",
+      "evidence": "KL 与接受率对照表"
+    },
+    {
+      "source": "../inputs/p09.png",
+      "sha256": "278ac40c1e4369b580e5b0acf0a8f049d8123f11743931ad3b6308203a01710c",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p09.md",
+      "brief_sha256": "797f3361a672e367764c7b4600e7e2f4af693bdf158b69af3aecdfe5d46c4637",
+      "prompt_file": "prompts/p09.txt",
+      "prompt_sha256": "84ed891214586a812d76827c244298d3a4da1ed372863390af77ee350a381dd4",
+      "status": "pass",
+      "evidence": "每次验证产出词数表"
+    },
+    {
+      "source": "../inputs/p10.png",
+      "sha256": "e85806e32a528b7e0cbf1e48086acf3fa20d58269a6ba6cb35d0cb225aec6727",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p10.md",
+      "brief_sha256": "0ef2bbd66145bde58930c6192958924daedb8dd8b8eb2520c80569b306a044dc",
+      "prompt_file": "prompts/p10.txt",
+      "prompt_sha256": "27557c7e40cb1857a2189a0bd2e88430eac0701e444c9c87a8423b50f746837e",
+      "status": "pass",
+      "evidence": "四类实现方案"
+    },
+    {
+      "source": "../inputs/p11.png",
+      "sha256": "37cf5e845d8a63360822de7e31a236204df732101ed8ec163360600313ca0252",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p11.md",
+      "brief_sha256": "6636c07cf5e75a10b754e9cacbd7a6a6a175ac35d23cd27648b678ef02973bbf",
+      "prompt_file": "prompts/p11.txt",
+      "prompt_sha256": "eb2fe7f93b1b460d3650cb7b6220b7496238f83a0d0b803241ec5536b5bdae14",
+      "status": "pass",
+      "evidence": "高接受率与低接受率场景"
+    },
+    {
+      "source": "../inputs/p12.png",
+      "sha256": "7460fd698a5e6fe6a03ba38ade071db4aba5e3060d991c1bb9774bff355350ed",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p12.md",
+      "brief_sha256": "92a80b8dce060ee7b2571c25a679b63a17f13959d4b00d2850ace5fa39ed1e5e",
+      "prompt_file": "prompts/p12.txt",
+      "prompt_sha256": "0c6c8d7ea3c1d4cfbbaec99305f723d2bfe05efc372fe6a9c4cd670643fa5bbc",
+      "status": "pass",
+      "evidence": "两种方案取舍"
+    }
+  ]
+}

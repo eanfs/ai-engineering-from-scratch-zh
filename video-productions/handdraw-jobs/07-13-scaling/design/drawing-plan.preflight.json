@@ -1,0 +1,19 @@
+{
+  "status": "ready_for_generation",
+  "plan_sha256": "64634aae1abe52bdf199e91109eadd7550bfa50aba3cbc71d65bf00ee952984c",
+  "style_sha256": "02f927db092c7d407a7f0acb80c3c1374d68769c38b61a5ce14e8b543c1e80b4",
+  "illustrations": [
+    "hook",
+    "title-scaling",
+    "two-buckets",
+    "kaplan",
+    "chinchilla-ratio",
+    "equation",
+    "frontier",
+    "overtrain",
+    "ratio-bars",
+    "how-to-choose",
+    "emergence",
+    "outro"
+  ]
+}
