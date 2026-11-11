@@ -1,0 +1,240 @@
+{
+  "style_sha256": "02f927db092c7d407a7f0acb80c3c1374d68769c38b61a5ce14e8b543c1e80b4",
+  "plan_sha256": "46e562bd386beb84ab6be1ee86645904923080e87ee6d00392f89dc4d1038ee8",
+  "illustrations": [
+    {
+      "plan_id": "cover",
+      "status": "pass",
+      "source_sha256": "29c45e790bf1acf97ae9f5cf950ac1d9c7e072ef2dec043baf50d102358ac763",
+      "crop": null,
+      "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
+      "stroke_breaks": "从上到下、从左到右起笔，分件之间抬笔。",
+      "outline_then_fill": "先完成全部可见轮廓，再按同一顺序铺色。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "cover-visual",
+          "status": "pass",
+          "evidence": "封面有主体组合与留白，符合本集主题"
+        }
+      ]
+    },
+    {
+      "plan_id": "hook",
+      "status": "pass",
+      "source_sha256": "2f9ceb9ddbf32bc6e5e2b0a11c7d44ac9488e2f62df589064801c677004e69a0",
+      "crop": null,
+      "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
+      "stroke_breaks": "从上到下、从左到右起笔，分件之间抬笔。",
+      "outline_then_fill": "先完成全部可见轮廓，再按同一顺序铺色。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "p01",
+          "status": "pass",
+          "evidence": "完整三角与滑动窗口带对比"
+        }
+      ]
+    },
+    {
+      "plan_id": "title-variants",
+      "status": "pass",
+      "source_sha256": "b85caff8961d0fb1a81f98e21a958800c69fd1948232633dae184a36ad6dec8d",
+      "crop": null,
+      "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
+      "stroke_breaks": "从上到下、从左到右起笔，分件之间抬笔。",
+      "outline_then_fill": "先完成全部可见轮廓，再按同一顺序铺色。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "p02",
+          "status": "pass",
+          "evidence": "三种变体列表"
+        }
+      ]
+    },
+    {
+      "plan_id": "quadratic-cost",
+      "status": "pass",
+      "source_sha256": "3c88b8f5b3b4b2c36afa58a72a53b7f6896f3463dfb78b69973651a44952a149",
+      "crop": null,
+      "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
+      "stroke_breaks": "从上到下、从左到右起笔，分件之间抬笔。",
+      "outline_then_fill": "先完成全部可见轮廓，再按同一顺序铺色。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "p03",
+          "status": "pass",
+          "evidence": "平方代价计算"
+        }
+      ]
+    },
+    {
+      "plan_id": "swa",
+      "status": "pass",
+      "source_sha256": "16349f0bccd486d341534f4113e4d86e281172b276862cf9b73938d9c7b69dce",
+      "crop": null,
+      "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
+      "stroke_breaks": "从上到下、从左到右起笔，分件之间抬笔。",
+      "outline_then_fill": "先完成全部可见轮廓，再按同一顺序铺色。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "p04",
+          "status": "pass",
+          "evidence": "窗口掩码对比"
+        }
+      ]
+    },
+    {
+      "plan_id": "cache-table",
+      "status": "pass",
+      "source_sha256": "60b5e73513a04cccb73ec3068bd44689fe1fd0cac09df3eb10cc1ec4bc5a6480",
+      "crop": null,
+      "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
+      "stroke_breaks": "从上到下、从左到右起笔，分件之间抬笔。",
+      "outline_then_fill": "先完成全部可见轮廓，再按同一顺序铺色。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "p05",
+          "status": "pass",
+          "evidence": "缓存大小对比表"
+        }
+      ]
+    },
+    {
+      "plan_id": "hybrid",
+      "status": "pass",
+      "source_sha256": "17dcc5d11c8212c32a88135d0c3fcec5eff8fd2b7f90111905d3560b9af69a35",
+      "crop": null,
+      "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
+      "stroke_breaks": "从上到下、从左到右起笔，分件之间抬笔。",
+      "outline_then_fill": "先完成全部可见轮廓，再按同一顺序铺色。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "p06",
+          "status": "pass",
+          "evidence": "纯滑窗与混合结构对比"
+        }
+      ]
+    },
+    {
+      "plan_id": "sparse",
+      "status": "pass",
+      "source_sha256": "938c7237bab3234daaddc42b3cee379644637f46d49fab4d28651ecf77d0774e",
+      "crop": null,
+      "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
+      "stroke_breaks": "从上到下、从左到右起笔，分件之间抬笔。",
+      "outline_then_fill": "先完成全部可见轮廓，再按同一顺序铺色。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "p07",
+          "status": "pass",
+          "evidence": "局部加跨步稀疏模式"
+        }
+      ]
+    },
+    {
+      "plan_id": "sink",
+      "status": "pass",
+      "source_sha256": "dbdca7e09afd9472aa3f54da4b6c8ad871b69d11c2bf36c4c4cdb378a4e7abb1",
+      "crop": null,
+      "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
+      "stroke_breaks": "从上到下、从左到右起笔，分件之间抬笔。",
+      "outline_then_fill": "先完成全部可见轮廓，再按同一顺序铺色。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "p08",
+          "status": "pass",
+          "evidence": "注意力权重分布与汇点"
+        }
+      ]
+    },
+    {
+      "plan_id": "diff",
+      "status": "pass",
+      "source_sha256": "9f4dffbc5967df1f82667aa6c4b93b41d14278d5de6c3f8e1a81a768eb817614",
+      "crop": null,
+      "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
+      "stroke_breaks": "从上到下、从左到右起笔，分件之间抬笔。",
+      "outline_then_fill": "先完成全部可见轮廓，再按同一顺序铺色。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "p09",
+          "status": "pass",
+          "evidence": "差分公式与权重前后对比"
+        }
+      ]
+    },
+    {
+      "plan_id": "compare",
+      "status": "pass",
+      "source_sha256": "c20f1a7bb3add40523a2a014176bbc99f7113169e203203f6097abe4a35fd663",
+      "crop": null,
+      "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
+      "stroke_breaks": "从上到下、从左到右起笔，分件之间抬笔。",
+      "outline_then_fill": "先完成全部可见轮廓，再按同一顺序铺色。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "p10",
+          "status": "pass",
+          "evidence": "四种方案对比表"
+        }
+      ]
+    },
+    {
+      "plan_id": "cost-map",
+      "status": "pass",
+      "source_sha256": "82a1a5bb67ddb5ff903b2b0312ad2337f5f48e5b46691f6aaa92783b0f8098e7",
+      "crop": null,
+      "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
+      "stroke_breaks": "从上到下、从左到右起笔，分件之间抬笔。",
+      "outline_then_fill": "先完成全部可见轮廓，再按同一顺序铺色。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "p11",
+          "status": "pass",
+          "evidence": "缓存大小柱状图"
+        }
+      ]
+    },
+    {
+      "plan_id": "outro",
+      "status": "pass",
+      "source_sha256": "b857a4257ba9309c6c3cd63a6c10935f19e7c9f97a40f2ba8a305c6658ad9bd0",
+      "crop": null,
+      "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
+      "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
+      "stroke_breaks": "从上到下、从左到右起笔，分件之间抬笔。",
+      "outline_then_fill": "先完成全部可见轮廓，再按同一顺序铺色。",
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_checks": [
+        {
+          "id": "p12",
+          "status": "pass",
+          "evidence": "三种方案选项"
+        }
+      ]
+    }
+  ]
+}

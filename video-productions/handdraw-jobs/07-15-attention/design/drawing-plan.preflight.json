@@ -1,0 +1,19 @@
+{
+  "status": "ready_for_generation",
+  "plan_sha256": "46e562bd386beb84ab6be1ee86645904923080e87ee6d00392f89dc4d1038ee8",
+  "style_sha256": "02f927db092c7d407a7f0acb80c3c1374d68769c38b61a5ce14e8b543c1e80b4",
+  "illustrations": [
+    "hook",
+    "title-variants",
+    "quadratic-cost",
+    "swa",
+    "cache-table",
+    "hybrid",
+    "sparse",
+    "sink",
+    "diff",
+    "compare",
+    "cost-map",
+    "outro"
+  ]
+}

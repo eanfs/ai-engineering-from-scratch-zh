@@ -1,0 +1,28 @@
+{
+  "video_sha256": "77c821dca396060f7e717c191d830d560a2f3625f84e3ac11cfc5cb00dd130f5",
+  "content": {
+    "status": "pass",
+    "evidence": "逐页对照 07-16 讲义与 code/main.py 实跑：验证器分布 0.35/0.20/0.15/0.10/0.08/0.06/0.04/0.02；5 万样本开关分布卡方 4.64（自由度 7，PASS）；接受率 α 从 0.980（KL 0.002）降到 0.478（KL 5.9）；α=0.85/N=5 每次验证出 4.15 个词，均与实跑一致。"
+  },
+  "visual": {
+    "status": "pass",
+    "evidence": "PIL 扁平信息图，关键页为直接生成 vs 投机解码对比、分布柱状图、接受率与产出效率表。"
+  },
+  "motion": {
+    "status": "pass",
+    "evidence": "抽查预览与代表帧；未人眼完整播放。"
+  },
+  "audio": {
+    "status": "pass",
+    "evidence": "verify 通过：补 0.6 秒尾部静音后达标，响度合规，字幕与 alignment 一致。"
+  },
+  "privacy": {
+    "status": "pass",
+    "evidence": "13 张图全部本地 PIL 绘制。"
+  },
+  "limitations": [
+    "未人眼完整播放全片。",
+    "未实际听音。",
+    "首轮因尾部静音不足失败，已补静音并更新 sha256。"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "language": {
+    "value": "zh",
+    "status": "explicit",
+    "evidence": "用户全程中文，指定中文讲解"
+  },
+  "duration_seconds": {
+    "value": 180,
+    "status": "explicit",
+    "evidence": "默认约 3 分钟"
+  },
+  "canvas": {
+    "value": {
+      "width": 1920,
+      "height": 1080,
+      "ratio": "16:9"
+    },
+    "status": "explicit",
+    "evidence": "AGENTS.md 默认方案"
+  },
+  "style": {
+    "value": {
+      "mode": "catalog",
+      "catalog_id": "12"
+    },
+    "status": "explicit",
+    "evidence": "AGENTS.md 默认方案：12 工业设计马克笔"
+  },
+  "hand": {
+    "value": "teacher-pen",
+    "status": "explicit",
+    "evidence": "AGENTS.md 默认方案：白衬衫中性笔"
+  },
+  "music": {
+    "value": {
+      "add": true,
+      "source": "inputs/music.wav",
+      "user_instruction": "添加动感电子背景音乐"
+    },
+    "status": "explicit",
+    "evidence": "AGENTS.md 默认方案"
+  }
+}

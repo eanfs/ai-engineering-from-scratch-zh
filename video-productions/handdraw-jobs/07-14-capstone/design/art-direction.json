@@ -1,0 +1,149 @@
+{
+  "dependency_sha256": "fbbfd33d70f729011b6a6bc232851c116cd4a89ead2adea4462888a6ce26fc1a",
+  "style_sha256": "02f927db092c7d407a7f0acb80c3c1374d68769c38b61a5ce14e8b543c1e80b4",
+  "images": [
+    {
+      "source": "../inputs/cover.png",
+      "sha256": "ea3047e199ff7dc0bd45ede92de570496234e73f808f2001f47a601ef29f8df8",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/cover.md",
+      "brief_sha256": "440145546c02b96cdf59303213069c212116c0306275de16400de16da2c59c5e",
+      "prompt_file": "prompts/cover.txt",
+      "prompt_sha256": "dd40e182b3f55501cfcbe69471600095f342739be6c074888ef5077a8e7d220b",
+      "status": "pass",
+      "evidence": "封面有主体组合与留白，符合本集主题"
+    },
+    {
+      "source": "../inputs/p01.png",
+      "sha256": "7e55497772852c2be29d5c8aad94a7ec88b8d477fc0d0e2b349a0c9433007924",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p01.md",
+      "brief_sha256": "0a2c542e8511bb8d6d440d70e80d3125ecf5e3ae0dd5aefaa481b7a7950b630e",
+      "prompt_file": "prompts/p01.txt",
+      "prompt_sha256": "bf1ad0325aec2308abe1fd8f9c53eb8429748da02d07a73212bfba4794a570d4",
+      "status": "pass",
+      "evidence": "十三课拼成一个模型"
+    },
+    {
+      "source": "../inputs/p02.png",
+      "sha256": "234a99d55a6ae1dc208a452358f19716273ef05895218a69254fe535ad94361b",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p02.md",
+      "brief_sha256": "c3759257c324e52238909949f07dd8f765a0ad0df47c1a7e3854ac2e8d0e1e8d",
+      "prompt_file": "prompts/p02.txt",
+      "prompt_sha256": "25b7174006a404c2fa05768d138429e0f12838dd850212976ba2edba2957a06f",
+      "status": "pass",
+      "evidence": "收官项目标题卡"
+    },
+    {
+      "source": "../inputs/p03.png",
+      "sha256": "d71f053cb9e203eb5b797e129a62c0d1237251ebc66a76cd09c69433b61662ea",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p03.md",
+      "brief_sha256": "7dbe4585932b84f84ccd73dbae8befd79d6b8e4e330bcb5432eea2db220b47c2",
+      "prompt_file": "prompts/p03.txt",
+      "prompt_sha256": "2a6bbc32390f748b480a23c8b6fcb04e61d35e0008236d03fe87f0d7d4095b9f",
+      "status": "pass",
+      "evidence": "从 token 到 logits 的流水线"
+    },
+    {
+      "source": "../inputs/p04.png",
+      "sha256": "3e207d20499dd76aeb859f27695099d1b2e7a36374c69125fe9cf884a3f0877d",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p04.md",
+      "brief_sha256": "dff6f144785d8140bd4c96429fd0e9a25d4da56410c25ff29663cebe3c6cf304",
+      "prompt_file": "prompts/p04.txt",
+      "prompt_sha256": "9c605b5cd5a094fab2f5896928aee7dce72292b02a39415a40f3a8a7089e1a31",
+      "status": "pass",
+      "evidence": "零件与课号对应表"
+    },
+    {
+      "source": "../inputs/p05.png",
+      "sha256": "b5e3541b93857fe0825f223180e6cf4fa97b17f4c8c4aabc0e2c829c58b7c6b1",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p05.md",
+      "brief_sha256": "d8ba19a9126a8e8353ad7a75c4525dfb4514135d61e4d05416e75057fb565b42",
+      "prompt_file": "prompts/p05.txt",
+      "prompt_sha256": "d5b082f0e0d4ff6cd3a2b3e39a6dd519398b5b5545b4a4ec88dd8c29e47c5c7c",
+      "status": "pass",
+      "evidence": "语料与 65 个字符词表"
+    },
+    {
+      "source": "../inputs/p06.png",
+      "sha256": "7a16d5cc3363dd85e4126184d7b8192827d8fad02879add83f1e77bf69bf60d7",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p06.md",
+      "brief_sha256": "06a64e1604a6692d5c332736529fef60ccbd3cd27b47f0af931e5b0ed9fea4a5",
+      "prompt_file": "prompts/p06.txt",
+      "prompt_sha256": "b9578b6c0be31d8a003690dce35d2f38708fb10ea4b6a91de6d6d8c6b149d163",
+      "status": "pass",
+      "evidence": "四档配置参数量表"
+    },
+    {
+      "source": "../inputs/p07.png",
+      "sha256": "fdd0df4615be1da556367dcd8f4fc8b3d8209d2c4c9a47a125c10c38d622067c",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p07.md",
+      "brief_sha256": "01ed22d67e741d77f066a0ef5150c1071701ee4cd381cb18af9d11493fb6ae07",
+      "prompt_file": "prompts/p07.txt",
+      "prompt_sha256": "ac8ad72abdc69635c7c175f3b0930319515f2f042a3c237aef44283a1d7fd780",
+      "status": "pass",
+      "evidence": "训练四步循环"
+    },
+    {
+      "source": "../inputs/p08.png",
+      "sha256": "c1399cee9ba8898f65851733f7b15428eb0e527aff2151d702b02f69b8467612",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p08.md",
+      "brief_sha256": "603932209975cfaf499a62fdf9d9cab8a8810ce158a73439c1699b47c699332a",
+      "prompt_file": "prompts/p08.txt",
+      "prompt_sha256": "62383d81e17051d28de146b43d808488e78622ae2c860c75690f5c73930207cc",
+      "status": "pass",
+      "evidence": "损失下降曲线"
+    },
+    {
+      "source": "../inputs/p09.png",
+      "sha256": "504a2a6bdce7f7671ced31945a86f231b6309b2741d6a6284e45dfce62e41242",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p09.md",
+      "brief_sha256": "1d6c2af3405c47bce06574c58027be14ae256990a6cae02fd2d61e32ace27ada",
+      "prompt_file": "prompts/p09.txt",
+      "prompt_sha256": "737df387b9bc0478ade0cdc85949c550c5189b8887a6abbb0612fa357fb55da5",
+      "status": "pass",
+      "evidence": "生成的莎士比亚风格文本"
+    },
+    {
+      "source": "../inputs/p10.png",
+      "sha256": "b58b6ecc82c62961f7e94a14b9d1377c3e21486da46ce31b1a0d016850428748",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p10.md",
+      "brief_sha256": "d520efca7876fbaa954e4d0f938238a8e2ae89eecd8b2d62de06308dbd5e7785",
+      "prompt_file": "prompts/p10.txt",
+      "prompt_sha256": "4270e52f2adfc0af15f9e848e59f16a71eacd75c6f17a65a9cea596a0fc3bea2",
+      "status": "pass",
+      "evidence": "三个扩展方向"
+    },
+    {
+      "source": "../inputs/p11.png",
+      "sha256": "f4615377626946538346ab291c4f65c8012c8b6a38c76611c5985ed249a49fda",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p11.md",
+      "brief_sha256": "5af00f096ecbab3789745f8dae3acf9254843cb596bcae8f65dfcf2646819c4e",
+      "prompt_file": "prompts/p11.txt",
+      "prompt_sha256": "9ad3b0eeb7be384aa1c8891646133d8554cd67683fbb86227a58cdd5d0683461",
+      "status": "pass",
+      "evidence": "四档参数量柱状图"
+    },
+    {
+      "source": "../inputs/p12.png",
+      "sha256": "dc338c0e1d4dfb64f18ac5c1f9ebd7a4c5145ea07ea1ca681ca84293ddaf467c",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p12.md",
+      "brief_sha256": "92a80b8dce060ee7b2571c25a679b63a17f13959d4b00d2850ace5fa39ed1e5e",
+      "prompt_file": "prompts/p12.txt",
+      "prompt_sha256": "4d066a4c5d5d2d51aa10d1905125cc8f4a08d5be7d2413cb95676e033adf367a",
+      "status": "pass",
+      "evidence": "三个能力选项"
+    }
+  ]
+}

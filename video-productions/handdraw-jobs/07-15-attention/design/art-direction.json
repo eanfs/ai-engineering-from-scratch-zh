@@ -1,0 +1,149 @@
+{
+  "dependency_sha256": "fbbfd33d70f729011b6a6bc232851c116cd4a89ead2adea4462888a6ce26fc1a",
+  "style_sha256": "02f927db092c7d407a7f0acb80c3c1374d68769c38b61a5ce14e8b543c1e80b4",
+  "images": [
+    {
+      "source": "../inputs/cover.png",
+      "sha256": "29c45e790bf1acf97ae9f5cf950ac1d9c7e072ef2dec043baf50d102358ac763",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/cover.md",
+      "brief_sha256": "440145546c02b96cdf59303213069c212116c0306275de16400de16da2c59c5e",
+      "prompt_file": "prompts/cover.txt",
+      "prompt_sha256": "b0cf85704634f657d315b2bc646cece20c2d1b2835dfa7838a976f4fc1703cbc",
+      "status": "pass",
+      "evidence": "封面有主体组合与留白，符合本集主题"
+    },
+    {
+      "source": "../inputs/p01.png",
+      "sha256": "2f9ceb9ddbf32bc6e5e2b0a11c7d44ac9488e2f62df589064801c677004e69a0",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p01.md",
+      "brief_sha256": "0a2c542e8511bb8d6d440d70e80d3125ecf5e3ae0dd5aefaa481b7a7950b630e",
+      "prompt_file": "prompts/p01.txt",
+      "prompt_sha256": "50f00d3b5020a2b6995d9d026675d64260bbc6df46646ef0655d0216486941a0",
+      "status": "pass",
+      "evidence": "完整三角与滑动窗口带对比"
+    },
+    {
+      "source": "../inputs/p02.png",
+      "sha256": "b85caff8961d0fb1a81f98e21a958800c69fd1948232633dae184a36ad6dec8d",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p02.md",
+      "brief_sha256": "c3759257c324e52238909949f07dd8f765a0ad0df47c1a7e3854ac2e8d0e1e8d",
+      "prompt_file": "prompts/p02.txt",
+      "prompt_sha256": "98d46177cd1e3252f67a22d7832e8bf305fae0a661ad8b8bca7b19dca14809a2",
+      "status": "pass",
+      "evidence": "三种变体列表"
+    },
+    {
+      "source": "../inputs/p03.png",
+      "sha256": "3c88b8f5b3b4b2c36afa58a72a53b7f6896f3463dfb78b69973651a44952a149",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p03.md",
+      "brief_sha256": "72372e03ad2832c798694e7c01941a246593e579774fae5e4276e67fe37e3aca",
+      "prompt_file": "prompts/p03.txt",
+      "prompt_sha256": "cb17ac6c1df76c650661a9867b68c4ff350e7dc2e520b620058062d4a96bd244",
+      "status": "pass",
+      "evidence": "平方代价计算"
+    },
+    {
+      "source": "../inputs/p04.png",
+      "sha256": "16349f0bccd486d341534f4113e4d86e281172b276862cf9b73938d9c7b69dce",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p04.md",
+      "brief_sha256": "fed891d0dcad78d4fe6a3769bf092a401c31b9e479c499a41f1192125e126521",
+      "prompt_file": "prompts/p04.txt",
+      "prompt_sha256": "f21398c9abafa8365c8aa883a7590d0ee4935c994e611ea59abb95a6e826806c",
+      "status": "pass",
+      "evidence": "窗口掩码对比"
+    },
+    {
+      "source": "../inputs/p05.png",
+      "sha256": "60b5e73513a04cccb73ec3068bd44689fe1fd0cac09df3eb10cc1ec4bc5a6480",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p05.md",
+      "brief_sha256": "d2b26305c5a0fbc4f51e0022841a1c68578fb357439a6a3ecd37562cb31f85f5",
+      "prompt_file": "prompts/p05.txt",
+      "prompt_sha256": "1396802edcf76ea1d8d0faf567015805bb7aa85b2b7258cb3ae4dcf820665ac3",
+      "status": "pass",
+      "evidence": "缓存大小对比表"
+    },
+    {
+      "source": "../inputs/p06.png",
+      "sha256": "17dcc5d11c8212c32a88135d0c3fcec5eff8fd2b7f90111905d3560b9af69a35",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p06.md",
+      "brief_sha256": "5e00c255031b894d54281d614149a42a0daf65f844cd77eb3096d6df94b437d0",
+      "prompt_file": "prompts/p06.txt",
+      "prompt_sha256": "57e1c180ab2969444e73767a88a6ab630167a607d90a6931870a35831abdca9b",
+      "status": "pass",
+      "evidence": "纯滑窗与混合结构对比"
+    },
+    {
+      "source": "../inputs/p07.png",
+      "sha256": "938c7237bab3234daaddc42b3cee379644637f46d49fab4d28651ecf77d0774e",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p07.md",
+      "brief_sha256": "45ef272b7681d55bf451bc0fd3569741764a7b4d24cbd746916c34f160229efa",
+      "prompt_file": "prompts/p07.txt",
+      "prompt_sha256": "e1414788a1f5209bffbf61cafaf519027ed4efe64663fc5e1d953cc70d31cac1",
+      "status": "pass",
+      "evidence": "局部加跨步稀疏模式"
+    },
+    {
+      "source": "../inputs/p08.png",
+      "sha256": "dbdca7e09afd9472aa3f54da4b6c8ad871b69d11c2bf36c4c4cdb378a4e7abb1",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p08.md",
+      "brief_sha256": "1ab603ee0a20fab21e1875736cb7389c212cabe262ec2b8b074b0f97687680a0",
+      "prompt_file": "prompts/p08.txt",
+      "prompt_sha256": "fe182b63087e668299330eb3eae94e7a565aef285d0820a1af86f1544c404d61",
+      "status": "pass",
+      "evidence": "注意力权重分布与汇点"
+    },
+    {
+      "source": "../inputs/p09.png",
+      "sha256": "9f4dffbc5967df1f82667aa6c4b93b41d14278d5de6c3f8e1a81a768eb817614",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p09.md",
+      "brief_sha256": "5a6befeca7be095a8227564867db6dc7bb743f4dfc836982abe2ac456b57b24d",
+      "prompt_file": "prompts/p09.txt",
+      "prompt_sha256": "26d948e6fad6819803a98fb1db993f334c5b36c8fb16a835fc9fe54f4584cc82",
+      "status": "pass",
+      "evidence": "差分公式与权重前后对比"
+    },
+    {
+      "source": "../inputs/p10.png",
+      "sha256": "c20f1a7bb3add40523a2a014176bbc99f7113169e203203f6097abe4a35fd663",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p10.md",
+      "brief_sha256": "7c98a05d4417d1e101647da17be35ea3b909be5ddd08dc0beb2a322457568e5e",
+      "prompt_file": "prompts/p10.txt",
+      "prompt_sha256": "167c963d9de1bcb039d5038ad9439aa18a1a5a50b138b3e8414d4d9b0448868a",
+      "status": "pass",
+      "evidence": "四种方案对比表"
+    },
+    {
+      "source": "../inputs/p11.png",
+      "sha256": "82a1a5bb67ddb5ff903b2b0312ad2337f5f48e5b46691f6aaa92783b0f8098e7",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p11.md",
+      "brief_sha256": "d80c940dde793a992032b3afd77b4d8c78284f8d5e8c56a410698085c6f8e0b4",
+      "prompt_file": "prompts/p11.txt",
+      "prompt_sha256": "2db69f8b0015344cc80f99ed3a145cd17ea2ff8ef5da60f3b992275030294e38",
+      "status": "pass",
+      "evidence": "缓存大小柱状图"
+    },
+    {
+      "source": "../inputs/p12.png",
+      "sha256": "b857a4257ba9309c6c3cd63a6c10935f19e7c9f97a40f2ba8a305c6658ad9bd0",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p12.md",
+      "brief_sha256": "92a80b8dce060ee7b2571c25a679b63a17f13959d4b00d2850ace5fa39ed1e5e",
+      "prompt_file": "prompts/p12.txt",
+      "prompt_sha256": "58353114a3306635dcd5c9d7d1d5d794881179eee4f28f43e5dfcb01b90d2a84",
+      "status": "pass",
+      "evidence": "三种方案选项"
+    }
+  ]
+}

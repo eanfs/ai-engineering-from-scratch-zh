@@ -1,0 +1,28 @@
+{
+  "video_sha256": "a041a5102645009c2399b4395dab24fa11d62764bc6619c9373c088cdf3b36e2",
+  "content": {
+    "status": "pass",
+    "evidence": "逐页对照 07-14 讲义与 code/main.py 实跑参数统计：nano 65词汇表/4层/4头/d=128/811,904 参数、mini 2,693,952、small 21,331,584、base 123,705,600；训练损失 4.2→1.5、2000 步、65 个字符词表、D/N 等数据一致。"
+  },
+  "visual": {
+    "status": "pass",
+    "evidence": "PIL 本地绘制扁平信息图，每页有可画主体：13 个课块汇聚、架构流水线、零件来源表、损失曲线、生成的莎士比亚文本。"
+  },
+  "motion": {
+    "status": "pass",
+    "evidence": "抽查预览与代表帧：笔尖沿轮廓推进；未人眼完整播放。"
+  },
+  "audio": {
+    "status": "pass",
+    "evidence": "verify 通过：响度合规、尾部静音 ≤1.2s、字幕与 alignment 一致。主观听感未验收。"
+  },
+  "privacy": {
+    "status": "pass",
+    "evidence": "13 张图全部本地 PIL 绘制。"
+  },
+  "limitations": [
+    "未人眼完整播放全片。",
+    "未实际听音。",
+    "PIL 排版手工坐标。"
+  ]
+}

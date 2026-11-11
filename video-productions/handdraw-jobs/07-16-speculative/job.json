@@ -1,0 +1,814 @@
+{
+  "version": 1,
+  "title": "投机解码",
+  "design_file": "design.json",
+  "art_direction": {
+    "record": "design/art-direction.json"
+  },
+  "drawing_plan": "design/drawing-plan.json",
+  "drawing_review": "design/drawing-review.json",
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "cover": {
+    "source": "inputs/cover.png",
+    "seconds": 1.0
+  },
+  "hand": {
+    "preset": "teacher-pen"
+  },
+  "narration": {
+    "source": "inputs/narration/master.wav",
+    "alignment": "inputs/narration/alignment.json"
+  },
+  "audio": {
+    "end_hold_seconds": 0.3,
+    "music": {
+      "source": "inputs/music.wav",
+      "gain": 0.3,
+      "user_instruction": "动感电子铺底"
+    }
+  },
+  "font": {
+    "path": "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf",
+    "index": 0
+  },
+  "captions": {
+    "font": {
+      "path": "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf",
+      "index": 0
+    },
+    "font_size": 42,
+    "color": "#FFFFFF",
+    "bottom_margin": 54,
+    "max_width_ratio": 0.82,
+    "max_lines": 2,
+    "stroke_width": 4,
+    "stroke_color": "#1E1E1E",
+    "background": null
+  },
+  "paper": "#FFFFFF",
+  "ending": {
+    "fade_seconds": 0.25
+  },
+  "pages": [
+    {
+      "id": "p01",
+      "title": "钩子",
+      "illustration": "hook",
+      "beats": [
+        {
+          "id": "p01-b01",
+          "text": "大模型生成一个词，要跑一次完整的正向传播。"
+        },
+        {
+          "id": "p01-b02",
+          "text": "如果能一次前向就出五个词，速度就快五倍。"
+        },
+        {
+          "id": "p01-b03",
+          "text": "投机解码做的就是这件事。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p01.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "hook",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p02",
+      "title": "片头",
+      "illustration": "title-spec",
+      "beats": [
+        {
+          "id": "p02-b01",
+          "text": "阶段 7，第 16 课：投机解码。"
+        },
+        {
+          "id": "p02-b02",
+          "text": "自回归解码是串行的，每个词都等着上一个。"
+        },
+        {
+          "id": "p02-b03",
+          "text": "投机解码打断这条链子。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p02.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "title-spec",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p03",
+      "title": "算一笔账",
+      "illustration": "math",
+      "beats": [
+        {
+          "id": "p03-b01",
+          "text": "七十亿模型在 H100 上采样一个词，大约三十毫秒。"
+        },
+        {
+          "id": "p03-b02",
+          "text": "三十亿的草稿模型只要三毫秒。"
+        },
+        {
+          "id": "p03-b03",
+          "text": "让草稿模型起草五个词，大模型一次验证，总共四十五毫秒，比直出的一百五十毫秒快三倍。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p03.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "math",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p04",
+      "title": "三步",
+      "illustration": "three-steps",
+      "beats": [
+        {
+          "id": "p04-b01",
+          "text": "第一步，草稿模型自回归地提议五个词，带上各自的概率。"
+        },
+        {
+          "id": "p04-b02",
+          "text": "第二步，大模型对整段序列跑一次前向，得到自己的概率。"
+        },
+        {
+          "id": "p04-b03",
+          "text": "第三步，从左到右逐个判断接受还是拒绝。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p04.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "three-steps",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p05",
+      "title": "接受规则",
+      "illustration": "accept-rule",
+      "beats": [
+        {
+          "id": "p05-b01",
+          "text": "接受规则是：以两者概率之比的较小值为准。"
+        },
+        {
+          "id": "p05-b02",
+          "text": "大模型概率高就全接受，草稿概率高就按比例打折。"
+        },
+        {
+          "id": "p05-b03",
+          "text": "一旦拒绝，后面的草稿全部丢弃。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p05.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "accept-rule",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p06",
+      "title": "残差分布",
+      "illustration": "residual",
+      "beats": [
+        {
+          "id": "p06-b01",
+          "text": "被拒绝的位置不是丢掉重来，而是从残差分布里重新采样。"
+        },
+        {
+          "id": "p06-b02",
+          "text": "残差就是大模型概率减去草稿概率，只保留正的部分。"
+        },
+        {
+          "id": "p06-b03",
+          "text": "这一步保证了输出分布和大模型自己生成完全一致。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p06.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "residual",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p07",
+      "title": "分布实测",
+      "illustration": "chi-square",
+      "beats": [
+        {
+          "id": "p07-b01",
+          "text": "跑五万个样本验证一下。"
+        },
+        {
+          "id": "p07-b02",
+          "text": "投机解码的计数和直接采样几乎完全一样。"
+        },
+        {
+          "id": "p07-b03",
+          "text": "卡方统计量只有 4.64，自由度是 7，说明分布一致，没有质量损失。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p07.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "chi-square",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p08",
+      "title": "接受率",
+      "illustration": "acceptance-table",
+      "beats": [
+        {
+          "id": "p08-b01",
+          "text": "加速多少，取决于草稿和验证器有多像。"
+        },
+        {
+          "id": "p08-b02",
+          "text": "实测：KL 散度 0.002 时接受率 0.98。"
+        },
+        {
+          "id": "p08-b03",
+          "text": "KL 涨到 5.9，接受率掉到 0.48，几乎白干。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p08.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "acceptance-table",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p09",
+      "title": "产出效率",
+      "illustration": "tokens-per-call",
+      "beats": [
+        {
+          "id": "p09-b01",
+          "text": "算一下每次验证平均能产出多少词。"
+        },
+        {
+          "id": "p09-b02",
+          "text": "接受率 0.5 时，验证五次也只能出两个词。"
+        },
+        {
+          "id": "p09-b03",
+          "text": "接受率 0.85 时，五次能出 4.15 个词，快了四倍。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p09.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "tokens-per-call",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p10",
+      "title": "四类方案",
+      "illustration": "implementations",
+      "beats": [
+        {
+          "id": "p10-b01",
+          "text": "最朴素的是独立草稿模型，同族效果最好。"
+        },
+        {
+          "id": "p10-b02",
+          "text": "Medusa 在验证器上加多个预测头，不需要第二个模型。"
+        },
+        {
+          "id": "p10-b03",
+          "text": "EAGLE 复用验证器的隐藏状态，接受率更高，典型三到四倍。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p10.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "implementations",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p11",
+      "title": "适用场景",
+      "illustration": "when-works",
+      "beats": [
+        {
+          "id": "p11-b01",
+          "text": "代码和结构化输出的接受率最高，因为可预测。"
+        },
+        {
+          "id": "p11-b02",
+          "text": "自由创作的接受率低，因为下一步太发散。"
+        },
+        {
+          "id": "p11-b03",
+          "text": "贪心解码配合贪心草稿效果好，温度采样会拉低接受率。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p11.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "when-works",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p12",
+      "title": "结尾互动",
+      "illustration": "outro",
+      "beats": [
+        {
+          "id": "p12-b01",
+          "text": "如果你的产品要低延迟，你会选独立草稿还是 Medusa？"
+        },
+        {
+          "id": "p12-b02",
+          "text": "评论区说说：省显存还是省延迟。"
+        },
+        {
+          "id": "p12-b03",
+          "text": "关注这个系列，阶段 7 就到这里。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p12.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "outro",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,499 @@
+{
+  "style": "工业设计马克笔手绘",
+  "illustrations": [
+    {
+      "id": "hook",
+      "composition": "钩子：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p01",
+          "narration_quote": "你已经学了十三课，但每一课都是拆开讲的。",
+          "observable": "十三课拼成一个模型"
+        }
+      ]
+    },
+    {
+      "id": "title-capstone",
+      "composition": "片头：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p02",
+          "narration_quote": "阶段 7，第 14 课：从零构建一个 Transformer。",
+          "observable": "收官项目标题卡"
+        }
+      ]
+    },
+    {
+      "id": "architecture",
+      "composition": "架构全景：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p03",
+          "narration_quote": "输入是 token，先过词嵌入和位置嵌入。",
+          "observable": "从 token 到 logits 的流水线"
+        }
+      ]
+    },
+    {
+      "id": "parts",
+      "composition": "零件来源：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p04",
+          "narration_quote": "注意力来自第三课，多头拆分来自第十课，因果掩码来自第七课。",
+          "observable": "零件与课号对应表"
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "composition": "数据：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p05",
+          "narration_quote": "语料是 tinyshakespeare，大约一兆文本。",
+          "observable": "语料与 65 个字符词表"
+        }
+      ]
+    },
+    {
+      "id": "scale",
+      "composition": "模型规模：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p06",
+          "narration_quote": "四层、四个头、维度一百二十八。",
+          "observable": "四档配置参数量表"
+        }
+      ]
+    },
+    {
+      "id": "train-loop",
+      "composition": "训练循环：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p07",
+          "narration_quote": "取一个长度二百五十六的窗口，随机采样一批。",
+          "observable": "训练四步循环"
+        }
+      ]
+    },
+    {
+      "id": "loss-curve",
+      "composition": "损失曲线：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p08",
+          "narration_quote": "开始的时候，损失是四点二，等于瞎猜。",
+          "observable": "损失下降曲线"
+        }
+      ]
+    },
+    {
+      "id": "sample",
+      "composition": "采样输出：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p09",
+          "narration_quote": "训练完之后，给一个提示词，让它接着写。",
+          "observable": "生成的莎士比亚风格文本"
+        }
+      ]
+    },
+    {
+      "id": "extensions",
+      "composition": "三个扩展：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p10",
+          "narration_quote": "第一，换分词器，用 BPE 把词表从六十五扩到五万。",
+          "observable": "三个扩展方向"
+        }
+      ]
+    },
+    {
+      "id": "params",
+      "composition": "参数对比：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p11",
+          "narration_quote": "同样是这个架构，换个配置参数量差两个数量级。",
+          "observable": "四档参数量柱状图"
+        }
+      ]
+    },
+    {
+      "id": "outro",
+      "composition": "结尾互动：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p12",
+          "narration_quote": "如果给你一台笔记本，你最想给这个模型加哪个能力？",
+          "observable": "三个能力选项"
+        }
+      ]
+    }
+  ],
+  "cover": {
+    "id": "cover",
+    "composition": "钩子：单一主体居中，四周留白。",
+    "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+    "outline_strategy": "visible_source_ink",
+    "subjects": [
+      {
+        "id": "main",
+        "kind": "object",
+        "omitted_roles": []
+      }
+    ],
+    "parts": [
+      {
+        "id": "body",
+        "subject": "main",
+        "role": "主体",
+        "stroke_groups": [
+          "外轮廓一笔",
+          "内部分件线若干"
+        ]
+      }
+    ],
+    "outline_order": [
+      "body"
+    ],
+    "fill_order": [
+      "body"
+    ],
+    "spatial_order": "top_to_bottom_left_to_right",
+    "narrative_requirements": [
+      {
+        "id": "cover-visual",
+        "narration_quote": "你已经学了十三课，但每一课都是拆开讲的。",
+        "observable": "封面有主体组合与留白"
+      }
+    ]
+  }
+}

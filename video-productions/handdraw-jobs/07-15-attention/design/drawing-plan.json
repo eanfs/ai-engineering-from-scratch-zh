@@ -1,0 +1,499 @@
+{
+  "style": "工业设计马克笔手绘",
+  "illustrations": [
+    {
+      "id": "hook",
+      "composition": "钩子：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p01",
+          "narration_quote": "完整的注意力，每个词都要看前面所有的词。",
+          "observable": "完整三角与滑动窗口带对比"
+        }
+      ]
+    },
+    {
+      "id": "title-variants",
+      "composition": "片头：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p02",
+          "narration_quote": "阶段 7，第 15 课：注意力变体。",
+          "observable": "三种变体列表"
+        }
+      ]
+    },
+    {
+      "id": "quadratic-cost",
+      "composition": "平方的代价：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p03",
+          "narration_quote": "十二万八千上下文的七十亿模型，每层有一百六十亿个注意力条目。",
+          "observable": "平方代价计算"
+        }
+      ]
+    },
+    {
+      "id": "swa",
+      "composition": "滑动窗口：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p04",
+          "narration_quote": "第一种变体：每个词只看前面固定窗口内的词。",
+          "observable": "窗口掩码对比"
+        }
+      ]
+    },
+    {
+      "id": "cache-table",
+      "composition": "KV 缓存实测：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p05",
+          "narration_quote": "滑动窗口最大的好处是 KV 缓存变小。",
+          "observable": "缓存大小对比表"
+        }
+      ]
+    },
+    {
+      "id": "hybrid",
+      "composition": "纯滑窗的短板：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p06",
+          "narration_quote": "问题是，纯滑动窗口在长距离检索上会很吃力。",
+          "observable": "纯滑窗与混合结构对比"
+        }
+      ]
+    },
+    {
+      "id": "sparse",
+      "composition": "稀疏注意力：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p07",
+          "narration_quote": "Gemma 3 的做法是：五层滑动窗口，配一层全局注意力。",
+          "observable": "局部加跨步稀疏模式"
+        }
+      ]
+    },
+    {
+      "id": "sink",
+      "composition": "注意力汇：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p08",
+          "narration_quote": "第二种变体：预先设计一个稀疏的注意力模式。",
+          "observable": "注意力权重分布与汇点"
+        }
+      ]
+    },
+    {
+      "id": "diff",
+      "composition": "差分注意力：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p09",
+          "narration_quote": "第三种变体解决的是另一个怪现象。",
+          "observable": "差分公式与权重前后对比"
+        }
+      ]
+    },
+    {
+      "id": "compare",
+      "composition": "四种方案：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p10",
+          "narration_quote": "差分注意力的做法是算两张注意力图，然后相减。",
+          "observable": "四种方案对比表"
+        }
+      ]
+    },
+    {
+      "id": "cost-map",
+      "composition": "成本地图：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p11",
+          "narration_quote": "把四种方案放一起对比，滑动窗口是最便宜的。",
+          "observable": "缓存大小柱状图"
+        }
+      ]
+    },
+    {
+      "id": "outro",
+      "composition": "结尾互动：单一主体居中，四周留白。",
+      "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+      "outline_strategy": "visible_source_ink",
+      "subjects": [
+        {
+          "id": "main",
+          "kind": "object",
+          "omitted_roles": []
+        }
+      ],
+      "parts": [
+        {
+          "id": "body",
+          "subject": "main",
+          "role": "主体",
+          "stroke_groups": [
+            "外轮廓一笔",
+            "内部分件线若干"
+          ]
+        }
+      ],
+      "outline_order": [
+        "body"
+      ],
+      "fill_order": [
+        "body"
+      ],
+      "spatial_order": "top_to_bottom_left_to_right",
+      "narrative_requirements": [
+        {
+          "id": "p12",
+          "narration_quote": "如果你要做一个超长文档检索的产品，你会选哪种注意力？",
+          "observable": "三种方案选项"
+        }
+      ]
+    }
+  ],
+  "cover": {
+    "id": "cover",
+    "composition": "钩子：单一主体居中，四周留白。",
+    "drawability_reason": "主体由清晰勾线包围，色块边界明确，适合先描线后填色。",
+    "outline_strategy": "visible_source_ink",
+    "subjects": [
+      {
+        "id": "main",
+        "kind": "object",
+        "omitted_roles": []
+      }
+    ],
+    "parts": [
+      {
+        "id": "body",
+        "subject": "main",
+        "role": "主体",
+        "stroke_groups": [
+          "外轮廓一笔",
+          "内部分件线若干"
+        ]
+      }
+    ],
+    "outline_order": [
+      "body"
+    ],
+    "fill_order": [
+      "body"
+    ],
+    "spatial_order": "top_to_bottom_left_to_right",
+    "narrative_requirements": [
+      {
+        "id": "cover-visual",
+        "narration_quote": "完整的注意力，每个词都要看前面所有的词。",
+        "observable": "封面有主体组合与留白"
+      }
+    ]
+  }
+}
