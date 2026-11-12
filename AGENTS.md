@@ -207,15 +207,86 @@ node scripts/check_og_cards.js --require-manifests
 
 | 项 | 做法 |
 |---|---|
-| 标题 | **「手绘讲透 XXX：一句具体的问题」**，20 字左右。问句 + 明确价值承诺，历史爆款都是这个格式 |
+| 标题 | **「手绘讲透 XXX：一句具体的问题」**。问句 + 明确价值承诺，历史爆款都是这个格式 |
+| 标题长度 | **硬上限 20 字**，超出会阻止发布且只在标题旁显示红字「22 / 20」，没有别的提示。中文按 1 算、英文按约 0.7 算——「手绘讲透 Transformer：」已占 18，后面只剩 2–3 字。含长英文名的选题改成短结论句式 |
 | 标签 | 4 个大词（#AI #大模型 #Transformer #深度学习）+ 2 个具体模型词（#ViT #MoE #Whisper） |
 | 时段 | **19:00–21:00**（历史爆款都在这个窗口） |
-| 节奏 | **单日单发**。实测同一时段连发会被分流：07-09 拿到 2520 曝光，3 分钟后发的 07-10 只有 782 |
+| 节奏 | 曝光由**互动率**决定，不是发布时间。11-07 同时段连发三条实测：互动 40 → 曝光 3138、互动 29 → 2120、互动 7 → 1282，最晚发的曝光反而最高 |
 | 封面 | 用视频第 1 帧（PIL 绘制的信息图），平台会自动截取；网页版的封面编辑器点不开，不要浪费时间 |
 
-发布 48 小时后看三个指标：**曝光、封面点击率、人均观看时长**。点击率低说明封面/标题不行，人均时长短说明前几秒没留住，曝光低说明发布节奏或账号权重问题——三者要分开判断，不要混成一个「数据不好」的结论。
+标题是唯一的硬约束，其他都能事后补救（正文可编辑、封面可换）。发布后看到「22 / 20」就是没发出去，缩短标题再点一次。
 
-用 `orca computer` 操作 Chrome 上传时，文件选择框的 Return 键用 AppleScript 更稳：`osascript -e 'tell application "System Events" to keystroke return'`（CGEventPost 发 Return 对 NSOpenPanel 时灵时不灵）。
+发布 48 小时后看三个指标：**曝光、封面点击率、人均观看时长**。点击率低说明封面/标题不行，人均时长短说明前几秒没留住，曝光低说明互动不够——三者要分开判断，不要混成一个「数据不好」的结论。
+
+**早期时长数据（发布 10 小时内）完全不可信**：同一条笔记 11-06 读到 5 秒，11-07 读到 25 秒。必须等 24 小时以上再判断留人能力。
+
+#### 用 orca computer 发布的操作要点
+
+四个环节都有坑：
+
+**1. 上传文件**
+
+点「上传视频」→ 系统文件对话框（`NSOpenPanel`，orca 的 AX 读不到它，只能靠键盘）：
+
+```bash
+# 「前往文件夹」会预填上次用过的路径，必须先 Cmd+A 覆盖
+osascript -e 'tell application "System Events" to keystroke "g" using {command down, shift down}'
+sleep 3
+osascript -e 'tell application "System Events" to keystroke "a" using command down'
+printf "%s" "/tmp/v0714.mp4" | pbcopy
+osascript -e 'tell application "System Events" to keystroke "v" using command down'
+sleep 2
+osascript -e 'tell application "System Events" to key code 36'   # 确认路径
+sleep 3
+osascript -e 'tell application "System Events" to key code 36'   # 打开文件
+```
+
+**不要在文件列表里点鼠标**——合成鼠标事件对 `NSOpenPanel` 无效，试过多次完全没有反应。
+
+**2. 填正文**
+
+标题可以直接 `set-value`；正文必须「先清空再剪贴板粘贴」，三条弯路：
+
+- `orca computer paste-text` 会执行**两次**，正文重复一遍
+- `set-value` 传真实换行会被**吞成空格**，全文挤成一段
+- `Cmd+Z` 撤销一次会**清空整个正文**，不是回退一层
+
+```bash
+orca computer click --app com.google.Chrome --element-index <正文索引>
+orca computer set-value --app com.google.Chrome --element-index <正文索引> --value ""
+sleep 2
+cat body.txt | pbcopy
+osascript -e 'tell application "System Events" to keystroke "v" using command down'
+```
+
+**3. 点发布**
+
+先 dump 整棵树再拿索引，`--query "按钮 发布"` 有时匹配不到：
+
+```bash
+orca computer get-app-state --app com.google.Chrome --json > /tmp/state.json
+grep -oE "[0-9]+ 按钮 发布" /tmp/state.json | head -1
+```
+
+成功标志：URL 变成 `?source=&published=true`。如果还是 `?target=video` 且标题旁有红字，就是标题超限。
+
+**4. 编辑已发布笔记**
+
+笔记管理页点卡片标题直接进编辑页（`publish/update?id=...&noteType=video`），改完点底部「发布」保存，URL 跳到 `note-manager?source=` 即成功。验证：重新打开编辑 URL 读正文内容。
+
+**标签页管理**：Chrome 常开着一堆别的标签，orca 只作用于当前活动标签。切换要按 URL 匹配，不要用索引（新开标签会让索引漂移）：
+
+```applescript
+tell application "Google Chrome"
+	set tabList to tabs of front window
+	repeat with i from 1 to count of tabList
+		if URL of item i of tabList contains "creator.xiaohongshu.com/publish" then
+			set active tab index of front window to i
+			exit repeat
+		end if
+	end repeat
+end tell
+```
 
 ---
 
@@ -228,4 +299,4 @@ node scripts/check_og_cards.js --require-manifests
 
 ---
 
-最后审校：2026-11-07。
+最后审校：2026-11-12。
