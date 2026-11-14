@@ -1,0 +1,149 @@
+{
+  "dependency_sha256": "fbbfd33d70f729011b6a6bc232851c116cd4a89ead2adea4462888a6ce26fc1a",
+  "style_sha256": "02f927db092c7d407a7f0acb80c3c1374d68769c38b61a5ce14e8b543c1e80b4",
+  "images": [
+    {
+      "source": "../inputs/cover.png",
+      "sha256": "2d1a0b3e0a29a9b806c0884e83dd223dffd5b4a7e6af119d54ee2d1dd3b66505",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/cover.md",
+      "brief_sha256": "993a48e3890ddb9ead9697272bd7d6759c0eaa5f123f5ed88e2c626ac5e8bf51",
+      "prompt_file": "prompts/cover.txt",
+      "prompt_sha256": "8aa49ca2ab2551a4cad6418db45b1e466bdf1ed0f17c7e2ce9988423497d6858",
+      "status": "pass",
+      "evidence": "封面有主体组合与留白，符合本集主题"
+    },
+    {
+      "source": "../inputs/p01.png",
+      "sha256": "ec162c9aff023f1961b088d937a5d57d7989a2eb23310fc01dedbcd1fde784fd",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p01.md",
+      "brief_sha256": "0a2c542e8511bb8d6d440d70e80d3125ecf5e3ae0dd5aefaa481b7a7950b630e",
+      "prompt_file": "prompts/p01.txt",
+      "prompt_sha256": "a8db94f68db05c3b272999028bcd3bea1360a89988c9a6261271de739adc76b6",
+      "status": "pass",
+      "evidence": "模糊写法和工程化写法对比"
+    },
+    {
+      "source": "../inputs/p02.png",
+      "sha256": "d2d0c10089895b8c12c718236d35dccbaf291e5300569ad5226fa80e70501479",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p02.md",
+      "brief_sha256": "c3759257c324e52238909949f07dd8f765a0ad0df47c1a7e3854ac2e8d0e1e8d",
+      "prompt_file": "prompts/p02.txt",
+      "prompt_sha256": "845c459960960589d4db93d7dee54859adb3270ea2a4e669cd6ccfde6a9b621a",
+      "status": "pass",
+      "evidence": "提示词三部分解剖"
+    },
+    {
+      "source": "../inputs/p03.png",
+      "sha256": "793114190bc50490db88138c7fdd4513a85db25bbf7bf77aed125dcc72c22d90",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p03.md",
+      "brief_sha256": "32597a3fd8cba03b3562b86bd9f95ac338fef64320c6571fbedc98fab2a666ff",
+      "prompt_file": "prompts/p03.txt",
+      "prompt_sha256": "766d786372f2d8f90e7884b94b20392c0ce25c493d019c02a161ed4e2d03d7b7",
+      "status": "pass",
+      "evidence": "宽分布与窄分布对比"
+    },
+    {
+      "source": "../inputs/p04.png",
+      "sha256": "51caf1ef410c6505c05fc67d14766b399591e2f61ee83bf2b6977baf7db1d7b0",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p04.md",
+      "brief_sha256": "97722ba83f817a1da29493bc516980c7b267c88ba26bb3ff0ff2733f33245c3c",
+      "prompt_file": "prompts/p04.txt",
+      "prompt_sha256": "6bf4727835557cd7624695adac7e154948e0a9c1d72e1c53417ab821689b2274",
+      "status": "pass",
+      "evidence": "角色具体度阶梯"
+    },
+    {
+      "source": "../inputs/p05.png",
+      "sha256": "53cfc43b42390f14a8e550202c6ef01c1239eaeb7228a45056024048c2e36207",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p05.md",
+      "brief_sha256": "cbef625d6e94b3ba78efae78bed9a6aae52ad01c77cb1b2c3b92291af2878a81",
+      "prompt_file": "prompts/p05.txt",
+      "prompt_sha256": "3d54e294f2b318be23bfac72436cc368828f46584e1c1d52c007c337e131cce7",
+      "status": "pass",
+      "evidence": "模糊与工程化对照"
+    },
+    {
+      "source": "../inputs/p06.png",
+      "sha256": "2b0c4a93c4547937b72f3065a4ed42d5cb2ec00aafe8e48d43465fafe437b163",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p06.md",
+      "brief_sha256": "f734c9983eb63b497b2a14a09a470fe84674b6d6e8543a64621d3fdb2ac186c7",
+      "prompt_file": "prompts/p06.txt",
+      "prompt_sha256": "122a8ba29fe604ebf554c64324c9a30dd593f2a81b633703e49a4e3bf95cc3d1",
+      "status": "pass",
+      "evidence": "歧义分叉与约束"
+    },
+    {
+      "source": "../inputs/p07.png",
+      "sha256": "b8c864fab473d530d4fbb32276a4e1286b32ea76f08abdf2715356ec806a8edf",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p07.md",
+      "brief_sha256": "120a25c27a7e19e2c644e39c9d036eb6e5f838d9dd442043e5e40b28908ec6f3",
+      "prompt_file": "prompts/p07.txt",
+      "prompt_sha256": "7af24a58a339f8d2e236fbe4a5fbbb6664747640507e383202450e851478db87",
+      "status": "pass",
+      "evidence": "四种常用模式"
+    },
+    {
+      "source": "../inputs/p08.png",
+      "sha256": "c32a2c1acbaab157fd7be0c4e0ff6609606cc768634a5bb081dabaef0ef52a26",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p08.md",
+      "brief_sha256": "1ba4f11fdad5755ab85452b950eedf892d77659e36dccb426f9cae229e0cc83e",
+      "prompt_file": "prompts/p08.txt",
+      "prompt_sha256": "a895530b3b482f794982300e9fe29b67af22062b84ab0ecc04339bb388dff413",
+      "status": "pass",
+      "evidence": "护栏设定与两种结果"
+    },
+    {
+      "source": "../inputs/p09.png",
+      "sha256": "26ea65f0036d840adfca68f86a35ab715097fcc8391b8d17a1c827b96fbbaa8e",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p09.md",
+      "brief_sha256": "2e54cfc41a6ea5986b89bbccf9c7baff3a923567dc8de8e9c769b29e4bdadc40",
+      "prompt_file": "prompts/p09.txt",
+      "prompt_sha256": "1116d6c02343b8a7fd94626b2546e36554c7a49d732abb9e7366bd90c06046e6",
+      "status": "pass",
+      "evidence": "测试三步与排名"
+    },
+    {
+      "source": "../inputs/p10.png",
+      "sha256": "d5f1d7e5e9690faa32ccecd3256895766c79673b1be15da85bfa4ed99fb4ff5d",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p10.md",
+      "brief_sha256": "de83bf3f8221e5d812453329d8e0e14ac0a25f8e33f8986f7f1328d98cb8733e",
+      "prompt_file": "prompts/p10.txt",
+      "prompt_sha256": "cafb0b8b346c5d84a2bd9510c85154d05f82425562920207ee2dcd5c235426de",
+      "status": "pass",
+      "evidence": "三个病症与原因"
+    },
+    {
+      "source": "../inputs/p11.png",
+      "sha256": "4c1b7f8bb801e7d3bd4e28db9e1fa418d84ffdd89b0ecae3accaa98e4b0df36f",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p11.md",
+      "brief_sha256": "4adaad83edc7985a97610cde5df10475763255c1477221998b3e15adc9616d19",
+      "prompt_file": "prompts/p11.txt",
+      "prompt_sha256": "d03f3efa03db663d96445c1fefeac94bf0fd78cc22d7cf1a7fa306501f89603c",
+      "status": "pass",
+      "evidence": "三模型分数对比"
+    },
+    {
+      "source": "../inputs/p12.png",
+      "sha256": "d73f0b9cb8fea59a0381d969a3f80b853ca40b307f3353257ed34d443658bee9",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p12.md",
+      "brief_sha256": "92a80b8dce060ee7b2571c25a679b63a17f13959d4b00d2850ace5fa39ed1e5e",
+      "prompt_file": "prompts/p12.txt",
+      "prompt_sha256": "b9d611fb3daa5d08c0c30b2635934d667e5a513e9598bbea5512262b05a7d949",
+      "status": "pass",
+      "evidence": "三个常漏部分"
+    }
+  ]
+}

@@ -1,0 +1,814 @@
+{
+  "version": 1,
+  "title": "提示词工程",
+  "design_file": "design.json",
+  "art_direction": {
+    "record": "design/art-direction.json"
+  },
+  "drawing_plan": "design/drawing-plan.json",
+  "drawing_review": "design/drawing-review.json",
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "cover": {
+    "source": "inputs/cover.png",
+    "seconds": 1.0
+  },
+  "hand": {
+    "preset": "teacher-pen"
+  },
+  "narration": {
+    "source": "inputs/narration/master.wav",
+    "alignment": "inputs/narration/alignment.json"
+  },
+  "audio": {
+    "end_hold_seconds": 0.3,
+    "music": {
+      "source": "inputs/music.wav",
+      "gain": 0.3,
+      "user_instruction": "动感电子铺底"
+    }
+  },
+  "font": {
+    "path": "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf",
+    "index": 0
+  },
+  "captions": {
+    "font": {
+      "path": "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf",
+      "index": 0
+    },
+    "font_size": 42,
+    "color": "#FFFFFF",
+    "bottom_margin": 54,
+    "max_width_ratio": 0.82,
+    "max_lines": 2,
+    "stroke_width": 4,
+    "stroke_color": "#1E1E1E",
+    "background": null
+  },
+  "paper": "#FFFFFF",
+  "ending": {
+    "fade_seconds": 0.25
+  },
+  "pages": [
+    {
+      "id": "p01",
+      "title": "钩子",
+      "illustration": "hook",
+      "beats": [
+        {
+          "id": "p01-b01",
+          "text": "「给我写一封营销邮件」，这是大多数人写提示词的方式。"
+        },
+        {
+          "id": "p01-b02",
+          "text": "结果是一坨泛泛而谈、根本没法用的东西。"
+        },
+        {
+          "id": "p01-b03",
+          "text": "同一件事，换一种写法，输出天差地别。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p01.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "hook",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p02",
+      "title": "片头",
+      "illustration": "title-anatomy",
+      "beats": [
+        {
+          "id": "p02-b01",
+          "text": "阶段 11，第 1 课：Prompt Engineering，提示词工程。"
+        },
+        {
+          "id": "p02-b02",
+          "text": "它不是花招，也不是绕路的小聪明。"
+        },
+        {
+          "id": "p02-b03",
+          "text": "它是人类意图和机器能力之间最主要的接口。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p02.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "title-anatomy",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p03",
+      "title": "为什么管用",
+      "illustration": "activation",
+      "beats": [
+        {
+          "id": "p03-b01",
+          "text": "每次调用有三个部分：system、user、assistant prefill。"
+        },
+        {
+          "id": "p03-b02",
+          "text": "system 设定身份与规则，跨轮次持续，模型当成最高优先级。"
+        },
+        {
+          "id": "p03-b03",
+          "text": "prefill 可以给回复开头，直接逼出你要的格式。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p03.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "activation",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p04",
+      "title": "角色具体度",
+      "illustration": "roles",
+      "beats": [
+        {
+          "id": "p04-b01",
+          "text": "「你是一名资深 Python 开发者」不是什么魔咒。"
+        },
+        {
+          "id": "p04-b02",
+          "text": "它是一个激活函数：把采样分布偏向训练数据里专家那一端。"
+        },
+        {
+          "id": "p04-b03",
+          "text": "同样的模型，同样的参数，激活的区域不同，质量就不同。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p04.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "roles",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p05",
+      "title": "营销邮件对比",
+      "illustration": "marketing",
+      "beats": [
+        {
+          "id": "p05-b01",
+          "text": "「你是个乐于助人的助手」，激活的是泛泛的中位数回答。"
+        },
+        {
+          "id": "p05-b02",
+          "text": "「你是 Stripe 专攻支付的资深后端工程师」，就窄得多、好得多。"
+        },
+        {
+          "id": "p05-b03",
+          "text": "但如果具体到「量子引力弦拓扑全球第一」，只会产出一本正经的胡说。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p05.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "marketing",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p06",
+      "title": "歧义分叉",
+      "illustration": "ambiguity",
+      "beats": [
+        {
+          "id": "p06-b01",
+          "text": "模糊版只有一句：给我们新产品写一封营销邮件。"
+        },
+        {
+          "id": "p06-b02",
+          "text": "具体版加了角色、受众、语气、字数、一个具体指标、结尾只留一个 CTA。"
+        },
+        {
+          "id": "p06-b03",
+          "text": "合法输出越少，拿到你想要那个的概率就越高。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p06.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "ambiguity",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p07",
+      "title": "四种模式",
+      "illustration": "four-patterns",
+      "beats": [
+        {
+          "id": "p07-b01",
+          "text": "「总结这篇文章」，可能是一段话、五百字长文，或者十个要点。"
+        },
+        {
+          "id": "p07-b02",
+          "text": "「用三个要点总结，每条一句话不超过二十词，只讲定量发现」。"
+        },
+        {
+          "id": "p07-b03",
+          "text": "前者把选择权交给模型，后者把选择权收回来。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p07.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "four-patterns",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p08",
+      "title": "护栏",
+      "illustration": "guardrail",
+      "beats": [
+        {
+          "id": "p08-b01",
+          "text": "第一种是角色：告诉它你是谁。"
+        },
+        {
+          "id": "p08-b02",
+          "text": "第二种是少样本：给它两三个例子，它照着学。"
+        },
+        {
+          "id": "p08-b03",
+          "text": "第三种是思维链：让它先写推理过程，再给答案。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p08.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "guardrail",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p09",
+      "title": "测试提示词",
+      "illustration": "testing",
+      "beats": [
+        {
+          "id": "p09-b01",
+          "text": "护栏模式给模型画一个圈，圈外的问题一律拒绝。"
+        },
+        {
+          "id": "p09-b02",
+          "text": "实测：给一个 Python 助教加上护栏之后，被问别的领域时会明确说不。"
+        },
+        {
+          "id": "p09-b03",
+          "text": "这对面向用户的产品是必需的，不然它会替你做客服以外的一切。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p09.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "testing",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p10",
+      "title": "三个病症",
+      "illustration": "three-bugs",
+      "beats": [
+        {
+          "id": "p10-b01",
+          "text": "改了提示词，输出变了，怎么知道是变好还是变坏？"
+        },
+        {
+          "id": "p10-b02",
+          "text": "建一个测试集，每个用例给一份预期输出，跑分。"
+        },
+        {
+          "id": "p10-b03",
+          "text": "实测里同一套用例，gpt-4o 五战全胜，另外两个模型各有所短。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p10.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "three-bugs",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p11",
+      "title": "模型对比",
+      "illustration": "benchmark",
+      "beats": [
+        {
+          "id": "p11-b01",
+          "text": "幻觉：模型编了不存在的事实，通常是约束太少。"
+        },
+        {
+          "id": "p11-b02",
+          "text": "拒答：明明能答却拒绝，通常是护栏写得太宽。"
+        },
+        {
+          "id": "p11-b03",
+          "text": "格式违规：让它输出 JSON，它偏加上一句解释。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p11.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "benchmark",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p12",
+      "title": "结尾互动",
+      "illustration": "outro",
+      "beats": [
+        {
+          "id": "p12-b01",
+          "text": "你写提示词时，最常漏掉哪一部分？"
+        },
+        {
+          "id": "p12-b02",
+          "text": "评论区说说：角色、示例，还是输出格式。"
+        },
+        {
+          "id": "p12-b03",
+          "text": "关注这个系列，下一集讲少样本与思维链。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p12.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "outro",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
