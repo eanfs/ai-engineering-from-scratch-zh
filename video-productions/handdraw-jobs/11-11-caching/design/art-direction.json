@@ -1,0 +1,149 @@
+{
+  "dependency_sha256": "fbbfd33d70f729011b6a6bc232851c116cd4a89ead2adea4462888a6ce26fc1a",
+  "style_sha256": "02f927db092c7d407a7f0acb80c3c1374d68769c38b61a5ce14e8b543c1e80b4",
+  "images": [
+    {
+      "source": "../inputs/cover.png",
+      "sha256": "8c50e94bfee694b81cfb4fc23b46d31acbeac89ff76761dc9c95e4a98c8d946d",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/cover.md",
+      "brief_sha256": "993a48e3890ddb9ead9697272bd7d6759c0eaa5f123f5ed88e2c626ac5e8bf51",
+      "prompt_file": "prompts/cover.txt",
+      "prompt_sha256": "41c04eaa281946b3d1ff480389b32939c67d98f49e7741cd248173bf88dde777",
+      "status": "pass",
+      "evidence": "封面有主体组合与留白，符合本集主题"
+    },
+    {
+      "source": "../inputs/p01.png",
+      "sha256": "db7ae8176b13da35a86fb855f895c33762b60aaade9e7f3f14ddabcb7a9c8d3c",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p01.md",
+      "brief_sha256": "0a2c542e8511bb8d6d440d70e80d3125ecf5e3ae0dd5aefaa481b7a7950b630e",
+      "prompt_file": "prompts/p01.txt",
+      "prompt_sha256": "7cf6d113b54a94c48847eb22796c6ca3fcde87c54d53cef1c89664087880ee1d",
+      "status": "pass",
+      "evidence": "月账单与重复查询比例"
+    },
+    {
+      "source": "../inputs/p02.png",
+      "sha256": "0639291b7d9b1cfeb35989cf47a2a02ef1f8d48b8a29face35cfc07d6a3af206",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p02.md",
+      "brief_sha256": "c3759257c324e52238909949f07dd8f765a0ad0df47c1a7e3854ac2e8d0e1e8d",
+      "prompt_file": "prompts/p02.txt",
+      "prompt_sha256": "d4e0a313a8962b01a4b6d174c1d37960a803035f87638f34580025b67aed2952",
+      "status": "pass",
+      "evidence": "七层优化列表"
+    },
+    {
+      "source": "../inputs/p03.png",
+      "sha256": "2221d79362c40bc9a82c4024bcd44acc8a31826c49c94963e683d2780277edd6",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p03.md",
+      "brief_sha256": "a8ae807a1c4528c34bf9894710f38430c7f6bcba1f5133ac4f2659682a803ad1",
+      "prompt_file": "prompts/p03.txt",
+      "prompt_sha256": "09e45a904247ae07d9617fb71784b0943031df9fe0aa701e9d5b219951bd75bd",
+      "status": "pass",
+      "evidence": "三个成本组成部分"
+    },
+    {
+      "source": "../inputs/p04.png",
+      "sha256": "ce830d9f6f26ed1745540537606e8d6c8aeff857d84f80a8bd938057cae6d6ae",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p04.md",
+      "brief_sha256": "d8059946496c7378b6c1dcec960d6254c8e22c0b21b00aff70865d816fe73a2f",
+      "prompt_file": "prompts/p04.txt",
+      "prompt_sha256": "cfe503a694d409431f9e2fca14112030f6159f0e3ca8002ae2716e517fa17530",
+      "status": "pass",
+      "evidence": "system prompt 成本递增"
+    },
+    {
+      "source": "../inputs/p05.png",
+      "sha256": "88adc17b62c9d0764ea82707c24566bd522b67842b16c22f512ff04e1752f42e",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p05.md",
+      "brief_sha256": "f0ac173c28e6524fa55cf18aca580ce6fa0647aac63b9be6b15038dc6465b3f5",
+      "prompt_file": "prompts/p05.txt",
+      "prompt_sha256": "4f962008e289a496f6526bf8a08b0f7afe03a8551fb560e0d1be322bbb3169f5",
+      "status": "pass",
+      "evidence": "三家厂商折扣对比"
+    },
+    {
+      "source": "../inputs/p06.png",
+      "sha256": "db620ea5346e20cc2948ecb1988c33eac817fc30b9160134cd74f24e771dd372",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p06.md",
+      "brief_sha256": "6f947bed4ac7857687f94d480d577bcf1a8d4b9298c92813d09dec89fe04776c",
+      "prompt_file": "prompts/p06.txt",
+      "prompt_sha256": "a533bad2a45dc71a27cf159e3e69f46d3d8d0e1444b628f7bafb47c500b10375",
+      "status": "pass",
+      "evidence": "语义相似度检索流程"
+    },
+    {
+      "source": "../inputs/p07.png",
+      "sha256": "9b0b84172560f3ac0d8ab9e911c979e80c66ff3ae5dd0c12206e20801efe8112",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p07.md",
+      "brief_sha256": "65603c8a3d641a19c8d977333a965ded29a52a7a795d9ed5ec2f3fae5dcb6e1e",
+      "prompt_file": "prompts/p07.txt",
+      "prompt_sha256": "d88c4c6aa406880ab8d66f12c4c8cedfbe2634414f714f27ae009261ac7fcdde",
+      "status": "pass",
+      "evidence": "哈希匹配与适用场景"
+    },
+    {
+      "source": "../inputs/p08.png",
+      "sha256": "52db6e4f1f3c352b793456fa369b30767bb4b9c4851939a6afec0f6a791de00e",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p08.md",
+      "brief_sha256": "d73de5f5a734b02c35a1b9d3157d018a8846a727bc2b5f44ac064fd742d96d13",
+      "prompt_file": "prompts/p08.txt",
+      "prompt_sha256": "601ed09678283d44aae2c289906c737f6caa412fd5f1501bd8ecf62ad668f5f5",
+      "status": "pass",
+      "evidence": "三档模型分流"
+    },
+    {
+      "source": "../inputs/p09.png",
+      "sha256": "c74248d50f7f4e0f059577026f4de82c12d99718ab4aa3eacb2f51e8b66cf190",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p09.md",
+      "brief_sha256": "be4cb558f1557f02cf26a0bc22e95c9209d600dd93102473a4a97ad4ccb93ca0",
+      "prompt_file": "prompts/p09.txt",
+      "prompt_sha256": "4acecdfbbf723bbeb851ac7544b33c54570c8911bc1258da5769549c584c9dbe",
+      "status": "pass",
+      "evidence": "令牌桶与配额表"
+    },
+    {
+      "source": "../inputs/p10.png",
+      "sha256": "7be2e055e233328f2fb82caa301777b2fde8dd077ebbd5c5497d66419ccd876c",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p10.md",
+      "brief_sha256": "6ddfaa383c2b721b79baaf12d49d6c1e908b53bf1402a8ef162b26eeab70dbc3",
+      "prompt_file": "prompts/p10.txt",
+      "prompt_sha256": "142ab1f327956b9505997d0e950e87a14abdd0d96b3d5590b3fb2778aba21397",
+      "status": "pass",
+      "evidence": "三档预算熔断"
+    },
+    {
+      "source": "../inputs/p11.png",
+      "sha256": "eb7d6806c7e645c94cb96a9acb885f4d5aa4bd5e8c01284c7e0e476797a22e42",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p11.md",
+      "brief_sha256": "0c3dfd87123b1cf36cd88cad48ea6cbd9ea567933e88edd81f67a0f206204cd0",
+      "prompt_file": "prompts/p11.txt",
+      "prompt_sha256": "7384ac73b78581114979bc0c1ffa95549de13e446796be3cad66e4e73fb66b70",
+      "status": "pass",
+      "evidence": "优化前后对比表"
+    },
+    {
+      "source": "../inputs/p12.png",
+      "sha256": "a00a71b6ae6f9071fb892d17ef92e4c46f9e8d9d47d6addef31b1f703fe6e794",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p12.md",
+      "brief_sha256": "92a80b8dce060ee7b2571c25a679b63a17f13959d4b00d2850ace5fa39ed1e5e",
+      "prompt_file": "prompts/p12.txt",
+      "prompt_sha256": "97620337c9ceee7bbf9c7ad118f432de7a821c358ab74bb96fad8c1463885cc5",
+      "status": "pass",
+      "evidence": "三个缓存选项"
+    }
+  ]
+}
