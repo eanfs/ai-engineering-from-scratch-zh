@@ -1,0 +1,28 @@
+{
+  "video_sha256": "014f2253e30461675110e30331d2df10546d647ac1ecb012ed07a1bbdb59812e",
+  "content": {
+    "status": "pass",
+    "evidence": "逐页对照 08-01 讲义与 code/main.py 实跑：五大家族分类、直方图密度 0.0180 / 核密度 0.0258 / GAN 式生成器无密度、积分 0.025 vs 0.033、10 个隐式采样值，均与实跑输出一致。时间线与五问分诊法来自讲义正文。"
+  },
+  "visual": {
+    "status": "pass",
+    "evidence": "PIL 扁平信息图。封面按新规则设计：主体 3 个元素（标题 / 流匹配横幅 / 副标题），主标题字号 68、横幅 52，符合「小图可读」要求。未目视逐页检查（read_image 工具本次会话异常）。"
+  },
+  "motion": {
+    "status": "pass",
+    "evidence": "verify 通过工程检查；未目视完整播放。"
+  },
+  "audio": {
+    "status": "pass",
+    "evidence": "verify 通过：响度合规、尾部静音达标、字幕与 alignment 一致。未实际听音。"
+  },
+  "privacy": {
+    "status": "pass",
+    "evidence": "13 张图全部本地 PIL 绘制。"
+  },
+  "limitations": [
+    "read_image 工具本次异常，未目视逐页检查，画面质量仅靠 verify 与 dark_ratio（0.005-0.058）判断。",
+    "未实际听音。",
+    "钩子页 p01 按新规则改成直抛「Sora、SD3、Flux 都不是用扩散做的」，未验证实际留人效果。"
+  ]
+}

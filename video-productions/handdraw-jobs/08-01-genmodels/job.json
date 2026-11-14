@@ -1,0 +1,814 @@
+{
+  "version": 1,
+  "title": "生成模型的五个家族",
+  "design_file": "design.json",
+  "art_direction": {
+    "record": "design/art-direction.json"
+  },
+  "drawing_plan": "design/drawing-plan.json",
+  "drawing_review": "design/drawing-review.json",
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "cover": {
+    "source": "inputs/cover.png",
+    "seconds": 1.0
+  },
+  "hand": {
+    "preset": "teacher-pen"
+  },
+  "narration": {
+    "source": "inputs/narration/master.wav",
+    "alignment": "inputs/narration/alignment.json"
+  },
+  "audio": {
+    "end_hold_seconds": 0.3,
+    "music": {
+      "source": "inputs/music.wav",
+      "gain": 0.3,
+      "user_instruction": "动感电子铺底"
+    }
+  },
+  "font": {
+    "path": "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf",
+    "index": 0
+  },
+  "captions": {
+    "font": {
+      "path": "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf",
+      "index": 0
+    },
+    "font_size": 42,
+    "color": "#FFFFFF",
+    "bottom_margin": 54,
+    "max_width_ratio": 0.82,
+    "max_lines": 2,
+    "stroke_width": 4,
+    "stroke_color": "#1E1E1E",
+    "background": null
+  },
+  "paper": "#FFFFFF",
+  "ending": {
+    "fade_seconds": 0.25
+  },
+  "pages": [
+    {
+      "id": "p01",
+      "title": "钩子",
+      "illustration": "hook",
+      "beats": [
+        {
+          "id": "p01-b01",
+          "text": "Sora、Stable Diffusion 3、Flux。"
+        },
+        {
+          "id": "p01-b02",
+          "text": "这三个模型，都不是用经典扩散做的。"
+        },
+        {
+          "id": "p01-b03",
+          "text": "它们用的是流匹配，采样快四到十倍。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p01.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "hook",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p02",
+      "title": "片头",
+      "illustration": "title-five",
+      "beats": [
+        {
+          "id": "p02-b01",
+          "text": "阶段 8，第 1 课：生成模型的分类与历史。"
+        },
+        {
+          "id": "p02-b02",
+          "text": "过去十二年活下来的生成模型，一共五个家族。"
+        },
+        {
+          "id": "p02-b03",
+          "text": "选错家族，你会跟数学搏斗好几周。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p02.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "title-five",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p03",
+      "title": "五种妥协",
+      "illustration": "five-buckets",
+      "beats": [
+        {
+          "id": "p03-b01",
+          "text": "所有生成模型只干一件事：学着采样出一个分布。"
+        },
+        {
+          "id": "p03-b02",
+          "text": "难题是那个分布住在几百万维的空间里。"
+        },
+        {
+          "id": "p03-b03",
+          "text": "一张五百一十二的彩色图，就是七十八万维。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p03.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "five-buckets",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p04",
+      "title": "第一桶",
+      "illustration": "explicit",
+      "beats": [
+        {
+          "id": "p04-b01",
+          "text": "第一桶把概率写得出来、算得出来。"
+        },
+        {
+          "id": "p04-b02",
+          "text": "自回归模型把联合分布拆成一串条件概率的乘积。"
+        },
+        {
+          "id": "p04-b03",
+          "text": "GPT、WaveNet、PixelCNN 都属于这一桶。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p04.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "explicit",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p05",
+      "title": "第二桶",
+      "illustration": "approximate",
+      "beats": [
+        {
+          "id": "p05-b01",
+          "text": "第二桶算不出精确概率，只能算一个下界。"
+        },
+        {
+          "id": "p05-b02",
+          "text": "变分自编码器用一个编码器加解码器逼近它。"
+        },
+        {
+          "id": "p05-b03",
+          "text": "扩散模型训练一个去噪器，本质上也在优化同一个下界。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p05.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "approximate",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p06",
+      "title": "第三桶",
+      "illustration": "implicit",
+      "beats": [
+        {
+          "id": "p06-b01",
+          "text": "第三桶干脆绕开概率，只学一个生成器。"
+        },
+        {
+          "id": "p06-b02",
+          "text": "生成器造假，判别器辨真，这就是 GAN。"
+        },
+        {
+          "id": "p06-b03",
+          "text": "推理只要一次前向，但训练极其不稳定。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p06.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "implicit",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p07",
+      "title": "第四桶",
+      "illustration": "score",
+      "beats": [
+        {
+          "id": "p07-b01",
+          "text": "第四桶不学密度，学密度的梯度，也就是分数。"
+        },
+        {
+          "id": "p07-b02",
+          "text": "二零二三年流匹配把这个思路改成了直线路径。"
+        },
+        {
+          "id": "p07-b03",
+          "text": "不用仿真、路径更直、采样更快，这是现在的当红选手。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p07.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "score",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p08",
+      "title": "第五桶",
+      "illustration": "token-ar",
+      "beats": [
+        {
+          "id": "p08-b01",
+          "text": "第五桶先用量化器把图像压成一小串离散 token。"
+        },
+        {
+          "id": "p08-b02",
+          "text": "再拿一个 Transformer 给这串 token 建模。"
+        },
+        {
+          "id": "p08-b03",
+          "text": "Sora 的画面分词、AudioLM 的音频，都是这一路。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p08.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "token-ar",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p09",
+      "title": "实测",
+      "illustration": "density-test",
+      "beats": [
+        {
+          "id": "p09-b01",
+          "text": "跑一段代码看清第一桶和第三桶的分别。"
+        },
+        {
+          "id": "p09-b02",
+          "text": "直方图和核密度都能回答「这个点出现的概率多大」。"
+        },
+        {
+          "id": "p09-b03",
+          "text": "而 GAN 这一路只吐样本，根本算不出概率。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p09.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "density-test",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p10",
+      "title": "时间线",
+      "illustration": "timeline",
+      "beats": [
+        {
+          "id": "p10-b01",
+          "text": "二零一三年变分自编码器，第一个能用的深度生成模型。"
+        },
+        {
+          "id": "p10-b02",
+          "text": "二零一四年 GAN，二零二零年扩散变得实用。"
+        },
+        {
+          "id": "p10-b03",
+          "text": "二零二二年潜空间扩散加文本条件，二零二四年流匹配胜出。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p10.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "timeline",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p11",
+      "title": "五问分诊",
+      "illustration": "five-questions",
+      "beats": [
+        {
+          "id": "p11-b01",
+          "text": "读任何一篇新论文之前，先回答五个问题。"
+        },
+        {
+          "id": "p11-b02",
+          "text": "建的是什么？密度显式还是隐式？采样一次到位还是迭代？"
+        },
+        {
+          "id": "p11-b03",
+          "text": "条件是什么？评测用什么？答完这五个，方法章节就不用猜了。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p11.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "five-questions",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p12",
+      "title": "结尾互动",
+      "illustration": "outro",
+      "beats": [
+        {
+          "id": "p12-b01",
+          "text": "Midjourney v7、Runway Gen-3、ElevenLabs，分别属于哪一桶？"
+        },
+        {
+          "id": "p12-b02",
+          "text": "评论区说说你的判断，答错了也没关系。"
+        },
+        {
+          "id": "p12-b03",
+          "text": "关注这个系列，下一集讲变分自编码器。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p12.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "outro",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

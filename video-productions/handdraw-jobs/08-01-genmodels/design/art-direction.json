@@ -1,0 +1,149 @@
+{
+  "dependency_sha256": "fbbfd33d70f729011b6a6bc232851c116cd4a89ead2adea4462888a6ce26fc1a",
+  "style_sha256": "02f927db092c7d407a7f0acb80c3c1374d68769c38b61a5ce14e8b543c1e80b4",
+  "images": [
+    {
+      "source": "../inputs/cover.png",
+      "sha256": "655a09b838d9c1c9d0d12cbf2704ef8f12cc90742e15f3e637e7e01c1e66bf2c",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/cover.md",
+      "brief_sha256": "993a48e3890ddb9ead9697272bd7d6759c0eaa5f123f5ed88e2c626ac5e8bf51",
+      "prompt_file": "prompts/cover.txt",
+      "prompt_sha256": "9200cf70488cda0aad58b91ccede0d4f264408839bb056fc11d52b869d963a15",
+      "status": "pass",
+      "evidence": "封面有主体组合与留白，符合本集主题"
+    },
+    {
+      "source": "../inputs/p01.png",
+      "sha256": "acb371340a06c0da7b4fa4a74e9314ad7e36091f0ed9c8b3bbbfa860bcb17745",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p01.md",
+      "brief_sha256": "0a2c542e8511bb8d6d440d70e80d3125ecf5e3ae0dd5aefaa481b7a7950b630e",
+      "prompt_file": "prompts/p01.txt",
+      "prompt_sha256": "f50a326115c6235109d20f28d8c7fee5ce6736a3f3164710a3a02b01743c05be",
+      "status": "pass",
+      "evidence": "三个模型名与流匹配结论"
+    },
+    {
+      "source": "../inputs/p02.png",
+      "sha256": "8bd5199b441d44f422381af23b5a40c465048cee6f4884937b7d332275ea20b4",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p02.md",
+      "brief_sha256": "c3759257c324e52238909949f07dd8f765a0ad0df47c1a7e3854ac2e8d0e1e8d",
+      "prompt_file": "prompts/p02.txt",
+      "prompt_sha256": "2fb79ace1c93c6df56ded6ed70bbb2ddbbcf07496dd0a1fd6ee968ba60db1113",
+      "status": "pass",
+      "evidence": "五家族标题与维度说明"
+    },
+    {
+      "source": "../inputs/p03.png",
+      "sha256": "a38ded09680294f1053d7c4207eae0d00729ef1dd1d85b3ff6d94463ea9cd8f4",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p03.md",
+      "brief_sha256": "18d0fdc33d375887067d2f3e972001d57ad17edb0fba67358ad0c743eb6388ed",
+      "prompt_file": "prompts/p03.txt",
+      "prompt_sha256": "48bf3090b716f5a6d032445a27fb957251afecf2fb5d763f664cef856971f925",
+      "status": "pass",
+      "evidence": "五个家族列表"
+    },
+    {
+      "source": "../inputs/p04.png",
+      "sha256": "c16a6af437da3c4040a6f2940ee64dfcc5b1c91cff9c09386a2fc450a5518603",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p04.md",
+      "brief_sha256": "c287dbf77c78d64e44cde63c9c93f1967f6e041ca04747a987a8d0adaf2d6774",
+      "prompt_file": "prompts/p04.txt",
+      "prompt_sha256": "beb481405ff98ccaabc799df2b1f952e187cbb5372e10fc196a8578ef5327059",
+      "status": "pass",
+      "evidence": "条件概率乘积与代表模型"
+    },
+    {
+      "source": "../inputs/p05.png",
+      "sha256": "2e2b36a6f7a344a737741d215d6e12f8169b1563a136d17861146d3bc860ed80",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p05.md",
+      "brief_sha256": "44ea8036a71b83731d30fa2d21cbbadad8d56b481397158ff7d1230713ce6455",
+      "prompt_file": "prompts/p05.txt",
+      "prompt_sha256": "7f15dc1b8b89e9e4b4a7f29df73bed9bb72c28a6a5a3496db36f1d747a16eeac",
+      "status": "pass",
+      "evidence": "ELBO 与 VAE/扩散对比"
+    },
+    {
+      "source": "../inputs/p06.png",
+      "sha256": "26189001a82bb9b6719f9c7b5627b0c198dc228a2ba28709977a83a309f4a282",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p06.md",
+      "brief_sha256": "a281086394b0f216374579c2c753c64e18009797ccfb2ffc58fecf5702625437",
+      "prompt_file": "prompts/p06.txt",
+      "prompt_sha256": "8ab31b5aaca6f84d184f2f34303cc5836893f077ff6c676aaa5282552e6140b2",
+      "status": "pass",
+      "evidence": "GAN 生成器与判别器"
+    },
+    {
+      "source": "../inputs/p07.png",
+      "sha256": "c3c1a2476eeebff384e95c7e6e53bd62b566eb42cea8de904f3afe1464bf71bf",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p07.md",
+      "brief_sha256": "4e3350e02ac773362909345360eafb11da169cd4b12bc0e470ea92f81d0f84e4",
+      "prompt_file": "prompts/p07.txt",
+      "prompt_sha256": "ebb0c48324e7dd5fff2f60bf8135a2bf2a5f6f557e8ead5cb1242b9a45dd5735",
+      "status": "pass",
+      "evidence": "分数定义与两条路线"
+    },
+    {
+      "source": "../inputs/p08.png",
+      "sha256": "f9de3f9a81b59cb462cc5897d2e328bb9572dc9f986aa2cb39a9c0c9d741903d",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p08.md",
+      "brief_sha256": "d8c92ab3f80aab1fbb6675571f8ecdc6691c1d1d38d8ae179b3be9ca334b9a9b",
+      "prompt_file": "prompts/p08.txt",
+      "prompt_sha256": "ce46eb5981dabfb92a21d53945e5f8aadc65caded5d17327e5f2f5baf85f0d64",
+      "status": "pass",
+      "evidence": "量化到生成三步"
+    },
+    {
+      "source": "../inputs/p09.png",
+      "sha256": "e966f4ba2189c1ad24d51e78fbdef4b7fb2ec6d29bf91a4f6e4fd2f6f3eb1e19",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p09.md",
+      "brief_sha256": "7cd1e39731a046c0457e0df887df969584be42f190adb8253746ebc53a5255b8",
+      "prompt_file": "prompts/p09.txt",
+      "prompt_sha256": "39466db7eca02ae0847673d36b1080117bb989fd4967350f5da6557d75ea9bae",
+      "status": "pass",
+      "evidence": "显式与隐式对比表"
+    },
+    {
+      "source": "../inputs/p10.png",
+      "sha256": "82be97deeeb4021e75ca3dfd13c1d322b5e6dd1118b017caa1787262b91b2d5a",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p10.md",
+      "brief_sha256": "3a2b2be58c43ed2e04f00818825372652a2210d89fcf6bd68ad7db4ff40cfda3",
+      "prompt_file": "prompts/p10.txt",
+      "prompt_sha256": "d3f54a37568cb026549df17b530589fb249af4b180b6e6ffa2a9ebbb632b8e52",
+      "status": "pass",
+      "evidence": "十二年时间线"
+    },
+    {
+      "source": "../inputs/p11.png",
+      "sha256": "c80f0057e9e91fdf10a33d5e748cef8800a2cac9bf198265d75b11a68d393994",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p11.md",
+      "brief_sha256": "757c3152229ab07c67d24bcba0a118efda2c301cddf366c86d3f02eca12e86e4",
+      "prompt_file": "prompts/p11.txt",
+      "prompt_sha256": "0052726314f79461facef5b7b7f66f4f2e0935d1717802dfb1dcb76419b89665",
+      "status": "pass",
+      "evidence": "五个分诊问题"
+    },
+    {
+      "source": "../inputs/p12.png",
+      "sha256": "08ba0d672ebbae47160bb0be87a6c53e55fa2e5b83e08c991e26a90dc2b86a18",
+      "method": "generated_under_guidance",
+      "brief_file": "briefs/p12.md",
+      "brief_sha256": "92a80b8dce060ee7b2571c25a679b63a17f13959d4b00d2850ace5fa39ed1e5e",
+      "prompt_file": "prompts/p12.txt",
+      "prompt_sha256": "690f4c15559a615f257a92fdec9650849115b0804da9ea01d0cd0fbee4cf4f8b",
+      "status": "pass",
+      "evidence": "三个待判断的产品"
+    }
+  ]
+}

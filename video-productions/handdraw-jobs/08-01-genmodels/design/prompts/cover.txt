@@ -1,0 +1,1 @@
+Locally drawn flat cover: bold claim that Sora uses flow matching not diffusion, plus speed number.
