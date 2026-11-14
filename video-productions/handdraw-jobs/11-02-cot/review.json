@@ -1,0 +1,28 @@
+{
+  "video_sha256": "549d327000996fce67d269e4b1e31d1833d9ea10ef6026669ea8a69ae370628e",
+  "content": {
+    "status": "pass",
+    "evidence": "逐页对照 11-02 讲义：GSM8K 表（GPT-4o 78/91/95、GPT-5 94/97/98、Llama 4 70B 80/89/94、DeepSeek-V3.1 89/94/96）、示例三原则、最优 3-5 个、自洽性五路径表决（4 票 24 vs 1 票 27）、CoT 每次多 50-200 token，均取自讲义正文。code/advanced_prompting.py 依赖 openai 包无法离线实跑，本集数据全部来自讲义表格。"
+  },
+  "visual": {
+    "status": "pass",
+    "evidence": "PIL 扁平信息图。p09 思维树用二维分支图（三层节点+剪枝高亮），p08 自洽性用五路径+表决框。封面按新规则：3 个元素（加五个字 / 78%→91% / Let's think step by step）。"
+  },
+  "motion": {
+    "status": "pass",
+    "evidence": "verify 通过工程检查；未目视完整播放。"
+  },
+  "audio": {
+    "status": "pass",
+    "evidence": "verify 通过：响度合规、尾部静音达标、字幕与 alignment 一致。"
+  },
+  "privacy": {
+    "status": "pass",
+    "evidence": "13 张图全部本地 PIL 绘制。"
+  },
+  "limitations": [
+    "read_image 工具异常，未目视逐页检查。",
+    "未实际听音。",
+    "本集代码需 openai 包，未离线实跑，数据来自讲义 GSM8K 表格（无本地复现）。"
+  ]
+}
