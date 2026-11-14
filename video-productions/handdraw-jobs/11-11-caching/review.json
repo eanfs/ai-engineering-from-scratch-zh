@@ -1,0 +1,28 @@
+{
+  "video_sha256": "26b0049841f6a52cb4dad2d070d2fe147759ac5515e912a8c320263b23dcfd76",
+  "content": {
+    "status": "pass",
+    "evidence": "逐页对照 11-11 讲义与 code/caching_cost.py 实跑：优化前 $0.029060 / 优化后 $0.009516（省 67.3%）、单次 $0.002906→$0.000952、缓存命中率、路由分流（65% simple）、限流 Request 11/12 BLOCKED、预算 70/85/95 三档告警、成本分解 claude-opus $1.20 等，均与实跑一致。月账单 $22500→$5380 取自讲义改进前后表。"
+  },
+  "visual": {
+    "status": "pass",
+    "evidence": "PIL 扁平信息图。封面按新规则：3 个元素（标题 / 40-60% 重复 / 降到 5380），主标题 52、横幅 46。未目视检查（read_image 工具本次会话异常）。"
+  },
+  "motion": {
+    "status": "pass",
+    "evidence": "verify 通过工程检查；未目视完整播放。"
+  },
+  "audio": {
+    "status": "pass",
+    "evidence": "verify 通过：响度合规、尾部静音达标、字幕与 alignment 一致。未实际听音。"
+  },
+  "privacy": {
+    "status": "pass",
+    "evidence": "13 张图全部本地 PIL 绘制。"
+  },
+  "limitations": [
+    "read_image 工具异常，未目视逐页检查画面，仅靠 verify 与坐标人工核算。",
+    "未实际听音。",
+    "标题「同一句话为什么收两次钱」属反直觉式，未验证点击效果。"
+  ]
+}
