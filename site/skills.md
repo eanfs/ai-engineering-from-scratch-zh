@@ -141,9 +141,9 @@
 - 安装： `npx skills add fancyboi999/ai-engineering-from-scratch-zh --skill interview-prep`
 - 源文件： https://github.com/fancyboi999/ai-engineering-from-scratch-zh/blob/main/skills/interview-prep/SKILL.md
 
-## 06 制作图表与手册
+## 06 制作图表、手册与视频
 
-制作符合本站风格的图表和手册。
+制作符合本站风格的图表、手册和课程视频。
 
 ### course-style (v1.0.0)
 
@@ -189,6 +189,15 @@
 - 写入产物： 手册目录：manual.json、章节、图表、运行记录
 - 安装： `npx skills add fancyboi999/ai-engineering-from-scratch-zh --skill write-manual`
 - 源文件： https://github.com/fancyboi999/ai-engineering-from-scratch-zh/blob/main/skills/write-manual/SKILL.md
+
+### dashi-animationstyle (v1.0.0)
+
+把一段 15 到 60 秒的中文口播做成指定画风的动画视频（1920×1080、30fps、带口播与字幕）。画面全部用 HTML/Canvas 代码画、无头 Chrome 逐帧截图合成，自带 7 套风格，也能照参考图仿一套新风格。
+
+- 你可以说： "把这段口播做成动画", "用手绘笔记风格做", "有哪些风格"
+- 写入产物： 作品目录：作品.json、口播、字幕、分镜、timeline、index.html 与成片 mp4
+- 安装： `npx skills add fancyboi999/ai-engineering-from-scratch-zh --skill dashi-animationstyle`
+- 源文件： https://github.com/fancyboi999/ai-engineering-from-scratch-zh/blob/main/skills/dashi-animationstyle/SKILL.md
 
 ## 07 课程产物
 

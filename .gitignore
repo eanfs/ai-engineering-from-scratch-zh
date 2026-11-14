@@ -157,6 +157,8 @@ site/cheatsheet-map.json
 !.claude/skills/motion-figure/**
 !.claude/skills/write-manual/
 !.claude/skills/write-manual/**
+!.claude/skills/dashi-animationstyle/
+!.claude/skills/dashi-animationstyle/**
 !.claude/skills/learn-reverse-engineering/
 !.claude/skills/learn-reverse-engineering/**
 !.claude/skills/course-guide/
