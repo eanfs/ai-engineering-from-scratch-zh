@@ -3,7 +3,7 @@
 > 测不了的东西你就交付不了。这一课给每个音频任务点名 2026 年的指标：ASR（WER、CER、RTFx）、TTS（MOS、UTMOS、SECS、ASR 往返 WER）、音频-语言（MMAU、LongAudioBench）、音乐（FAD、CLAP）、说话人（EER）。还有你拿来对比的那些排行榜。
 
 **类型：** Learn
-**语言：** Python
+**语言：** Python、TypeScript
 **前置要求：** 阶段 6 · 04、06、07、09、10；阶段 2 · 09（模型评估）
 **预计时间：** ~60 分钟
 
@@ -45,7 +45,7 @@
 
 **SECS（说话人编码器余弦相似度）。** 用于语音克隆。参考和克隆输出之间的 ECAPA 嵌入余弦。&gt; 0.75 = 可辨认的克隆。
 
-**ASR 往返 WER。** 把 Whisper 跑在 TTS 输出上，对输入文本算 WER。抓可懂度退化。2026 年 SOTA：&lt; 2% CER。
+**ASR 往返 WER。** 把 Whisper 跑在 TTS 输出上，对输入文本算 WER。抓可懂度退化。2026 年英语测试集 SOTA：&lt; 2% WER；普通话测试集则报告 CER。
 
 **TTFA（首音频时间）。** 墙钟延迟。Kokoro-82M：约 100 ms；F5-TTS：约 1 s。
 
@@ -79,7 +79,7 @@
 
 **CLAP 分数。** 用 CLAP 嵌入的文本-音频对齐分数。&gt; 0.3 = 合理的对齐。
 
-**听评小组 MOS。** 对消费级音乐仍是最终裁决。Suno v5 在 TTS Arena 上 ELO 1293（来自成对人类偏好）。
+**听评小组 MOS。** 对消费级音乐仍是最终裁决。Suno v5 在 Suno 自己的成对偏好基准上得分 ELO 1293。这是厂商报告的数字；TTS Arena 评测语音，不评音乐。
 
 ### 音频-语言基准
 

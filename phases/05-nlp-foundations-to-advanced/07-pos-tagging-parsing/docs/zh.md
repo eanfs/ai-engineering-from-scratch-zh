@@ -3,7 +3,7 @@
 > 语法曾一度不入时。后来每条 LLM 流水线都得校验结构化抽取，它就回来了。
 
 **类型：** Build
-**语言：** Python
+**语言：** Python、TypeScript
 **前置要求：** Phase 5 · 01（文本处理）、Phase 2 · 14（朴素贝叶斯）
 **预计时间：** ~45 分钟
 
@@ -80,8 +80,8 @@ def predict_mft(tokens, word_best, default_tag):
 
 建模序列的联合概率：
 
-```
-P(tags, words) = prod P(tag_i | tag_{i-1}) * P(word_i | tag_i)
+```math
+P(\text{tags}, \text{words}) = \prod_i P(\text{tag}_i \mid \text{tag}_{i-1}) \cdot P(\text{word}_i \mid \text{tag}_i)
 ```
 
 两张表：转移概率（给定前一个标签时的标签），发射概率（给定标签时的词）。两者都用拉普拉斯平滑从计数里估计。用 Viterbi 解码（在标签网格上做动态规划）。

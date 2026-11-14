@@ -3,7 +3,7 @@
 > 基础 RAG 检索最相似的 top-k 块。这对简单问题有效。碰上多跳推理、含糊查询和大语料，它就崩了。进阶 RAG 就是一个在 10 篇文档上能跑的 demo，和一个在 1000 万篇上能跑的系统之间的差别。
 
 **类型：** Build
-**语言：** Python
+**语言：** Python、TypeScript
 **前置要求：** 阶段 11，第 06 课（RAG）
 **预计时间：** ~90 分钟
 **相关：** 阶段 5 · 23（RAG 的分块策略）讲全部六种分块算法——recursive、semantic、sentence、parent-document、late chunking、contextual retrieval——附带 Vectara/Anthropic 基准。本课在其之上构建：混合搜索、重排、查询变换。
@@ -89,7 +89,7 @@ graph LR
 - Jina-Reranker-v2 Multilingual：开源权重，100+ 语言
 - bge-reranker-v2-m3：开源权重，强基线
 - cross-encoder/ms-marco-MiniLM-L-6-v2：开源权重，可在 CPU 上跑做原型
-- ColBERTv2 / Jina-ColBERT-v2：late-interaction 多向量重排器——打分时是 O(tokens) 而非 O(docs)
+- ColBERTv2 / Jina-ColBERT-v2：late-interaction 多向量重排器——打分时是 $O(\text{tokens})$ 而非 $O(\text{docs})$
 
 ### 查询变换
 

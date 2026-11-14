@@ -3,7 +3,7 @@
 > 一个在仿真器里训练、却在硬件上失败的策略，是一个把仿真器背下来的策略。域随机化、域适配、系统辨识，是让学到的控制器跨越现实鸿沟的三件工具。
 
 **类型：** Learn
-**语言：** Python
+**语言：** Python、TypeScript
 **前置要求：** Phase 9 · 08（PPO）、Phase 2 · 10（偏差/方差）
 **预计时间：** ~45 分钟
 
@@ -17,7 +17,7 @@
 
 ## 核心概念
 
-![Three sim-to-real regimes: domain randomization, adaptation, system identification](../assets/sim-to-real.svg)
+![三种仿真到现实的迁移方式：域随机化、自适应与系统辨识](../assets/sim-to-real.svg)
 
 **域随机化（DR）。** Tobin 等人 2017，Peng 等人 2018。训练时，随机化每个可能在真实机器人上有差异的仿真参数：质量、摩擦系数、电机 PD 增益、传感器噪声、摄像头位置、光照、纹理、接触模型。策略学到一个关于"今天它在哪个仿真里"的条件分布，并在整个跨度上泛化。如果真实机器人落在训练包络内，策略就能用。
 
@@ -31,7 +31,7 @@
 
 **域适配。** 在仿真里训练，用少量真实数据微调。两种风味：
 
-- **Real2Sim2Real：** 用真实 rollout 学一个残差仿真器 `f(s, a, z) - f_sim(s, a)`，在修正后的仿真里训练。不用多少真实数据就能缩小鸿沟。
+- **Real2Sim2Real：** 用真实 rollout 学一个残差仿真器 $f(s, a, z) - f_{\text{sim}}(s, a)$，在修正后的仿真里训练。不用多少真实数据就能缩小鸿沟。
 - **观测适配：** 训练一个策略，通过一个学到的特征提取器（如 GAN 像素到像素）把真实观测 → 类仿真观测。控制器留在仿真里。
 
 **特权学习 / 师生。** Miki 等人 2022（ANYmal 四足）。在仿真里训练一个能访问特权信息（真值摩擦、地形高度、IMU 漂移）的*老师*。蒸馏出一个只看真实传感器观测的*学生*。学生学会从历史中推断特权特征，跨物理参数都稳健。
@@ -128,7 +128,7 @@ Refuse to deploy without (a) a zero-shot sim-variant test, (b) a safety shield, 
 
 ## 练习
 
-1. **简单。** 在固定滑动 GridWorld（slip=0.0）上训练一个 Q-learning agent。在 slip ∈ {0.0, 0.1, 0.3, 0.5} 上评估。画出回报对 slip。
+1. **简单。** 在固定滑动 GridWorld（slip=0.0）上训练一个 Q-learning agent。在 $\text{slip} \in \lbrace 0.0, 0.1, 0.3, 0.5 \rbrace$ 上评估。画出回报对 slip。
 2. **中等。** 训练一个采样 `slip ~ Uniform[0, 0.3]` 的 DR Q-learning agent。在同样的扫描上评估。在 slip=0.5（分布外）时 DR 带来了多少收益？
 3. **困难。** 实现一个课程：从 slip=0.0 起，每次策略达到最优的 90% 就拓宽 DR 范围。测一下零样本到达 slip=0.3 所需的总环境步数，对比固定 DR 基线。
 

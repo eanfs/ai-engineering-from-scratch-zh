@@ -3,7 +3,7 @@
 > Softmax 注意力把少量概率撒到每个不匹配的 token 上。在 10 万个 token 上，那点噪声累积起来淹没信号。Differential Transformer（Ye et al., ICLR 2025）通过把注意力算成两个 softmax 之差、减掉共享的噪声底来修复它。DIFF V2（微软，2026 年 1 月）是生产栈的重写：decode 延迟匹配基线 Transformer，无自定义核，FlashAttention 兼容。本节课端到端走 V1 到 V2，并附一个你能在 stdlib Python 里跑的差分操作玩具实现。
 
 **类型：** Build
-**语言：** Python（stdlib）
+**语言：** Python（stdlib）、Rust
 **前置要求：** 阶段 7 · 02（自注意力），阶段 7 · 15（注意力变体），阶段 10 · 14（架构走读）
 **预计时间：** ~60 分钟
 
@@ -16,7 +16,7 @@
 
 ## 问题背景
 
-标准 softmax 注意力有一个数学性质，到了规模上变成一个运营头疼事。对一个 query `q`，注意力权重是 `softmax(qK^T / sqrt(d))`。Softmax 永远产不出精确的零——每个不匹配的 token 都得到一些正的质量。那点残余质量是噪声，且随 context 长度放大。在 128k token 下，即使每个不匹配 token 只得到 0.001% 的概率，它们 127,999 个加起来贡献约 12% 的总量。模型不得不学会绕过一个随 context 增长的噪声底。
+标准 softmax 注意力有一个数学性质，到了规模上变成一个运营头疼事。对一个 query `q`，注意力权重是 `softmax(qK^T / sqrt(d))`。Softmax 永远产不出精确的零：每个不匹配的 token 都得到一些正的质量。那点残余质量是噪声，且随 context 长度放大。在 128k token 下，即使每个不匹配 token 只得到 0.0001% 的概率，它们 127,999 个加起来贡献约 13% 的总量。模型不得不学会绕过一个随 context 增长的噪声底。
 
 经验上这表现为注意力头干扰：长 context RAG 里幻觉出来的引用、10 万 token 检索任务上的 lost-in-the-middle 失败，以及超过 32k 的大海捞针基准上微妙的精度退化。Differential Transformer 论文（arXiv:2410.05258，ICLR 2025）测量了这个差距：DIFF Transformer 比同规模基线达到更低困惑度、更高长 context 准确率、更少幻觉。
 
@@ -28,8 +28,8 @@ DIFF V1 有三个问题，把它挡在前沿预训练流水线外。它的 value
 
 对一个 query `q` 和键 `K = [k_1, ..., k_N]`，注意力权重是：
 
-```
-w_i = exp(q . k_i / sqrt(d)) / sum_j exp(q . k_j / sqrt(d))
+```math
+w_i = \frac{\exp(q \cdot k_i / \sqrt{d})}{\sum_j \exp(q \cdot k_j / \sqrt{d})}
 ```
 
 没有 `w_i` 会是零。如果 `k_i` 和 `q` 完全无关，分数 `q . k_i` 不是 0——它围绕零波动，方差为 `||q||^2 / d`。softmax 归一化后，每个无关 token 仍然给加权和贡献 `O(1/N)`。无关 token 的总贡献是 `O((N-1)/N) = O(1)`——不是个小量。
@@ -38,17 +38,19 @@ w_i = exp(q . k_i / sqrt(d)) / sum_j exp(q . k_j / sqrt(d))
 
 ### 差分思路
 
-把每个头的 Q 和 K 投影切成两份：Q = (Q_1, Q_2) 和 K = (K_1, K_2)。计算两张注意力图：
+把每个头的 Q 和 K 投影切成两份：$Q = (Q_1, Q_2)$ 和 $K = (K_1, K_2)$。计算两张注意力图：
 
-```
-A_1 = softmax(Q_1 K_1^T / sqrt(d))
-A_2 = softmax(Q_2 K_2^T / sqrt(d))
+```math
+\begin{aligned}
+A_1 &= \mathop{\mathrm{softmax}}(Q_1 K_1^T / \sqrt{d}) \\
+A_2 &= \mathop{\mathrm{softmax}}(Q_2 K_2^T / \sqrt{d})
+\end{aligned}
 ```
 
 输出：
 
-```
-DiffAttn = (A_1 - lambda * A_2) V
+```math
+\mathop{\mathrm{DiffAttn}} = (A_1 - \lambda \cdot A_2) V
 ```
 
 这个相减抵消了两张图共享的任何噪声分布。如果两张图在 127k 个无关 token 上都有大致均匀的权重（随机初始化时它们会这样），那些就抵消了。信号——在那少数真正相关的 token 上的峰值权重——只有在两张图里以相同幅度出现时才抵消，而模型一旦训练起来它就不会。
@@ -63,7 +65,7 @@ DiffAttn = (A_1 - lambda * A_2) V
 
 V1 把参数量保持和基线 Transformer 相等。为了每个头得到两个 query，它把头维度减半。那牺牲了头的表达力，而且——更痛的是——把每个头的 value cache 减半了。Decode 每步要加载 value cache 两次（每个 softmax 分支一次）。结果：尽管参数量匹配，decode 比基线慢。
 
-V2 把 query 头数翻倍，保持 KV 头数不变（从 up-projection 借参数）。头维度和基线一样。相减之后，多出的维度被投影回去以匹配基线 Transformer 的 O_W 投影。三件事同时发生：
+V2 把 query 头数翻倍，保持 KV 头数不变（从 up-projection 借参数）。头维度和基线一样。相减之后，多出的维度被投影回去以匹配基线 Transformer 的 $O_W$ 投影。三件事同时发生：
 
 1. Decode 速度匹配基线（KV cache 加载一次）。
 2. FlashAttention 原样运行（无自定义核）。
@@ -139,8 +141,8 @@ out = [[sum(w * v[j] for w, v in zip(row, V)) for j in range(d_v)] for row in di
 给定一个配置（hidden=4096，heads=32，d_head=128），打印：
 
 - 基线 Transformer：Q、K、V 各大小 `hidden * hidden`，MLP 在 4 * hidden。
-- DIFF V1：Q、K 各大小 `hidden * hidden`，V 大小 `hidden * hidden`（不变），内部头维度减半。加每个头的 `lambda` 参数（O(heads * d_head)）。
-- DIFF V2：Q 大小 `2 * hidden * hidden`，K 大小 `hidden * hidden`，V 大小 `hidden * hidden`。多出的维度在 O_W 之前投影回去。加同样的 `lambda` 参数。
+- DIFF V1：Q、K 各大小 `hidden * hidden`，V 大小 `hidden * hidden`（不变），内部头维度减半。加每个头的 `lambda` 参数$(O(\text{heads} \cdot d_{\text{head}}))$。
+- DIFF V2：Q 大小 `2 * hidden * hidden`，K 大小 `hidden * hidden`，V 大小 `hidden * hidden`。多出的维度在 $O_W$ 之前投影回去。加同样的 `lambda` 参数。
 
 玩具测量 V2 的额外参数成本（每个注意力块大约 `hidden * hidden` 额外）并打印它。
 
@@ -182,9 +184,9 @@ out = [[sum(w * v[j] for w, v in zip(row, V)) for j in range(d_v)] for row in di
 
 | 术语 | 人们怎么说 | 它实际是什么 |
 |------|----------------|------------------------|
-| 差分注意力 | "两个 softmax 相减" | 把 Q、K 切成两半，计算两张 softmax 图，从第一张减去第二张（按 lambda 缩放），再乘以 V |
-| 噪声底 | "softmax 的非零尾巴" | softmax 给每个无关 token 的 O(1/N) 权重，在长 context 上加起来到 O(1) |
-| lambda | "相减的缩放" | 每个头的可学习标量，参数化为 `exp(lq1.lk1) - exp(lq2.lk2) + lambda_init`；可以为负 |
+| 差分注意力 | "两个 softmax 相减" | 把 Q、K 切成两半，计算两张 softmax 图，从第一张减去第二张（按 $\lambda$ 缩放），再乘以 V |
+| 噪声底 | "softmax 的非零尾巴" | softmax 给每个无关 token 的 $O(1/N)$ 权重，在长 context 上加起来到 $O(1)$ |
+| $\lambda$ | "相减的缩放" | 每个头的可学习标量，参数化为 `exp(lq1.lk1) - exp(lq2.lk2) + lambda_init`；可以为负 |
 | DIFF V1 | "ICLR 2025 版本" | 最初的 Differential Transformer；把头维度减半以保持参数量，需要自定义核，decode 更慢 |
 | DIFF V2 | "2026 年 1 月的修复" | 翻倍 Q 头、保持 KV 头；匹配基线 decode 速度并和 FlashAttention 协同 |
 | Per-head RMSNorm | "V1 的稳定器" | V1 在相减后应用的额外 norm；V2 移除它以防止后期训练不稳定 |

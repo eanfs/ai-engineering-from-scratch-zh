@@ -3,7 +3,7 @@
 > 推测解码（阶段 10 · 15）在一条序列内并行化 token。多 agent 框架跨整条序列并行，但强制显式协调（投票、子任务切分）。Hogwild! Inference（Rodionov et al., arXiv:2504.06261）做的是别的：让同一个 LLM 的 N 个实例并行地针对一个共享的 KV cache 运行。每个 worker 即时看到其他每个 worker 生成的 token。现代推理模型——QwQ、DeepSeek-R1——能经那个共享 cache 自我协调，不用任何微调。这个方法是实验性的，但它打开了一条全新的推理并行轴，和推测解码正交。本节课用 stdlib Python 实现一个两 worker 的 Hogwild! 模拟器，并解释为什么共享 cache 的协作从现有模型的推理能力里涌现。
 
 **类型：** Build
-**语言：** Python（stdlib）
+**语言：** Python（stdlib）、Rust
 **前置要求：** 阶段 10 · 12（推理优化），阶段 10 · 15（推测解码）
 **预计时间：** ~60 分钟
 
@@ -55,7 +55,7 @@ Hogwild! 论文（Rodionov et al., 2025）报告了像这样的观察：
 
 ### RoPE 让这变得可行
 
-旋转位置编码（RoPE，Su et al. 2021）经 Q 和 K 向量里的旋转编码位置信息。因为位置是旋转而不是烤死的偏移，一个 token 的位置能移动而不用重算 KV cache 条目。当 worker `i` 写进共享 cache 的位置 `p`，其他读那个位置的 worker 能直接用缓存条目——不需要重新旋转。
+旋转位置编码（RoPE，Su et al. 2021）经 Q 和 K 向量里的旋转编码位置信息。旋转后的 query 和 key 的注意力分数只取决于它们的相对距离，所以整个缓存块移到新偏移时，无须重算每个缓存 key：只要旋转 query。Hogwild! Inference 对每个缓存块做一次：对于位置为 `i_q` 的 query，以及在该 worker 视角下从 `i_k` 开始的块，将 query 按相对距离 `i_q - i_k` 旋转。这样，每个 worker 都能按自己的顺序查看共享缓存块。这个技巧适用于连续块的统一偏移；如果逐个 token 移到不同位置，它们的旋转就会改变，仍然需要重算。
 
 在一个学习式位置或绝对位置模型里，Hogwild! 会需要在每次并发写时让缓存失效。RoPE 让缓存保持稳定。
 

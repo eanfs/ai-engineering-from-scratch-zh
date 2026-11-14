@@ -3,7 +3,7 @@
 > Amazon 的 MigrationBench（Java 8 到 17）和 Google 的 App Engine Py2-to-Py3 迁移器立下了 2026 年的标准。Moderne 的 OpenRewrite 大规模做确定性的 AST 重写。Grit 用 codemod 风格的 DSL 瞄准同一个问题。生产范式把两者结合：一个做安全重写的确定性底座，加一个处理含糊情形的 agent 层、一个做逐分支构建的沙箱，以及一个在 PR 打开前转绿的测试外壳。这个顶点项目就是迁移 50 个真实仓库，并发出一份带失败分类法的通过率。
 
 **类型：** Capstone
-**语言：** Python（agent）、Java / Python（目标）、TypeScript（看板）
+**语言：** Python（agent）、Java / Python（目标）、TypeScript（看板、agent 脚手架）
 **前置要求：** 第 5 阶段（NLP）、第 7 阶段（transformer）、第 11 阶段（LLM 工程）、第 13 阶段（工具）、第 14 阶段（agent）、第 15 阶段（自主系统）、第 17 阶段（基础设施）
 **涉及阶段：** P5 · P7 · P11 · P13 · P14 · P15 · P17
 **预计时间：** 30 小时
@@ -18,7 +18,7 @@
 
 流水线有两层。**确定性底座**（Java 用 OpenRewrite，Python 用 libcst）安全地跑完大部分机械重写：import、方法签名、空安全改动、try-with-resources、废弃 API 替换。它快，而且产出可审计的 diff。**agent 层**（OpenAI Agents SDK 或基于 Claude Opus 4.7 和 GPT-5.4-Codex 的 LangGraph）处理 recipe 搞不定的情形：构建文件升级（Maven/Gradle/pyproject）、传递性依赖冲突、测试抖动、自定义注解。
 
-每个仓库拿到一个预装了目标运行时的 Daytona 沙箱。agent 迭代：跑构建、给失败归类、应用修复、重跑。硬限制：每仓库 30 分钟、每仓库 8 美元、20 个 agent 轮次。如果所有测试通过且覆盖率差值不为负，分支就开一个 PR。如果不行，仓库就连同证据归到某个失败类别下。
+每个仓库拿到一个预装了目标运行时的 Daytona 沙箱。agent 迭代：跑构建、给失败归类、应用修复、重跑。硬限制：每仓库 30 分钟、每仓库 8 美元、20 个 agent 轮次。如果所有测试通过且覆盖率最多下降 2 个百分点，分支就开一个 PR。如果不行，仓库就连同证据归到某个失败类别下。
 
 失败分类法就是交付物。50 个仓库里，什么坏了？传递性依赖？自定义注解？构建工具版本？跟迁移无关的测试抖动？每个类别拿到一个计数和一个示例 diff。未来的 recipe 作者可以瞄准前三名。
 
@@ -77,7 +77,7 @@ ce-migration-funnel
 
 4. **预算上限。** 每仓库墙钟 30 分钟、成本 8 美元、20 个 agent 轮次。任何越界就停下，连同当前 diff 归到 “budget_exhausted” 下。
 
-5. **测试 + 覆盖率闸门。** 构建转绿后，跑测试套件。把覆盖率跟基线仓库比。如果覆盖率掉了超过 2%，归到 “coverage_regression” 下。
+5. **测试 + 覆盖率闸门。** 构建转绿后，跑测试套件。把覆盖率跟基线仓库比。如果覆盖率下降超过 2 个百分点，归到 “coverage_regression” 下。
 
 6. **开 PR。** 成功时，推分支，开 PR，带上 diff 和一份摘要，说明应用了哪些 recipe、agent 写了哪些 commit。
 

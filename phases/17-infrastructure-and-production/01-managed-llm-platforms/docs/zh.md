@@ -3,7 +3,7 @@
 > 三家超大规模云厂商，三套截然不同的策略。AWS Bedrock 是一个模型市场 —— Claude、Llama、Titan、Stability、Cohere 都藏在同一个 API 后面。Azure OpenAI 是与 OpenAI 的独家合作，再加上为专属算力准备的 Provisioned Throughput Units（PTUs）。Vertex AI 则以 Gemini 优先，长上下文和多模态讲得最好。2026 年 Artificial Analysis 在 Llama 3.1 405B 等量级模型上测得 Azure OpenAI 中位延迟约 50 ms，Bedrock 约 75 ms —— 这个差距由 PTUs 解释，专属算力本就强过共享按需。决策准则不是"谁最快"，而是"哪家的模型目录和 FinOps 视图匹配我的产品"。这一课教你把权衡写下来再选，而不是凭感觉。
 
 **类型：** Learn
-**语言：** Python（标准库，一个玩具级成本与延迟对比器）
+**语言：** Python、TypeScript（标准库，一个玩具级成本与延迟对比器）
 **前置要求：** 阶段 11（LLM 工程）、阶段 13（工具与协议）
 **预计时间：** ~60 分钟
 
@@ -34,7 +34,7 @@
 
 ### 规模下的延迟差距
 
-Artificial Analysis 持续跑基准测试。在等量级的 Llama 3.1 405B 部署上（共享按需），Azure OpenAI 首 token 延迟中位数约 50 ms；Bedrock 约 75 ms。这个差距不是 AWS 出了什么问题 —— 而是算力模型的差异。Azure 卖的是 PTUs（Provisioned Throughput Units），它为你的租户预留 GPU 算力。Bedrock 的对应物（Provisioned Throughput）也存在，但每单元每小时约 21 美元起步，大多数客户还是留在共享按需上。
+Artificial Analysis 持续跑基准测试。在等量级的 Llama 3.1 405B 部署上，Azure 使用 PTU 时首 token 延迟中位数约 50 ms；Bedrock 使用共享按需时约 75 ms。这个差距不是 AWS 出了什么问题 —— 而是算力模型的差异。Azure 卖的是 PTUs（Provisioned Throughput Units），它为你的租户预留 GPU 算力。Bedrock 的对应物（Provisioned Throughput）也存在，但每单元每小时约 21 美元起步，大多数客户还是留在共享按需上。
 
 按需共享算力要和其他所有客户的流量抢资源。专属算力不用抢。如果你的产品 SLA 要求 P99 的 TTFT < 100 ms，那你要么在 Azure 上买 PTUs，要么买 Bedrock Provisioned Throughput，要么接受默认的方差。
 
@@ -96,7 +96,7 @@ i4-platform-lanes
 2. 你的产品需要 Claude 3.7 Sonnet 和 GPT-4o。设计一套双供应商部署 —— 哪个放哪家超大规模厂商，前面摆什么 gateway，故障转移策略是什么？
 3. 一个受监管的医疗客户要求 BAA、美国东部数据驻留，以及 P99 TTFT 低于 100ms。选一个平台，并用三个具体特性来论证。
 4. 你发现这个月 Bedrock 账单涨了 4 倍，流量却没变。没有 Application Inference Profiles 时，你怎么找出元凶？有 profiles 时，要花多久？
-5. 读一遍 Azure OpenAI 和 Bedrock 的定价页。对一个月 1 亿 token 的 Claude 工作负载，哪个更便宜 —— 直连 Anthropic API、Bedrock 按需，还是 Bedrock Provisioned Throughput？
+5. 读一遍 Anthropic API 和 Bedrock 的定价页。对一个月 1 亿 token 的 Claude 工作负载，哪个更便宜 —— 直连 Anthropic API、Bedrock 按需，还是 Bedrock Provisioned Throughput？
 
 ## 关键术语
 

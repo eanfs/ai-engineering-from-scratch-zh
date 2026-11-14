@@ -145,6 +145,29 @@ test('shared adapter covers dynamically inserted links, click races, and command
   );
 });
 
+test('static preview preserves non-document URLs through insertion and click adaptation', () => {
+  const runtime = loadRouteRuntime('http://127.0.0.1:8000/site/index.html');
+  const hrefs = [
+    'blob:http://127.0.0.1:8000/9a4ed121-73f0-47c4-8bf1-a7bd511d733b',
+    'data:application/json,%7B%22probe%22%3Atrue%7D',
+    'mailto:reader@example.com',
+    'tel:+123456789',
+    'javascript:void(0)',
+  ];
+  for (const href of hrefs) {
+    assert.equal(runtime.api.adaptHref(href), href);
+    const link = testLink(href);
+    runtime.mutate({ type: 'childList', addedNodes: [link] });
+    assert.equal(link.value(), href);
+    runtime.click(link);
+    assert.equal(link.value(), href);
+  }
+  assert.equal(
+    runtime.api.adaptHref('http://127.0.0.1:8000/highlights?color=yellow'),
+    'highlights.html?color=yellow'
+  );
+});
+
 test('deployed contextual routes stay extensionless while zh canonicals keep static lesson URLs', () => {
   const production = loadRouteRuntime('https://aieng-zh.cn/index.html');
   assert.equal(
@@ -164,4 +187,17 @@ test('deployed contextual routes stay extensionless while zh canonicals keep sta
   const certification = fs.readFileSync(path.join(__dirname, 'certification.html'), 'utf8');
   assert.match(lesson, /<link rel="canonical" href="https:\/\/aieng-zh\.cn\/lesson\.html">/);
   assert.match(certification, /<link rel="canonical" href="https:\/\/aieng-zh\.cn\/certification\.html">/);
+});
+
+
+test('plain static preview resolves practice and manual chapter pages', () => {
+  const { api } = loadRouteRuntime('http://localhost:8000/index.html');
+  for (const [href, expected] of [
+    ['/practice', '/practice/index.html'],
+    ['/practice/adam-step', '/practice/adam-step.html'],
+    ['/practice/tracks/optimizers', '/practice/tracks/optimizers.html'],
+    ['/manual-vllm-101/count-the-memory-before-you-pick-a-gpu', '/manual/manual-vllm-101/count-the-memory-before-you-pick-a-gpu.html'],
+  ]) assert.equal(api.adaptHref(href), expected);
+  const deployed = loadRouteRuntime('https://aieng-zh.cn/').api;
+  assert.equal(deployed.adaptHref('/practice/adam-step'), '/practice/adam-step');
 });

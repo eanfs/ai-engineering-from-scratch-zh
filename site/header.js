@@ -8,9 +8,10 @@
   var REPO = 'fancyboi999/ai-engineering-from-scratch-zh';
   var CACHE_KEY = 'gh:stars:' + REPO;
   var CACHE_TTL_MS = 10 * 60 * 1000; // 10 minutes
-  var COMPACT_HEADER_QUERY = '(max-width: 1400px)';
   var NARROW_HEADER_QUERY = '(max-width: 820px)';
-  var NARRATION_VERSION = '20260831a';
+  var NARRATION_VERSION = '20261021a';
+  var THEME_MENU_VERSION = '20261030a';
+  var STAR_NUDGE_VERSION = '20261103a';
   var HEADER_BASE = document.currentScript && document.currentScript.src
     ? new URL('.', document.currentScript.src).href
     : '';
@@ -31,15 +32,24 @@
     if (/^[a-z][a-z\d+.-]*:/i.test(href) || href.indexOf('//') === 0) {
       try {
         var resolved = new URL(href, (locationValue || window.location).href);
+        // Blob URLs inherit their creator's origin, but are not document routes.
+        if (!/^(https?|file):$/.test(resolved.protocol)) return href;
         if (resolved.origin !== (locationValue || window.location).origin) return href;
+        href = resolved.pathname + resolved.search + resolved.hash;
       } catch (_) {
         return href;
       }
     }
-    if (/^\/(lesson|certification)(?=[?#]|$)/.test(href)) {
-      return href.replace(/^\/(lesson|certification)(?=[?#]|$)/, '$1.html');
+    if (/^\/(lesson|certification|highlights)(?=[?#]|$)/.test(href)) {
+      return href.replace(/^\/(lesson|certification|highlights)(?=[?#]|$)/, '$1.html');
     }
-    return href.replace(/(^|\/)(lesson|certification)(?=[?#]|$)/, '$1$2.html');
+    if (/^\/cheatsheets(?:\/|$)/.test(href)) {
+      return href.replace(/^\/cheatsheets(?=[?#]|$)/, '/cheatsheets/index.html').replace(/^(\/cheatsheets\/[a-z0-9-]+)(?=[?#]|$)/, '$1.html');
+    }
+    if (/^\/practice(?:\/|$)/.test(href)) return href.replace(/^\/practice(?=[?#]|$)/, '/practice/index.html').replace(/^(\/practice\/(?:tracks\/)?[a-z0-9-]+)(?=[?#]|$)/, '$1.html');
+    if (/^\/manual-[a-z0-9-]+\/[a-z0-9-]+(?=[?#]|$)/.test(href)) return href.replace(/^(\/manual-[a-z0-9-]+\/[a-z0-9-]+)/, '/manual$1.html');
+    if (/^\/roadmap(?=[?#]|$)/.test(href)) return href.replace('/roadmap', '/prereqs.html');
+    return href.replace(/(^|\/)(lesson|certification|highlights)(?=[?#]|$)/, '$1$2.html');
   }
 
   function adaptRouteLink(link) {
@@ -161,13 +171,31 @@
   function ensureNarration() {
     var current = pageFile(location.href);
     // 首页和课程表是密集导航界面，不挂载全页朗读；其他内容页（含认证）加载。
-    var isHome = current === 'index.html' && !/\/lessons\//.test(location.pathname || '');
-    if (isHome || current === 'catalog.html') return;
+    var isHome = /^\/(?:index\.html)?$/.test(sitePath());
+    if (isHome || current === 'catalog.html' || document.querySelector('.site-header[data-header-narration=\"off\"]') || !document.querySelector('.theme-toggle')) return;
     if (window.__AIFS_TTS_VERSION === NARRATION_VERSION || document.querySelector('script[data-aifs-tts="' + NARRATION_VERSION + '"]')) return;
     var script = document.createElement('script');
     script.src = HEADER_BASE + 'tts.js?v=' + NARRATION_VERSION;
     script.async = true;
     script.setAttribute('data-aifs-tts', NARRATION_VERSION);
+    document.head.appendChild(script);
+  }
+
+  function ensureThemeMenu() {
+    if (window.AIFSThemeMenu || document.querySelector('script[data-aifs-theme-menu]')) return;
+    var script = document.createElement('script');
+    script.src = HEADER_BASE + 'theme-menu.js?v=' + THEME_MENU_VERSION;
+    script.async = true;
+    script.setAttribute('data-aifs-theme-menu', THEME_MENU_VERSION);
+    document.head.appendChild(script);
+  }
+
+  function ensureStarNudge() {
+    if (window.AIFSStarNudge || document.querySelector('script[data-aifs-star-nudge]')) return;
+    var script = document.createElement('script');
+    script.src = HEADER_BASE + 'star-nudge.js?v=' + STAR_NUDGE_VERSION;
+    script.async = true;
+    script.setAttribute('data-aifs-star-nudge', STAR_NUDGE_VERSION);
     document.head.appendChild(script);
   }
 
@@ -183,6 +211,17 @@
     }
   }
 
+  function sitePath() {
+    var pathname = location.pathname || '/';
+    if (HEADER_BASE) {
+      try {
+        var base = new URL(HEADER_BASE).pathname;
+        if (pathname.indexOf(base) === 0) pathname = '/' + pathname.slice(base.length);
+      } catch (_) {}
+    }
+    return pathname;
+  }
+
   function syncCurrentPage(header) {
     var nav = header.querySelector('.header-nav');
     var logo = header.querySelector('.logo');
@@ -193,19 +232,24 @@
     if (logo) logo.removeAttribute('aria-current');
 
     var current = pageFile(location.href);
-    if (current === 'index.html') {
+    var pathname = sitePath();
+    if (/^\/(?:index\.html)?$/.test(pathname)) {
       if (logo) logo.setAttribute('aria-current', 'page');
       return;
     }
 
     var target = current;
-    if (current === 'project.html') target = 'projects.html';
+    if (current === 'roadmap.html' || current === 'path.html') target = 'prereqs.html';
+    if (current === 'project.html' || /^\/project\//.test(pathname)) target = 'projects.html';
     if (/^manual-/.test(current)) target = 'manuals.html';
-    if (/^\/glossary\//.test(location.pathname)) target = 'glossary.html';
-    if (/^\/phase\//.test(location.pathname)) target = 'catalog.html';
+    if (/^\/interviews(?:\/|$)/.test(pathname)) target = 'interviews.html';
+    if (/^\/(?:hubs\/)?glossary\//.test(pathname)) target = 'glossary.html';
+    if (/^\/(?:hubs\/)?phase\//.test(pathname) || /^\/lessons\//.test(pathname)) target = 'catalog.html';
+    if (/^\/cheatsheets(?:\/|$)/.test(pathname)) target = 'cheatsheets.html';
     if (current === 'certification.html' || current === 'assessment.html') {
       target = 'certifications.html';
     } else if (current === 'lesson.html') {
+      target = 'catalog.html';
       try {
         var params = new URLSearchParams(location.search);
         var lessonPath = params.get('path') || '';
@@ -216,32 +260,12 @@
     }
 
     for (var j = 0; j < links.length; j++) {
-      if (pageFile(links[j].href) === target) {
+      var page = links[j].getAttribute('data-header-page') || pageFile(links[j].href).replace(/\.html$/, '');
+      if (page === target.replace(/\.html$/, '')) {
         links[j].setAttribute('aria-current', 'page');
         break;
       }
     }
-  }
-
-  function ensureNavigationLink(nav, filename, label, className) {
-    var links = nav.querySelectorAll('a');
-    for (var i = 0; i < links.length; i++) {
-      if (pageFile(links[i].href) === filename) return;
-    }
-
-    var link = document.createElement('a');
-    link.href = HEADER_BASE + filename;
-    link.className = className || '';
-    link.textContent = label;
-    var github = nav.querySelector('.header-github');
-    nav.insertBefore(link, github || null);
-  }
-
-  function addNavigationLinks(nav) {
-    ensureNavigationLink(nav, 'projects.html', '实战项目', '');
-    ensureNavigationLink(nav, 'manuals.html', '技术手册', '');
-    ensureNavigationLink(nav, 'learning-paths.html', '学习路径', '');
-    ensureNavigationLink(nav, 'certifications.html', '认证', 'header-mobile-only');
   }
 
   function setupNavigation(header) {
@@ -250,7 +274,6 @@
     var logo = header.querySelector('.logo');
     if (!inner || !nav || !logo || inner.querySelector('.header-menu-toggle')) return;
 
-    addNavigationLinks(nav);
     syncCurrentPage(header);
 
     navId += 1;
@@ -278,8 +301,8 @@
       return child.tagName === 'A';
     });
     routeLinks.forEach(function (link) {
+      if (!link.hasAttribute('data-header-priority')) return;
       var target = pageFile(link.href);
-      if (target !== 'index.html' && target !== 'catalog.html' && target !== 'learning-paths.html') return;
       var marker = document.createComment('header-priority-' + target);
       nav.insertBefore(marker, link);
       priorityEntries.push({ link: link, marker: marker });
@@ -297,17 +320,13 @@
     tools.setAttribute('aria-label', '站点工具');
     nav.appendChild(tools);
 
-    var toolAnchor = document.createComment('header-tools');
     var directChildren = Array.prototype.slice.call(inner.children);
     var search = directChildren.find(function (child) {
       return child.classList && child.classList.contains('search-toggle');
     });
-    var firstTool = directChildren.find(function (child) {
-      return child !== logo && child !== nav && child !== toggle && child !== priorityNav && child !== github && child !== search;
-    });
-    inner.insertBefore(toolAnchor, search ? search.nextSibling : (firstTool || null));
-
-    var compact = window.matchMedia ? window.matchMedia(COMPACT_HEADER_QUERY) : null;
+    // Keep keyboard order aligned with the visible controls and open menu.
+    inner.appendChild(toggle);
+    inner.appendChild(nav);
     var narrow = window.matchMedia ? window.matchMedia(NARROW_HEADER_QUERY) : null;
     var open = false;
 
@@ -331,10 +350,6 @@
       });
     }
 
-    function restoreDesktopTools() {
-      while (tools.firstChild) inner.insertBefore(tools.firstChild, toolAnchor);
-    }
-
     function movePriorityLinksOut() {
       for (var i = 0; i < priorityEntries.length; i++) {
         priorityNav.appendChild(priorityEntries[i].link);
@@ -355,27 +370,19 @@
       header.classList.toggle('header-nav-open', open);
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       toggle.setAttribute('aria-label', open ? '关闭导航' : '打开导航');
-      if (compact && compact.matches) nav.hidden = !open;
-      else nav.hidden = false;
+      nav.hidden = !open;
       if (restoreFocus && !open) toggle.focus();
     }
 
     function syncLayout() {
-      var isCompact = compact ? compact.matches : false;
+      if (window.AIFSThemeMenu && typeof window.AIFSThemeMenu.close === 'function') window.AIFSThemeMenu.close();
       var isNarrow = narrow ? narrow.matches : false;
       var menuHadFocus = nav.contains(document.activeElement);
       var priorityHadFocus = priorityNav.contains(document.activeElement);
-      if (isCompact) {
-        if (isNarrow) restorePriorityLinks();
-        else movePriorityLinksOut();
-        moveToolsIntoMenu();
-        setOpen(false, menuHadFocus || (isNarrow && priorityHadFocus));
-      } else {
-        restorePriorityLinks();
-        setOpen(false, false);
-        restoreDesktopTools();
-        nav.hidden = false;
-      }
+      if (isNarrow) restorePriorityLinks();
+      else movePriorityLinksOut();
+      moveToolsIntoMenu();
+      setOpen(false, menuHadFocus || (isNarrow && priorityHadFocus));
     }
 
     toggle.addEventListener('click', function () { setOpen(!open, false); });
@@ -393,16 +400,15 @@
       if (open && !header.contains(event.target)) setOpen(false, false);
     });
     document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape' && open && !event.defaultPrevented) {
+      if (event.key === 'Escape' && open && !event.defaultPrevented && !document.querySelector('.lang-panel:not([hidden]), #aifsThemeMenu:not([hidden])')) {
         event.preventDefault();
         setOpen(false, true);
       }
     });
+    document.addEventListener('aifs:overlayopen', function (event) {
+      if (open && event.detail && event.detail.source === 'palette') setOpen(false, false);
+    });
 
-    if (compact) {
-      if (typeof compact.addEventListener === 'function') compact.addEventListener('change', syncLayout);
-      else if (typeof compact.addListener === 'function') compact.addListener(syncLayout);
-    }
     if (narrow) {
       if (typeof narrow.addEventListener === 'function') narrow.addEventListener('change', syncLayout);
       else if (typeof narrow.addListener === 'function') narrow.addListener(syncLayout);
@@ -410,7 +416,6 @@
 
     if (typeof MutationObserver === 'function') {
       var observer = new MutationObserver(function (mutations) {
-        if (!compact || !compact.matches) return;
         for (var i = 0; i < mutations.length; i++) {
           var added = mutations[i].addedNodes;
           for (var j = 0; j < added.length; j++) {
@@ -421,13 +426,168 @@
       observer.observe(inner, { childList: true });
     }
     syncLayout();
+    header.classList.add('header-enhanced');
+  }
+
+  // Existing page handlers retain ownership. Newly equipped utility pages use
+  // this handler, so one click can never toggle the theme twice.
+  function setupHeaderTheme(header) {
+    if (header.getAttribute('data-header-theme-owner') !== 'header') return;
+    var button = header.querySelector('#themeToggle');
+    var root = document.documentElement;
+    var stored = '';
+    try { stored = localStorage.getItem('theme') || ''; } catch (_) {}
+    root.setAttribute('data-theme', stored || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+    function paintTheme() {
+      var icon = button.querySelector('#themeIcon');
+      if (icon) icon.textContent = root.getAttribute('data-theme') === 'light' ? 'N' : 'D';
+    }
+    paintTheme();
+    button.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (_) {}
+      paintTheme();
+    });
+  }
+
+  // Content-only pages load the shared course index on the first search.
+  // Cache and retry the load; do not add 1 MB to every initial page visit.
+  function setupHeaderSearch(header) {
+    if (window.CmdPalette) return;
+    var button = header.querySelector('[data-cmd-palette]');
+    var pending = null;
+    var searchTitle = button.title;
+    function loadScript(name) {
+      return new Promise(function (resolve, reject) {
+        var script = document.createElement('script');
+        script.src = HEADER_BASE + name + '?v=20261106a';
+        script.onload = resolve;
+        script.onerror = function () { script.remove(); reject(new Error('search asset unavailable')); };
+        document.head.appendChild(script);
+      });
+    }
+    function openSearch() {
+      if (window.CmdPalette) { window.CmdPalette.open(); return; }
+      button.setAttribute('aria-busy', 'true');
+      button.removeAttribute('data-search-error');
+      if (!pending) pending = (typeof PHASES === 'undefined' ? loadScript('data.js') : Promise.resolve())
+        .then(function () { return loadScript('cmdpalette.js'); });
+      pending.then(function () {
+        button.removeAttribute('aria-busy');
+        button.title = searchTitle;
+        window.CmdPalette.open();
+      }).catch(function () {
+        pending = null;
+        button.removeAttribute('aria-busy');
+        button.setAttribute('data-search-error', 'true');
+        button.title = '搜索暂不可用，点击重试';
+      });
+    }
+    button.addEventListener('click', function () { if (!window.CmdPalette) openSearch(); });
+    document.addEventListener('keydown', function (event) {
+      if (!window.CmdPalette && (event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        openSearch();
+      }
+    });
+  }
+
+  var BANNER_KEY = 'aifs:banner:dismissed';
+  var BANNER_ID = 'manuals-zh-20261026';
+  var BANNER_HTML = '<div class="site-banner-inner">'
+    + '<span class="site-banner-tag">新增</span>'
+    + '<p class="site-banner-text">'
+    + '<span class="site-banner-long">vLLM、Miles、SGLang、A2A、Docker Sandboxes 与逆向工程中文手册。</span>'
+    + '<span class="site-banner-short">深入理解一个主题。</span>'
+    + '<a class="site-banner-link" href="' + (HEADER_BASE || '/') + 'manuals.html">阅读手册<span aria-hidden="true"> →</span></a>'
+    + '</p>'
+    + '<button type="button" class="site-banner-close" aria-label="关闭手册公告">'
+    + '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false">'
+    + '<path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" fill="none"/></svg>'
+    + '</button></div>';
+
+  function bannerDismissed() {
+    try {
+      return localStorage.getItem(BANNER_KEY) === BANNER_ID;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  function rememberBannerDismissed() {
+    try {
+      localStorage.setItem(BANNER_KEY, BANNER_ID);
+    } catch (_) {}
+  }
+
+  function setupBanner() {
+    var header = document.querySelector('.site-header');
+    if (!header || !header.parentNode || document.documentElement.hasAttribute('data-poster') || document.querySelector('.site-banner') || bannerDismissed()) return;
+
+    var root = document.documentElement;
+    var banner = document.createElement('aside');
+    banner.className = 'site-banner';
+    banner.setAttribute('aria-label', '手册公告');
+    banner.innerHTML = BANNER_HTML;
+    adaptRouteTree(banner);
+    header.parentNode.insertBefore(banner, header);
+    root.classList.add('has-site-banner');
+
+    var height = 0;
+    var frame = 0;
+
+    function syncOffset() {
+      frame = 0;
+      var offset = Math.max(0, height - (window.pageYOffset || root.scrollTop || 0));
+      root.style.setProperty('--site-banner-offset', offset + 'px');
+    }
+
+    function requestSync() {
+      if (!frame) frame = window.requestAnimationFrame(syncOffset);
+    }
+
+    function measure() {
+      height = banner.offsetHeight;
+      root.style.setProperty('--site-banner-h', height + 'px');
+      syncOffset();
+    }
+
+    var resizeObserver = typeof ResizeObserver === 'function' ? new ResizeObserver(measure) : null;
+    if (resizeObserver) resizeObserver.observe(banner);
+    window.addEventListener('resize', measure);
+    window.addEventListener('scroll', requestSync, { passive: true });
+    measure();
+
+    banner.querySelector('.site-banner-close').addEventListener('click', function () {
+      rememberBannerDismissed();
+      if (resizeObserver) resizeObserver.disconnect();
+      window.removeEventListener('resize', measure);
+      window.removeEventListener('scroll', requestSync);
+      if (frame) window.cancelAnimationFrame(frame);
+      var scrollY = window.pageYOffset || root.scrollTop || 0;
+      banner.parentNode.removeChild(banner);
+      root.classList.remove('has-site-banner');
+      root.style.removeProperty('--site-banner-h');
+      root.style.removeProperty('--site-banner-offset');
+      if (scrollY > 0) window.scrollTo({ top: Math.max(0, scrollY - height), behavior: 'instant' });
+      var logo = header.querySelector('.logo');
+      if (logo) logo.focus();
+    });
   }
 
   function load() {
+    setupBanner();
     var headers = document.querySelectorAll('.site-header');
-    for (var i = 0; i < headers.length; i++) setupNavigation(headers[i]);
+    for (var i = 0; i < headers.length; i++) {
+      setupHeaderTheme(headers[i]);
+      setupHeaderSearch(headers[i]);
+      setupNavigation(headers[i]);
+    }
     loadStars();
+    ensureThemeMenu();
     ensureNarration();
+    ensureStarNudge();
   }
 
   setupRouteLinks();

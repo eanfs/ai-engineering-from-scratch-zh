@@ -5,7 +5,7 @@
 > **规范说明（2026-07-28）：** Dynamic Client Registration 已由 Client ID Metadata Document 取代而废弃。DCR 保留为兼容机制。使用它时，client 必须声明正确的 `application_type`。client 会校验存在的 RFC 9207 `iss` 值，且绝不跨 authorization-server issuer 复用凭据。
 
 **类型：** Build
-**语言：** Python (stdlib)
+**语言：** Python (stdlib)、TypeScript
 **前置要求：** Phase 13 · 16（OAuth 2.1 状态机），Phase 13 · 17（网关）
 **预计时间：** 约 90 分钟
 
@@ -329,6 +329,7 @@ t3-jwks-rotate
 ```bash
 cd phases/13-tools-and-protocols/18-mcp-auth-production
 python3 code/main.py
+npx tsx code/main.ts
 python3 -m unittest discover -s code/tests -v
 ```
 
@@ -352,7 +353,7 @@ python3 -m unittest discover -s code/tests -v
 
 ## 练习
 
-1. 跑 `code/main.py`。追踪流程。注意 IdP 在第 6 步轮换一个密钥、计划 `refresh_jwks` 重新拉取已发布的密钥集，然后旧 token（重叠窗口）和一个新 token 都无需重启就校验通过。
+1. 跑 `code/main.py`。追踪流程。注意脚本输出的第 6 步（上方流程的第 7 步）由 IdP 轮换一个密钥、计划 `refresh_jwks` 重新拉取已发布的密钥集，然后旧 token（重叠窗口）和一个新 token 都无需重启就校验通过。
 
 2. 往 protected-resource 元数据的 `authorization_servers` 列表里加一个新 IdP。签发一个由新 IdP 签名的 token，确认校验器接受它。再签发一个由未列入的 IdP 签名的 token，确认校验器用 `WWW-Authenticate: Bearer error="invalid_token", error_description="iss not allowed"` 拒绝。
 

@@ -3,7 +3,7 @@
 > 是三层，不是一层。Karpenter 动态供给节点（不到一分钟，比 Cluster Autoscaler 快 40%）。KAI Scheduler 处理 gang scheduling、拓扑感知和分层队列 —— 它防住"八缺一"的部分分配陷阱：七个节点干等着、烧着钱，就因为缺一块 GPU。应用层自动扩缩器（NVIDIA Dynamo Planner、llm-d Workload Variant Autoscaler）按推理特有的信号扩缩 —— 队列深度、KV cache 利用率 —— 而不是按 CPU/DCGM 占空比。经典的 HPA 陷阱在于 `DCGM_FI_DEV_GPU_UTIL` 是一个占空比测量：100% 可能是 10 个请求，也可能是 100 个。vLLM 预分配 KV cache 内存，所以内存永远不会触发缩容。这一课教你把三层组合起来，并避开 Karpenter 默认的 `WhenEmptyOrUnderutilized` 策略 —— 它会在推理进行到一半时干掉正在跑的 GPU 任务。
 
 **类型：** Learn
-**语言：** Python（标准库，一个玩具级的队列深度自动扩缩模拟器）
+**语言：** Python、TypeScript（标准库，一个玩具级的队列深度自动扩缩模拟器）
 **前置要求：** 阶段 17 · 02（推理平台经济学）、阶段 17 · 04（推理服务引擎内部机制）
 **预计时间：** ~75 分钟
 
@@ -20,7 +20,7 @@
 
 另一边，你的节点用的是 Cluster Autoscaler。凌晨 2 点来了一个 1M token 的 prompt；集群花 3 分钟供给一个节点，请求超时了。
 
-再另一边，你部署一个 70B 模型，要跨 2 个节点用 8 块 GPU。集群空着 7 块 GPU，第 8 块散在 3 个节点上。Cluster Autoscaler 为那缺的 1 块 GPU 供给一个节点。七个节点干等 4 分钟、烧着钱，等 Kubernetes 把最后一块 GPU 拉起来。
+再另一边，你部署一个 70B 模型，要跨 2 个节点用 8 块 GPU。集群有 7 块空闲 GPU，它们分散在 3 个节点上，还缺 1 块。Cluster Autoscaler 为缺的 GPU 供给一个节点。已预留的 7 块 GPU 空等 4 分钟、白白烧钱，只为等 Kubernetes 把最后一块 GPU 拉起来。
 
 三层，三种不同的故障模式。2026 年的 GPU 感知自动扩缩不是"打开 HPA"。它是把节点供给、gang scheduling 和应用信号扩缩组合起来。
 

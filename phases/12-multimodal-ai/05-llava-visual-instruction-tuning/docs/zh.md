@@ -1,9 +1,9 @@
 # LLaVA 与视觉指令微调
 
-> LLaVA（2023 年 4 月）是这个星球上被抄得最多的多模态架构。它用一个 2 层 MLP 换掉了 BLIP-2 的 Q-Former，用朴素的 token 拼接换掉了 Flamingo 的门控交叉注意力，并在 15.8 万轮视觉指令上训练——这些指令是 GPT-4 从纯文本 caption 里生成的。2023 到 2026 年间搭过 VLM 的任何从业者，搭的都是某个 LLaVA 变体。LLaVA-1.5 加了 AnyRes。LLaVA-NeXT 提了分辨率。LLaVA-OneVision 用一套配方统一了图像、多图、视频。本节课通读这套配方，实现投影器，并解释为什么"更简单的赢了"。
+> LLaVA（2023 年 4 月）是这个星球上被抄得最多的多模态架构。它用一个 2 层 MLP 换掉了 BLIP-2 的 Q-Former，用朴素的 token 拼接换掉了 Flamingo 的门控交叉注意力，并在 15.8 万轮视觉指令上训练——这些指令是 GPT-4 从纯文本 caption 里生成的。2023 到 2026 年间搭过 VLM 的任何从业者，搭的都是某个 LLaVA 变体。LLaVA-1.5 换用了 MLP 投影器和 336px 编码器。LLaVA-NeXT 加入 AnyRes 切块，支持高分辨率输入。LLaVA-OneVision 用一套配方统一了图像、多图、视频。本节课通读这套配方，实现投影器，并解释为什么"更简单的赢了"。
 
 **类型：** Build
-**语言：** Python（标准库，投影器 + 指令模板构建器）
+**语言：** Python、TypeScript（标准库，投影器 + 指令模板构建器）
 **前置要求：** Phase 12 · 02（CLIP）、Phase 11（LLM 工程——指令微调）
 **预计时间：** ~180 分钟
 
@@ -32,10 +32,10 @@ LLaVA 的答案简单到令人难堪：拿 ViT 的 576 个 patch token，每个�
 
 ### 架构
 
-13B 的 LLaVA-1.5：
+7B 的 LLaVA-1.5：
 - 视觉编码器：CLIP ViT-L/14 @ 336（阶段 1 冻结，阶段 2 可选解冻）。
 - 投影器：带 GELU 激活的 2 层 MLP，`1024 → 4096 → 4096`。
-- LLM：Vicuna-13B（后来是 Llama-3.1-8B）。
+- LLM：Vicuna-7B v1.5（另有 13B 变体使用 Vicuna-13B；后来的分支改用 Llama-3.1-8B）。
 
 图像 + 文本 prompt 的前向：
 
@@ -83,10 +83,11 @@ batch 128 跑单个 epoch，几小时就能搞定。投影器学会把 ViT 空�
 LLaVA-1.5（2023 年 10 月）新增：
 - 把学术任务数据（VQA、OKVQA、RefCOCO）混进指令微调。
 - 更好的系统 prompt。
-- 2048 → 32k 上下文。
+- 2 层 MLP 投影器取代原来的单层线性投影；视觉编码器换为 336px 的 CLIP ViT-L/14（每张图 576 个 token），不再是 224px（256 个 token）。训练序列仍是 2048 token。
+- 论文提出了网格切图的 HD 变体，后来由 LLaVA-NeXT 作为 AnyRes 发布。
 
 LLaVA-NeXT（2024 年 1 月）新增：
-- AnyRes：把高分辨率图切成 2x2 或 1x3 的 336x336 裁块网格，外加一张全局低分辨率缩略图。每个裁块成为 576 个 token；每张图共约 2880 个视觉 token。OCR 和图表任务大涨。
+- AnyRes：把高分辨率图切成 2x2 或 1x3 的 336x336 裁块网格，外加一张全局低分辨率缩略图。每个裁块成为 576 个 token。2x2 网格加上缩略图每张图共约 2880 个视觉 token；1x3 网格裁块较少，消耗的 token 相应更少。OCR 和图表任务大幅提升。
 - 用 ShareGPT4V（高质量 GPT-4V caption）改善了指令数据配比。
 - 更强的基座 LLM（Mistral-7B、Yi-34B）。
 
@@ -98,7 +99,7 @@ LLaVA-NeXT（2024 年 1 月）新增：
 
 | | Q-Former（BLIP-2） | MLP（LLaVA） |
 |---|---|---|
-| 每张图的视觉 token | 32 | 576（基础）或 2880（AnyRes） |
+| 每张图的视觉 token | 32 | 576（基础）或约 2880（AnyRes，2x2 网格） |
 | 可训参数 | 188M + LM | 40M + LM |
 | 阶段 1 损失 | ITC+ITM+ITG | 仅 LM |
 | LLM 即插即换 | 需重训 | 极少量重训即可换 |
@@ -114,7 +115,7 @@ MLP 在简单性和 token 灵活性上赢。Q-Former 在 token 预算上赢。�
 A chat between a curious human and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the human's questions. USER: <image> Describe this image in detail. ASSISTANT: The image shows ...
 ```
 
-`<image>` 是个占位 token。分词之前，它被替换成 576 个视觉 token（AnyRes 下是 2880 个）。分词器看到的序列比它训练时略长，但 LLM 能处理这种新输入，因为阶段 1 教过它。
+`<image>` 是个占位 token。分词之前，它被替换成 576 个视觉 token（2x2 网格的 AnyRes 下约为 2880 个）。分词器看到的序列比它训练时略长，但 LLM 能处理这种新输入，因为阶段 1 教过它。
 
 ### 参数经济学
 

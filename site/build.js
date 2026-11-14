@@ -11,6 +11,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const { normalizeHeaderNavigation, HEADER_ASSET_VERSION } = require('../lib/site-navigation');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
 const README_PATH = path.join(REPO_ROOT, 'README.md');
@@ -89,6 +90,7 @@ const FIGURE_PROVIDER_ORDER = [
   'figures-infra4.js',
   'figures-claude-certifications.js',
   'figures-mcpa-certifications.js',
+  'figures-iso.js',
 ];
 
 // fork 部署可通过环境变量覆盖；默认始终指向中文站。
@@ -98,6 +100,7 @@ const SITE_ORIGIN = process.env.SITE_ORIGIN || 'https://aieng-zh.cn';
 
 // 浏览器与构建时共用同一份 Markdown 渲染器。
 const mdRender = require('./md-render.js');
+const code = require('./lib/code');
 
 // GITHUB_BASE lesson url -> site path "phases/<phase>/<lesson>"
 function lessonPath(url) {
@@ -622,7 +625,15 @@ function buildFigureProviderManifest(
   if (unresolved.length) {
     throw new Error(`Figure IDs have no provider: ${unresolved.join(', ')}`);
   }
-  return { providerOrder: resolvedProviderOrder, providerVersions, providersByFigure, figureDependencies };
+  const localeSources = {};
+  for (const provider of ['lesson-figures.js', ...resolvedProviderOrder]) {
+    const relative = `figure-locales/${provider}`;
+    const filename = path.join(siteDir, relative);
+    if (fs.existsSync(filename)) localeSources[provider] = `${relative}?v=${assetVersion(fs.readFileSync(filename, 'utf8'))}`;
+  }
+  const overlayPath = path.join(siteDir, 'figures-i18n-zh.js');
+  const localeVersion = fs.existsSync(overlayPath) ? assetVersion(fs.readFileSync(overlayPath, 'utf8')) : '';
+  return { providerOrder: resolvedProviderOrder, providerVersions, providersByFigure, figureDependencies, localeSources, localeVersion };
 }
 
 function syncFigureAssetVersions(siteDir, manifestSource) {
@@ -634,6 +645,8 @@ function syncFigureAssetVersions(siteDir, manifestSource) {
     'lesson-figures.js': assetVersion(fs.readFileSync(runtimePath, 'utf8')),
     'figure-manifest.js': assetVersion(manifestSource),
   };
+  const loaderPath = path.join(siteDir, 'figures-manifest.js');
+  if (fs.existsSync(loaderPath)) versions['figures-manifest.js'] = assetVersion(fs.readFileSync(loaderPath, 'utf8'));
   let html = fs.readFileSync(lessonPath, 'utf8');
   for (const [file, version] of Object.entries(versions)) {
     const reference = new RegExp(`(<script src="${escapeRegExp(file)})(?:\\?v=[^"]*)?("></script>)`);
@@ -649,7 +662,9 @@ function serializeFigureProviderManifest(manifest) {
     `window.AIFS_FIGURE_PROVIDER_ORDER = ${JSON.stringify(manifest.providerOrder, null, 2)};\n` +
     `window.AIFS_FIGURE_PROVIDER_VERSIONS = ${JSON.stringify(manifest.providerVersions, null, 2)};\n` +
     `window.AIFS_FIGURE_PROVIDERS = ${JSON.stringify(manifest.providersByFigure, null, 2)};\n` +
-    `window.AIFS_FIGURE_DEPENDENCIES = ${JSON.stringify(manifest.figureDependencies, null, 2)};\n`;
+    `window.AIFS_FIGURE_DEPENDENCIES = ${JSON.stringify(manifest.figureDependencies, null, 2)};\n` +
+    `window.AIFS_FIGURE_LOCALE_SOURCES = ${JSON.stringify(manifest.localeSources || {}, null, 2)};\n` +
+    `window.AIFS_FIGURE_I18N_VERSION = ${JSON.stringify(manifest.localeVersion || '')};\n`;
 }
 
 function writeFigureManifest(repoRoot = REPO_ROOT, siteDir = __dirname) {
@@ -1049,20 +1064,19 @@ function htmlEscape(value) {
 
 function renderCatalogDiscovery(phases, lessonManifest) {
   const rows = [];
+  const { lessonNumber } = require('./catalog');
   for (const phase of phases) {
-    for (const lesson of phase.lessons) {
+    let grouped = false;
+    phase.lessons.forEach((lesson, index) => {
       const relPath = lessonPath(lesson.url);
       const seo = relPath && lessonManifest.lessons[relPath];
-      if (!seo) continue;
-      rows.push(
-        `            <tr data-generated-discovery="lesson">` +
-        `<td><a href="${require('../lib/hub-routes').phaseHubPath(relPath)}">${htmlEscape(String(phase.id).padStart(2, '0'))}</a></td>` +
-        `<td><a href="${htmlEscape(lessonHref(relPath))}">${htmlEscape(seo.title)}</a></td>` +
-        `<td>${htmlEscape(lesson.type || '')}</td>` +
-        `<td>${htmlEscape(lesson.lang || '')}</td>` +
-        `<td>${htmlEscape(lesson.status || '')}</td></tr>`
-      );
-    }
+      if (!seo) return;
+      if (!grouped) {
+        grouped = true;
+        rows.push(`<tr class="catalog-group-row" data-generated-discovery="phase"><th colspan="6" scope="rowgroup"><a href="${require('../lib/hub-routes').phaseHubPath(relPath)}">阶段 ${phase.id}：${htmlEscape(phase.name)}</a></th></tr>`);
+      }
+      rows.push(`<tr data-generated-discovery="lesson"><td></td><td>${htmlEscape(lessonNumber(phase.id, lesson.url, index + 1).label)}</td><td><a href="${htmlEscape(lessonHref(relPath))}">${htmlEscape(seo.title)}</a></td><td>${htmlEscape(({ Build: '构建', Learn: '学习', Capstone: '顶点项目', Reference: '参考' })[lesson.type] || lesson.type || '')}</td><td>${htmlEscape(lesson.lang || '')}</td><td>${htmlEscape(({ complete: '内容完整', 'in-progress': '翻译中', planned: '待翻译' })[lesson.status] || lesson.status || '')}</td></tr>`);
+    });
   }
   return rows.join('\n');
 }
@@ -2047,10 +2061,17 @@ function withCard(html, type, id, spec) {
   return cleaned.replace('</head>', cardTags(cardUrl(type, id, spec), spec).join('\n') + '\n</head>');
 }
 
+// 共享脚本一族的缓存键。脚本在浏览器缓存一天、HTML 只缓存五分钟，族内任一脚本内容变化都要升级此键。
+const SHARED_SCRIPT_VERSION = '20261112a';
+// 页面样式表一族的缓存键，规则同上：族内任一样式表内容变化都要升级此键。
+const SHARED_STYLE_VERSION = '20261106a';
+
 function versionSharedAssets(html) {
-  return html.replace(/(\bsrc=["']\/?(?:app|header|cmdpalette|certifications)\.js)(?:\?[^"']*)?(["'])/g, '$1?v=20261012b$2')
-    .replace(/((?<![\w-])href=["']\/?(?:style|learning-paths|roadmap|intelligence-check|certifications)\.css)(?:\?[^"']*)?(["'])/g, '$1?v=20261012e$2')
-    .replace(/(\bsrc=["']\/?roadmap\.js)(?:\?[^"']*)?(["'])/g, '$1?v=20261012e$2');
+  return normalizeHeaderNavigation(html).replace(/(\bsrc=["']\/?(?:app|cmdpalette|certifications|projects|project-markdown|projects-data|data|certification-data|langs|md-render|skills-demo|progress|catalog|lesson-walkthrough|practice|practice-store|practice-worker|highlights|highlights-store|highlights-anchor)\.js)(?:\?[^"']*)?(["'])/g, '$1?v=' + SHARED_SCRIPT_VERSION + '$2')
+    .replace(/(\bsrc=["']\/?header\.js)(?:\?[^"']*)?(["'])/g, '$1?v=' + HEADER_ASSET_VERSION + '$2')
+    .replace(/((?<![\w-])href=["']\/?style\.css)(?:\?[^"']*)?(["'])/g, '$1?v=' + HEADER_ASSET_VERSION + '$2')
+    .replace(/((?<![\w-])href=["']\/?(?:learning-paths|roadmap|intelligence-check|certifications|projects|hubs|skills)\.css)(?:\?[^"']*)?(["'])/g, '$1?v=' + SHARED_STYLE_VERSION + '$2')
+    .replace(/(\bsrc=["']\/?roadmap\.js)(?:\?[^"']*)?(["'])/g, '$1?v=20261026a$2');
 }
 
 function stampSiteCards(cards) {
@@ -2118,9 +2139,20 @@ function build() {
   require('./build-projects').bundleContent(projects, REPO_ROOT, __dirname);
   fs.writeFileSync(path.join(__dirname, 'projects-data.js'), `window.AIFS_PROJECTS = ${JSON.stringify(projects, null, 2)};\n`);
   const manualBuilder = require('./build-manuals');
-  const manuals = manualBuilder.loadAll().filter(manual => manual.status === 'ready');
-  manualBuilder.writeWeb(manuals);
+  const allManuals = manualBuilder.loadAll();
+  const manuals = allManuals.filter(manual => manual.status === 'ready');
+  // 草稿可按明确URL阅读，保留draft/noindex；目录与就绪统计仅列ready。
+  manualBuilder.writeWeb(allManuals);
+  require('./build-skills').build();
+  require('node:child_process').execFileSync(process.execPath, [path.join(REPO_ROOT, 'scripts/agent-machine/build.mjs')], { cwd: REPO_ROOT, stdio: 'inherit' });
+  for (const machine of ['decompiler-machine', 'gpu-machine']) {
+    require('node:child_process').execFileSync(process.execPath, [path.join(REPO_ROOT, 'scripts', machine, 'build.mjs')], { cwd: REPO_ROOT, stdio: 'inherit' });
+  }
+  const sheetBuilder = require('./build-cheatsheets');
+  const sheets = sheetBuilder.writeCheatsheets({ siteDir: __dirname, versionHtml: versionSharedAssets });
+  const sheetCoverage = sheetBuilder.coverage(sheets.topics);
   const hubs = require('./build-hubs').writeHubs({
+    cheatsheets: sheetCoverage.phases,
     phases, prerequisites: roadmapPrereqs, glossary: glossaryTerms,
     categories: GLOSSARY_CATEGORY_ORDER, lessonManifest: seoManifests.lessonManifest,
     versionHtml: versionSharedAssets,
@@ -2129,6 +2161,19 @@ function build() {
       return [rel, Number(lesson.time) || lessonMinutes(rel)];
     }))),
   });
+  hubs.cheatsheetPages = sheets.pages;
+  const practice = require('./build-practice').writePractice({ siteDir: __dirname, versionHtml: versionSharedAssets });
+  hubs.practicePages = practice.pages;
+  hubs.practice = practice;
+  console.log(`   wrote ${practice.problems.length} practice problems in ${practice.tracks.length} tracks`);
+  console.log('Writing pre-rendered lesson code...');
+  const lessonCode = require('./build-lessons').writeLessonCode({ siteDir: __dirname });
+  console.log(lessonCode.skipped ? '   skipped: Shiki is not installed' : `   wrote ${lessonCode.blocks} code blocks for ${lessonCode.files.size} lessons`);
+  console.log('Writing interview pages...');
+  const interviews = require('./build-interviews').writeInterviews({ siteDir: __dirname });
+  hubs.interviewPages = interviews.pages;
+  hubs.interviews = interviews;
+  console.log(`   wrote ${interviews.questions.length} interview questions and ${interviews.scenarios.length} scenarios`);
   fs.writeFileSync(path.join(__dirname, 'hub-pages.json'), JSON.stringify({ pages: Object.fromEntries(
     [...hubs.phasePages, ...hubs.termPages].map(page => [page.href, {
       html: 'hubs' + page.href + '.html', markdown: 'agent-pages' + page.href + '.md',
@@ -2137,9 +2182,19 @@ function build() {
   for (const hub of hubs.phaseModels) phases.find(phase => phase.id === hub.id).hub = hub.href;
   replaceGeneratedDiscovery(path.join(__dirname, 'index.html'),
     '<!-- GENERATED:INTEGRATED-DISCOVERY:START -->', '<!-- GENERATED:INTEGRATED-DISCOVERY:END -->',
-    `<section class="course-paths-section container" aria-label="实战与主题发现"><h2>在课程之外动手实践</h2>
-    <p><a href="projects.html">${projects.projects.length} 项实战项目</a> · <a href="manuals.html">${manuals.length} 本技术手册</a> · <a href="glossary.html">${glossaryTerms.length} 个术语</a></p>
-    <p>${hubs.phaseModels.map(phase => `<a href="${phase.href}">阶段 ${phase.id}：${htmlEscape(phase.name)}</a>`).join(' · ')}</p></section>`);
+    `<section class="course-paths-section container" aria-labelledby="practiceDiscoveryTitle">
+    <h2 id="practiceDiscoveryTitle">在课程之外动手实践</h2>
+    <ul class="course-resource-list">
+      <li><a href="projects.html">实战项目 <span>${projects.projects.length} 项</span></a></li>
+      <li><a href="manuals.html">技术手册 <span>${manuals.length} 本</span></a></li>
+      <li><a href="glossary.html">术语表 <span>${glossaryTerms.length} 个术语</span></a></li>
+      <li><a href="/practice">编程练习 <span>${practice.problems.length} 道</span></a></li>
+    </ul>
+    <details class="course-phase-discovery">
+      <summary>按阶段浏览</summary>
+      <ul class="course-phase-list">${hubs.phaseModels.map(phase => `<li><a href="${phase.href}">阶段 ${phase.id}：${htmlEscape(phase.name)}</a></li>`).join('\n')}</ul>
+    </details>
+  </section>`);
   replaceGeneratedDiscovery(path.join(__dirname, 'glossary.html'),
     '<!-- GENERATED:GLOSSARY-INDEX:START -->', '<!-- GENERATED:GLOSSARY-INDEX:END -->', hubs.glossaryIndex);
   replaceGeneratedDiscovery(path.join(__dirname, 'glossary.html'),
@@ -2202,10 +2257,65 @@ const ARTIFACTS = ${JSON.stringify(artifacts, null, 2)};
     fs.writeFileSync(target, versionSharedAssets(fs.readFileSync(target, 'utf8')));
   }
   syncCounts(totalLessons, artifacts.length);
+  writeHubSitemaps(hubs);
   writeSitemap(phases, glossaryTerms.length, certifications, learningPaths, { projects, manuals, hubs });
   writeLlms(phases, glossaryTerms.length, artifacts.length, certifications, learningPaths, { projects, manuals, hubs });
   writeLessonPages(phases, seoManifests.lessonManifest);
+  writeProjectPages(projects, ogCards.cards);
   require('./build-agents').build({ phases, glossaryTerms, roadmapPrereqs });
+}
+
+function urlsetXml(urls) {
+  const today = new Date().toISOString().slice(0, 10);
+  return '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+    urls.map(url => `  <url>\n    <loc>${SITE_ORIGIN}${url.loc.replace(/&/g, '&amp;')}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${url.freq}</changefreq>\n    <priority>${url.priority}</priority>\n  </url>`).join('\n') +
+    '\n</urlset>\n';
+}
+
+function writeHubSitemaps(hubs, siteDir = __dirname) {
+  return [
+    ['sitemap-phases.xml', (hubs.phasePages || []).map(page => ({ loc: page.href, priority: '0.8', freq: 'monthly' }))],
+    ['sitemap-glossary.xml', (hubs.termPages || []).map(page => ({ loc: page.href, priority: '0.5', freq: 'monthly' }))],
+    ['sitemap-cheatsheets.xml', (hubs.cheatsheetPages || []).map(page => ({ loc: page.href, priority: '0.5', freq: 'monthly' }))],
+    ['sitemap-practice.xml', (hubs.practicePages || []).map(page => ({ loc: page.href, priority: '0.6', freq: 'monthly' }))],
+    ['sitemap-interviews.xml', (hubs.interviewPages || []).map(page => ({ loc: page.href, priority: '0.6', freq: 'monthly' }))],
+  ].filter(([, urls]) => urls.length).map(([name, urls]) => {
+    fs.writeFileSync(path.join(siteDir, name), urlsetXml(urls), 'utf8');
+    return name;
+  });
+}
+
+function hubLlms(hubs) {
+  let out = `## Phase overviews\n`;
+  out += `Each phase has an overview page with its lessons, prerequisites, glossary terms, and a short FAQ. Request any overview or term page with Accept: text/markdown to get Markdown.\n\n`;
+  for (const phase of hubs.phaseModels || []) out += `- [${phase.headline}](${SITE_ORIGIN}${phase.href}): ${phase.label}\n`;
+  out += `\n## Glossary term pages\n`;
+  out += `${(hubs.termPages || []).length} glossary terms have their own page at ${SITE_ORIGIN}/glossary/<term slug>. [Glossary term sitemap](${SITE_ORIGIN}/sitemap-glossary.xml)\n\n`;
+  if (hubs.practice && hubs.practice.problems.length) {
+    const labels = { implement: 'Implement', research: 'Research', train: 'Train', lab: 'Lab' };
+    out += `## Practice tasks\n`;
+    out += `${hubs.practice.problems.length} practice tasks ask the learner to implement code from a lesson, implement a method from a research paper, train a tiny model to a target, or run an experiment and answer with numbers. Python with numpy runs the checks in the browser. Each page holds the statement only, and each task page returns Markdown with Accept: text/markdown. [Practice index in Markdown](${SITE_ORIGIN}/agent-pages/practice/index.md) \`python3 scripts/practice/run.py <id> <file>\` runs the checks offline. [Practice sitemap](${SITE_ORIGIN}/sitemap-practice.xml)\n\n`;
+    for (const kind of Object.keys(labels)) {
+      const list = hubs.practice.problems.filter(problem => problem.meta.kind === kind);
+      if (!list.length) continue;
+      out += `### ${labels[kind]}\n\n`;
+      for (const problem of list) out += `- [${problem.meta.title}](${SITE_ORIGIN}${problem.href}) (${problem.meta.difficulty}): ${problem.meta.summary} From [${problem.lessonTitle}](${SITE_ORIGIN}/lesson?path=${encodeURIComponent(problem.meta.lesson)})\n`;
+      out += `\n`;
+    }
+  }
+  if (hubs.interviews && hubs.interviews.items.length) {
+    const built = hubs.interviews;
+    out += `## 面试题与排障场景\n`;
+    out += `${built.cards.length} 个主题包含 ${built.questions.length} 道面试题与 ${built.scenarios.length} 个排障场景。题目页展示题干，并折叠简短答案、完整答案、追问和常见错误答案。场景页按顺序展示证据。答案中的数值来自仓库课程、手册章节或捕获文件。请求头发送 Accept: text/markdown 时，详情页返回 Markdown。[题库 Markdown 索引](${SITE_ORIGIN}/agent-pages/interviews/index.md) [题库 JSON](${SITE_ORIGIN}/api/interviews.json) [题库站点地图](${SITE_ORIGIN}/sitemap-interviews.xml)\n\n`;
+    for (const card of built.cards) {
+      const items = built.byCard.get(card.id);
+      if (!items.length) continue;
+      out += `### ${card.title}\n\n`;
+      for (const item of items) out += `- [${item.data.title}](${SITE_ORIGIN}/interviews/${item.card}/${item.id}) (level ${item.data.level}, ${item.kind === 'scenario' ? 'scenario' : item.data.kind})\n`;
+      out += `\n`;
+    }
+  }
+  return out;
 }
 
 // ─── sitemap.xml from the same PHASES the site renders ───────────────────
@@ -2215,6 +2325,11 @@ function writeSitemap(phases, glossaryCount, certifications, learningPaths, addi
     { loc: '/', priority: '1.0', freq: 'weekly' },
     { loc: '/catalog.html', priority: '0.8', freq: 'weekly' },
     { loc: '/prereqs.html', priority: '0.7', freq: 'monthly' },
+    { loc: '/skills.html', priority: '0.7', freq: 'monthly' },
+    { loc: '/inside-an-ai-agent.html', priority: '0.7', freq: 'monthly' },
+    { loc: '/inside-a-decompiler.html', priority: '0.7', freq: 'monthly' },
+    { loc: '/inside-an-llm-serving-gpu.html', priority: '0.7', freq: 'monthly' },
+    { loc: '/how-to-learn.html', priority: '0.7', freq: 'monthly' },
     { loc: '/about.html', priority: '0.5', freq: 'monthly' },
     { loc: '/learning-paths.html', priority: '0.8', freq: 'weekly' },
     { loc: '/developer.html', priority: '0.5', freq: 'monthly' },
@@ -2244,15 +2359,18 @@ function writeSitemap(phases, glossaryCount, certifications, learningPaths, addi
   if (additions) {
     urls.push({ loc: '/projects.html', priority: '0.8', freq: 'weekly' }, { loc: '/manuals.html', priority: '0.8', freq: 'monthly' });
     for (const project of additions.projects.projects) {
-      urls.push({ loc: '/project.html?id=' + project.id, priority: '0.7', freq: 'monthly' });
-      for (const stage of project.stages) urls.push({ loc: '/project.html?id=' + project.id + '&stage=' + stage.id, priority: '0.6', freq: 'monthly' });
+      urls.push({ loc: '/project/' + project.id + '/', priority: '0.7', freq: 'monthly' });
+      for (const stage of project.stages) urls.push({ loc: '/project/' + project.id + '/' + stage.id + '/', priority: '0.6', freq: 'monthly' });
     }
-    for (const manual of additions.manuals) urls.push({ loc: '/manual-' + manual.id + '.html', priority: '0.7', freq: 'monthly' });
-    for (const page of [...additions.hubs.phasePages, ...additions.hubs.termPages]) urls.push({ loc: page.href, priority: '0.6', freq: 'monthly' });
+    for (const manual of additions.manuals) {
+      urls.push({ loc: '/manual-' + manual.id + '.html', priority: '0.7', freq: 'monthly' });
+      for (const section of require('./build-manuals').manualSectionPages(manual)) urls.push({ loc: section.href, priority: '0.6', freq: 'monthly', lastmod: section.lastmod });
+    }
+    for (const page of [...additions.hubs.phasePages, ...additions.hubs.termPages, ...additions.hubs.cheatsheetPages, ...(additions.hubs.practicePages || [])]) urls.push({ loc: page.href, priority: '0.6', freq: 'monthly' });
   }
   const body = urls.map(u =>
     `  <url>\n    <loc>${SITE_ORIGIN}${u.loc.replace(/&/g, '&amp;')}</loc>\n` +
-    `    <lastmod>${today}</lastmod>\n    <changefreq>${u.freq}</changefreq>\n` +
+    `    <lastmod>${u.lastmod || today}</lastmod>\n    <changefreq>${u.freq}</changefreq>\n` +
     `    <priority>${u.priority}</priority>\n  </url>`).join('\n');
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n` +
     `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`;
@@ -2266,7 +2384,7 @@ function writeLlms(phases, glossaryCount, artifactCount, certifications, learnin
   let total = 0;
   phases.forEach(p => { total += p.lessons.filter(l => lessonPath(l.url)).length; });
   let out = `# AI Engineering from Scratch · 简体中文版\n\n`;
-  out += `> 一套免费、开源的 AI 工程课程，从零亲手实现核心算法——${total} 节课，横跨 ${phases.length} 个阶段，从线性代数到自主 agent。Python、TypeScript、Rust、Julia。\n\n`;
+  out += `> 一套免费、开源的 AI 工程课程，从零亲手实现核心算法——${total} 节课，横跨 ${phases.length} 个阶段，从线性代数到自主 agent。Python、TypeScript、Rust、Julia、Go。\n\n`;
   out += `Canonical site: ${SITE_ORIGIN}\n`;
   out += `Source: https://github.com/fancyboi999/ai-engineering-from-scratch-zh\n`;
   out += `Upstream: https://github.com/rohitg00/ai-engineering-from-scratch\n`;
@@ -2313,9 +2431,18 @@ function writeLlms(phases, glossaryCount, artifactCount, certifications, learnin
   if (additions) {
     out += '\n## 实战项目与技术手册\n';
     out += `- [实战项目](${SITE_ORIGIN}/projects.html) — ${additions.projects.projects.length} 项，${additions.projects.projects.reduce((sum, project) => sum + project.stages.length, 0)} 个阶段\n`;
-    for (const project of additions.projects.projects) out += `- [${project.title}](${SITE_ORIGIN}/project.html?id=${project.id}) — ${project.summary}\n`;
+    for (const project of additions.projects.projects) out += `- [${project.title}](${SITE_ORIGIN}/project/${project.id}/) — ${project.summary}\n`;
     out += `- [技术手册](${SITE_ORIGIN}/manuals.html)\n`;
     for (const manual of additions.manuals) out += `- [${manual.title}](${SITE_ORIGIN}/manual-${manual.id}.html) — ${manual.summary}\n`;
+    out += '\n## 速查表与学习工具\n';
+    for (const page of additions.hubs.cheatsheetPages) out += `- [${page.href}](${SITE_ORIGIN}${page.href})\n`;
+    out += `- [学习方法](${SITE_ORIGIN}/how-to-learn.html)\n- [Agent 技能](${SITE_ORIGIN}/skills.html)\n- [AI Agent 内部机制](${SITE_ORIGIN}/inside-an-ai-agent.html)\n`;
+    if (additions.hubs.practice) {
+      out += '\n## 编程练习\n';
+      out += `- [编程练习](${SITE_ORIGIN}/practice) — ${additions.hubs.practice.problems.length} 道题，在浏览器中实现算法、复现论文方法、训练小模型或运行实验。Python 与 NumPy 在 Web Worker 中运行；也可用 \`python3 scripts/practice/run.py <id> <file>\` 在本机检查。\n`;
+      for (const problem of additions.hubs.practice.problems) out += `- [${problem.meta.title}](${SITE_ORIGIN}${problem.href}) — ${problem.meta.summary}\n`;
+    }
+    out += `- [反编译器内部机制](${SITE_ORIGIN}/inside-a-decompiler.html)\n- [LLM 推理 GPU 内部机制](${SITE_ORIGIN}/inside-an-llm-serving-gpu.html)\n`;
     out += '\n## 阶段与术语发现\n';
     for (const page of [...additions.hubs.phasePages, ...additions.hubs.termPages]) out += `- [${page.href.startsWith('/phase/') ? additions.hubs.phaseModels.find(model => model.href === page.href).name : additions.hubs.termModels.find(model => model.href === page.href).term.term}](${SITE_ORIGIN}${page.href})\n`;
   }
@@ -2456,7 +2583,7 @@ function writeLessonPages(phases, lessonManifest) {
     const ogTitle = title + ' · AI 工程从零开始';
 
     // 正文结构与客户端 renderLesson 完全同构：parseMd + AI 面板占位 + 上下课导航
-    let body = mdRender.parseMd(md);
+    let body = mdRender.parseMd(md, { renderCode: code.render });
     body += '<div class="ai-panels" id="aiPanels"></div>';
     body += bottomNavHtml(flat, i);
     const article =
@@ -2493,6 +2620,8 @@ function writeLessonPages(phases, lessonManifest) {
         () => '<!-- AIFS:LESSON-HUBS:START -->' + require('../api/lesson').lessonHubLinks(entry, title, {
           hubRoutes: require('../lib/hub-routes'),
           lessonTerms: JSON.parse(fs.readFileSync(path.join(__dirname, 'lesson-terms.json'), 'utf8')).lessons,
+          cheatsheets: JSON.parse(fs.readFileSync(path.join(__dirname, 'cheatsheet-map.json'), 'utf8')).lessons,
+          practice: JSON.parse(fs.readFileSync(path.join(__dirname, 'practice-map.json'), 'utf8')).lessons,
         }) + '<!-- AIFS:LESSON-HUBS:END -->');
     }
     // 注入预渲染标记：boot 据此跳过运行时 fetch，直接走 enhanceLesson + fetchQuiz
@@ -2518,6 +2647,206 @@ function writeLessonPages(phases, lessonManifest) {
     console.warn(`⚠️  ${skipped.length} 课登记了但没有 docs/zh.md，未生成静态页：`);
     skipped.forEach(s => console.warn('   - ' + s));
   }
+}
+
+// ─── 预渲染项目页：site/project/<id>/index.html 和 site/project/<id>/<stage>/index.html ──
+// 与课程页同理：正文、阶段链接及元数据一起生成，不依赖爬虫运行脚本和二次 fetch。
+function projectPageContent(template, project, stage) {
+  const esc = mdRender.escapeHtml;
+  const attr = mdRender.escapeAttr;
+  const href = item => `/project/${project.id}/${item.id}/`;
+  const hero = `<div class="pj-hero-grid"><div><h1>${esc(project.title)}</h1>` +
+    `<p class="pj-lede">${esc(project.summary || project.tagline)}</p>` +
+    `<div class="pj-meta-row"><span>${project.stages.length} 阶段</span><span>~${project.hours} 小时</span>` +
+    `<span>${esc(project.languages.join(', '))}</span></div></div>` +
+    `<div class="pj-hero-side">${project.youWillBuild ? `<h2>最终产物</h2><p>${esc(project.youWillBuild)}</p>` : ''}</div></div>`;
+  const rail = project.stages.map(item => `<li><a class="pj-stage-link${stage === item ? ' is-current' : ''}" href="${href(item)}"` +
+    `${stage === item ? ' aria-current="step"' : ''}><span class="pj-stage-n">${item.number}</span>` +
+    `<span class="pj-stage-text"><span class="pj-stage-title">${esc(item.title)}</span></span></a></li>`).join('');
+  let article;
+  if (stage) {
+    const source = safeRepoFile(stage.doc, REPO_ROOT);
+    if (!source) throw new Error(`Missing project stage source: ${stage.doc}`);
+    const markdown = fs.readFileSync(source, 'utf8');
+    const rendered = require('./project-markdown').render(markdown, path.posix.dirname(stage.doc), mdRender,
+      target => githubSourceUrl(target, 'blob'));
+    const index = project.stages.indexOf(stage);
+    const neighbors = [project.stages[index - 1], project.stages[index + 1]].filter(Boolean);
+    article = `<header class="pj-stage-head"><h2>${esc(stage.title)}</h2><p class="pj-lede">${esc(stage.summary)}</p></header>` +
+      `<div class="pj-doc" id="pjDoc" data-prerendered-stage="${stage.id}">${rendered.html}</div>` +
+      `<footer class="pj-stage-foot"><nav class="pj-stage-nav" aria-label="相邻阶段">` +
+      neighbors.map(item => `<a class="pj-action secondary" href="${href(item)}">${esc(item.title)}</a>`).join('') +
+      `</nav><a class="pj-source-link" href="${attr(githubSourceUrl(stage.doc, 'blob'))}">在 GitHub 查看本课</a></footer>`;
+  } else {
+    article = `<h2>项目阶段</h2>` + project.stages.map(item => `<section><h3><a href="${href(item)}">` +
+      `${esc(item.title)}</a></h3><p>${esc(item.summary)}</p></section>`).join('');
+  }
+  const replacements = [
+    ['<span id="pjCrumb">项目</span>', `<span id="pjCrumb">${esc(project.title)}</span>`],
+    ['<p>正在加载项目…</p>', hero],
+    ['id="pjWorkspace" hidden', 'id="pjWorkspace"'],
+    ['<ol class="pj-stage-list" id="pjStageList"></ol>', `<ol class="pj-stage-list" id="pjStageList">${rail}</ol>`],
+    ['<article class="pj-stage" id="pjStage" aria-live="polite"></article>',
+      `<article class="pj-stage" id="pjStage" aria-live="polite">${article}</article>`],
+  ];
+  for (const [anchor, replacement] of replacements) {
+    if (template.split(anchor).length !== 2) throw new Error(`Project template anchor mismatch: ${anchor}`);
+    template = template.replace(anchor, () => replacement);
+  }
+  return template;
+}
+
+function writeProjectPages(projects, ogCards) {
+  const template = fs.readFileSync(path.join(__dirname, 'project.html'), 'utf8');
+  const projectRoot = path.join(__dirname, 'project');
+  fs.rmSync(projectRoot, { recursive: true, force: true });
+
+  const absolutized = template.replace(
+    /(?<![\w-])(href|src)="(?!(?:[a-z][a-z0-9+.-]*:|\/\/|\/|#))([A-Za-z0-9_][^"]*)"/g,
+    '$1="/$2"'
+  );
+
+  const og = require('../lib/og-cards');
+  let projectCount = 0;
+  let stageCount = 0;
+
+  for (const project of projects.projects) {
+    const projectUrl = `${SITE_ORIGIN}/project/${project.id}/`;
+    const projectTitle = `${project.title} - 项目 - 从零开始学 AI 工程`;
+    const projectDesc = project.summary || project.tagline;
+    const stagesLabel = `${project.stages.length} 个阶段`;
+    const hoursLabel = `${project.hours} 小时`;
+    const levelNames = { 1: '入门', 2: '构建', 3: '工程', 4: '系统', 5: '前沿' };
+    const levelName = levelNames[project.level] || '';
+
+    const projectJsonLd = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'LearningResource',
+          name: project.title,
+          description: projectDesc,
+          url: projectUrl,
+          inLanguage: 'zh-CN',
+          isAccessibleForFree: true,
+          educationalLevel: levelName,
+          timeRequired: `PT${project.hours}H`,
+          isPartOf: { '@type': 'Course', name: 'AI Engineering from Scratch 简体中文版', url: SITE_ORIGIN },
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: '首页', item: SITE_ORIGIN },
+            { '@type': 'ListItem', position: 2, name: '项目', item: `${SITE_ORIGIN}/projects.html` },
+            { '@type': 'ListItem', position: 3, name: project.title, item: projectUrl },
+          ],
+        },
+      ],
+    }).replace(/</g, '\\u003c');
+
+    let projectPage = absolutized;
+    projectPage = projectPage.replace(/<title>[^<]*<\/title>/, `<title>${mdRender.escapeHtml(projectTitle)}</title>`);
+    projectPage = projectPage.replace(
+      /<meta name="description" content="[^"]*">/,
+      `<meta name="description" content="${mdRender.escapeAttr(projectDesc)}">`
+    );
+    projectPage = projectPage.replace(
+      /<meta property="og:title" content="[^"]*">/,
+      `<meta property="og:title" content="${mdRender.escapeAttr(projectTitle)}">`
+    );
+    projectPage = projectPage.replace(
+      /<meta property="og:description" content="[^"]*">/,
+      `<meta property="og:description" content="${mdRender.escapeAttr(projectDesc)}">`
+    );
+    const projectCardSpec = ogCards && ogCards[`project/${project.id}`];
+    if (projectCardSpec) {
+      const cardUrl = og.cardUrl('project', project.id, projectCardSpec);
+      const cardTagsHtml = og.cardTags(cardUrl, projectCardSpec).join('\n  ');
+      projectPage = projectPage.replace(
+        /<meta property="og:image" content="[^"]*">[\s\S]*?<meta name="twitter:image:alt" content="[^"]*">/,
+        cardTagsHtml
+      );
+    }
+    projectPage = projectPage.replace('</head>',
+      `  <link rel="canonical" href="${projectUrl}">\n` +
+      `  <meta property="og:url" content="${projectUrl}">\n` +
+      `  <script type="application/ld+json" data-project-seo>${projectJsonLd}</script>\n</head>`);
+    projectPage = projectPageContent(projectPage, project, null);
+
+    const projectOutDir = path.join(projectRoot, project.id);
+    fs.mkdirSync(projectOutDir, { recursive: true });
+    fs.writeFileSync(path.join(projectOutDir, 'index.html'), projectPage, 'utf8');
+    projectCount++;
+
+    for (const stage of project.stages) {
+      const stageUrl = `${SITE_ORIGIN}/project/${project.id}/${stage.id}/`;
+      const stageTitle = `${stage.title} - ${project.title} - 项目 - 从零开始学 AI 工程`;
+      const stageDesc = stage.summary || `${project.title} 的第 ${stage.number} 阶段：${stage.title}`;
+      const difficultyLabels = { starter: '入门', builder: '构建', engineer: '工程', systems: '系统', frontier: '前沿', core: '核心' };
+      const difficultyLabel = difficultyLabels[stage.difficulty] || stage.difficulty || '';
+
+      const stageJsonLd = JSON.stringify({
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'LearningResource',
+            name: stage.title,
+            description: stageDesc,
+            url: stageUrl,
+            inLanguage: 'zh-CN',
+            isAccessibleForFree: true,
+            educationalLevel: difficultyLabel,
+            timeRequired: stage.hours ? `PT${stage.hours}H` : undefined,
+            isPartOf: { '@type': 'LearningResource', name: project.title, url: projectUrl },
+          },
+          {
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: '首页', item: SITE_ORIGIN },
+              { '@type': 'ListItem', position: 2, name: '项目', item: `${SITE_ORIGIN}/projects.html` },
+              { '@type': 'ListItem', position: 3, name: project.title, item: projectUrl },
+              { '@type': 'ListItem', position: 4, name: stage.title, item: stageUrl },
+            ],
+          },
+        ],
+      }).replace(/</g, '\\u003c');
+
+      let stagePage = absolutized;
+      stagePage = stagePage.replace(/<title>[^<]*<\/title>/, `<title>${mdRender.escapeHtml(stageTitle)}</title>`);
+      stagePage = stagePage.replace(
+        /<meta name="description" content="[^"]*">/,
+        `<meta name="description" content="${mdRender.escapeAttr(stageDesc)}">`
+      );
+      stagePage = stagePage.replace(
+        /<meta property="og:title" content="[^"]*">/,
+        `<meta property="og:title" content="${mdRender.escapeAttr(stageTitle)}">`
+      );
+      stagePage = stagePage.replace(
+        /<meta property="og:description" content="[^"]*">/,
+        `<meta property="og:description" content="${mdRender.escapeAttr(stageDesc)}">`
+      );
+      if (projectCardSpec) {
+        const cardUrl = og.cardUrl('project', project.id, projectCardSpec);
+        const cardTagsHtml = og.cardTags(cardUrl, projectCardSpec).join('\n  ');
+        stagePage = stagePage.replace(
+          /<meta property="og:image" content="[^"]*">[\s\S]*?<meta name="twitter:image:alt" content="[^"]*">/,
+          cardTagsHtml
+        );
+      }
+      stagePage = stagePage.replace('</head>',
+        `  <link rel="canonical" href="${stageUrl}">\n` +
+        `  <meta property="og:url" content="${stageUrl}">\n` +
+        `  <script type="application/ld+json" data-project-seo>${stageJsonLd}</script>\n</head>`);
+      stagePage = projectPageContent(stagePage, project, stage);
+
+      const stageOutDir = path.join(projectOutDir, stage.id);
+      fs.mkdirSync(stageOutDir, { recursive: true });
+      fs.writeFileSync(path.join(stageOutDir, 'index.html'), stagePage, 'utf8');
+      stageCount++;
+    }
+  }
+
+  console.log(`   wrote ${projectCount} project pages and ${stageCount} stage pages under site/project/`);
 }
 
 // ─── 自动同步站点文案里的课程数 / 产出数 ─────
@@ -2648,13 +2977,11 @@ function verifyCurriculum() {
   check('README lessons badge URL',  grab(readme, /lessons-(\d+)-3553ff/),     fsLessons);
   check('README lessons badge alt',  grab(readme, /alt="(\d+) lessons"/),       fsLessons);
   check('README hero 散文课数',       grab(readme, /^> (\d+) 节课，/m),          fsLessons);
-  check('README spine 散文课数',      grab(readme, /个阶段，(\d+) 节课，/),       fsLessons);
 
   // ③ README phases badge + 散文 == 实际 phase 数
   check('README phases badge URL',   grab(readme, /phases-(\d+)-3553ff/),       phaseCount);
   check('README phases badge alt',   grab(readme, /alt="(\d+) phases"/),         phaseCount);
   check('README hero 阶段数',         grab(readme, /^> \d+ 节课，(\d+) 个阶段/m), phaseCount);
-  check('README spine 阶段数',        grab(readme, /(\d+) 个阶段，\d+ 节课，/),    phaseCount);
 
   // ④ ROADMAP 总计 == 文件系统数 / phase 数
   check('ROADMAP 总计课数',           grab(roadmap, /\*\*总计：\d+ 个阶段，(\d+) 节课/), fsLessons);
@@ -2718,10 +3045,17 @@ module.exports = {
   verifySiteCss,
   writeLessonPages,
   withCard,
+  writeHubSitemaps,
+  hubLlms,
 };
 
 if (require.main === module) {
   verifySiteCss();
   if (process.argv.includes('--check')) verifyCurriculum();
-  else build();
+  else {
+    code.init().then(build).then(() => require('./build-search').main()).catch(error => {
+      console.error(error);
+      process.exitCode = 1;
+    });
+  }
 }

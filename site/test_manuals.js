@@ -6,6 +6,7 @@ const os = require('node:os');
 const path = require('node:path');
 const test = require('node:test');
 const manuals = require('./build-manuals.js');
+const { HEADER_ASSET_VERSION } = require('../lib/site-navigation');
 const audit = require('../scripts/audit_manuals.js');
 const figkit = require('../manuals/_shared/figkit.js');
 
@@ -34,7 +35,7 @@ const SECTION = `# What demo is for
 
 > A demo exists so that tests have something small to render.
 
-Your test needs a manual. When you finish this section, you can render one and check it.
+Your test needs a manual. 读完本节，你能渲染手册并校验结果。
 
 ## The rule
 
@@ -42,7 +43,7 @@ Your test needs a manual. When you finish this section, you can render one and c
 label: core rule
 source: spec §1
 ---
-"The server MUST reply with a task."
+The server must reply with a task.
 \`\`\`
 
 **Task:** a unit of work with an id {{spec §1}}. See [the figures](#s-ref-figures) and [figure](#fig-1-1).
@@ -145,14 +146,19 @@ test('rejects constructs outside the subset', () => {
   assert.throws(() => manuals.parseDocument('# T\n\n- a\n  - b\n', 'x'), /nested lists/);
   assert.throws(() => manuals.parseDocument('# T\n\n<div>x</div>\n', 'x'), /raw HTML/);
   assert.throws(() => manuals.parseDocument('# T\n\n---\n', 'x'), /horizontal rules/);
-  assert.throws(() => manuals.parseDocument('# T\n\n```figure\nid: f-1\nkind: chart\ntitle: t\nclaim: c.\ncaption: c\n```\n', 'x'), /kind must be one of/);
+  assert.throws(() => manuals.parseDocument('# T\n\n```figure\nid: f-1\nkind: unsupported\ntitle: t\nclaim: c.\ncaption: c\n```\n', 'x'), /kind must be one of/);
 });
 
-test('inline markup escapes HTML and records cross references with their location', () => {
+test('inline markup escapes HTML, hides source markers, and records cross references', () => {
   const acc = manuals.newInline();
   const html = manuals.inlineHtml('**a** <b> `x < y` {{spec §2}} [s](#s-1-1)', 'doc.md:4', acc);
-  assert.match(html, /<strong>a<\/strong> &lt;b&gt; <code>x &lt; y<\/code> <span class="m-cite">spec §2<\/span> <a class="m-xref" href="#s-1-1">s<\/a>/);
+  assert.match(html, /<strong>a<\/strong> &lt;b&gt; <code>x &lt; y<\/code> <a class="m-xref" href="#s-1-1">s<\/a>/);
+  assert.doesNotMatch(html, /spec §2|m-cite/);
   assert.deepEqual(acc.refs, [{ id: 's-1-1', where: 'doc.md:4' }]);
+});
+
+test('source markers render no text and preserve sentence punctuation', () => {
+  assert.equal(manuals.inlineHtml('Stop the server {{docs Install}}.', 'doc.md:5', manuals.newInline()), 'Stop the server.');
 });
 
 test('numbers figures per part and renders the print edition', () => {
@@ -163,7 +169,48 @@ test('numbers figures per part and renders the print edition', () => {
   assert.match(html, /图 1\.1/);
   assert.match(html, /href="#fig-1-1">1\.1<\/a>/);
   assert.match(html, /string-set: mtitle content\(text\)/);
-  assert.match(html, /<span class="m-tok-key">&quot;kind&quot;<\/span>/);
+  const listing = html.match(/<figure class="m-listing"[^>]*><div class="cb" data-kind="code" data-lang="json">[\s\S]*?<\/figure>/);
+  assert.ok(listing, 'a json listing renders as a shared code block inside its figure');
+  assert.match(listing[0], /<span class="m-listing-title">/);
+  assert.match(listing[0].replace(/<[^>]+>/g, ''), /"kind"/);
+  assert.doesNotMatch(listing[0], /data-code=/);
+});
+
+test('section routes keep stable paths and provide a lastmod date for every document', () => {
+  const manual = manuals.loadManual(fixture().dir);
+  const pages = manuals.manualSectionPages(manual);
+  assert.deepEqual(pages.map(page => page.href), [
+    '/manual-demo-101/front',
+    '/manual-demo-101/intro',
+    '/manual-demo-101/ref-figures',
+  ]);
+  assert.ok(pages.every(page => /^\d{4}-\d{2}-\d{2}$/.test(page.lastmod)));
+  assert.equal(manuals.sectionHref(manual, '#s-intro'), '/manual-demo-101/intro');
+  assert.equal(manuals.sectionHref(manual, '#missing'), null);
+});
+
+test('chapter fragment links remain in the current document and assets load at the site root', () => {
+  const manual = manuals.loadManual(fixture({ 'manual.json': manifest({ status: 'ready' }), 'README.md': '# Demo manual\n' }).dir);
+  const out = tempDir('manual-fragment-links-');
+  manuals.writeWeb([manual], out, { only: manual.id });
+  const html = fs.readFileSync(path.join(out, 'manual/manual-demo-101/intro.html'), 'utf8');
+  const documentUrl = new URL('https://aieng-zh.cn/manual-demo-101/intro');
+  const base = html.match(/<base href="([^"]+)"/);
+  const resolutionBase = base ? new URL(base[1], documentUrl) : documentUrl;
+  for (const fragment of ['#main', '#fig-1-1']) {
+    assert.ok(html.includes(`href="${fragment}"`), `missing local link ${fragment}`);
+    const actual = new URL(fragment, resolutionBase);
+    assert.equal(actual.pathname, documentUrl.pathname, `${fragment} leaves the chapter`);
+    assert.equal(actual.hash, fragment);
+  }
+  for (const file of ['style.css', 'data.js', 'content-source.js', 'header.js']) {
+    const match = html.match(new RegExp(`(?:href|src)="([^"\\s]*${file.replace('.', '\\.')}[^"\\s]*)"`));
+    assert.ok(match, `missing shared asset ${file}`);
+    assert.equal(new URL(match[1], resolutionBase).pathname, '/' + file);
+    if (file === 'style.css' || file === 'header.js') {
+      assert.equal(new URL(match[1], resolutionBase).searchParams.get('v'), HEADER_ASSET_VERSION);
+    }
+  }
 });
 
 test('offline print embeds licensed CJK text fonts and keeps headings and listings pageable', () => {
@@ -181,13 +228,15 @@ test('offline print embeds licensed CJK text fonts and keeps headings and listin
   assert.match(print, /--m-font-mono: 'Manual Noto Mono'/);
   assert.match(print, /\.m-section-head \{[^}]*break-inside: avoid;[^}]*break-after: avoid;/);
   assert.match(print, /\.m-listing \{ break-inside: auto;/);
-  assert.match(print, /\.m-listing-head \{[^}]*break-after: avoid;/);
+  assert.match(print, /\.cb-head \{[^}]*break-after: avoid;/);
+  assert.match(print, /\.cb-copy \{ display: none; \}/);
   assert.match(print, /<div class="m-print-line"><code>\{<\/code><\/div>\n/);
   const listing = print.match(/<figure class="m-listing"[\s\S]*?<\/figure>/)[0];
   const lines = [...listing.matchAll(/<div class="m-print-line"><code>(.*?)<\/code><\/div>/g)]
     .map(match => match[1].replace(/<[^>]+>/g, ''));
+  const decode = text => text.replace(/&(quot|#39|lt|gt|amp);/g, (entity, name) => ({ quot: '"', '#39': "'", lt: '<', gt: '>', amp: '&' })[name]);
   const code = manual.documents.flatMap(doc => doc.blocks).find(block => block.type === 'listing').code;
-  assert.equal(lines.join('\n'), figkit.escapeHtml(code), 'printing preserves listing characters and newlines');
+  assert.equal(decode(lines.join('\n')), code, 'printing preserves listing characters and newlines');
   assert.match(print, /\.m-print-line \{[^}]*break-inside: avoid;/);
   assert.match(print, /\.manual p \{ break-inside: avoid;/);
   assert.match(print, /overflow-wrap: anywhere;/);
@@ -202,6 +251,9 @@ test('print document anchors follow the kept-together header while web anchors s
   const out = tempDir('manual-anchor-web-');
   manuals.writeWeb([manual], out, { only: manual.id });
   const web = fs.readFileSync(path.join(out, `manual-${manual.id}.html`), 'utf8');
+  assert.match(web, /highlights\.css/);
+  assert.match(web, /AIFSHighlights\.mount\(article,/);
+  assert.match(web, /"lang":"zh-CN"/);
   for (const doc of manual.documents) {
     const sectionClass = doc.kind === 'front' ? 'm-front-section' : 'm-section';
     assert.ok(print.includes(`<section class="${sectionClass}" data-accent="${doc.accent}"><header class="m-section-head" id="${doc.anchor}">`), `${doc.anchor}: print anchor must be on the header`);
@@ -276,7 +328,7 @@ test('a clean fixture passes the editorial audit', () => {
 test('audit flags prose, provenance, and quote violations', () => {
   const broken = SECTION
     .replace('Your test needs a manual.', 'Your test needs a manual; it can’t wait — really.')
-    .replace('"The server MUST reply with a task."', '"The server SHOULD reply with a task."')
+    .replace('The server must reply with a task.', '"the server must reply with a task" {{spec §1}}.')
     .replace('  "kind": "task",', '  "kind": "message",');
   const found = rules(fixture({ 'sections/1-1-intro.md': broken }).dir);
   for (const rule of ['semicolon', 'contraction', 'dash', 'quote', 'provenance']) assert.ok(found.has(rule), `expected ${rule}`);
@@ -297,7 +349,7 @@ test('sentences that open with code, a quote, or a section sign count on their o
 });
 
 test('audit enforces section shape', () => {
-  const shapeless = SECTION.replace('When you finish this section, you can render one and check it.', 'It renders.').replace(/```takeaways[\s\S]*?```\n/, '').replace(/\nSources:.*\n$/, '\n');
+  const shapeless = SECTION.replace('读完本节，你能渲染手册并校验结果。', '本节有一个例子。').replace(/```takeaways[\s\S]*?```\n/, '').replace(/\nSources:.*\n$/, '\n');
   const found = rules(fixture({ 'sections/1-1-intro.md': shapeless }).dir);
   for (const rule of ['outcome', 'takeaways', 'sources']) assert.ok(found.has(rule), `expected ${rule}`);
 });
@@ -336,7 +388,7 @@ test('web output is flat, lists only ready manuals, and a scoped build leaves ot
   assert.ok(!fs.existsSync(path.join(site, 'manual-other-101.html')));
   const page = fs.readFileSync(path.join(site, 'manual-demo-101.html'), 'utf8');
   assert.match(page, /noindex/);
-  assert.match(page, /<script src="header\.js" defer>/);
+  assert.match(page, /<script src="header\.js\?v=[a-z0-9]+" defer>/);
   assert.doesNotMatch(page, /Download the PDF/);
   fs.writeFileSync(path.join(dir, 'manual.json'), manifest({ status: 'ready' }));
   fs.writeFileSync(path.join(dir, 'README.md'), '# Demo\n');
@@ -451,7 +503,7 @@ test('print and web editions carry the author, license, and colophon', () => {
 const ZH_SECTION = SECTION
   .replace('What demo is for', '演示的用途')
   .replace('A demo exists so that tests have something small to render.', '演示为测试提供一个小型渲染对象。')
-  .replace('Your test needs a manual. When you finish this section, you can render one and check it.', '你的测试需要一本手册。读完本节后，你可以渲染手册并校验结果。')
+  .replace('Your test needs a manual. 读完本节，你能渲染手册并校验结果。', '你的测试需要一本手册。读完本节后，你可以渲染手册并校验结果。')
   .replace('A request becomes a task.', '请求成为任务。')
   .replace('Sources: spec', '来源：spec');
 
@@ -472,11 +524,13 @@ test('Chinese sentence checks remain active without imposing English word counts
   assert.ok(!rules(fixture({ 'sections/1-1-intro.md': terms }).dir).has('lexicon'));
 });
 
-test('paired Chinese quotations preserve verbatim checks without swallowing code or prose', () => {
-  const text = ZH_SECTION.replace('## The rule', '`version` 是 `"0"` 到 `"16"` 的字符串。原文说：“The server MUST reply with a task.” {{spec §1}}。\n\n## The rule');
-  assert.deepEqual(issuesFor(fixture({ 'sections/1-1-intro.md': text }).dir), []);
-  assert.ok(rules(fixture({ 'sections/1-1-intro.md': text.replace('原文说：“The server MUST', '原文说：“The server SHOULD') }).dir).has('quote'));
-  assert.ok(rules(fixture({ 'sections/1-1-intro.md': text.replace('原文说：“The server MUST', '原文说：“The server MUST').replace('” {{spec §1}}', '” {{missing §1}}') }).dir).has('quote-key'));
+test('manuals paraphrase sourced claims and keep literal output in code font', () => {
+  const literal = ZH_SECTION.replace('## The rule', '`version` 是 `"0"` 到 `"16"` 的字符串。日志会打印 `The server MUST reply with a task.` {{spec §1}}。\n\n## The rule');
+  assert.ok(!rules(fixture({ 'sections/1-1-intro.md': literal }).dir).has('quote'));
+  const quote = literal.replace('日志会打印 `The server MUST reply with a task.`', '文档写道：“The server MUST reply with a task.”');
+  assert.ok(rules(fixture({ 'sections/1-1-intro.md': quote }).dir).has('quote'));
+  const missing = literal.replace('{{spec §1}}', '{{missing §1}}');
+  assert.ok(rules(fixture({ 'sections/1-1-intro.md': missing }).dir).has('quote-key'));
 });
 
 test('listing sources remain mandatory and mutated Chinese listings fail provenance', () => {
@@ -529,15 +583,17 @@ test('Chinese web and offline print output use genuine URLs and mark historic ev
     assert.doesNotMatch(page, /aiengineeringfromscratch\.com|github\.com\/rohitg00|sponsors\.html|releases\/latest\/download/);
   }
   assert.match(html, /github\.com\/fancyboi999\/ai-engineering-from-scratch-zh/);
+  assert.match(html, /class="m-evidence"[^>]*>完整记录<\/a>/);
   assert.match(html, /data-source="capture\/out\/task\.json"/);
+  assert.doesNotMatch(html.replace(/\sdata-source="[^"]*"/g, ''), /capture\/out\/task\.json/);
   assert.match(html, /上游记录的核验日期为 2026-10-06/);
   assert.match(html, /href="manual-demo-101-print\.html">打印版/);
   assert.match(data, /"print": "manual-demo-101-print\.html"/);
   assert.doesNotMatch(data, /"pdf"/);
   assert.doesNotMatch(print, /<script|fonts\.googleapis\.com/);
   assert.match(print, /name="robots" content="noindex"/);
-  assert.match(html, /src="header\.js"/);
-  assert.match(index, /aria-label="搜索"/);
+  assert.match(html, /src="header\.js\?v=[a-z0-9]+"/);
+  assert.match(index, /data-cmd-palette aria-label="搜索（⌘K）"/);
 });
 
 test('PDF downloads link only the two published ready manuals and never enter print output', () => {

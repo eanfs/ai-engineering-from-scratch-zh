@@ -14,6 +14,17 @@ on:
   push:
     branches: [main]
     paths:
+      - "practice/**"
+      - "research/**"
+      - "scripts/practice/**"
+      - "scripts/decompiler-machine/**"
+      - "scripts/gpu-machine/**"
+      - "cheatsheets/**"
+      - "interviews/**"
+      - "scripts/interviews/**"
+      - "scripts/agent-machine/**"
+      - "scripts/check_lesson_math.js"
+      - "scripts/build-og-fonts.js"
       - "projects/**"
       - "manuals/**"
       - "site/**"
@@ -44,17 +55,20 @@ on:
       - "scripts/test_debias_quizzes.py"
       - "scripts/check_figure_loader.js"
       - "scripts/test_figures_i18n_zh.js"
+      - "scripts/audit_lesson_figures.js"
+      - "scripts/test_audit_lesson_figures.js"
       - "scripts/test_lesson_mobile_css.js"
       - "scripts/test_tts.js"
       - "scripts/test_agent_negotiation.js"
       - "scripts/test_agent_api.js"
+      - "scripts/test_api_state.js"
       - "scripts/test_agent_wire.js"
       - "scripts/serve-agent-site.js"
       - "scripts/test_agent_readiness.py"
       - "scripts/test_seo_routes.js"
+      - "scripts/test_function_bundles.js"
       - "scripts/test_skill_artifact_bundles.py"
   pull_request:
-    branches: [main]
 
 jobs:
   build:
@@ -70,6 +84,27 @@ jobs:
           package-manager-cache: false
       - name: build data.js
         run: node site/build.js
+      - name: 冻结速查表英文证据来源（不将英文行号冒充中文行号）
+        run: |
+          git fetch --no-tags https://github.com/rohitg00/ai-engineering-from-scratch.git 45fa4084de6ba2f88fa96a41e69efa2166f868b3
+          mkdir -p "$RUNNER_TEMP/aifs-cheatsheet-evidence"
+          git archive 45fa4084de6ba2f88fa96a41e69efa2166f868b3 phases manuals projects cheatsheets | tar -x -C "$RUNNER_TEMP/aifs-cheatsheet-evidence"
+          echo 45fa4084de6ba2f88fa96a41e69efa2166f868b3 > "$RUNNER_TEMP/aifs-cheatsheet-evidence/.aifs-upstream-revision"
+          echo "AIFS_CHEATSHEET_EVIDENCE_ROOT=$RUNNER_TEMP/aifs-cheatsheet-evidence" >> "$GITHUB_ENV"
+      - name: 冻结本轮更新的速查表证据来源
+        run: |
+          git fetch --no-tags https://github.com/rohitg00/ai-engineering-from-scratch.git 3f9715c62a3bedcffb68a260f1a65ee2dd9cc10a
+          mkdir -p "$RUNNER_TEMP/aifs-cheatsheet-evidence-updated"
+          git archive 3f9715c62a3bedcffb68a260f1a65ee2dd9cc10a phases manuals projects cheatsheets | tar -x -C "$RUNNER_TEMP/aifs-cheatsheet-evidence-updated"
+          echo 3f9715c62a3bedcffb68a260f1a65ee2dd9cc10a > "$RUNNER_TEMP/aifs-cheatsheet-evidence-updated/.aifs-upstream-revision"
+          echo "AIFS_CHEATSHEET_EVIDENCE_ROOTS=$RUNNER_TEMP/aifs-cheatsheet-evidence:$RUNNER_TEMP/aifs-cheatsheet-evidence-updated" >> "$GITHUB_ENV"
+      - name: 冻结题库场景证据来源（中文手册已翻译，逐字节比对只认英文上游）
+        run: |
+          git fetch --no-tags --depth=1 https://github.com/rohitg00/ai-engineering-from-scratch.git 8fec9cc19ee7c73b92582899b5455333d30d718e
+          mkdir -p "$RUNNER_TEMP/aifs-interview-evidence"
+          git archive 8fec9cc19ee7c73b92582899b5455333d30d718e manuals | tar -x -C "$RUNNER_TEMP/aifs-interview-evidence"
+          echo 8fec9cc19ee7c73b92582899b5455333d30d718e > "$RUNNER_TEMP/aifs-interview-evidence/.aifs-upstream-revision"
+          echo "AIFS_EVIDENCE_ROOT=$RUNNER_TEMP/aifs-interview-evidence" >> "$GITHUB_ENV"
       - name: verify output
         run: |
           test -f site/data.js || { echo "data.js 未生成"; exit 1; }
@@ -77,6 +112,28 @@ jobs:
           echo "✅ 站点构建成功，data.js 已生成"
       - name: 课程数一致性校验（防 README/ROADMAP 课数漂移）
         run: node site/build.js --check
+      - name: 中文数学与速查表校验
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import crypto from 'node:crypto';
+          const html = fs.readFileSync('site/lesson.html', 'utf8');
+          const base = /var KATEX_BASE = '([^']+)'/.exec(html)[1];
+          const integrity = /var KATEX_JS_SRI = '([^']+)'/.exec(html)[1];
+          const response = await fetch(base + 'katex.min.js');
+          if (!response.ok) throw new Error(`KaTeX download failed: ${response.status}`);
+          const bytes = Buffer.from(await response.arrayBuffer());
+          const actual = 'sha384-' + crypto.createHash('sha384').update(bytes).digest('base64');
+          if (actual !== integrity) throw new Error('Pinned KaTeX integrity mismatch');
+          fs.writeFileSync(process.env.RUNNER_TEMP + '/aieng-katex.cjs', bytes);
+          NODE
+          node scripts/check_lesson_math.js --katex "$RUNNER_TEMP/aieng-katex.cjs"
+          node site/build-cheatsheets.js --check
+          node site/build-cheatsheets.js --check-quality
+      - name: 题库结构、链接与场景证据校验
+        run: |
+          node scripts/interviews/validate.js --check-readmes
+          node --test scripts/interviews/test_validate.js
       - name: 中文课程结构与站内链接校验
         run: python3 scripts/audit_lessons.py --strict
       - name: Claude 认证课程合约校验
@@ -101,10 +158,15 @@ jobs:
         run: find certifications -path '*/lessons/*/code/main.py' -print0 | xargs -0 -r -n1 python3
       - name: 站点 JavaScript 语法校验
         run: find site -maxdepth 1 -name '*.js' -print0 | xargs -0 -r -n1 node --check
+      - name: 部署函数文件追踪与独立 bundle 运行
+        run: |
+          npm install --prefix "$RUNNER_TEMP/function-trace" --no-save --no-package-lock @vercel/nft@1.5.0 @vercel/routing-utils@6.6.0
+          NODE_PATH="$RUNNER_TEMP/function-trace/node_modules" node --test scripts/test_function_bundles.js
       - name: Agent 内容协商、REST 和 MCP 协议回归
         run: |
           node scripts/test_agent_negotiation.js
           node scripts/test_agent_api.js
+          node scripts/test_api_state.js
           node scripts/test_agent_wire.js
       - name: Agent 可读性与公开资源契约
         run: python3 scripts/test_agent_readiness.py
@@ -135,6 +197,7 @@ jobs:
       - name: 交互图表按需加载校验
         run: |
           node scripts/check_figure_loader.js
+          node scripts/check_figure_locales.js
           node scripts/test_figures_i18n_zh.js
       - name: 浏览器朗读回归校验
         run: node scripts/test_tts.js
@@ -160,6 +223,13 @@ jobs:
           GOPROXY: "off"
           GOSUMDB: "off"
         run: python3 scripts/project_test.py --all --solution --strict --report "$RUNNER_TEMP/project-grade.json"
+      - name: 逆向验证器真实对象回归
+        run: |
+          command -v clang
+          python3 -m unittest discover -s phases/13-tools-and-protocols/36-rebuild-and-prove-equal/code/tests -v
+          # Apple clang 冻结字节与 macOS 运行记录不要求 Linux 编译器重现；
+          # 此 gate 运行可移植的真实重定位边界，包含符号、addend 和节偏移。
+          python3 -m unittest discover -s phases/13-tools-and-protocols/45-ai-assisted-reverse-engineering/code/tests -k ByteFieldTests -v
       - name: 项目、图表、Hub、手册与课程读取集成回归
         env:
           PYTHONDONTWRITEBYTECODE: "1"
@@ -173,6 +243,12 @@ jobs:
           python3 manuals/a2a-101/tests/test_static_contract.py
           node scripts/test_og.js
           node scripts/check_og_cards.js --require-manifests
+      - name: 编程练习真实参考解与错误实现校验
+        run: |
+          python3 -m pip install 'numpy>=2.2,<3'
+          python3 scripts/practice/test_harness.py
+          python3 scripts/practice/validate.py
+          node site/build-practice.js --check
       - name: 真实 DOM 安全与有界显示回归（非视觉验收）
         run: |
           CHROME_PATH="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
@@ -181,3 +257,93 @@ jobs:
           node scripts/test_attribute_safety.js
           node scripts/test_project_layout.js
           node scripts/test_ui_display.js
+          node scripts/audit_figure_localization.js --mode dynamic --check --output "$RUNNER_TEMP/figure-localization.json"
+      - name: 课程图表几何审计（中文标签不重叠、不出界、桌面不意外横向滚动）
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: "1"
+        run: |
+          node --test scripts/test_audit_lesson_figures.js
+          # 几何审计量的是中文字形的真实宽高；runner 默认没有中日韩字体，汉字会回退成方框，测得的文字框与线上不一致。
+          sudo apt-get update -qq && sudo apt-get install -y -qq fonts-noto-cjk
+          fc-list :lang=zh family | grep -q . || { echo "缺少中文字体，图表几何审计结果不可信"; exit 1; }
+          npm install --no-save --no-package-lock --prefix "$RUNNER_TEMP/figures" puppeteer-core@24.10.0
+          CHROME_PATH="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$CHROME_PATH" || { echo "缺少 Chrome，图表几何审计未执行"; exit 1; }
+          CHROME_PATH="$CHROME_PATH" NODE_PATH="$RUNNER_TEMP/figures/node_modules" node scripts/audit_lesson_figures.js --shots "$RUNNER_TEMP/figure-shots"
+      - name: 上传失败图表截图
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: figure-audit-shots
+          path: ${{ runner.temp }}/figure-shots
+          if-no-files-found: ignore
+          retention-days: 7
+
+  lesson-ports:
+    name: lesson ports compile and run
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v7
+      - name: single-file Rust lessons build without warnings and run
+        run: |
+          for file in $(git ls-files 'phases/*/code/*.rs'); do
+            [ -f "$(dirname "$file")/Cargo.toml" ] && continue
+            echo "::group::$file"
+            rustc --edition 2021 -D warnings -O -o "$RUNNER_TEMP/lesson" "$file"
+            timeout 120 "$RUNNER_TEMP/lesson" > /dev/null
+            echo "::endgroup::"
+          done
+      - uses: julia-actions/setup-julia@4c0cb0fce8556fdb04a90347310e5db8b1f98fb9  # v2
+        with:
+          version: "1"
+      - name: Julia lesson ports run
+        run: |
+          for file in $(git grep -l 'Julia port of .*Julia standard library only' -- 'phases/*/code/*.jl'); do
+            echo "::group::$file"
+            (cd "$RUNNER_TEMP" && timeout 300 julia --startup-file=no "$GITHUB_WORKSPACE/$file" > /dev/null)
+            echo "::endgroup::"
+          done
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff  # v5
+        with:
+          go-version: "1.24"
+          cache: false
+      - name: Go lesson ports format, vet and run
+        run: |
+          for file in $(git grep -l 'Go port of .*Go standard library only' -- 'phases/*/code/*.go'); do
+            echo "::group::$file"
+            test -z "$(gofmt -l "$file")"
+            go vet "$file"
+            (cd "$RUNNER_TEMP" && timeout 120 go run "$GITHUB_WORKSPACE/$file" < /dev/null > /dev/null)
+            echo "::endgroup::"
+          done
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020  # v4
+        with:
+          node-version: "22"
+      - name: TypeScript lesson ports type-check and run
+        run: |
+          npm install --prefix "$RUNNER_TEMP/ts" --no-save --no-package-lock tsx@4.19.2 typescript@5.6.3 @types/node@22.10.2
+          bin="$RUNNER_TEMP/ts/node_modules/.bin"
+          all_files=()
+          while IFS= read -r f; do
+            all_files+=("$f")
+          done < <(git grep -l 'TypeScript port of .*Node standard library only' -- 'phases/*/code/*.ts')
+          [ ${#all_files[@]} -eq 0 ] && exit 0
+
+          echo "::group::TypeScript type-check (${#all_files[@]} files)"
+          "$bin/tsc" --strict --noEmit --target es2022 --module nodenext --moduleResolution nodenext \
+            --moduleDetection force --types node --typeRoots "$RUNNER_TEMP/ts/node_modules/@types" "${all_files[@]}"
+          echo "::endgroup::"
+
+          echo "::group::TypeScript run"
+          run_files=()
+          for file in "${all_files[@]}"; do
+            case "$file" in
+              */code/lab.ts|*/code/experiments/*.ts) ;;
+              *) run_files+=("$file") ;;
+            esac
+          done
+
+          cores=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 4)
+          printf "%s\n" "${run_files[@]}" | xargs -P "$cores" -n 1 -I {} \
+            sh -c 'NODE_NO_WARNINGS=1 timeout 120 "$1" "$2" > /dev/null || { echo "::error file=$2::TypeScript execution failed: $2"; exit 1; }' _ "$bin/tsx" {}
+          echo "::endgroup::"

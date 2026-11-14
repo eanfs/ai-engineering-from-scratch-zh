@@ -6,13 +6,13 @@
   <title>AI 工程从零开始 · 简体中文版</title>
   <link rel="icon" href="/favicon.ico?v=20260831a" sizes="32x32">
   <link rel="icon" href="/favicon.svg?v=20260831a" type="image/svg+xml">
-  <meta name="description" content="528 节课，20 个阶段。亲手构建数学、模型、训练器、分词器和 agent 循环——一次到位，全手写。">
+  <meta name="description" content="542 节课，20 个阶段。亲手构建数学、模型、训练器、分词器和 agent 循环——一次到位，全手写。">
   <meta property="og:title" content="AI 工程从零开始 · 简体中文版">
-  <meta property="og:description" content="528 节课，20 个阶段。在引入任何框架之前，亲手写出反向传播、分词器、注意力机制和 agent 循环。Python、TypeScript、Rust、Julia。">
+  <meta property="og:description" content="542 节课，20 个阶段。在引入任何框架之前，亲手写出反向传播、分词器、注意力机制和 agent 循环。Python、TypeScript、Rust、Julia、Go。">
   <meta property="og:url" content="https://aieng-zh.cn">
   <meta property="og:type" content="website">
   <meta name="twitter:title" content="AI 工程从零开始 · 简体中文版">
-  <meta name="twitter:description" content="528 节课，20 个阶段。在引入任何框架之前，亲手写出反向传播、分词器、注意力机制和 agent 循环。">
+  <meta name="twitter:description" content="542 节课，20 个阶段。在引入任何框架之前，亲手写出反向传播、分词器、注意力机制和 agent 循环。">
   <link rel="canonical" href="https://aieng-zh.cn/">
   <script type="application/ld+json">
   {
@@ -44,7 +44,7 @@
         "@type": "Course",
         "@id": "https://aieng-zh.cn/#course",
         "name": "AI 工程从零开始 · 简体中文版",
-        "description": "528 节课，横跨 20 个阶段。在引入任何框架之前，亲手写出反向传播、分词器、注意力机制和 agent 循环。",
+        "description": "542 节课，横跨 20 个阶段。在引入任何框架之前，亲手写出反向传播、分词器、注意力机制和 agent 循环。",
         "provider": { "@id": "https://aieng-zh.cn/#org" },
         "url": "https://aieng-zh.cn",
         "isAccessibleForFree": true,
@@ -61,8 +61,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=VT323&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261012e">
-  <link rel="stylesheet" href="intelligence-check.css?v=20261012e">
+  <link rel="stylesheet" href="style.css?v=20261106a">
+  <link rel="stylesheet" href="intelligence-check.css?v=20261106a">
   <style>
     .manual-masthead {
       padding: 96px 0 24px;
@@ -98,7 +98,6 @@
           "meta meta"
           "title curiosity"
           "tagline figure"
-          "attribution figure"
           "actions figure"
           "install figure"
           "caption figure"
@@ -114,7 +113,6 @@
         font-size: clamp(5rem, 6.5vw, 6.5rem);
       }
       .manual-tagline { grid-area: tagline; }
-      .manual-attribution { grid-area: attribution; }
       .masthead-cta { grid-area: actions; min-width: 0; }
       .masthead-install { grid-area: install; width: 100%; min-width: 0; }
       .masthead-install-caption { grid-area: caption; }
@@ -432,16 +430,9 @@
       color: var(--ink);
     }
 
-    .manual-attribution {
-      font-family: var(--font-body);
-      font-size: 0.95rem;
-      color: var(--ink-soft);
-      font-style: italic;
-    }
-
     .masthead-cta {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.28fr) minmax(0, 1.12fr);
       gap: 12px;
       margin-top: 20px;
     }
@@ -461,7 +452,8 @@
       font-family: var(--font-mono);
       font-size: 0.82rem;
       letter-spacing: 0.02em;
-      white-space: nowrap;
+      text-align: center;
+      overflow-wrap: anywhere;
       transition:
         transform var(--motion-press) var(--ease-out),
         background-color var(--motion-feedback) ease,
@@ -504,7 +496,7 @@
 
     @media (min-width: 761px) {
       .masthead-cta {
-        height: 44px;
+        min-height: 44px;
       }
     }
 
@@ -766,6 +758,14 @@
         padding-right: 10px;
         font-size: 0.72rem;
         white-space: nowrap;
+      }
+    }
+
+    @media (min-width: 761px) and (max-width: 1023px),
+           (min-width: 1280px) {
+      .masthead-cta {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        height: auto;
       }
     }
 
@@ -1104,6 +1104,95 @@
       .course-route { grid-template-columns: 1fr; gap: 8px; padding: 16px 12px; }
       .course-route-actions { grid-column: auto; width: 100%; justify-self: stretch; }
       .course-route-link { white-space: normal; text-align: center; }
+    }
+
+    .agent-machine-feature {
+      padding-block: 44px;
+      border-bottom: 1px solid var(--rule-soft);
+    }
+
+    .agent-machine-link {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+      gap: 32px;
+      align-items: center;
+      color: var(--ink);
+      border: 0;
+    }
+
+    .agent-machine-link:hover { color: var(--ink); border: 0; }
+    .agent-machine-copy { min-width: 0; }
+    .agent-machine-copy .preface-eyebrow { margin-bottom: 12px; }
+    .agent-machine-copy h2 {
+      margin: 0 0 16px;
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      line-height: 1.25;
+      color: var(--ink);
+    }
+    .agent-machine-copy p { margin: 0 0 20px; max-width: 38ch; }
+    .agent-machine-cta {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--blueprint);
+    }
+    .agent-machine-link img { display: block; width: 100%; height: auto; }
+    .agent-machine-link .agent-machine-light { mix-blend-mode: multiply; }
+    .agent-machine-link .agent-machine-dark { display: none; mix-blend-mode: screen; }
+    [data-theme="dark"] .agent-machine-link .agent-machine-dark { display: block; }
+    [data-theme="dark"] .agent-machine-link .agent-machine-light { display: none; }
+    .agent-machine-link:focus-visible { outline: 2px solid var(--blueprint); outline-offset: 6px; }
+
+    .course-paths-section { padding-block: 32px; border-bottom: 1px solid var(--rule-soft); }
+    .course-paths-section h2 {
+      margin: 0 0 20px;
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+      line-height: 1.35;
+      color: var(--ink);
+    }
+    .course-resource-list {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px 24px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .course-resource-list a {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px 12px;
+      min-height: 48px;
+      padding-block: 10px;
+      border-bottom: 1px solid var(--rule-soft);
+      color: var(--ink);
+    }
+    .course-resource-list a:hover { color: var(--blueprint); border-color: var(--blueprint); }
+    .course-resource-list a span { color: var(--ink-mute); font-size: 0.85rem; white-space: nowrap; }
+    .course-phase-discovery { margin-top: 24px; }
+    .course-phase-discovery summary { width: fit-content; padding-block: 10px; cursor: pointer; }
+    .course-phase-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 4px 24px;
+      margin: 12px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .course-phase-list a { display: block; padding-block: 10px; border-bottom: 1px solid var(--rule-soft); }
+    .course-paths-section a:focus-visible,
+    .course-phase-discovery summary:focus-visible { outline: 2px solid var(--blueprint); outline-offset: 4px; }
+
+    @media (max-width: 760px) {
+      .agent-machine-link { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+      .agent-machine-copy p { max-width: none; }
+      .course-resource-list, .course-phase-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 480px) {
+      .course-resource-list, .course-phase-list { grid-template-columns: minmax(0, 1fr); }
     }
 
     .preface-grid {
@@ -1644,7 +1733,6 @@
 
       .manual-meta-row { margin-bottom: 20px; }
       .manual-tagline { margin: 20px 0 6px; font-size: 1rem; }
-      .manual-attribution { font-size: 0.9rem; }
 
       .preface-grid,
       .colophon-grid {
@@ -1849,50 +1937,44 @@
   </style>
   <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
   <script defer src="/_vercel/insights/script.js"></script>
-<meta property="og:image" content="https://aieng-zh.cn/og/page/home.png?v=a0200c87fbba">
+<meta property="og:image" content="https://aieng-zh.cn/og/page/home.png?v=3e3328d30771">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="从零构建 AI 工程">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://aieng-zh.cn/og/page/home.png?v=a0200c87fbba">
+<meta name="twitter:image" content="https://aieng-zh.cn/og/page/home.png?v=3e3328d30771">
 <meta name="twitter:image:alt" content="从零构建 AI 工程">
 </head>
 <body>
 
   <a href="#main" class="skip-link">跳到主内容</a>
 
-  <header class="site-header">
-    <div class="header-inner">
-      <a href="index.html" class="logo">
-        <span class="logo-icon" aria-hidden="true"></span> AI / FROM SCRATCH
-      </a>
-      <nav class="header-nav">
-        <a href="#contents">大纲</a>
-        <a href="catalog.html">课程表</a>
-        <a href="prereqs.html">路线图</a>
-        <a href="glossary.html">术语表</a>
-        <a href="projects.html">实战项目</a>
-        <a href="manuals.html">技术手册</a>
-        <a href="about.html">关于</a>
-        <a href="https://github.com/fancyboi999/ai-engineering-from-scratch-zh" target="_blank" rel="noopener" class="header-github">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-          <span class="star-count" data-loading="true" aria-label="GitHub 星标数">…</span>
-        </a>
-      </nav>
-      <button class="search-toggle" type="button" data-cmd-palette
-        aria-label="搜索（⌘K）" title="搜索（⌘K）">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2.5"
-          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="11" cy="11" r="8"/>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-      </button>
-      <button class="theme-toggle" id="themeToggle" aria-label="切换主题" type="button">
-        <span class="theme-icon" id="themeIcon">N</span>
-      </button>
-    </div>
-  </header>
+  <header class="site-header" data-header-theme-owner="page" data-header-narration="auto">
+  <div class="header-inner">
+    <a href="index.html" class="logo"><span class="logo-icon" aria-hidden="true"></span><span class="logo-label">AI / FROM SCRATCH</span></a>
+    <nav class="header-nav" aria-label="主导航"><!-- Shared navigation: lib/site-navigation.js -->
+<a href="index.html#contents" data-header-page="index" data-header-priority>课程目录</a>
+<a href="catalog.html" data-header-page="catalog" data-header-priority>课程表</a>
+<a href="prereqs.html" data-header-page="prereqs">路线图</a>
+<a href="learning-paths.html" data-header-page="learning-paths" data-header-priority>学习路径</a>
+<a href="certifications.html" data-header-page="certifications">认证</a>
+<a href="projects.html" data-header-page="projects">实战项目</a>
+<a href="manuals.html" data-header-page="manuals">技术手册</a>
+<a href="glossary.html" data-header-page="glossary">术语表</a>
+<a href="cheatsheets" data-header-page="cheatsheets">速查表</a>
+<a href="practice" data-header-page="practice">编程练习</a>
+<a href="interviews" data-header-page="interviews">面试题库</a>
+<a href="how-to-learn.html" data-header-page="how-to-learn">学习方法</a>
+<a href="skills.html" data-header-page="skills">Agent 技能</a>
+<a href="inside-an-ai-agent.html" data-header-page="inside-an-ai-agent">Agent 内部机制</a>
+<a href="highlights.html" data-header-page="highlights">我的高亮</a>
+<a href="about.html" data-header-page="about">关于</a>
+<a href="https://github.com/fancyboi999/ai-engineering-from-scratch-zh" target="_blank" rel="noopener" class="header-github" aria-label="在 GitHub 查看 AI Engineering from Scratch 中文版"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg><svg class="star-icon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 19.896l-7.416 3.517 1.48-8.279L0 9.306l8.332-1.151z"/></svg><span class="star-count" data-loading="true" aria-label="GitHub Star 数">…</span></a></nav>
+    <button class="search-toggle" type="button" data-cmd-palette aria-label="搜索（⌘K）" title="搜索（⌘K）"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button><!--header-tools-->
+    <span class="header-narration-slot"></span>
+    <button class="theme-toggle" id="themeToggle" aria-label="切换主题" type="button"><span class="theme-icon" id="themeIcon">N</span></button>
+  </div>
+</header>
 
   <main id="main">
 
@@ -1902,10 +1984,15 @@
         <span class="right">开源 · MIT</span>
       </div>
       <h1 class="manual-title">AI Engineering<br>from Scratch</h1>
-      <p class="manual-tagline reveal">528 节课，20 个阶段。每个算法都先从最原始的数学搭起来，然后才轮到框架登场。</p>
-      <p class="manual-attribution reveal" style="--stagger-delay: 80ms;">由 Rohit Ghumare 及贡献者维护。在你自己的机器上运行。</p>
-      <div class="masthead-cta reveal" style="--stagger-delay: 140ms;">
-        <a class="masthead-btn masthead-btn--primary" href="https://github.com/fancyboi999/ai-engineering-from-scratch-zh" target="_blank" rel="noopener" aria-label="在 GitHub 为简体中文版点星">
+      <p class="manual-tagline reveal">542 节课，20 个阶段。每个算法都先从最原始的数学搭起来，然后才轮到框架登场。</p>
+      <div class="masthead-cta reveal" style="--stagger-delay: 80ms;">
+        <a class="masthead-btn masthead-btn--primary" href="lesson.html?path=phases/00-setup-and-tooling/01-dev-environment">
+          <span>开始学习第一课</span>
+        </a>
+        <a class="masthead-btn" href="learning-paths.html">
+          <span>探索学习路径</span>
+        </a>
+        <a class="masthead-btn" href="https://github.com/fancyboi999/ai-engineering-from-scratch-zh" target="_blank" rel="noopener" aria-label="在 GitHub 为简体中文版点星">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 19.896l-7.416 3.517 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
           <span>在 GitHub 上 Star</span>
           <span class="masthead-btn-count" data-gh-stars="fancyboi999/ai-engineering-from-scratch-zh" data-loading="true">…</span>
@@ -2110,10 +2197,35 @@
         <div class="preface-eyebrow reveal reveal--left">运作方式</div>
         <div class="preface-body reveal" style="--stagger-delay: 120ms;">
           <p>大多数 AI 教材都是碎片化教学。这儿一篇论文，那儿一篇微调心得，别处再来个炫酷的 agent demo。这些碎片很少能拼到一起。你做出了一个聊天机器人，却讲不清它的 loss 曲线；你给 agent 挂了个函数，却说不出调用它的那个模型内部，attention 到底在干什么。</p>
-          <p>这套课程就是那根脊椎。20 个阶段，528 节课，四种语言：Python、TypeScript、Rust、Julia。一头是线性代数，另一头是自主 agent 集群。每个算法都先从最原始的数学手写出来。反向传播、分词器、注意力、agent 循环——等 PyTorch 登场时，你已经知道它底层在做什么了。</p>
+          <p>这套课程就是那根脊椎。20 个阶段，542 节课，五种语言：Python、TypeScript、Rust、Julia、Go。一头是线性代数，另一头是自主 agent 集群。每个算法都先从最原始的数学手写出来。反向传播、分词器、注意力、agent 循环——等 PyTorch 登场时，你已经知道它底层在做什么了。</p>
           <p>结合课程正文、概念推导、代码实验、测验与产出练习学习。333 节中文配音动画覆盖阶段 0–14，可在课程页内嵌播放。课程资源免费开放，实验所需的 GPU、云服务和模型 API 按各课要求准备。</p>
         </div>
       </div>
+    </section>
+
+    <section class="agent-machine-feature container" aria-labelledby="decompilerMachineTitle">
+      <a class="agent-machine-link" href="inside-a-decompiler.html">
+        <div class="agent-machine-copy">
+          <div class="preface-eyebrow">FIG_DEC · 交互模拟</div>
+          <h2 id="decompilerMachineTitle">反编译器内部机制</h2>
+          <p>反编译器把字节变成可读代码。让一个小函数经过九个处理站，移除符号或切换解码器，观察证据记录如何区分观测事实与推断。</p>
+          <span class="agent-machine-cta">改变机器状态 →</span>
+        </div>
+        <img class="agent-machine-light" src="anatomy/inside-a-decompiler-machine.png" width="2400" height="1260" loading="lazy" decoding="async" alt="等距视角工作台上依次排列文件头、节区、反汇编、控制流图、提升、类型、结构、伪代码与证据记录九个处理站。">
+        <img class="agent-machine-dark" src="anatomy/inside-a-decompiler-machine-dark.png" width="2400" height="1260" loading="lazy" decoding="async" alt="">
+      </a>
+    </section>
+    <section class="agent-machine-feature container" aria-labelledby="gpuMachineTitle">
+      <a class="agent-machine-link" href="inside-an-llm-serving-gpu.html">
+        <div class="agent-machine-copy">
+          <div class="preface-eyebrow">FIG_GPU · 交互模拟</div>
+          <h2 id="gpuMachineTitle">LLM 推理 GPU 内部机制</h2>
+          <p>解码每个 token 都要读取模型权重。跟随请求经过 NVIDIA L4 或 GB10，填满 KV 池、切换 FP8，并用 SGLang 101 的测量数据观察内存带宽如何限制速度。</p>
+          <span class="agent-machine-cta">改变机器状态 →</span>
+        </div>
+        <img class="agent-machine-light" src="anatomy/inside-an-llm-serving-gpu-machine.png" width="2400" height="1260" loading="lazy" decoding="async" alt="主板上的 NVIDIA L4：主机 CPU、PCIe 连接、GPU 的 SM 与 L2 缓存、六个 GDDR6 显存封装及透明散热器。">
+        <img class="agent-machine-dark" src="anatomy/inside-an-llm-serving-gpu-machine-dark.png" width="2400" height="1260" loading="lazy" decoding="async" alt="">
+      </a>
     </section>
 
     <section class="course-paths container" id="choose-path" aria-labelledby="coursePathsTitle">
@@ -2216,10 +2328,48 @@
         </article>
       </div>
     </section>
-    <!-- GENERATED:INTEGRATED-DISCOVERY:START -->
-<section class="course-paths-section container" aria-label="实战与主题发现"><h2>在课程之外动手实践</h2>
-    <p><a href="projects.html">76 项实战项目</a> · <a href="manuals.html">2 本技术手册</a> · <a href="glossary.html">243 个术语</a></p>
-    <p><a href="/phase/setup-and-tooling">阶段 0：配置与工具链</a> · <a href="/phase/math-foundations">阶段 1：数学基础</a> · <a href="/phase/ml-fundamentals">阶段 2：机器学习基础</a> · <a href="/phase/deep-learning-core">阶段 3：深度学习核心</a> · <a href="/phase/computer-vision">阶段 4：计算机视觉</a> · <a href="/phase/nlp-foundations-to-advanced">阶段 5：NLP：从基础到进阶</a> · <a href="/phase/speech-and-audio">阶段 6：语音与音频</a> · <a href="/phase/transformers-deep-dive">阶段 7：Transformer 深入剖析</a> · <a href="/phase/generative-ai">阶段 8：生成式 AI</a> · <a href="/phase/reinforcement-learning">阶段 9：强化学习</a> · <a href="/phase/llms-from-scratch">阶段 10：从零实现 LLM</a> · <a href="/phase/llm-engineering">阶段 11：LLM 工程</a> · <a href="/phase/multimodal-ai">阶段 12：多模态 AI</a> · <a href="/phase/tools-and-protocols">阶段 13：工具与协议</a> · <a href="/phase/agent-engineering">阶段 14：Agent 工程</a> · <a href="/phase/autonomous-systems">阶段 15：自主系统</a> · <a href="/phase/multi-agent-and-swarms">阶段 16：多 agent 与集群</a> · <a href="/phase/infrastructure-and-production">阶段 17：基础设施与生产</a> · <a href="/phase/ethics-safety-alignment">阶段 18：伦理、安全与对齐</a> · <a href="/phase/capstone-projects">阶段 19：综合项目</a></p></section>
+    <section class="course-paths-section container" aria-labelledby="learningToolsTitle">
+      <h2 id="learningToolsTitle">理解课程，动手实践</h2>
+      <ul class="course-resource-list">
+        <li><a href="how-to-learn.html">如何学完一节课</a></li>
+        <li><a href="inside-an-ai-agent.html">探索 AI Agent 内部机制</a></li>
+        <li><a href="skills.html">Agent 技能</a></li>
+        <li><a href="/cheatsheets">主题速查表</a></li>
+      </ul>
+    </section>
+  <!-- GENERATED:INTEGRATED-DISCOVERY:START -->
+<section class="course-paths-section container" aria-labelledby="practiceDiscoveryTitle">
+    <h2 id="practiceDiscoveryTitle">在课程之外动手实践</h2>
+    <ul class="course-resource-list">
+      <li><a href="projects.html">实战项目 <span>79 项</span></a></li>
+      <li><a href="manuals.html">技术手册 <span>6 本</span></a></li>
+      <li><a href="glossary.html">术语表 <span>243 个术语</span></a></li>
+      <li><a href="/practice">编程练习 <span>51 道</span></a></li>
+    </ul>
+    <details class="course-phase-discovery">
+      <summary>按阶段浏览</summary>
+      <ul class="course-phase-list"><li><a href="/phase/setup-and-tooling">阶段 0：配置与工具链</a></li>
+<li><a href="/phase/math-foundations">阶段 1：数学基础</a></li>
+<li><a href="/phase/ml-fundamentals">阶段 2：机器学习基础</a></li>
+<li><a href="/phase/deep-learning-core">阶段 3：深度学习核心</a></li>
+<li><a href="/phase/computer-vision">阶段 4：计算机视觉</a></li>
+<li><a href="/phase/nlp-foundations-to-advanced">阶段 5：NLP：从基础到进阶</a></li>
+<li><a href="/phase/speech-and-audio">阶段 6：语音与音频</a></li>
+<li><a href="/phase/transformers-deep-dive">阶段 7：Transformer 深入剖析</a></li>
+<li><a href="/phase/generative-ai">阶段 8：生成式 AI</a></li>
+<li><a href="/phase/reinforcement-learning">阶段 9：强化学习</a></li>
+<li><a href="/phase/llms-from-scratch">阶段 10：从零实现 LLM</a></li>
+<li><a href="/phase/llm-engineering">阶段 11：LLM 工程</a></li>
+<li><a href="/phase/multimodal-ai">阶段 12：多模态 AI</a></li>
+<li><a href="/phase/tools-and-protocols">阶段 13：工具与协议</a></li>
+<li><a href="/phase/agent-engineering">阶段 14：Agent 工程</a></li>
+<li><a href="/phase/autonomous-systems">阶段 15：自主系统</a></li>
+<li><a href="/phase/multi-agent-and-swarms">阶段 16：多 agent 与集群</a></li>
+<li><a href="/phase/infrastructure-and-production">阶段 17：基础设施与生产</a></li>
+<li><a href="/phase/ethics-safety-alignment">阶段 18：伦理、安全与对齐</a></li>
+<li><a href="/phase/capstone-projects">阶段 19：综合项目</a></li></ul>
+    </details>
+  </section>
           <!-- GENERATED:INTEGRATED-DISCOVERY:END -->
     <section class="cert-spotlight container" id="certifications" aria-labelledby="certSpotlightTitle">
       <div class="cert-spotlight-card reveal">
@@ -2271,7 +2421,7 @@
     </section>
 
     <section class="toc container" id="contents">
-      <div class="toc-title reveal reveal--left">课程 · 20 个阶段 · 528 节课</div>
+      <div class="toc-title reveal reveal--left">课程 · 20 个阶段 · 542 节课</div>
       <div class="toc-subtitle reveal" style="--stagger-delay: 80ms;">点开任意阶段查看它的课程。每节课在数学、代码、测试都写完后才会发布。</div>
       <div class="toc-list" id="phasesGrid"></div>
       <div class="legend">
@@ -2292,7 +2442,8 @@
           <div class="modal-progress" id="modalProgress" style="display:none;"></div>
           <div class="modal-progress-bar" id="modalProgressBar" style="display:none;"><div class="modal-progress-bar-fill" id="modalProgressBarFill"></div></div>
         </div>
-        <div class="modal-lessons" id="modalLessons"></div>
+        <div class="modal-search-wrap" id="modalSearchWrap"><label for="modalSearch" class="modal-search-label">搜索本阶段课程</label><input class="modal-search" id="modalSearch" type="search" placeholder="输入课程名称" autocomplete="off"></div>
+      <div class="modal-lessons" id="modalLessons"></div>
         <div class="modal-footer">
           <span class="modal-footer-note">进度保存在浏览器本地，可导出/导入 JSON 跨设备同步</span>
           <button class="modal-export" id="modalExport" type="button">导出进度</button>
@@ -2326,18 +2477,19 @@
         <a href="https://github.com/fancyboi999/ai-engineering-from-scratch-zh" target="_blank" rel="noopener">GitHub</a>
         <a href="certifications.html">认证</a>
         <a href="catalog.html">课程表</a>
+        <a href="/interviews">面试题库</a>
         <a href="glossary.html">术语表</a>
         <a href="https://github.com/fancyboi999/ai-engineering-from-scratch-zh/issues/new/choose" target="_blank" rel="noopener">反馈</a>
       </div>
     </div>
   </footer>
 
-  <script src="data.js?v=20260831a"></script>
-  <script src="progress.js?v=20260831a"></script>
+  <script src="data.js?v=20261112a"></script>
+  <script src="progress.js?v=20261112a"></script>
   <script src="reminder.js?v=20260709a"></script>
-  <script src="header.js?v=20261012b" defer></script>
-  <script src="cmdpalette.js?v=20261012b" defer></script>
-  <script src="app.js?v=20261012b"></script>
+  <script src="header.js?v=20261106a" defer></script>
+  <script src="cmdpalette.js?v=20261112a" defer></script>
+  <script src="app.js?v=20261112a"></script>
   <script src="intelligence-check.js?v=20261009b" defer></script>
   <script defer src="https://va.vercel-scripts.com/v1/script.js"></script>
 </body>

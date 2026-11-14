@@ -28,9 +28,9 @@ NN-lesson-name/
 同步英文课程时，将正文译为 `docs/zh.md`。保留代码、路径、URL 与机器读取的字段，翻译面向读者的说明。
 翻译完成后，中文仓库仅保留 `docs/zh.md` 作为课程正文。
 
-课程测验包含 6 题：1 道 `pre`、3 道 `check`、2 道 `post`。题目使用
+新编课程通常包含 6 题：1 道 `pre`、3 道 `check`、2 道 `post`。同步课程保留上游实际题数与阶段分布。题目使用
 `stage`、`question`、`options`、`correct`、`explanation` 字段；`correct` 为从 0 开始的选项索引。
-翻译时保持答案索引和对应选项语义一致。
+翻译时保持选项顺序和答案索引。集成去偏按 `TRANSLATION.md` 重排选项并同步索引，验证正确答案内容不变。
 
 Claude 认证课使用独立的目录、测验和实验契约，见 [AGENTS.md](AGENTS.md#claude-认证契约)。
 
@@ -73,10 +73,15 @@ frontmatter 的 `name`、`description`、`phase`、`lesson` 应与用途及所�
 - 按课程声明的依赖运行实现与测试，提供真实输出。
 - 代码清楚表达行为；必要注释说明不变量、边界和设计原因，教学推导放在正文。
 - 根据课程目标选择语言，从最小可运行实现逐步引入框架。
-- 用 Mermaid、SVG 或已注册的交互图表解释概念。
+- 用 Mermaid、SVG 或已注册的交互图表解释概念。新增或修改交互图表后，运行 `node scripts/audit_lesson_figures.js --only <name>`，结果须为 `TOTAL 0`：标签不重叠、不超出画布，文字不小于 9px，桌面宽度下不需要横向滚动。脚本需要 `CHROME_PATH`，并且 `NODE_PATH` 中要有 `puppeteer-core`；`--shots <dir>` 会保存失败图表的截图。
 - 写作使用准确、直接的中文；事实引用原始规范、论文或官方文档。
 
 ## 提交 Pull Request
+
+手册、速查表和编程练习分别遵循 [手册契约](manuals/AUTHORING.md)、[速查表契约](cheatsheets/AUTHORING.md) 和 [练习契约](practice/AUTHORING.md)。
+它们使用独立清单与构建器，不计入 README 与 ROADMAP 的核心课数。
+练习检查器应拒绝空实现和每个已登记的错误实现；题面、提示、解析与学习者可见反馈使用简体中文，函数签名与机器枚举保持不变。
+手册子标题需要保留跨页引用的稳定锚点。翻译标题时，用现有显式锚点语法保存所属章节前缀和原始标题 slug，并运行手册审计。
 
 1. 从最新 `main` 创建分支，完成一个明确目标的改动。
 2. 按 [AGENTS.md](AGENTS.md#本地验证) 运行受影响的检查。完整 CI 命令见 [build.yml](.github/workflows/build.yml)。

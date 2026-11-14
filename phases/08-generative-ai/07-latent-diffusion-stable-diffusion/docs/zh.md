@@ -3,7 +3,7 @@
 > 在 512×512 图像上做像素空间扩散是一桩算力战争罪。Rombach 等人（2022）注意到，你不需要全部 78.6 万维来生成一张图——你需要的是足够捕捉语义结构的维度，外加一个单独的解码器去管剩下的。在 VAE 的潜空间里跑扩散。就这一个想法，就是 Stable Diffusion。
 
 **类型：** Build
-**语言：** Python
+**语言：** Python、TypeScript
 **前置要求：** 阶段 8 · 02（VAE）、阶段 8 · 06（DDPM）、阶段 7 · 09（ViT）
 **预计时间：** ~75 分钟
 
@@ -21,9 +21,9 @@
 
 **两个阶段，分开训练。**
 
-1. **第一阶段 —— VAE。** 编码器 `E(x) → z`，解码器 `D(z) → x`。目标压缩：每个空间轴下采样 8 倍 + 调整通道数，使总潜变量大小约为像素数的 1/16。损失 = 重建（L1 + LPIPS 感知）+ KL（小权重，让 `z` 不被逼得太高斯，因为我们不需要从 `z` 精确采样）。常常带一个对抗损失训练，使解码出的图像锐利。
+1. **第一阶段 —— VAE。** 编码器 $E(x) \to z$，解码器 $D(z) \to x$。目标压缩：每个空间轴下采样 8 倍 + 调整通道数，使总潜变量大小约为像素数的 1/16。损失 = 重建（L1 + LPIPS 感知）+ KL（小权重，让 $z$ 不被逼得太高斯，因为我们不需要从 $z$ 精确采样）。常常带一个对抗损失训练，使解码出的图像锐利。
 
-2. **第二阶段 —— 在 `z` 上做扩散。** 把 `z = E(x_real)` 当数据。训一个 U-Net（或 DiT）来给 `z_t` 去噪。推理时：通过扩散采出 `z_0`，再 `x = D(z_0)`。
+2. **第二阶段 —— 在 $z$ 上做扩散。** 把 $z = E(x_{\text{real}})$ 当数据。训一个 U-Net（或 DiT）来给 $z_t$ 去噪。推理时：通过扩散采出 $z_0$，再 $x = D(z_0)$。
 
 **文本条件化。** 两个额外组件。一个冻结的文本编码器（SD 1.x 用 CLIP-L，SD 2/XL 用 CLIP-L+OpenCLIP-G，SD3 和 Flux 用 T5-XXL）。一个交叉注意力注入：每个 U-Net 块接受 `[Q = 图像特征, K = V = 文本 token]` 并把它们混进去。这些 token 是文本影响图像的唯一途径。
 
@@ -49,7 +49,7 @@ noise-schedule
 
 ## 动手构建
 
-`code/main.py` 在第 06 课的 DDPM 之上叠了一个玩具一维「VAE」（恒等编码器 + 解码器，用作演示；真正的 VAE 会是卷积网络），并加上带无分类器引导的类别条件。它表明同一个扩散损失无论你跑在原始一维值上还是编码后的值上都管用——这就是关键洞见。
+`code/main.py` 在第 06 课的 DDPM 之上叠了一个玩具一维「VAE」（演示用的固定 0.5 倍编码器及其精确逆变换解码器；真正的 VAE 会是卷积网络），并加上带无分类器引导的类别条件。它表明同一个扩散损失无论你跑在原始一维值上还是编码后的值上都管用。这就是关键洞见。
 
 ### 第 1 步：编码器/解码器
 
@@ -58,21 +58,21 @@ def encode(x):    return x * 0.5          # toy "compression" to smaller scale
 def decode(z):    return z * 2.0
 ```
 
-真正的 VAE 有训出来的权重。出于教学目的，这个线性映射足以说明扩散作用在 `z` 上而不关心原始数据空间。
+真正的 VAE 有训出来的权重。出于教学目的，这个线性映射足以说明扩散作用在 $z$ 上而不关心原始数据空间。
 
 ### 第 2 步：在 `z` 空间里做扩散
 
-跟第 06 课一样的 DDPM。网络看到的数据是 `z = E(x)`。采出 `z_0` 后，用 `D(z_0)` 解码。
+跟第 06 课一样的 DDPM。网络看到的数据是 $z = E(x)$。采出 $z_0$ 后，用 $D(z_0)$ 解码。
 
 ### 第 3 步：无分类器引导
 
-训练时 10% 概率丢掉类别标签（换成一个空 token）。推理时算出 `ε_cond` 和 `ε_uncond` 两者，然后：
+训练时 10% 概率丢掉类别标签（换成一个空 token）。推理时算出 $\epsilon_{\text{cond}}$ 和 $\epsilon_{\text{uncond}}$ 两者，然后：
 
 ```python
 eps_cfg = (1 + w) * eps_cond - w * eps_uncond
 ```
 
-`w = 0` = 不引导（完全多样），`w = 3` = 默认，`w = 7+` = 饱和 / 过锐。
+$w = 0$ = 不引导（完全多样），$w = 3$ = 默认，$w = 7+$ = 饱和 / 过锐。
 
 ### 第 4 步：文本条件化（概念，不是代码）
 
@@ -90,7 +90,7 @@ h = h + CrossAttention(Q=h, K=text_embed, V=text_embed)
 - **文本编码器悄悄出错。** SD3 需要 T5-XXL 且 token 数 >=128，回退到只用 CLIP 是有损的。永远检查 `use_t5=True`，否则 prompt 保真度暴跌。
 - **混用潜空间。** SDXL、SD3、Flux 用的都是不同的 VAE。在 SDXL 潜变量上训的 LoRA 在 SD3 上不会工作。Hugging Face diffusers 0.30+ 会拒绝加载不匹配的检查点。
 - **CFG 太高。** `w > 10` 产出饱和、油腻的图像，以多样性为代价过拟合 prompt。甜点区是 `w = 3-7`。
-- **负面 prompt 泄露。** 空的负面 prompt 变成空 token；填了内容的负面 prompt 变成 `ε_uncond`。这两者不是一回事；有些流水线会悄悄默认成空 token。
+- **负面 prompt 泄露。** 空的负面 prompt 变成空 token；填了内容的负面 prompt 变成 $\epsilon_{\text{uncond}}$。这两者不是一回事；有些流水线会悄悄默认成空 token。
 
 ## 实际使用
 
@@ -111,7 +111,7 @@ h = h + CrossAttention(Q=h, K=text_embed, V=text_embed)
 
 ## 练习
 
-1. **简单。** 用引导 `w ∈ {0, 1, 3, 7, 15}` 跑 `code/main.py`。按类别记录平均样本。`w` 到多少时类别均值偏过了真实数据的均值？
+1. **简单。** 用引导 $w \in \lbrace 0, 1, 3, 7, 15 \rbrace$ 跑 `code/main.py`。按类别记录平均样本。$w$ 到多少时类别均值偏过了真实数据的均值？
 2. **中等。** 把玩具线性编码器换成一对带重建损失的 tanh-MLP 编码器/解码器。在新的潜变量上重训扩散。样本质量变了吗？
 3. **困难。** 用 diffusers 搭一个真正的 Stable Diffusion 推理：加载 `sdxl-base`，跑 30 步 Euler、CFG=7，计时。然后换成 `sdxl-turbo`，4 步、CFG=0。同一个主体，不同质量——描述变了什么、为什么。
 
@@ -121,8 +121,8 @@ h = h + CrossAttention(Q=h, K=text_embed, V=text_embed)
 |------|-----------------|-----------------------|
 | 第一阶段 | 「那个 VAE」 | 训出来的编码器/解码器对；把 512² 压成 64²。 |
 | 第二阶段 | 「那个 U-Net」 | 潜空间上的扩散模型。 |
-| CFG | 「引导强度」 | `(1+w)·ε_cond - w·ε_uncond`；调条件作用的强度。 |
-| 空 token | 「空 prompt 嵌入」 | 用作 `ε_uncond` 的无条件嵌入。 |
+| CFG | 「引导强度」 | $(1+w) \cdot \epsilon_{\text{cond}} - w \cdot \epsilon_{\text{uncond}}$；调条件作用的强度。 |
+| 空 token | 「空 prompt 嵌入」 | 用作 $\epsilon_{\text{uncond}}$ 的无条件嵌入。 |
 | 交叉注意力 | 「文本怎么进来的」 | 每个 U-Net 块把文本 token 当 K 和 V 来注意。 |
 | DiT | 「Diffusion Transformer」 | 用一个在潜变量 patch 上的 transformer 替换 U-Net；扩展性更好。 |
 | MMDiT | 「多模态 DiT」 | SD3 的架构：文本流和图像流做联合注意力。 |
@@ -132,7 +132,7 @@ h = h + CrossAttention(Q=h, K=text_embed, V=text_embed)
 
 那个参考 Flux 集成是经典的「我有一块消费级 GPU，能上线这个吗？」配方。诀窍就是生产推理文献列出的那同样三个旋钮，套在一个扩散 DiT 上：
 
-1. **错峰加载。** Flux 有三个网络永远不需要同时待在显存里：T5-XXL 文本编码器（fp32 下约 10 GB）、CLIP-L（小）、12B 的 MMDiT，以及 VAE。先编码 prompt，*删掉*编码器，加载 DiT，去噪，*删掉* DiT，加载 VAE，解码。消费级 8GB GPU 一次只装得下一个阶段。
+1. **错峰加载。** Flux 有四个网络永远不需要同时待在显存里：T5-XXL 文本编码器（fp32 下约 10 GB）、CLIP-L（小）、12B 的 MMDiT，以及 VAE。先编码 prompt，*删掉*编码器，加载 DiT，去噪，*删掉* DiT，加载 VAE，解码。消费级 8GB GPU 一次只装得下一个阶段。
 2. **通过 bitsandbytes 做 4-bit 量化。** 对 T5 编码器和 DiT 都用 `BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_compute_dtype=torch.bfloat16)`。内存砍 8 倍，按 Aritra 的基准（笔记本里有链接）文生图的质量下降感知不到。
 3. **CPU offload。** `pipe.enable_model_cpu_offload()` 随着每次前向推进自动在 CPU 和 GPU 之间换模块。加 10-20% 延迟，但让流水线根本跑得起来。
 

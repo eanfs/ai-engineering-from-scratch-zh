@@ -14,7 +14,7 @@
  */
 (function () {
   if (typeof window === 'undefined') return;
-  window.__AIFS_TTS_VERSION = '20260818b';
+  window.__AIFS_TTS_VERSION = '20261021a';
   var synth = window.speechSynthesis;
   if (!synth || typeof window.SpeechSynthesisUtterance !== 'function') return;
 
@@ -484,6 +484,32 @@
     }
   }
 
+  function chunkIndexFor(chunk, near) {
+    var best = -1;
+    for (var i = 0; i < state.chunks.length; i++) {
+      var candidate = state.chunks[i];
+      if (candidate.text !== chunk.text) continue;
+      if (chunk.el && candidate.el === chunk.el) return i;
+      if (best < 0 || Math.abs(i - near) < Math.abs(best - near)) best = i;
+    }
+    return best;
+  }
+
+  function neighbourIndex(old, was, delta) {
+    var target = old[was + delta];
+    var found = target ? chunkIndexFor(target, was + delta) : -1;
+    if (found >= 0) return found;
+    var anchor = old[was - (delta > 0 ? 1 : -1)];
+    var at = anchor ? chunkIndexFor(anchor, was - (delta > 0 ? 1 : -1)) : -1;
+    if (at >= 0) return at + (delta > 0 ? 1 : -1);
+    return delta > 0 ? (target ? state.index + delta : state.chunks.length) : state.index + delta;
+  }
+
+  function keptChunk(before) {
+    var after = state.chunks[state.index];
+    return !!(before && after && after.text === before.text);
+  }
+
   /**
    * The lesson page keeps building itself after the first paint (panels,
    * diagrams, figures). If the block we are on has been swapped out, rebuild
@@ -493,14 +519,8 @@
     var current = state.chunks[state.index];
     var fresh = collect();
     if (!fresh.length) return false;
-    var at = -1;
-    for (var i = 0; i < fresh.length; i++) {
-      if (current && fresh[i].text === current.text) {
-        at = i;
-        break;
-      }
-    }
     state.chunks = fresh;
+    var at = current ? chunkIndexFor(current, state.index) : -1;
     state.index = at >= 0 ? at : Math.min(state.index, fresh.length - 1);
     return true;
   }
@@ -514,6 +534,7 @@
     // SpeechSynthesis can dispatch a canceled utterance's callbacks after a
     // replacement has started. Invalidate before calling cancel(), not after.
     invalidateUtterance();
+    if (synth.paused) synth.resume();
     synth.cancel();
   }
 
@@ -797,8 +818,8 @@
       if (!link) return;
       state.navigationTarget = '';
       clearResumeTarget();
-      if (!isPlaying() || !isLessonContinuationLink(link)) return;
-      if (silentMode) {
+      if (!state.playing || state.paused || state.waiting || !isLessonContinuationLink(link)) return;
+      if (new URL(location.href).searchParams.get('ttsTest') === 'silent') {
         var silentUrl = new URL(link.href, location.href);
         silentUrl.searchParams.set('ttsTest', 'silent');
         link.href = silentUrl.toString();
@@ -810,7 +831,16 @@
 
   function jump(delta) {
     if (!state.playing) return;
-    var next = state.index + delta;
+    var before = state.chunks[state.index];
+    var was = state.index;
+    var old = state.chunks.slice();
+    var currentEl = before && before.el;
+    var lost = false;
+    if (currentEl && !document.contains(currentEl)) {
+      resync();
+      lost = !keptChunk(before);
+    }
+    var next = lost ? neighbourIndex(old, was, delta) : state.index + delta;
     if (next < 0) next = 0;
     if (next >= state.chunks.length) {
       stop();
@@ -982,7 +1012,9 @@
     btn.setAttribute('aria-label', '朗读当前页面');
     btn.title = '朗读当前页面';
     btn.setAttribute('aria-pressed', 'false');
-    themeToggle.parentNode.insertBefore(btn, themeToggle);
+    var slot = document.querySelector('.header-narration-slot');
+    if (slot) slot.appendChild(btn);
+    else themeToggle.parentNode.insertBefore(btn, themeToggle);
     btn.addEventListener('click', function (e) {
       if (ignoreGestureControlClick(e)) return;
       // The speaker is the on/off switch — pause lives in the control bar.
@@ -1256,6 +1288,10 @@
 
     bar.addEventListener('pointermove', function (e) {
       if (!active) return;
+      if (e.buttons != null && !(e.buttons & 1)) {
+        end(e);
+        return;
+      }
       var dx = e.clientX - startX;
       var dy = e.clientY - startY;
       if (!moved && Math.abs(dx) < DRAG_SLOP && Math.abs(dy) < DRAG_SLOP) return;
@@ -1271,8 +1307,8 @@
     var end = function (e) {
       if (!active) return;
       active = false;
-      if (!moved) return;
       bar.classList.remove('is-dragging');
+      if (!moved) return;
       if (bar.releasePointerCapture && e.pointerId != null) {
         try {
           bar.releasePointerCapture(e.pointerId);
@@ -1286,6 +1322,11 @@
       // gesture emits no click, so arming the guard there would eat the next
       // real one instead.
       state.dragged = e.type === 'pointerup';
+      if (state.dragged) {
+        setTimeout(function () {
+          state.dragged = false;
+        }, 0);
+      }
     };
 
     bar.addEventListener('pointerup', end);

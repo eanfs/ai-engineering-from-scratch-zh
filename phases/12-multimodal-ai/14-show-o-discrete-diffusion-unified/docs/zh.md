@@ -3,7 +3,7 @@
 > Transfusion 混合了连续和离散表示。Show-o（Xie 等人，2024 年 8 月）走了另一条路：文本 token 用因果下一 token 预测，图像 token 用 MaskGIT 精神下的掩码离散扩散。两者都坐在一个 transformer 里，配一个混合注意力掩码。结果是在一个骨干、每种模态一个分词器、一种损失表述（下一 token 扩展为掩码预测）上，统一了 VQA、文生图、图像修复和混合模态生成。本节课走一遍 Show-o 设计——为什么掩码离散扩散是一个并行的、少步的图像生成器——并与 Transfusion 和 Emu3 作对比。
 
 **类型：** Learn
-**语言：** Python（标准库，掩码离散扩散采样器）
+**语言：** Python、TypeScript（标准库，掩码离散扩散采样器）
 **前置要求：** Phase 12 · 13（Transfusion）
 **预计时间：** ~120 分钟
 
@@ -11,7 +11,7 @@
 
 - 解释掩码离散扩散：先均匀掩掉 token、再让 transformer 恢复它们的那套调度。
 - 在速度和质量上把并行图像解码（Show-o、MaskGIT）与自回归图像解码（Chameleon、Emu3）作比较。
-- 说出 Show-o 在一个 checkpoint 里处理的三个任务：T2I、VQA、图像修复。
+- 说出 Show-o 在一个 checkpoint 里处理的四个任务：文本生成、VQA、T2I、图像修复。
 - 挑一个掩码调度（cosine、linear、truncated）并就它对样本质量的影响作推理。
 
 ## 问题背景
@@ -69,11 +69,11 @@ Show-o 在推理时支持四个任务，由 prompt 格式选定：
 
 每步解掩多少 token 的调度塑造质量。Show-o 推荐 cosine：
 
-```
-mask_ratio(t) = cos(pi * t / (2 * T))   # t = 0..T
+```math
+\text{mask\_ratio}(t) = \cos\left(\frac{\pi t}{2T}\right) \qquad t = 0, \ldots, T
 ```
 
-第 0 步，所有 token 被掩（比例 1.0）。第 T 步，无掩码。cosine 把质量集中在预测最有信息量的中段比例上。linear 调度也能用，但平台化更快。
+第 0 步，所有 token 被掩（比例 1.0）。第 $T$ 步，无掩码。cosine 把质量集中在预测最有信息量的中段比例上。linear 调度也能用，但平台化更快。
 
 ### Show-o2
 
@@ -117,7 +117,7 @@ masked-diffusion-unmask
 
 3. cosine 调度 vs linear 调度：对 T=8 追一遍每步未掩 token 数。哪个更均衡？
 
-4. 一张 512x512 的 Show-o 图是 1024 个 token。在词表 K=16384 下，模型吐出 1024 * log2(16384) = 14,336 比特（约 1.75 KiB）数据。Stable Diffusion 输出 512*512*24 比特 = 6,291,456 比特（约 768 KiB）原始像素。压缩比是多少，它买来什么质量？
+4. 一张 512x512 的 Show-o 图是 1024 个 token。在词表 $K=16384$ 下，模型吐出 $1024 \cdot \log_2(16384) = 14{,}336$ 比特（约 1.75 KiB）数据。Stable Diffusion 输出 512*512*24 比特 = 6,291,456 比特（约 768 KiB）原始像素。压缩比是多少，它买来什么质量？
 
 5. 读 LlamaGen（arXiv:2406.06525）。LlamaGen 的类别条件自回归图像模型与 Show-o 的掩码路线有何不同？
 

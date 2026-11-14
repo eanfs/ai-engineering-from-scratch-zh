@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const { parseMd, readLessonMarkdown } = require('../site/lesson-markdown');
-const { representation } = require('../lib/agent-http');
+const { parseMd, readLessonMarkdown, prerenderedCode } = require('../site/lesson-markdown');
+const { representation, quality, problem } = require('../lib/agent-http');
 
 const ORIGIN = 'https://aieng-zh.cn';
 const SEO_START = '<!-- AIFS:LESSON-SEO:START -->';
@@ -30,11 +30,18 @@ function loadProductionAssets() {
       readMarkdown: function (lessonPath) {
         return readLessonMarkdown(path.join(__dirname, '..'), lessonPath, manifest);
       },
+      readCode: function (lessonPath) {
+        return JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'site', 'lesson-code', `${lessonPath}.json`), 'utf8')).blocks;
+      },
       ogCards: fs.existsSync(path.join(__dirname, '..', 'lib', 'og-cards.js')) ? require('../lib/og-cards') : null,
       hubRoutes: fs.existsSync(path.join(__dirname, '..', 'lib', 'hub-routes.js')) ? require('../lib/hub-routes') : null,
       lessonTerms: fs.existsSync(path.join(__dirname, '..', 'site', 'lesson-terms.json'))
         ? JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'site', 'lesson-terms.json'), 'utf8')).lessons
         : {},
+      cheatsheets: fs.existsSync(path.join(__dirname, '..', 'site', 'cheatsheet-map.json'))
+        ? JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'site', 'cheatsheet-map.json'), 'utf8')).lessons : {},
+      practice: fs.existsSync(path.join(__dirname, '..', 'site', 'practice-map.json'))
+        ? JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'site', 'practice-map.json'), 'utf8')).lessons : {},
       languageCodes: Array.isArray(languageRegistry.languages)
         ? languageRegistry.languages
           .filter(function (language) { return language.source || language.ci; })
@@ -254,7 +261,17 @@ function lessonHref(ref, contextParams) {
   return `/lesson?${params.toString().replace(/&/g, '&amp;')}`;
 }
 
-function lessonFallback(entry, lessonPath, contextParams, heading, markdown) {
+function readLessonCode(assets, lessonPath) {
+  if (!assets || typeof assets.readCode !== 'function') return null;
+  try {
+    const blocks = assets.readCode(lessonPath);
+    return blocks && typeof blocks === 'object' ? blocks : null;
+  } catch (_) {
+    return null;
+  }
+}
+
+function lessonFallback(entry, lessonPath, contextParams, heading, markdown, assets) {
   const trackId = contextParams && contextParams.track;
   const trackNavigation = trackId && entry.navigationByTrack && entry.navigationByTrack[trackId];
   const navigation = trackNavigation || entry;
@@ -268,7 +285,8 @@ function lessonFallback(entry, lessonPath, contextParams, heading, markdown) {
   if (previous) links.push(`<a class="lesson-nav-btn prev" href="${lessonHref(previous, contextParams)}"><span class="nav-label">&larr; 上一节</span><span class="nav-title">${escapeHtml(previous.title)}</span></a>`);
   if (next) links.push(`<a class="lesson-nav-btn next" href="${lessonHref(next, contextParams)}"><span class="nav-label">下一节 &rarr;</span><span class="nav-title">${escapeHtml(next.title)}</span></a>`);
   const summary = entry.description || entry.excerpt;
-  const body = markdown ? `<h1>${escapeHtml(heading)}</h1>` + parseMd(markdown).replace(/<h1 id="[^"]*">[\s\S]*?<\/h1>/, '') : '';
+  const blocks = readLessonCode(assets, lessonPath);
+  const body = markdown ? `<h1>${escapeHtml(heading)}</h1>` + parseMd(markdown, { renderCode: prerenderedCode(blocks) }).replace(/<h1 id="[^"]*">[\s\S]*?<\/h1>/, '') : '';
   const disclaimer = entry.context && entry.context.kind === 'certification'
     ? entry.context.disclaimer || '这是独立社区备考课程，与认证提供方没有隶属、认可、赞助或授权关系。不包含真实考题，不颁发证书，也不保证通过考试。'
     : '';
@@ -295,6 +313,21 @@ function declaredLessonHub(entry, assets) {
   return hub === assets.hubRoutes.phaseHubPath(entry.path) ? hub : '';
 }
 
+function sheetLinks(lessonPath, sheets) {
+  const list = sheets && Object.prototype.hasOwnProperty.call(sheets, lessonPath) && Array.isArray(sheets[lessonPath]) ? sheets[lessonPath] : [];
+  const links = list
+    .filter(item => item && typeof item.title === 'string' && /^\/cheatsheets\/[a-z0-9-]+$/.test(item.href || ''))
+    .map(item => `<a href="${escapeHtml(item.href)}">${escapeHtml(item.title)}</a>`);
+  return links.length ? `        <p class="lesson-hub-terms"><span>速查表：</span> ${links.join(', ')}</p>` : '';
+}
+
+function practiceLinks(lessonPath, practice) {
+  const list = practice && Object.prototype.hasOwnProperty.call(practice, lessonPath) && Array.isArray(practice[lessonPath]) ? practice[lessonPath] : [];
+  const links = list.filter(item => item && typeof item.title === 'string' && /^\/practice\/[a-z0-9-]+$/.test(item.href || ''))
+    .map(item => `<a href="${escapeHtml(item.href)}">${escapeHtml(item.title)}</a>`);
+  return links.length ? `<p class="lesson-hub-terms lesson-practice"><span>动手练习：</span>${links.join('、')}</p>` : '';
+}
+
 function lessonHubLinks(entry, heading, assets) {
   const hub = declaredLessonHub(entry, assets);
   if (!hub) return '';
@@ -307,6 +340,8 @@ function lessonHubLinks(entry, heading, assets) {
     '      <nav class="lesson-hub-links" aria-label="阶段与术语链接">',
     `        <ol class="lesson-hub-trail"><li><a href="/">首页</a></li><li><a href="${escapeHtml(hub)}">${escapeHtml(contextLabel(entry.context))}</a></li><li aria-current="page">${escapeHtml(heading)}</li></ol>`,
     links.length ? `        <p class="lesson-hub-terms"><span>本课术语：</span> ${links.join('、')}</p>` : '',
+    sheetLinks(entry.path, assets.cheatsheets),
+    practiceLinks(entry.path, assets.practice),
     '      </nav>',
   ].filter(Boolean).join('\n');
 }
@@ -376,7 +411,7 @@ function normalizedLessonLocation(req, lessonPath, entry, assets) {
 
   if (hasQuery(req, 'lang')) {
     const lang = queryValue(req, 'lang');
-    if (!certificationLesson && validLanguageCode(lang) && listedValue(assets.languageCodes, lang)) {
+    if (!certificationLesson && lang !== 'en' && validLanguageCode(lang) && listedValue(assets.languageCodes, lang)) {
       params.set('lang', lang);
     } else {
       needsRedirect = true;
@@ -420,9 +455,10 @@ function createHandler(options) {
       return;
     }
 
-    res.setHeader('Vary', 'Accept, Accept-Encoding');
-    const requestedRepresentation = representation(req.headers && req.headers.accept);
+    const accept = req.headers && req.headers.accept;
+    const requestedRepresentation = representation(accept);
     if (!requestedRepresentation) {
+      res.setHeader('Vary', 'Accept, Accept-Encoding');
       send(res, method, 406, errorPage('不支持该内容格式', '请请求 text/html 或 text/markdown。'), 'no-store');
       return;
     }
@@ -456,15 +492,23 @@ function createHandler(options) {
       }
       const heading = lessonHeading(entry, manifest);
       const markdown = typeof assets.readMarkdown === 'function' ? assets.readMarkdown(lessonPath) : null;
-      res.setHeader('Content-Language', 'zh-CN');
-      if (requestedRepresentation === 'text/markdown') {
-        if (typeof markdown !== 'string' || !markdown.trim()) throw new Error('lesson-source-unavailable');
+      const markdownRequested = requestedRepresentation === 'text/markdown';
+      if (markdownRequested && typeof markdown === 'string' && markdown.trim()) {
+        res.setHeader('Vary', 'Accept, Accept-Encoding');
+        res.setHeader('Content-Language', 'zh-CN');
         send(res, method, 200, markdown, 'public, max-age=300, s-maxage=86400, stale-while-revalidate=604800', 'text/markdown');
         return;
       }
+      if (markdownRequested && !quality(accept, 'text/html')) {
+        res.setHeader('Vary', 'Accept, Accept-Encoding');
+        problem({ method }, res, 406, 'representation_not_supported', 'This lesson has no Markdown source. Request text/html.');
+        return;
+      }
       let html = replaceMarkedRegion(template, SEO_START, SEO_END, lessonHead(entry, lessonPath, heading, assets));
-      html = replaceMarkedRegion(html, FALLBACK_START, FALLBACK_END, lessonFallback(entry, lessonPath, contextParams, heading, markdown));
+      html = replaceMarkedRegion(html, FALLBACK_START, FALLBACK_END, lessonFallback(entry, lessonPath, contextParams, heading, markdown, assets));
       if (html.includes(HUBS_START)) html = replaceMarkedRegion(html, HUBS_START, HUBS_END, lessonHubLinks(entry, heading, assets));
+      res.setHeader('Vary', 'Accept, Accept-Encoding');
+      res.setHeader('Content-Language', 'zh-CN');
       send(res, method, 200, html, 'public, max-age=300, s-maxage=86400, stale-while-revalidate=604800');
     } catch (_) {
       send(res, method, 500, errorPage('课程页面暂不可用', '课程页面组装失败，请先从课程目录继续。'), 'no-store');

@@ -1,0 +1,95 @@
+# README 的使用规则与法律
+
+> 只有拥有分析权利时才能分析程序，本手册通过自行编写每个目标取得这一权利。
+
+供应商发来二进制，你身边的 agent 八秒就能反编译。第一条命令之前，先回答两个问题：程序归谁所有？对并非你编写的副本，法律允许做什么？rea 不会询问这两件事。`DISCLAIMER.md` 将责任交给你，以下法律条文与判决说明答案须包含什么。
+
+读完本节，你能指出哪条规则允许分析程序，以及本手册所有目标为何符合条件。本节解读一手来源，不提供法律建议。
+
+## 固定标签的使用规则 {#s-the-readme-use-rule-and-the-law-the-use-rule-at-the-tag}
+
+```rule
+label: the use rule
+source: readme DISCLAIMER.md, Responsible use
+---
+你须自行取得所需授权，并遵守适用法律、许可协议和服务条款。你所在司法辖区的法律或软件许可可能限制逆向工程。
+```
+
+规则位于该标签 `DISCLAIMER.md` 的 `Responsible use` 标题下。README 的 `Disclaimer` 标题指向该文件，并将 REA 的用途限定为合法研究、教育、互操作、软件保存，以及分析你拥有或获准检查的软件 {{readme Disclaimer}}。这一立场适用于所有 REA 版本与分发渠道。
+
+`DISCLAIMER.md` 也列出项目不支持的用途。首项为绕过 DRM、许可证检查、反作弊系统及其他保护措施，随后是游戏作弊、绕过认证或访问控制、复制专有软件。最后两项是规避 AI 提供方使用政策，以及转售或共享 AI 账户。
+
+## 美国：17 U.S.C. 1201 {#s-the-readme-use-rule-and-the-law-united-states-17-u-s-c-1201}
+
+**规避：** 1201(a)(3)(A) 将规避界定为未经著作权人授权，对扰码作品解扰、对加密作品解密，或以其他方式绕过技术保护措施 {{law 17 U.S.C. 1201(a)(3)(A)}}。1201(a)(1)(A) 禁止这种行为。
+
+1201(f) 是逆向工程例外，但有四项限制。当事人须有权使用该程序副本。规避只能用于识别与分析独立编写程序实现互操作所必需的程序要素；这些要素此前也必须无法方便取得。相关行为还不得构成本编规定的侵权 {{law 17 U.S.C. 1201(f)(1)}}。
+
+1201(f)(4) 所说的互操作，是指计算机程序能够交换信息，并相互使用这些信息 {{law 17 U.S.C. 1201(f)(4)}}。1201(j) 涉及安全测试。它要求取得所有者或运营者授权，并且访问计算机、系统或网络的目的必须是善意测试、调查或修正安全缺陷 {{law 17 U.S.C. 1201(j)(1)}}。
+
+1201(f) 只对反规避规则提供例外，不判断分析过程中制作的副本是否侵犯著作权。1201(c)(1) 明确保留著作权侵权相关的权利、救济、限制和抗辩，包括合理使用 {{law 17 U.S.C. 1201(c)(1)}}。下方两个判决讨论这一问题。
+
+## 欧盟：Directive 2009/24/EC {#s-the-readme-use-rule-and-the-law-european-union-directive-2009-24-ec}
+
+第 1(2) 条规定，计算机程序要素背后的思想和原则不受本指令的著作权保护，接口背后的思想和原则也包括在内 {{law Directive 2009/24/EC Article 1(2)}}。随后两条赋予合法用户具体权利。
+
+第 5(3) 条允许有权使用程序副本的人在执行获准操作时观察、研究或测试程序，以识别其要素背后的思想和原则 {{law Directive 2009/24/EC Article 5(3)}}。欧盟法院在 C-406/10 案中适用此条：被许可方没有反编译，而是研究 SAS System，以便在另一程序中重现功能；法院认定这不构成侵权。
+
+第 6(1) 条允许在必要时复制和转换代码，以取得独立编写的程序与其他程序互操作所需的信息 {{law Directive 2009/24/EC Article 6(1)}}。这项权利有三项条件：由有权使用副本的人实施；所需信息此前未便捷提供 {{law Directive 2009/24/EC Article 6(1)(b)}}；反编译只涉及实现互操作所必需的原程序部分 {{law Directive 2009/24/EC Article 6(1)(c)}}。
+
+第 6(2)(c) 条禁止使用反编译结果开发、生产或销售表达形式实质相似的程序 {{law Directive 2009/24/EC Article 6(2)(c)}}。第 8 条规定，违反第 6 条或第 5(2)、5(3) 条例外的合同条款无效 {{law Directive 2009/24/EC Article 8}}。C-13/20 案增加了第三条路径：合法购买者可根据第 5(1) 条为纠错而反编译，无需满足第 6 条条件，但只能做到修正所必需的程度 {{law C-13/20 ruling 2}}。
+
+## 两个判决：Sega v. Accolade 与 Sony v. Connectix {#s-the-readme-use-rule-and-the-law-two-decisions-sega-v-accolade-and-sony-v-connectix}
+
+在 Sega Enterprises Ltd. v. Accolade, Inc., 977 F.2d 1510（第九巡回上诉法院，1992）案中，Accolade 购买 Genesis 主机和卡带，反汇编目标代码以整理接口要求，随后开发自己的游戏。法院认为，在接触程序功能要素有正当理由且反汇编是唯一途径时，这种反汇编属于合理使用 {{law Sega v. Accolade, 977 F.2d at 1527-1528}}。Accolade 只保留主机要求的 20 到 25 字节头部代码。
+
+在 Sony Computer Entertainment, Inc. v. Connectix Corp., 203 F.3d 596（第九巡回上诉法院，2000）案中，Connectix 为开发不含 Sony 代码的模拟器，多次将 PlayStation BIOS 复制到内存。法院认定这些逆向工程中的临时副本属于合理使用，是让不侵权的 Virtual Game Station 能运行 PlayStation 游戏所必需的 {{law Sony v. Connectix, 203 F.3d 596}}。
+
+法院列出接触程序功能要素的四种方式，其中两种是静态检查指令、动态检查运行程序，均称为反汇编。两案保护的是中间副本，并未认可最终产品包含复制代码。
+
+```figure
+id: fig-2-1
+kind: decision
+title: 第一条命令前的五个问题
+claim: 第一条命令前须回答来自 17 USC 1201(f)、Directive 2009/24/EC、Sega、Connectix 的五个问题；本手册的测试固件通过设计满足全部条件。
+caption: 自上而下阅读五个问题，首次回答否时沿玫红虚线箭头走。依据是 Sources 行中的法律与判决，文件名来自 capture/out/00-fixtures.txt。
+```
+
+## 本手册的规则 {#s-the-readme-use-rule-and-the-law-the-rule-of-this-manual}
+
+本手册每个目标均专门编写。C 源码为 `ledger.c`、`ledger-main.c`，`js-app/` 是六文件应用，`wasm/ledger.wat` 是手写模块。捕获工具记录其 hash 与大小：
+
+```listing
+title: 测试固件及 hash
+source: capture/out/00-fixtures.txt
+lang: text
+note: 仅保留两个 C 源文件、两个 arm64 可执行文件、模块及其文本。省略目标文件、JavaScript 文件和冒烟测试程序。
+---
+01b5d08b…   33872  fixtures/ledger-arm64-O1
+…
+8bbbaa58…   33872  fixtures/ledger-arm64-O2
+…
+80af384b…     743  fixtures/ledger-main.c
+…
+4564c3e7…     568  fixtures/ledger.c
+…
+699f6ff7…     290  fixtures/wasm/ledger.wasm
+2e0b5792…    1841  fixtures/wasm/ledger.wat
+```
+
+对这些文件，[图中](#fig-2-1)五个问题都有明确答案：你自行编译，因此持有副本；目的是学习；源码就在二进制旁，比较两者正是目的，无需其他途径；整个程序属于你，因此分析部分和表达也属于你。
+
+本手册从不分析保护措施、许可证检查、防篡改方案、游戏或不属于你的程序。除自身测试固件外，不对其他运行程序插桩。
+
+分析其他程序之前，先回答五个问题并写下来。从合法取得的副本开始，明确法律规定的目的：1201(f) 和第 6 条的互操作、第 5(3) 条的研究、第 5(1) 条的纠错，以及 1201(j) 经所有者授权的安全测试。
+
+检查所需事实是否已经发布，将工作限制在必要部分，最终产品使用自己的表达。许可证或合同有额外条款时，阅读条款。1201(f) 不凌驾于合同法，第 8 条也只使违反第 5(2)、5(3)、6 条的条款无效。
+
+```takeaways
+- 先读一遍 `DISCLAIMER.md`。取得授权是你的责任，rea 不会检查。
+- 第一条命令前写下合法副本、明确目的和缺失事实。
+- 只分析自己编写或获授权检查的程序，本手册每节均如此。
+- 中间副本仅用于分析，发布内容不包含复制代码。
+```
+
+Sources: readme Disclaimer (rea README.md); rea DISCLAIMER.md, Responsible use, at 27dc42d; law: 17 U.S.C. 1201(a)(1)(A), (a)(3)(A), (c)(1), (f)(1), (f)(4), (j)(1), Directive 2009/24/EC Articles 1(2), 5(1), 5(3), 6(1), 6(2)(c), 8, CJEU C-406/10 and C-13/20, Sega v. Accolade, 977 F.2d 1510, Sony v. Connectix, 203 F.3d 596; capture/out/00-fixtures.txt

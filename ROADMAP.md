@@ -325,7 +325,7 @@
 | 24 | [多模态 RAG 与跨模态检索](phases/12-multimodal-ai/24-multimodal-rag-cross-modal) | ✅ | ~180 min |
 | 25 | [多模态智能体与计算机操作 (总结项目)](phases/12-multimodal-ai/25-multimodal-agents-computer-use) | ✅ | ~240 min |
 
-## Phase 13: 工具与协议 — ✅ (~43 hours)
+## Phase 13: 工具与协议 — ✅ (~76 hours)
 
 | # | Lesson | Status | Est. |
 |---|--------|--------|------|
@@ -360,6 +360,20 @@
 | 29 | [MCP 可靠性、取消与流量控制](phases/13-tools-and-protocols/29-mcp-reliability-cancellation-and-flow-control/) | ✅ | ~120 min |
 | 30 | [MCP Registry 供应链：准入、漂移与回滚](phases/13-tools-and-protocols/30-mcp-registry-supply-chain-and-drift/) | ✅ | ~90 min |
 | 31 | [MCP 一致性工程：版本、证据与运维](phases/13-tools-and-protocols/31-mcp-conformance-versioning-and-operations/) | ✅ | ~100 min |
+| 32 | [程序剖析：从零读取 ELF](phases/13-tools-and-protocols/32-program-anatomy-elf-from-scratch/) | ✅ | ~120 min |
+| 33 | [反汇编与控制流：从字节到可验证的图](phases/13-tools-and-protocols/33-disassembly-and-control-flow/) | ✅ | ~150 min |
+| 34 | [提升为伪代码：从零构建 IR、SSA 与结构化流程](phases/13-tools-and-protocols/34-lifting-to-pseudocode/) | ✅ | ~150 min |
+| 35 | [二进制分析中的证据、置信度与未知项](phases/13-tools-and-protocols/35-evidence-confidence-and-unknowns/) | ✅ | ~105 min |
+| 36 | [重建并证明等价：差分测试、字节比较与证据循环](phases/13-tools-and-protocols/36-rebuild-and-prove-equal/) | ✅ | ~110 min |
+| 37 | [逆向工程全景：历史、工具家族与反编译器构建](phases/13-tools-and-protocols/37-the-reverse-engineering-landscape/) | ✅ | ~150 min |
+| 38 | [调用约定与栈帧：System V、Windows x64 与 AArch64](phases/13-tools-and-protocols/38-calling-conventions-and-stack-frames/) | ✅ | ~140 min |
+| 39 | [编译器惯用模式：优化如何改变代码及如何读回](phases/13-tools-and-protocols/39-compiler-idioms-and-optimization/) | ✅ | ~150 min |
+| 40 | [链接、加载与去符号二进制：PLT、GOT、导入、修复与函数识别](phases/13-tools-and-protocols/40-linking-loading-and-stripped-binaries/) | ✅ | ~160 min |
+| 41 | [恢复数据与类型：结构体、数组、C++ 对象与 DWARF](phases/13-tools-and-protocols/41-recovering-data-and-types/) | ✅ | ~140 min |
+| 42 | [对自有程序做动态分析：调试器、跟踪与静态结论验证](phases/13-tools-and-protocols/42-dynamic-analysis-of-your-own-program/) | ✅ | ~130 min |
+| 43 | [原生代码之外：Python、JVM、.NET 与 WebAssembly 字节码](phases/13-tools-and-protocols/43-bytecode-and-managed-formats/) | ✅ | ~150 min |
+| 44 | [二进制差分与符号执行：函数匹配与输入求解](phases/13-tools-and-protocols/44-binary-diffing-and-symbolic-execution/) | ✅ | ~150 min |
+| 45 | [AI 辅助逆向工程：LLM 反编译器、分析 agent 与真实依据](phases/13-tools-and-protocols/45-ai-assisted-reverse-engineering/) | ✅ | ~140 min |
 
 ## Phase 14: 智能体工程 — ✅ (~57 hours)
 
@@ -570,7 +584,7 @@
 | 20 | [Agent Harness Loop 契约](phases/19-capstone-projects/20-agent-harness-loop-contract) | ✅ | ~90 min |
 | 21 | [带 Schema 校验的 Tool Registry](phases/19-capstone-projects/21-tool-registry-schema-validation) | ✅ | ~90 min |
 | 22 | [基于换行分隔 stdio 的 JSON-RPC 2.0](phases/19-capstone-projects/22-jsonrpc-stdio-transport) | ✅ | ~90 min |
-| 23 | [Function Call Dispatcher](phases/19-capstone-projects/23-function-call-dispatcher) | ✅ | ~90 min |
+| 23 | [函数调用分发器](phases/19-capstone-projects/23-function-call-dispatcher) | ✅ | ~90 min |
 | 24 | [Plan-Execute 控制流](phases/19-capstone-projects/24-plan-execute-control-flow) | ✅ | ~90 min |
 | 25 | [Verification Gate 与 Observation Budget](phases/19-capstone-projects/25-verification-gates-observation-budget) | ✅ | ~90 min |
 | 26 | [带 Denylist 与 Path Jail 的 Sandbox Runner](phases/19-capstone-projects/26-sandbox-runner-denylist) | ✅ | ~90 min |
@@ -580,7 +594,7 @@
 | 30 | [从零实现 BPE Tokenizer](phases/19-capstone-projects/30-bpe-tokenizer-from-scratch) | ✅ | ~90 min |
 | 31 | [带 Sliding Window 的 Tokenized Dataset](phases/19-capstone-projects/31-tokenized-dataset-sliding-window) | ✅ | ~90 min |
 | 32 | [Token Embedding 与 Positional Embedding](phases/19-capstone-projects/32-token-positional-embeddings) | ✅ | ~90 min |
-| 33 | [Multi-Head Self-Attention](phases/19-capstone-projects/33-multihead-self-attention) | ✅ | ~90 min |
+| 33 | [多头自注意力](phases/19-capstone-projects/33-multihead-self-attention) | ✅ | ~90 min |
 | 34 | [从零实现 Transformer Block](phases/19-capstone-projects/34-transformer-block) | ✅ | ~90 min |
 | 35 | [GPT 模型组装](phases/19-capstone-projects/35-gpt-model-assembly) | ✅ | ~90 min |
 | 36 | [训练循环与评估](phases/19-capstone-projects/36-training-loop-eval) | ✅ | ~90 min |
@@ -590,7 +604,7 @@
 | 40 | [从零实现 DPO](phases/19-capstone-projects/40-dpo-from-scratch) | ✅ | ~90 min |
 | 41 | [完整评估流水线](phases/19-capstone-projects/41-eval-pipeline) | ✅ | ~90 min |
 | 42 | [大规模语料下载器](phases/19-capstone-projects/42-large-corpus-downloader) | ✅ | ~90 min |
-| 43 | [HDF5 Tokenized Corpus](phases/19-capstone-projects/43-hdf5-tokenized-corpus) | ✅ | ~90 min |
+| 43 | [HDF5 分词语料库](phases/19-capstone-projects/43-hdf5-tokenized-corpus) | ✅ | ~90 min |
 | 44 | [Cosine 学习率 + 线性 Warmup](phases/19-capstone-projects/44-cosine-lr-warmup) | ✅ | ~90 min |
 | 45 | [Gradient Clipping 与混合精度训练](phases/19-capstone-projects/45-gradient-clipping-amp) | ✅ | ~90 min |
 | 46 | [梯度累积](phases/19-capstone-projects/46-gradient-accumulation) | ✅ | ~90 min |
@@ -606,14 +620,14 @@
 | 56 | [迭代调度器](phases/19-capstone-projects/56-iteration-scheduler) | ✅ | ~90 min |
 | 57 | [端到端研究 Demo](phases/19-capstone-projects/57-end-to-end-research-demo) | ✅ | ~90 min |
 | 58 | [Vision Encoder 的 Patch 切分](phases/19-capstone-projects/58-vision-encoder-patches) | ✅ | ~90 min |
-| 59 | [Vision Transformer Encoder（ViT）](phases/19-capstone-projects/59-vit-transformer) | ✅ | ~90 min |
+| 59 | [视觉 Transformer 编码器（ViT）](phases/19-capstone-projects/59-vit-transformer) | ✅ | ~90 min |
 | 60 | [用 Projection Layer 做模态对齐](phases/19-capstone-projects/60-projection-layer-modality-align) | ✅ | ~90 min |
 | 61 | [Cross-Attention 融合](phases/19-capstone-projects/61-cross-attention-fusion) | ✅ | ~90 min |
 | 62 | [Vision-Language 预训练](phases/19-capstone-projects/62-vision-language-pretraining) | ✅ | ~90 min |
 | 63 | [多模态评测](phases/19-capstone-projects/63-multimodal-eval) | ✅ | ~90 min |
 | 64 | [Chunking 策略横向对比](phases/19-capstone-projects/64-chunking-strategies-advanced) | ✅ | ~90 min |
 | 65 | [用 BM25 与 Dense Embedding 做 Hybrid Retrieval](phases/19-capstone-projects/65-hybrid-retrieval-bm25-dense) | ✅ | ~90 min |
-| 66 | [Cross-Encoder Reranker](phases/19-capstone-projects/66-reranker-cross-encoder) | ✅ | ~90 min |
+| 66 | [交叉编码器重排器](phases/19-capstone-projects/66-reranker-cross-encoder) | ✅ | ~90 min |
 | 67 | [Query 改写：HyDE、Multi-Query 与 Decomposition](phases/19-capstone-projects/67-query-rewriting-hyde) | ✅ | ~90 min |
 | 68 | [RAG 评测：Precision、Recall、MRR、nDCG 等](phases/19-capstone-projects/68-rag-eval-precision-recall) | ✅ | ~90 min |
 | 69 | [端到端 RAG 系统](phases/19-capstone-projects/69-end-to-end-rag-system) | ✅ | ~90 min |
@@ -638,6 +652,6 @@
 
 ---
 
-**总计：20 个阶段，528 节课 | 528 已完成 | 全部课程与项目的估算合计约 1178 小时**
+**总计：20 个阶段，542 节课 | 542 已完成 | 核心课程（含综合项目）的估算合计约 1210 小时，独立实战项目另计**
 
 欢迎修订现有课程、完善示例或贡献新课程。详见 [CONTRIBUTING.md](CONTRIBUTING.md)。

@@ -3,7 +3,7 @@
 > coding agent 的上限，取决于你拿什么任务集去量它。这节课会做一套 evaluation harness：吃进一目录 fixture task，把每个 task 喂给候选 agent，用确定性 verifier 评分，再聚合成 pass@1、pass@k、平均延迟和平均成本。harness 就是那份能分清“回归”与“重构”的真值源。
 
 **类型：** Build
-**语言：** Python（stdlib）
+**语言：** Python（stdlib）、TypeScript
 **前置要求：** 第 19 阶段 · 25（verification gates），第 19 阶段 · 26（sandbox runner），第 14 阶段 · 30（eval-driven agent development），第 14 阶段 · 19（SWE-bench 与 GAIA benchmarks）
 **预计时间：** ~90 分钟
 
@@ -50,7 +50,7 @@ flowchart LR
 - `regex_match`：对指定文件内容跑正则。适合“函数必须存在并返回 X”这种存在多种等价写法的任务。
 - `shell_exit_zero`：通过第 26 课的 sandbox 执行一条 shell 命令，只有 exit code 为 0 才算通过。适合“测试必须全过”。
 
-harness 对每个 task 跑 `k` 次。pass@k 可以表示成 `1 - (1 - p)^k`，其中 `p` 是经验通过率；同时 harness 也会把原始通过次数一起报出来，让你看到方差。latency 按 sample 的 wall-clock 统计。cost 则吃 agent 自报的 token、USD 或二者之一，然后给出逐 task 与总量聚合。
+harness 对每个 task 跑 `k` 次。pass@k 可以表示成 `1 - (1 - p)^k`，其中 `p` 是经验通过率；同时 harness 也会把原始通过次数一起报出来，让你看到方差。这是插件估计量（plug-in estimate）：它把测得的通过率 p 直接当作真实通过率。第 72 课使用了针对 `n` 个样本中有 `c` 次通过的无偏估计量 `1 - C(n - c, k) / C(n, k)`。插件估计量存在下偏。当样本数 `n = k` 时（如同本 harness），只要有任意样本通过，无偏估计量就为 1，全未通过时为 0，因此它只能反映是否有任意样本通过。若要对外发布规范的 pass@k 数值，应当抽取 `n > k` 个样本并使用第 72 课的无偏估计量。latency 按 sample 的 wall-clock 统计。cost 则吃 agent 自报的 token、USD 或二者之一，然后给出逐 task 与总量聚合。
 
 ```figure
 pass-at-k
@@ -103,6 +103,7 @@ fixture task 由 `tasks/` 下的 JSON 和配套 `buggy/`、`expected/` 目录组
 ```bash
 cd phases/19-capstone-projects/27-eval-harness-fixture-tasks
 python3 code/main.py
+npx tsx code/main.ts
 python3 -m pytest code/tests/ -v
 ```
 

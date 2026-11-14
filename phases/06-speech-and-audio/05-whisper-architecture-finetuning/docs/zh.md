@@ -3,7 +3,7 @@
 > Whisper 是一个 30 秒窗口的 transformer 编码器-解码器，在 68 万小时的多语种弱监督音频-文本对上训练。一套架构，多种任务，跨 99 种语言都鲁棒。2026 年的 ASR 参照物。
 
 **类型：** Build
-**语言：** Python
+**语言：** Python、TypeScript
 **前置要求：** 阶段 6 · 04（ASR）、阶段 5 · 10（注意力）、阶段 7 · 05（完整 Transformer）
 **预计时间：** ~75 分钟
 
@@ -36,8 +36,8 @@ Large-v3 有 15.5 亿参数。Turbo 用 4 层解码器（从 32 层砍下来）�
 <|startoftranscript|><|en|><|transcribe|><|notimestamps|> Hello world.<|endoftext|>
 ```
 
-- `<|en|>` —— 语言标签；决定走翻译还是转写的行为。
-- `<|transcribe|>` 或 `<|translate|>` —— 把任意语言输入翻成英语输出，或逐字转写。
+- `<|en|>` —— 语言标签，指出音频里说的语言。省略时，Whisper 会先检测语言。
+- `<|transcribe|>` 或 `<|translate|>` —— 任务标签：转写源语言语音，或把语音翻译成英文文本。
 - `<|notimestamps|>` —— 跳过词级时间戳（更快）。
 
 正是 prompt 让一个模型能干多种任务。把 `<|en|>` 换成 `<|fr|>`，它就转写法语。

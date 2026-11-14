@@ -3,7 +3,7 @@
 > 聊天历史是易失的。仓库是持久的。工作台把 agent 状态存进有版本的文件，于是下个会话、下个 agent、下个审查者都从同一个真相源读取。
 
 **类型：** Build
-**语言：** Python（标准库 + 可选 `jsonschema`）
+**语言：** Python（标准库 + 可选 `jsonschema`）、TypeScript
 **前置要求：** 阶段 14 · 32（最小工作台）
 **预计时间：** ~60 分钟
 
@@ -81,6 +81,7 @@ wb-state-persist
 
 ```
 python3 code/main.py
+npx tsx code/main.ts
 ```
 
 脚本写 `workdir/agent_state.json` 和 `workdir/task_board.json`，跨两轮变更它们，并在每一步打印校验后的状态。
@@ -95,7 +96,7 @@ python3 code/main.py
 
 **把大产物和状态分开。** 别把 CSV、长 transcript 或生成文件存进 `agent_state.json`。把产物存成一个单独文件（或上传到对象存储），状态里只保留路径。检查点保持小而快；产物独立增长。
 
-**审计用事件溯源，恢复用快照。** 每次变更追加到一个事件日志（`state.events.jsonl`）；周期性快照到 `state.json`。恢复读快照，然后重放快照时间戳之后的任何事件。这费更多磁盘，但让你能逐字重放 agent 决策 —— 调试长跨度运行时不可或缺。和 Postgres 内部 WAL 用的同一个形态。
+**审计用事件溯源，恢复用快照。** 每次变更追加到一个事件日志（`state.events.jsonl`）；周期性快照到 `state.json`。恢复读快照，然后重放快照时间戳之后的任何事件。这费更多磁盘，但让你能逐字重放 agent 决策 —— 调试长跨度运行时不可或缺。Postgres 在存储层也使用日志加检查点的思路实现 WAL，不过层级远低于应用事件。
 
 **schema 迁移，否则拒绝加载。** `schema_version` 整数是契约。当管理器加载一个未知版本的文件时，它拒绝读取。在 schema 升级旁边发一个迁移脚本；`tools/migrate_state.py` 在每次启动时幂等运行。
 

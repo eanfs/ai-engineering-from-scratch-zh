@@ -7,6 +7,25 @@
 (function () {
   'use strict';
 
+  // 旧 URL (/project.html?id=...) 规范化：注入 canonical 并重定向到预渲染页
+  // Google 把 JS 重定向当作信号，有助于合并重复索引
+  (function redirectLegacyProjectUrl() {
+    if (document.body.getAttribute('data-projects-page') !== 'project') return;
+    var params = new URLSearchParams(window.location.search);
+    var id = params.get('id');
+    if (!id) return;
+    var stage = params.get('stage');
+    var canonicalPath = '/project/' + encodeURIComponent(id) + '/' + (stage ? encodeURIComponent(stage) + '/' : '');
+    var canonicalUrl = window.location.origin + canonicalPath;
+    // 注入 canonical 标签（爬虫可能不执行重定向但会读取 canonical）
+    var link = document.createElement('link');
+    link.rel = 'canonical';
+    link.href = canonicalUrl;
+    document.head.appendChild(link);
+    // JS 重定向到预渲染页
+    window.location.replace(canonicalPath);
+  })();
+
   var DATA = window.AIFS_PROJECTS || { levels: [], projects: [], planned: [] };
   var root = document.documentElement;
   var PROGRESS_KEY = 'aifs.projects.progress.v1';
@@ -90,7 +109,7 @@
   }
 
   function projectHref(id, stageId) {
-    var href = 'project.html?id=' + encodeURIComponent(id) + (stageId ? '&stage=' + encodeURIComponent(stageId) : '');
+    var href = '/project/' + encodeURIComponent(id) + '/' + (stageId ? encodeURIComponent(stageId) + '/' : '');
     return window.AIFSRouteLinks ? window.AIFSRouteLinks.adaptHref(href) : href;
   }
 
@@ -134,10 +153,10 @@
 
   function bindCopy(scope) {
     scope.addEventListener('click', async function (event) {
-      var button = event.target.closest('.pj-copy, .code-copy');
+      var button = event.target.closest('.pj-copy');
       if (!button || button.dataset.copyPending === 'true') return;
-      var text = button.getAttribute('data-copy') || button.getAttribute('data-code');
-      var block = button.closest('.pj-cmd-wrap, .pj-code, pre');
+      var text = button.getAttribute('data-copy');
+      var block = button.closest('.pj-cmd-wrap, .pj-code');
       var status = block.querySelector('.pj-copy-status');
       if (!status) {
         status = document.createElement('span');
@@ -179,26 +198,7 @@
   }
 
   function renderMarkdown(md, baseDir) {
-    // 在交给共享渲染器前解析项目相对链接，不引入第二套 Markdown 解析器。
-    var source = String(md).split(/(```[\s\S]*?```|`[^`\n]+`)/g).map(function (part, index) {
-      if (index % 2) return part;
-      return part.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, function (match, label, href) {
-        if (/^(?:https?:|mailto:|#)/.test(href)) return match;
-        var parts = (href.indexOf('phases/') === 0 ? href : baseDir + '/' + href).split('/');
-        var normalized = [];
-        parts.forEach(function (part) {
-          if (part === '..') normalized.pop();
-          else if (part && part !== '.') normalized.push(part);
-        });
-        var target = normalized.join('/');
-        var url = target.indexOf('phases/') === 0
-          ? 'https://aieng-zh.cn/lesson.html?path=' + target.replace(/\/$/, '')
-          : repoFileUrl(target);
-        return '[' + label + '](' + url + ')';
-      });
-    }).join('');
-    var html = window.MDRender.parseMd(source).replace(/href="https:\/\/aieng-zh\.cn\/lesson\.html\?/g, 'href="lesson.html?');
-    return { title: window.MDRender.extractTitle(source), html: html };
+    return window.AIFSProjectMarkdown.render(md, baseDir, window.MDRender, repoFileUrl);
   }
 
   function sourceBadge(item) {
@@ -248,7 +248,8 @@
   }
 
   function demoFigure(demo, baseDir) {
-    function asset(file) { return baseDir.indexOf('project-content/') === 0 ? baseDir + '/' + file : contentUrl(normalizePath(baseDir + '/' + file)); }
+    // 项目页位于 /project/<id>/[<stage>/]，相对地址会被拼到路由下面，所以站内素材一律从站点根解析。
+    function asset(file) { return baseDir.indexOf('project-content/') === 0 ? '/' + normalizePath(baseDir + '/' + file) : contentUrl(normalizePath(baseDir + '/' + file)); }
     var media;
     var play = '';
     if (demo.video) {
@@ -281,9 +282,19 @@
       [community, '社区贡献'],
     ].map(function (s) { return '<div><strong>' + formatCount(s[0]) + '</strong><span>' + s[1] + '</span></div>'; }).join('');
 
-    var first = DATA.projects[0];
     var start = document.getElementById('pjStartLink');
-    if (first && start) start.href = projectHref(first.id);
+
+    var roleSelect = document.getElementById('pjRole');
+    var roleNote = document.getElementById('pjRoleNote');
+    var roles = DATA.roles || [];
+    var role = new URLSearchParams(window.location.search).get('role') || '';
+    if (!roles.some(function (r) { return r.id === role; })) role = '';
+    if (roleSelect) {
+      roleSelect.innerHTML = '<option value="">全部职业</option>' + roles.map(function (r) {
+        return '<option value="' + esc(r.id) + '">' + esc(r.title) + '</option>';
+      }).join('');
+      roleSelect.value = role;
+    }
 
     var sources = [['all', '全部'], ['core', '核心'], ['community', '社区']];
     var current = readStore(SOURCE_KEY, 'all');
@@ -293,11 +304,26 @@
       filter.innerHTML = sources.map(function (s) {
         return '<button type="button" class="pj-chip' + (s[0] === current ? ' is-active' : '') + '" data-source="' + s[0] + '" aria-pressed="' + (s[0] === current) + '">' + s[1] + '</button>';
       }).join('');
-      var include = function (item) { return current === 'all' || item.source === current; };
+      var picked = roles.filter(function (r) { return r.id === role; })[0];
+      var include = function (item) {
+        if (picked && picked.projects.indexOf(item.id) === -1) return false;
+        return current === 'all' || item.source === current;
+      };
+      var first = DATA.projects.filter(function (p) { return !picked || picked.projects.indexOf(p.id) !== -1; })[0];
+      if (first && start) start.href = projectHref(first.id);
+      showPlanned.disabled = !!picked;
+      showPlanned.title = picked ? '规划中的项目尚未纳入职业路线' : '';
+      if (roleNote) {
+        roleNote.hidden = !picked;
+        roleNote.innerHTML = picked
+          ? '这些项目用于证明你具备<strong>' + esc(picked.title) + '</strong>所需的能力。从最低级别开始，完成一个项目后再做下一个。<a href="learning-paths.html#career-route-' + esc(picked.id) + '">查看这条路线的课程</a>。'
+          : '';
+      }
       ladder.innerHTML = DATA.levels.map(function (level) {
         var ready = DATA.projects.filter(function (p) { return p.level === level.level && include(p); });
-        var planned = showPlanned.checked ? DATA.planned.filter(function (p) { return p.level === level.level && include(p); }) : [];
+        var planned = showPlanned.checked && !picked ? DATA.planned.filter(function (p) { return p.level === level.level && include(p); }) : [];
         var cards = ready.map(projectCard).join('') + planned.map(plannedCard).join('');
+        if (!cards && picked) return '';
         if (!cards) {
           cards = current === 'community'
             ? '<div class="pj-empty">本级别还没有社区项目。<a href="#submit">来做第一个。</a></div>'
@@ -307,6 +333,9 @@
           '<header class="pj-level-head"><div class="pj-level-n">' + level.level + '</div><div><h3>' + esc(level.name) + '</h3><p>' + esc(level.summary) + '</p></div></header>' +
           '<div class="pj-level-cards">' + cards + '</div></section>';
       }).join('');
+      if (picked && !ladder.innerHTML) {
+        ladder.innerHTML = '<div class="pj-empty">当前来源下没有该职业的项目。选择“全部”查看相关项目。</div>';
+      }
     }
 
     filter.addEventListener('click', function (event) {
@@ -317,6 +346,16 @@
       draw();
     });
     showPlanned.addEventListener('change', draw);
+    if (roleSelect) {
+      roleSelect.addEventListener('change', function () {
+        role = roleSelect.value;
+        var url = new URL(window.location.href);
+        if (role) url.searchParams.set('role', role);
+        else url.searchParams.delete('role');
+        window.history.replaceState(null, '', url.pathname + url.search + url.hash);
+        draw();
+      });
+    }
     draw();
   }
 
@@ -327,7 +366,7 @@
       return previous.then(function () {
         return new Promise(function (resolve, reject) {
           var script = document.createElement('script');
-          script.src = source + (scriptVersion ? (source.indexOf('?') === -1 ? '?' : '&') + 'v=' + encodeURIComponent(scriptVersion) : '');
+          script.src = '/' + source.replace(/^\/+/, '') + (scriptVersion ? (source.indexOf('?') === -1 ? '?' : '&') + 'v=' + encodeURIComponent(scriptVersion) : '');
           script.onload = resolve;
           script.onerror = reject;
           document.head.appendChild(script);
@@ -354,11 +393,66 @@
     return '<li><a href="/lessons/' + coursePath.replace(/^phases\//, '') + '/">' + esc(title) + '</a></li>';
   }
 
-  async function renderProject() {
+  function parseProjectUrl() {
+    // 支持两种 URL 格式：
+    // 旧：/project.html?id=foo&stage=bar
+    // 新：/project/foo/bar/
     var params = new URLSearchParams(window.location.search);
-    var id = params.get('id') || '';
+    var id = params.get('id');
+    var stage = params.get('stage');
+    if (!id) {
+      var match = window.location.pathname.match(/^\/project\/([^/]+)(?:\/([^/]+))?\/?$/);
+      if (match) {
+        id = decodeURIComponent(match[1]);
+        stage = match[2] ? decodeURIComponent(match[2]) : null;
+      }
+    }
+    return { id: id || '', stage: stage };
+  }
+
+  function updateProjectSeo(project, stage) {
+    var title = (stage ? stage.title + ' - ' : '') + project.title + ' - 项目 - 从零开始学 AI 工程';
+    var description = stage ? stage.summary : project.summary || project.tagline;
+    var canonical = 'https://aieng-zh.cn/project/' + project.id + '/' + (stage ? stage.id + '/' : '');
+    document.title = title;
+    var link = document.querySelector('link[rel="canonical"]');
+    if (link) link.href = canonical;
+    [['name', 'description', description], ['property', 'og:title', title],
+      ['property', 'og:description', description], ['property', 'og:url', canonical]].forEach(function (item) {
+      var meta = document.querySelector('meta[' + item[0] + '="' + item[1] + '"]');
+      if (meta) meta.content = item[2];
+    });
+    var structured = document.querySelector('script[data-project-seo]');
+    if (structured) {
+      var data = JSON.parse(structured.textContent);
+      var resource = data['@graph'][0];
+      resource.name = stage ? stage.title : project.title;
+      resource.description = description;
+      resource.url = canonical;
+      resource.timeRequired = 'PT' + (stage ? stage.hours : project.hours) + 'H';
+      resource.educationalLevel = stage ? difficultyLabel(stage.difficulty)
+        : { 1: '入门', 2: '构建', 3: '工程', 4: '系统', 5: '前沿' }[project.level] || '';
+      resource.isPartOf = stage
+        ? { '@type': 'LearningResource', name: project.title, url: 'https://aieng-zh.cn/project/' + project.id + '/' }
+        : { '@type': 'Course', name: 'AI Engineering from Scratch 简体中文版', url: 'https://aieng-zh.cn' };
+      var crumbs = [{ '@type': 'ListItem', position: 1, name: '首页', item: 'https://aieng-zh.cn' },
+        { '@type': 'ListItem', position: 2, name: '项目', item: 'https://aieng-zh.cn/projects.html' },
+        { '@type': 'ListItem', position: 3, name: project.title, item: 'https://aieng-zh.cn/project/' + project.id + '/' }];
+      if (stage) crumbs.push({ '@type': 'ListItem', position: 4, name: stage.title, item: canonical });
+      data['@graph'][1].itemListElement = crumbs;
+      structured.textContent = JSON.stringify(data);
+    }
+  }
+
+  async function renderProject() {
+    var parsed = parseProjectUrl();
+    var id = parsed.id;
     var project = DATA.projects.filter(function (p) { return p.id === id; })[0];
     var hero = document.getElementById('pjProjectHero');
+    var initialDoc = document.getElementById('pjDoc');
+    var prerenderedStage = initialDoc && {
+      id: initialDoc.getAttribute('data-prerendered-stage'), html: initialDoc.innerHTML
+    };
     if (!project) {
       hero.innerHTML = '<div class="pj-eyebrow">未找到项目</div><h1>从阶梯中选择一个项目。</h1><p><a class="pj-action" href="projects.html">全部项目</a></p>';
       return;
@@ -413,7 +507,8 @@
     var certificateHost = document.getElementById('pjCertificate');
     if (certificateHost && window.AIFSProjectCertificates) window.AIFSProjectCertificates.mount(certificateHost, project);
 
-    var requested = params.get('stage');
+    var requested = parsed.stage;
+    var shownStage = requested;
     var stageIndex = Math.max(0, project.stages.findIndex(function (s) { return s.id === requested; }));
     if (!requested) {
       var progress = progressFor(project.id);
@@ -429,7 +524,10 @@
         '<div class="pj-progress-head"><span>你的进度</span><strong>' + done + ' / ' + project.stages.length + '</strong></div>' +
         '<div class="pj-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + pct + '"><span style="width:' + pct + '%"></span></div>' +
         '<p class="pj-small">这是保存在本浏览器中的自报进度。要获取证书，请在下方导入评分证据。</p>';
-      document.getElementById('pjStageList').innerHTML = project.stages.map(function (stage, index) {
+      var list = document.getElementById('pjStageList');
+      var active = document.activeElement;
+      var focusedIndex = active && list.contains && list.contains(active) ? active.getAttribute('data-stage-index') : null;
+      list.innerHTML = project.stages.map(function (stage, index) {
         var isDone = !!progress[stage.id];
         return '<li><a href="' + projectHref(project.id, stage.id) + '" data-stage-index="' + index + '" class="pj-stage-link' +
           (index === stageIndex ? ' is-current' : '') + (isDone ? ' is-done' : '') + '"' + (index === stageIndex ? ' aria-current="step"' : '') + '>' +
@@ -437,6 +535,18 @@
           '<span class="pj-stage-text"><span class="pj-stage-title">' + esc(stage.title) + '</span>' +
           '<span class="pj-stage-sub">' + esc(difficultyLabel(stage.difficulty)) + (stage.hours ? ' · ~' + stage.hours + '小时' : '') + (stageLanguages(stage).length ? ' · ' + esc(stageLanguages(stage).join(' + ')) : '') + '</span></span></a></li>';
       }).join('');
+      if (focusedIndex === null) return;
+      var link = list.querySelector('[data-stage-index="' + focusedIndex + '"]');
+      if (link) link.focus({ preventScroll: true });
+    }
+
+    function paintToggle() {
+      var toggle = document.getElementById('pjToggleDone');
+      if (!toggle) return;
+      var isDone = !!progressFor(project.id)[project.stages[stageIndex].id];
+      toggle.setAttribute('data-done', String(isDone));
+      toggle.classList.toggle('secondary', isDone);
+      toggle.textContent = isDone ? '标为未完成' : '标记阶段完成';
     }
 
     var requestVersion = 0;
@@ -463,7 +573,7 @@
         '<div class="pj-doc" id="pjDoc"><p class="pj-loading">正在加载课程…</p></div>' +
         (stage.demo ? '<details class="pj-context pj-stage-recording"><summary>观看阶段 ' + stage.number + ' 录制</summary>' + demoFigure(stage.demo, project.contentBase || project.path) + '</details>' : '') +
         '<footer class="pj-stage-foot">' +
-          '<button type="button" class="pj-action' + (isDone ? ' secondary' : '') + '" id="pjToggleDone">' + (isDone ? '标为未完成' : '标记阶段完成') + '</button>' +
+          '<button type="button" class="pj-action' + (isDone ? ' secondary' : '') + '" id="pjToggleDone" data-done="' + isDone + '">' + (isDone ? '标为未完成' : '标记阶段完成') + '</button>' +
           '<div class="pj-stage-nav">' +
             (prev ? '<a class="pj-action secondary" href="' + projectHref(project.id, prev.id) + '" data-stage-index="' + (stageIndex - 1) + '">← ' + esc(prev.title) + '</a>' : '') +
             (next ? '<a class="pj-action secondary" href="' + projectHref(project.id, next.id) + '" data-stage-index="' + (stageIndex + 1) + '">' + esc(next.title) + ' →</a>' : '') +
@@ -471,13 +581,24 @@
           '<a class="pj-source-link" href="' + esc(repoFileUrl(stage.doc)) + '" target="_blank" rel="noopener">在 GitHub 查看本课</a>' +
         '</footer>';
 
-      document.getElementById('pjToggleDone').addEventListener('click', function () {
-        setStageDone(project.id, stage.id, !progressFor(project.id)[stage.id]);
+      var toggle = document.getElementById('pjToggleDone');
+      toggle.addEventListener('click', function () {
+        setStageDone(project.id, stage.id, toggle.getAttribute('data-done') !== 'true');
         drawRail();
-        drawStage();
+        paintToggle();
       });
 
-      fetch(stage.contentUrl || contentUrl(stage.doc)).then(function (res) {
+      if (prerenderedStage && prerenderedStage.id === stage.id) {
+        var initialDoc = document.getElementById('pjDoc');
+        initialDoc.innerHTML = prerenderedStage.html;
+        mountFigures(initialDoc);
+        return;
+      }
+
+      var fetchUrl = stage.contentUrl || contentUrl(stage.doc);
+      // 确保 URL 是绝对路径，以便从预渲染的 /project/<id>/<stage>/ 页面正确加载
+      if (fetchUrl && !fetchUrl.startsWith('/') && !fetchUrl.startsWith('http')) fetchUrl = '/' + fetchUrl;
+      fetch(fetchUrl).then(function (res) {
         if (!res.ok) throw new Error(String(res.status));
         return res.text();
       }).then(function (md) {
@@ -494,9 +615,13 @@
 
     function go(index, push) {
       stageIndex = index;
-      if (push) history.pushState({ stage: index }, '', projectHref(project.id, project.stages[index].id));
+      if (push) {
+        shownStage = project.stages[index].id;
+        history.pushState({ stage: index }, '', projectHref(project.id, shownStage));
+      }
       drawRail();
       drawStage();
+      updateProjectSeo(project, parseProjectUrl().stage ? project.stages[index] : null);
       var title = document.getElementById('pjStageTitle');
       if (push && title) title.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
     }
@@ -508,9 +633,17 @@
       go(Number(link.getAttribute('data-stage-index')), true);
     });
     window.addEventListener('popstate', function () {
-      var s = new URLSearchParams(window.location.search).get('stage');
+      var parsed = parseProjectUrl();
+      var s = parsed.stage;
+      if (s === shownStage) return;
+      shownStage = s;
       var idx = project.stages.findIndex(function (st) { return st.id === s; });
       go(idx === -1 ? 0 : idx, false);
+    });
+    window.addEventListener('storage', function (event) {
+      if (event.key && event.key !== PROGRESS_KEY) return;
+      drawRail();
+      paintToggle();
     });
 
     go(stageIndex, false);

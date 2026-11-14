@@ -53,8 +53,8 @@ For each drafted token x_t:
 
 如果 draft 模型的 token 级接受率是 `α`，每次 target 前向传播产出的预期 token 数是：
 
-```
-E[tokens] = (1 - α^{K+1}) / (1 - α)        # K = draft length, α in [0, 1]
+```math
+\mathbb{E}[\text{tokens}] = \frac{1 - \alpha^{K+1}}{1 - \alpha} \qquad K = \text{草稿长度}, \ \alpha \in [0, 1]
 ```
 
 在 `α = 0.8, K = 4` 时：`(1 - 0.8^5)/(1 - 0.8) = 3.36` 个 token/前向。一次 target 前向大约花 `cost_q * K + cost_p`（K 次 draft 步骤加一次 target 验证）。如果 `cost_p >> cost_q * K`，吞吐上的加速比是 `3.36× / 1 = 3.36×`。
@@ -85,7 +85,7 @@ EAGLE-1 的改动：
 
 EAGLE-2（2024）加了动态树拓扑：树在 draft 不确定处长得更宽、在它自信处保持窄。在不增加验证成本的情况下提高 `α_effective`。
 
-EAGLE-3（Li et al. 2025，"EAGLE-3: Scaling up Inference Acceleration of Large Language Models via Training-Time Test"）移除了固定的顶层特征依赖，并用一个新的 "测试时模拟" 损失训练 draft——draft 在匹配 target 测试时分布的输出上训练，而不是 teacher-forced 训练分布。接受率从 0.75（EAGLE-2）升到 0.82（EAGLE-3），每次验证平均 token 从 3.0 升到 4.5。
+EAGLE-3（Li et al. 2025，"EAGLE-3: Scaling up Inference Acceleration of Large Language Models via Training-Time Test"）移除了固定的顶层特征依赖，并用一个新的 "测试时模拟" 损失训练 draft——draft 在匹配 target 测试时分布的输出上训练，而不是 teacher-forced 训练分布。接受率从 0.75（EAGLE-2）升到 0.82（EAGLE-3），每次验证平均 token 从 3.0 升到 4.5。这些数值来自单一基准参考配置。实际接受率取决于模型配对、草稿树结构和具体的业务流量：第 10 阶段 · 15 课引用的对话基准测试接受路径为每 token 0.88 到 0.92，而第 17 阶段 · 05 课在通用对话生产部署中规划的接受率为 0.6 到 0.8。
 
 ### 树注意力验证
 
@@ -132,13 +132,13 @@ def speculative_step(p_target, q_draft, K, temperature=1.0):
     """一轮推测解码。返回被接受 token 的列表。"""
     # 1. 起草 K 个 token
     draft_tokens = []
-    q_probs = []
+    q_dists = []
     state = draft_state_init()
     for _ in range(K):
         probs = softmax(q_draft(state) / temperature)
         t = np.random.choice(len(probs), p=probs)
         draft_tokens.append(t)
-        q_probs.append(probs[t])
+        q_dists.append(probs)
         state = draft_step(state, t)
 
     # 2. target 在每个起草位置 + 1 个额外位置计算 p
@@ -148,10 +148,10 @@ def speculative_step(p_target, q_draft, K, temperature=1.0):
     accepted = []
     for k, tok in enumerate(draft_tokens):
         r = np.random.uniform()
-        if r < p_probs_all[k][tok] / q_probs[k]:
+        if r < p_probs_all[k][tok] / q_dists[k][tok]:
             accepted.append(tok)
         else:
-            residual = np.maximum(p_probs_all[k] - q_probs[k], 0)
+            residual = np.maximum(p_probs_all[k] - q_dists[k], 0)
             residual /= residual.sum()
             accepted.append(np.random.choice(len(residual), p=residual))
             return accepted
@@ -175,7 +175,7 @@ def speculative_step(p_target, q_draft, K, temperature=1.0):
 
 1. 实现精确拒绝规则并经验性验证它。经 `speculative_decode` 和经普通 target 采样各跑 1 万个样本；计算两个输出分布之间的 TV 距离。应该 < 0.01。
 
-2. 计算加速公式。给定固定的 `α` 和 `K`，画出每次 target 前向的预期 token 数。为 α ∈ {0.5, 0.7, 0.9} 找出最优 K。
+2. 计算加速公式。给定固定的 `α` 和 `K`，画出每次 target 前向的预期 token 数。为 $\alpha \in \lbrace 0.5, 0.7, 0.9 \rbrace$ 找出最优 $K$。
 
 3. 训练一个微型 draft。拿一个 124M 的 GPT-2 target，在 1 亿 token 上用 KL 损失蒸馏一个 30M 的 GPT-2 draft。在留出文本上测量 `α`。预期：0.6-0.7。
 

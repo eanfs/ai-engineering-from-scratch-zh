@@ -3,7 +3,7 @@
 > AWS 的 DevOps Agent 正式 GA，Resolve AI 公开了它的 K8s 排查手册，NeuBird 演示了语义监控，Metoro 把 AI SRE 跟每个服务的 SLO 绑在了一起。生产形态已经定型：一个告警 webhook 触发，一个 agent 读遥测、走一遍 K8s 对象的图、给根因假设排序，再发一条带审批按钮的 Slack 简报。默认只读。每一次修复都要过人类这一关。这个顶点项目就是这样一个 agent，在 20 个合成事故上评测，并在三个共享案例上跟 AWS 的 Agent 对比。
 
 **类型：** Capstone
-**语言：** Python（agent）、TypeScript（Slack 集成）
+**语言：** Python（agent）、TypeScript（Slack 集成、agent 脚手架）
 **前置要求：** 第 11 阶段（LLM 工程）、第 13 阶段（工具与 MCP）、第 14 阶段（agent）、第 15 阶段（自主系统）、第 17 阶段（基础设施）、第 18 阶段（安全）
 **涉及阶段：** P11 · P13 · P14 · P15 · P17 · P18
 **预计时间：** 30 小时
@@ -141,7 +141,7 @@ webhook: alert.pagerduty.com -> checkout-api SLO breach, error rate 14%
 
 ## 延伸阅读
 
-- [AWS DevOps Agent GA](https://aws.amazon.com/blogs/aws/aws-devops-agent-helps-you-accelerate-incident-response-and-improve-system-reliability-preview/) —— 2026 年的标准参考
+- [AWS DevOps Agent GA](https://aws.amazon.com/blogs/mt/announcing-general-availability-of-aws-devops-agent/) ：2026 年的标准参考
 - [Resolve AI K8s troubleshooting](https://resolve.ai/blog/kubernetes-troubleshooting-in-resolve-ai) —— 竞品参考
 - [NeuBird semantic monitoring](https://www.neubird.ai) —— 语义图方法
 - [Metoro AI SRE](https://metoro.io) —— SLO 优先的生产视角

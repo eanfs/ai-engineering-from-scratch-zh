@@ -3,7 +3,7 @@
 > 一个模型 Demo 本质上是一份契约：输入、模型调用与输出。在公开分享链接之前，必须为每个组成部分设定严格的边界限制。
 
 **类型：** 构建
-**语言：** Python
+**语言：** Python、TypeScript
 **前置要求：** 阶段 11 · 第 13 课（构建生产级 LLM 应用）、阶段 17 · 第 08 课（推理指标）、阶段 17 · 第 19 课（AI 网关）
 **预计时间：** ~90 分钟
 
@@ -15,6 +15,7 @@
 - 借助单客户端令牌桶限流、每日全局用量上限与可选访问 Token 保护公开演示链接。
 - 规范化请求访问日志，绝不记录用户原始输入文本与明文客户端 IP 地址。
 - 将标准库 Demo 与两款主流开源框架进行架构对比，识别 Demo 迈向正式产品化的关键演进信号。
+
 
 ## 问题背景
 
@@ -77,6 +78,8 @@ flowchart LR
 | 未通过的检查项 | HTTP 状态码 | 业务错误码 |
 |---|---|---|
 | 请求体超出 4,096 字节 | 413 Content Too Large | `body_too_large` |
+| 缺少 `Content-Length` 请求头 | 411 Length Required | `length_required` |
+| `Content-Length` 不是数字 | 400 Bad Request | `bad_length` |
 | 请求体在传输到达声明的 `Content-Length` 之前断流超时 | 408 Request Timeout | `request_timeout` |
 | Content-Type 不是 application/json | 415 Unsupported Media Type | `unsupported_media_type` |
 | 请求体不是合法的 JSON 对象 | 400 Bad Request | `bad_json` |
@@ -205,12 +208,14 @@ demo-token-bucket
 
 ```bash
 python3 phases/17-infrastructure-and-production/29-model-demo-interfaces/code/main.py
+npx tsx phases/17-infrastructure-and-production/29-model-demo-interfaces/code/main.ts
 ```
 
 该自检测试会全面覆盖输入校验器、令牌桶限流算法、SSE 事件流封装以及一次完整的 HTTP 网络回环交互。测试会自动在随机闲置端口启动临时服务、发送三组网络请求、安全退出服务并输出验证报告。当需要启动常驻服务供浏览器访问时，添加 `--serve` 参数：
 
 ```bash
 python3 phases/17-infrastructure-and-production/29-model-demo-interfaces/code/main.py --serve
+npx tsx phases/17-infrastructure-and-production/29-model-demo-interfaces/code/main.ts --serve
 ```
 
 在浏览器中打开 `http://127.0.0.1:8000`，按 Ctrl+C 可停止运行。
@@ -468,6 +473,7 @@ curl -N -X POST http://127.0.0.1:8000/api/stream \
 export DEMO_ACCESS_TOKEN="$(python3 -c 'import secrets; print(secrets.token_urlsafe(24))')"
 echo "$DEMO_ACCESS_TOKEN"
 python3 phases/17-infrastructure-and-production/29-model-demo-interfaces/code/main.py --serve
+npx tsx phases/17-infrastructure-and-production/29-model-demo-interfaces/code/main.ts --serve
 ```
 
 运行完整自动化单测：

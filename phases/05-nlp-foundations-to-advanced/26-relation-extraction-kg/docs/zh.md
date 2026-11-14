@@ -3,7 +3,7 @@
 > NER 找到了实体。实体链接把它们锚定了。关系抽取找出它们之间的边。一张知识图谱就是节点、边及其来源出处的总和。
 
 **类型：** Build
-**语言：** Python
+**语言：** Python、TypeScript
 **前置要求：** Phase 5 · 06（NER）、Phase 5 · 25（实体链接）
 **预计时间：** ~60 分钟
 
@@ -67,21 +67,21 @@ PATTERNS = [
 
 完整的玩具抽取器见 `code/main.py`。Hearst 模式在领域专用流水线里至今还在用，因为它们可调试。
 
-### 第 2 步：有监督关系分类
+### 第 2 步：有监督的 seq2seq 关系抽取
 
 ```python
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
 tok = AutoTokenizer.from_pretrained("Babelscape/rebel-large")
-model = AutoModelForSequenceClassification.from_pretrained("Babelscape/rebel-large")
+model = AutoModelForSeq2SeqLM.from_pretrained("Babelscape/rebel-large")
 
 text = "Tim Cook was born in Alabama. He later became CEO of Apple."
 encoded = tok(text, return_tensors="pt", truncation=True)
 output = model.generate(**encoded, max_length=200)
-triples = tok.batch_decode(output, skip_special_tokens=False)
+decoded = tok.batch_decode(output, skip_special_tokens=False)
 ```
 
-REBEL 是一个 seq2seq 关系抽取器：文本进，三元组出，已经是 Wikidata 属性 id。在远监督数据上微调。标准开源权重基线。
+REBEL 是基于 BART 的 seq2seq 关系抽取器。它生成三元组，而不是分类实体对。输入文本后，它会输出关系名来自 Wikidata 属性的三元组。解码后的字符串仍带有 REBEL 的 `<triplet>`、`<subj>` 和 `<obj>` 标记；应像模型卡里的解析器那样按这些标记切分，得到 `(subject, relation, object)` 记录。它在远监督数据上微调，是标准开源权重基线。
 
 ### 第 3 步：带锚定的 LLM 提示抽取
 

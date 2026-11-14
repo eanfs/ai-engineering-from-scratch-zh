@@ -3,7 +3,7 @@
  *
  * Searches focused paths, lesson titles, summaries, phase names, languages,
  * types, and glossary terms entirely client-side from data already loaded.
- * No network requests. No external dependencies.
+ * Optionally loads the built Pagefind index for course bodies and interviews.
  *
  * API (attached to window.CmdPalette):
  *   CmdPalette.open()   — open the palette
@@ -18,12 +18,19 @@
   var PALETTE_ID  = 'cmdPalette';
   var MAX_RESULTS = 12;
   var BODY_ATTR   = 'data-palette-open';
+  var scriptVersion = typeof document !== 'undefined' && document.currentScript
+    ? String(document.currentScript.src || '').match(/[?&]v=([^&#]+)/) : null;
+  // Keep the module cache key in step with the palette that imports it.
+  var PAGEFIND_URL = '/pagefind/pagefind.js' + (scriptVersion ? '?v=' + scriptVersion[1] : '');
+  var PAGE_RESULTS = 6;
 
   // ── Module state ─────────────────────────────────────────────────────
   var _index      = null;   // lazy-built flat array of searchable items
   var _activeIdx  = -1;
   var _isOpen     = false;
   var _prevFocus  = null;
+  var _pagefind   = null;
+  var _pageQuery  = '';
 
   function learningPathEntryPath(entry) {
     return typeof entry === 'string' ? entry : entry && entry.path ? entry.path : '';
@@ -74,7 +81,12 @@
    */
   function buildIndex() {
     if (_index !== null) return _index;
-    _index = [];
+    _index = [
+      { kind: 'page', id: 'page:how-to-learn', name: '学习方法', summary: '如何理解课程、运行实验、交付产物并完成练习', url: '/how-to-learn.html' },
+      { kind: 'page', id: 'page:skills', name: 'Agent 技能', summary: '课程导师、水平诊断和图表制作技能', url: '/skills.html' },
+      { kind: 'page', id: 'page:inside-an-ai-agent', name: 'Agent 内部机制', summary: '交互探索上下文、工具调用和控制循环', url: '/inside-an-ai-agent.html' },
+      { kind: 'page', id: 'page:cheatsheets', name: '主题速查表', summary: '查看、复制和打印 AI 工程常用公式、命令与排错方法', url: '/cheatsheets' }
+    ];
 
     if (typeof LEARNING_PATHS !== 'undefined' && Array.isArray(LEARNING_PATHS)) {
       for (var lp = 0; lp < LEARNING_PATHS.length; lp++) {
@@ -237,7 +249,8 @@
     if (!_isOpen) return;
     var input = _inputEl();
     var query = input ? input.value.trim() : '';
-    renderResults(query ? search(query) : []);
+    renderResults(query ? search(query) : [], true);
+    searchPages(query);
   }
 
   // ── Scoring ──────────────────────────────────────────────────────────
@@ -434,6 +447,7 @@
 
     var inp = document.getElementById('cpInput');
     inp.addEventListener('input', _onInput);
+    inp.addEventListener('focus', loadPagefind);
     inp.addEventListener('keydown', _onKeyDown);
   }
 
@@ -461,6 +475,7 @@
 
     createPaletteDOM();
     document.body.setAttribute(BODY_ATTR, '');
+    try { document.dispatchEvent(new CustomEvent('aifs:overlayopen', { detail: { source: 'palette' } })); } catch (_) {}
 
     var pal = _palEl();
     if (pal) {
@@ -476,7 +491,20 @@
       input.focus();
       var q = input.value.trim();
       renderResults(q ? search(q) : []);
+      searchPages(q);
     }
+  }
+
+  function _focusable(el) {
+    return !!(el && typeof el.focus === 'function' && el.isConnected && el.getClientRects && el.getClientRects().length);
+  }
+
+  function _visibleTrigger() {
+    var candidates = document.querySelectorAll('[data-cmd-palette], .header-menu-toggle');
+    for (var i = 0; i < candidates.length; i++) {
+      if (_focusable(candidates[i])) return candidates[i];
+    }
+    return null;
   }
 
   function close() {
@@ -497,17 +525,18 @@
 
     // Return focus to wherever the user was before
     try {
-      if (_prevFocus && typeof _prevFocus.focus === 'function') {
-        _prevFocus.focus();
-      }
+      var target = _focusable(_prevFocus) ? _prevFocus : _visibleTrigger();
+      if (target) target.focus();
     } catch (_) { /* element may have been removed from DOM */ }
     _prevFocus = null;
   }
 
   // ── Render results ───────────────────────────────────────────────────
-  function renderResults(results) {
+  function renderResults(results, keepActive) {
     var list = _listEl();
     if (!list) return;
+    var previous = keepActive && _activeIdx >= 0 ? list.querySelectorAll('.cp-item')[_activeIdx] : null;
+    var previousHref = previous ? previous.getAttribute('data-href') : '';
 
     var query = (_inputEl() ? _inputEl().value : '').trim();
 
@@ -550,7 +579,11 @@
       var chip = '';
       var chipClass = 'cp-item-chip';
 
-      if (r.kind === 'learning-path') {
+      if (r.kind === 'page') {
+        dest = r.url;
+        chip = ({Interview:'面试题库',Lesson:'课程',Practice:'编程练习','Cheat sheet':'速查表',Phase:'阶段',Glossary:'术语',Manual:'技术手册',Page:'页面'})[r.pageType] || r.pageType || '页面';
+        chipClass += ' cp-item-chip--alt';
+      } else if (r.kind === 'learning-path') {
         dest = r.url;
         chip = '学习路径';
         chipClass += ' cp-item-chip--alt';
@@ -559,7 +592,7 @@
         dest = r.lessonPath
           ? '/lessons/' + r.lessonPath.replace(/^phases\//, '') + '/'
           : r.url;
-        chip = '阶段 ' + String(r.phaseId).padStart(2, '0');
+        chip = lessonChip(r);
       } else if (r.kind === 'certification-lesson') {
         dest = 'lesson.html?path=' + encodeURIComponent(r.lessonPath);
         chip = '认证课程';
@@ -627,6 +660,134 @@
       items[j].addEventListener('click',     _onItemClick);
       items[j].addEventListener('mousemove', _onItemMouseMove);
     }
+    if (!previousHref) return;
+    for (var k = 0; k < items.length; k++) {
+      if (items[k].getAttribute('data-href') === previousHref) {
+        _activeIdx = k;
+        _updateActive(items);
+        return;
+      }
+    }
+  }
+
+  function loadPagefind() {
+    if (!_pagefind) {
+      _pagefind = import(PAGEFIND_URL).then(function (pagefind) {
+        return Promise.resolve(pagefind.options({ excerptLength: 18 })).then(function () {
+          pagefind.init();
+          return pagefind;
+        });
+      }).catch(function () {
+        _pagefind = null;
+        return null;
+      });
+    }
+    return _pagefind;
+  }
+
+  function excerptText(html) {
+    if (typeof DOMParser === 'undefined') return String(html || '').replace(/<[^>]*>/g, '');
+    return new DOMParser().parseFromString(String(html || ''), 'text/html').body.textContent;
+  }
+
+  function hasPhaseId(r) {
+    return r.phaseId !== undefined && r.phaseId !== null;
+  }
+
+  function lessonChip(r) {
+    return hasPhaseId(r) ? '阶段 ' + String(r.phaseId).padStart(2, '0') : '课程';
+  }
+
+  function lessonMeta(r) {
+    var parts = [];
+    if (r.type && r.type !== '—') parts.push(r.type);
+    if (r.lang && r.lang !== '—') parts.push(r.lang);
+    if (!hasPhaseId(r) && r.phaseName) parts.push(r.phaseName);
+    return parts;
+  }
+
+  function lessonPathFromUrl(url) {
+    var match = /^\/?lesson(?:\.html)?\?(?:[^#]*&)?path=([^&#]+)/.exec(String(url || ''));
+    if (!match) return '';
+    try {
+      var value = decodeURIComponent(match[1]);
+      return /^phases\/[^/?#]+\/[^/?#]+$/.test(value) ? value : '';
+    } catch (_) {
+      return '';
+    }
+  }
+
+  function pageItem(data) {
+    var filters = data.filters || {};
+    var pageType = filters.type && filters.type[0] ? filters.type[0] : 'Page';
+    var item = {
+      kind: 'page',
+      name: (data.meta && data.meta.title) || data.url,
+      summary: excerptText(data.excerpt),
+      url: data.url,
+      pageType: pageType
+    };
+    var lessonPath = pageType === 'Lesson' ? lessonPathFromUrl(data.url) : '';
+    if (lessonPath) {
+      item.kind = 'lesson';
+      item.lessonPath = lessonPath;
+      item.phaseName = filters.phase && filters.phase[0] ? filters.phase[0] : '';
+    }
+    return item;
+  }
+
+  function mergePages(local, pages, limit) {
+    var seen = {};
+    function mark(item) {
+      if (item.kind === 'lesson' && item.lessonPath) seen['path:' + item.lessonPath] = true;
+      else seen['name:' + String(item.name).toLowerCase()] = true;
+      if (item.url) seen['url:' + item.url] = true;
+    }
+    function isSeen(item) {
+      if (item.kind === 'lesson' && item.lessonPath) return !!seen['path:' + item.lessonPath];
+      return !!(seen['url:' + item.url] || seen['name:' + String(item.name).toLowerCase()]);
+    }
+    local.forEach(mark);
+    var extra = [];
+    pages.map(pageItem).forEach(function (item) {
+      if (isSeen(item) || (limit !== undefined && extra.length >= limit)) return;
+      mark(item);
+      extra.push(item);
+    });
+    return local.concat(extra);
+  }
+
+  function loadPageBatches(results, local, limit, isCurrent) {
+    var pages = [];
+    function next(start) {
+      if (start >= results.length || !isCurrent()) return Promise.resolve(pages);
+      var batch = results.slice(start, start + limit);
+      return Promise.all(batch.map(function (result) { return result.data(); })).then(function (data) {
+        pages = pages.concat(data);
+        if (mergePages(local, pages, limit).length - local.length >= limit) return pages;
+        return next(start + batch.length);
+      });
+    }
+    return next(0);
+  }
+
+  function searchPages(query) {
+    _pageQuery = query;
+    if (!query.trim()) return;
+    function isCurrent() { return _pageQuery === query; }
+    loadPagefind().then(function (pagefind) {
+      if (!pagefind || !isCurrent()) return null;
+      return pagefind.debouncedSearch(query, {}, 160);
+    }).then(function (found) {
+      if (!found || !isCurrent()) return null;
+      var local = search(query);
+      return loadPageBatches(found.results, local, PAGE_RESULTS, isCurrent).then(function (pages) {
+        return { local: local, pages: pages };
+      });
+    }).then(function (merged) {
+      if (!merged || !merged.pages.length || !isCurrent() || !_isOpen) return;
+      renderResults(mergePages(merged.local, merged.pages, PAGE_RESULTS), true);
+    }).catch(function () {});
   }
 
   // ── Event handlers ───────────────────────────────────────────────────
@@ -634,6 +795,7 @@
     var query = e.target.value;
     renderResults(search(query));
     _activeIdx = -1;
+    searchPages(query.trim());
   }
 
   function _onKeyDown(e) {
@@ -668,6 +830,7 @@
   }
 
   function _onDialogKeyDown(e) {
+    if (e.isComposing || e.keyCode === 229) return;
     if (e.key === 'Escape') {
       e.preventDefault();
       e.stopPropagation();
@@ -727,6 +890,15 @@
   }
 
   // ── Global keyboard shortcut (Cmd/Ctrl+K) ────────────────────────────
+  if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+    window.addEventListener('keydown', function (e) {
+      if (!_isOpen || e.key !== 'Escape' || e.isComposing || e.keyCode === 229) return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      close();
+    }, true);
+  }
+
   if (typeof document !== 'undefined') {
     document.addEventListener('keydown', function (e) {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
@@ -790,6 +962,12 @@
       learningPathDestination: learningPathDestination,
       navigationDestination: navigationDestination,
       resultIndexForEnter: resultIndexForEnter,
+      mergePages: mergePages,
+      pageItem: pageItem,
+      lessonPathFromUrl: lessonPathFromUrl,
+      lessonChip: lessonChip,
+      lessonMeta: lessonMeta,
+      loadPageBatches: loadPageBatches,
     };
   }
 

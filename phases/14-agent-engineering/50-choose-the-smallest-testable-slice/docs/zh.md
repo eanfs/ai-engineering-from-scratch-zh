@@ -3,7 +3,7 @@
 > 小只有在能证明重要事情时才有用。无法改变下一步决定的小构建，只是不完整。
 
 **类型：** Learn + Build
-**语言：** Python（标准库）
+**语言：** Python（标准库）、TypeScript
 **前置要求：** 阶段 14 第 49 课
 **预计时间：** ~65 分钟
 
@@ -49,7 +49,7 @@ flowchart TD
   C2 --> G
   C3 --> G
   G -->|否| X[淘汰]
-  G -->|是| S[比较单位投入与风险获得的证据]
+  G -->|是| S[比较每个候选切片单位投入与风险带来的证据]
   S --> B[构建一个切片]
 ```
 
@@ -79,6 +79,7 @@ flowchart TD
 
 ```bash
 python3 code/main.py
+npx tsx code/main.ts
 PYTHONPATH=code python3 -m unittest discover code/tests -v
 ```
 

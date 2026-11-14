@@ -3,7 +3,7 @@
 > 一个 agent 调用五个工具、三个 MCP server 和两个子 agent。你需要贯穿这一切的一条 trace。OpenTelemetry GenAI 语义约定（属性自 v1.37 起稳定）是 2026 年的标准，被 Datadog、Langfuse、Arize Phoenix、OpenLLMetry 和 AgentOps 原生支持。本课点名必需属性、走一遍 span 层级（agent → LLM → tool），并交付一个能接进任意 OTel exporter 的标准库 span 发射器。
 
 **类型：** Build
-**语言：** Python（标准库，OTel span 发射器）
+**语言：** Python（标准库，OTel span 发射器）、TypeScript
 **前置要求：** 阶段 13 · 07（MCP server）、阶段 13 · 08（MCP client）
 **预计时间：** ~75 分钟
 
@@ -150,7 +150,7 @@ t3-span-waterfall
 | Span | "计时操作" | 一个带起、止和属性的工作单位 |
 | Trace | "跨 span 的谱系" | 共享一个 trace id 的 span 树 |
 | SpanKind | "CLIENT / SERVER / INTERNAL" | 关于 span 方向的提示 |
-| OTLP | "OpenTelemetry Line Protocol" | exporter 的线上格式 |
+| OTLP | "OpenTelemetry Protocol" | exporter 使用的传输协议格式 |
 | Opt-in content | "prompt / 补全捕获" | 默认关闭；环境变量启用 |
 | traceparent | "W3C 头" | 跨服务传播 trace 上下文 |
 | Exporter | "后端特定的投递器" | 把 span 发到 Jaeger / Datadog 等的组件 |

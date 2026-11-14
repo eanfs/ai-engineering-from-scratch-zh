@@ -52,18 +52,20 @@ flowchart LR
 
 分类器为每张图像产生 `C` 个数，叫 logits。应用 softmax 把它们转成概率分布：
 
-```
-softmax(z)_i = exp(z_i) / sum_j exp(z_j)
+```math
+\mathop{\mathrm{softmax}}(z)_i = \frac{\exp(z_i)}{\sum_j \exp(z_j)}
 ```
 
 交叉熵衡量正确类别的负对数概率：
 
-```
-CE(z, y) = -log( softmax(z)_y )
-        = -z_y + log( sum_j exp(z_j) )
+```math
+\begin{aligned}
+\mathrm{CE}(z, y) &= -\log\left( \mathop{\mathrm{softmax}}(z)_y \right) \\
+&= -z_y + \log\left( \sum_j \exp(z_j) \right)
+\end{aligned}
 ```
 
-右边那个形式是数值稳定的版本（log-sum-exp）。PyTorch 的 `nn.CrossEntropyLoss` 把 softmax + NLL 融成一个操作，直接接原始 logits。自己先做 softmax 几乎总是 bug——你算的是 log(softmax(softmax(z)))，一个没有意义的量。
+右边那个形式是数值稳定的版本（log-sum-exp）。PyTorch 的 `nn.CrossEntropyLoss` 把 softmax + NLL 融成一个操作，直接接原始 logits。自己先做 softmax 几乎总是 bug——你算的是 $\log(\mathop{\mathrm{softmax}}(\mathop{\mathrm{softmax}}(z)))$，一个没有意义的量。
 
 ### 为什么增广有用
 
@@ -98,14 +100,14 @@ Cutmix:
 
 ### 标签平滑
 
-mixup 的表亲。不去对着 `[0, 0, 1, 0, 0]` 训练，而是对着 `[eps/C, eps/C, 1-eps, eps/C, eps/C]` 训练，`eps` 取一个像 0.1 的小值。它阻止模型产生任意尖锐的 logits，几乎零成本地改善校准。从 PyTorch 1.10 起内建于 `nn.CrossEntropyLoss(label_smoothing=0.1)`。
+mixup 的表亲。不去对着 `[0, 0, 1, 0, 0]` 训练，而是对着 `[eps/C, eps/C, 1-eps+eps/C, eps/C, eps/C]` 训练。该目标是把 one-hot 与均匀分布混合而成，概率总和仍为 1。`eps` 取一个像 0.1 的小值。它阻止模型产生任意尖锐的 logits，几乎零成本地改善校准。从 PyTorch 1.10 起内建于 `nn.CrossEntropyLoss(label_smoothing=0.1)`。
 
 ### 超越准确率的评估
 
 聚合准确率掩盖了不平衡。一个 90-10 的二分类器，永远预测多数类就能拿 90%。真正告诉你发生了什么的工具：
 
 - **逐类准确率** —— 每类一个数；立刻暴露表现差的类别。
-- **混淆矩阵** —— C x C 的网格，第 i 行第 j 列 = 真实类别 i 被预测成类别 j 的计数；对角线是正确的，非对角线才是你的模型真正所在的地方。
+- **混淆矩阵** —— $C \times C$ 的网格，第 $i$ 行第 $j$ 列 = 真实类别 $i$ 被预测成类别 $j$ 的计数；对角线是正确的，非对角线才是你的模型真正所在的地方。
 - **Top-1 / Top-5** —— 正确类别是否在前 1 或前 5 个预测里；Top-5 对 ImageNet 要紧，因为像"Norwich terrier"和"Norfolk terrier"这样的类别确实有歧义。
 - **校准（ECE）** —— 一个 0.8 置信度的预测，是不是 80% 的时候真的对？现代网络系统性地过度自信；用温度缩放或标签平滑修。
 
@@ -413,7 +415,7 @@ val_ds   = CIFAR10(root="./data", train=False, download=True, transform=eval_tf)
 | DataLoader | "组 batch 的" | 给数据集裹上打乱、组 batch 和（可选的）多 worker 加载；一半训练 bug 都赖在它头上 |
 | 增广 | "随机变换" | 训练时任何保留标签的像素级变换；教会 CNN 它天生没有的不变性 |
 | Mixup / Cutmix | "混两张图" | 把输入和标签都混合，让分类器学平滑的插值而不是硬边界 |
-| 标签平滑 | "更软的目标" | 把 one-hot 换成 (1-eps, eps/(C-1), ...)；改善校准并稍微提升准确率 |
+| 标签平滑 | "更软的目标" | 将 one-hot 与均匀分布混合，正类概率为 $1-\epsilon+\epsilon/C$，其余类为 $\epsilon/C$；改善校准并稍微提升准确率 |
 | Top-k 准确率 | "Top-5" | 正确类别在概率最高的 k 个预测里；用于类别确实有歧义的数据集 |
 | 混淆矩阵 | "错误藏在哪" | C x C 表，条目 (i, j) 统计真实类别 i 被预测成 j 的图像数；对角线是对的，非对角线告诉你该修什么 |
 

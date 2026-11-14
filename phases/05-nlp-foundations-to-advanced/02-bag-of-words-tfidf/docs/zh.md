@@ -3,7 +3,7 @@
 > 先数数，再思考。在定义清晰的任务上，到 2026 年 TF-IDF 仍然能打赢 embedding。
 
 **类型：** Build
-**语言：** Python
+**语言：** Python、TypeScript
 **前置要求：** Phase 5 · 01（文本处理）、Phase 2 · 02（从零实现线性回归）
 **预计时间：** ~75 分钟
 
@@ -23,9 +23,11 @@
 
 **TF-IDF** 给 BoW 重新加权。一个在每篇文档里都出现的词没有信息量，把它的权重调小。一个在全语料里罕见、却在某一篇里频繁出现的词是信号，把它的权重调大。
 
-```
-TF-IDF(w, d) = TF(w, d) * IDF(w)
-             = count(w in d) / |d| * log(N / df(w))
+```math
+\begin{aligned}
+\text{TF-IDF}(w, d) &= \text{TF}(w, d) \cdot \text{IDF}(w) \\
+&= \frac{\mathop{\mathrm{count}}(w \text{ 在 } d)}{|d|} \cdot \log\frac{N}{\mathop{\mathrm{df}}(w)}
+\end{aligned}
 ```
 
 其中 `TF` 是词在该文档里的词频，`df` 是文档频率（多少篇文档含这个词），`N` 是文档总数。那个 `log` 把无处不在的词的权重压在有界范围内。
@@ -124,7 +126,7 @@ def tfidf(bow_matrix):
 >>> tfidf(bow)
 ```
 
-三篇文档，五个词表词（`the`、`cat`、`sat`、`dog`、`ran`）。`the` 三篇都出现，所以 IDF 低。`dog` 只在一篇里出现，所以 IDF 高。向量是稀疏的（大部分项很小），有区分度的词冒出来。
+三篇文档，五个词表词（`the`、`cat`、`sat`、`dog`、`ran`）。`the` 三篇都出现，所以 IDF 低。`dog` 只在一篇里出现，所以 IDF 高。真实词表通常有数千个词，因此向量是稀疏的（大部分项为零）。即使在这个小例子里，有区分度的词也很突出。
 
 ### 第 5 步：对行做 L2 归一化
 

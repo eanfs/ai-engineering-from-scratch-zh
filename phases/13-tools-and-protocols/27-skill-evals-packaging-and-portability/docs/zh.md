@@ -3,7 +3,7 @@
 > 一个 Skill 只有在通过 lint、能在正确请求上路由、可改进可衡量任务、始终遵守策略，并在其他宿主上诚实降级时才算完成。
 
 **类型：** Build
-**语言：** Python（标准库）
+**语言：** Python（标准库）、TypeScript
 **前置要求：** 阶段 13 · 22、24、25 和 26
 **预计时间：** 约 150 分钟
 
@@ -137,10 +137,12 @@ lint 报告应使用稳定的问题代码。CI 可以阻止 `E_*` 错误，同�
 
 对于二元调用：
 
-```text
-precision = true_positives / (true_positives + false_positives)
-recall = true_positives / (true_positives + false_negatives)
-f1 = 2 * precision * recall / (precision + recall)
+```math
+\begin{aligned}
+\text{precision} &= \frac{\text{true\_positives}}{\text{true\_positives} + \text{false\_positives}} \\[4pt]
+\text{recall} &= \frac{\text{true\_positives}}{\text{true\_positives} + \text{false\_negatives}} \\[4pt]
+\text{f1} &= \frac{2 \cdot \text{precision} \cdot \text{recall}}{\text{precision} + \text{recall}}
+\end{aligned}
 ```
 
 报告比率时要同时给出原始计数。十个全中和一百个全中都是 100%，提供的证据却不同。
@@ -423,6 +425,7 @@ package:
 cd "$(git rev-parse --show-toplevel)"
 cd phases/13-tools-and-protocols/27-skill-evals-packaging-and-portability
 python3 code/main.py
+npx tsx code/main.ts
 python3 -m unittest discover -s code/tests -v
 ```
 

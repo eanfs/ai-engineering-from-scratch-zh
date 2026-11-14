@@ -3,13 +3,13 @@
 > 生成前、生成中、生成后。三个检查点，一个 verdict，每个请求一条审计轨迹。
 
 **类型：** Build
-**语言：** Python
+**语言：** Python、TypeScript
 **前置要求：** 阶段 18 安全相关课程、阶段 19 Track A 第 25-29 课
 **预计时间：** ~90 分钟
 
 ## 问题背景
 
-本 Track 的第 82-86 课各自交付了一块：一个 taxonomy、一个输入 detector、一个评估框架、一个输出 classifier、一个规则引擎。一个真实的 safety gate 必须把它们组合起来，在请求生命周期的正确时刻运行它们，在它们意见不一致时决定采取什么动作，并产出一条审阅者周一早上能读懂的 trace。组合才是本课的重点。
+本 Track 的第 82-86 课各自交付了一块：一个 taxonomy、一个输入 detector、一个评估框架、一个输出 classifier、一个规则引擎。一个真实的 safety gate 必须组合运行时组件（第 83 课 detector、第 85 课 classifier、第 86 课 rules engine），在请求生命周期的正确时刻运行它们，在它们意见不一致时决定采取什么动作，并产出一条审阅者周一早上能读懂的 trace。组合才是本课的重点。
 
 gate 坐在三个检查点上。pre-gen 在模型被调用之前运行：第 83 课的 detector 看 prompt，要么放行、要么直接拦截（高置信度攻击）、要么打一个 flag 供下游各层权衡。during-gen 随着模型吐出 token 而运行：一个流式过滤器缓冲住若干 chunk，并在出现违禁短语时提前终止流（如果 gate 只做事后检查，prefix-injection 就能挺过这一关）。post-gen 在模型完成后运行：第 85 课的 classifier router 和第 86 课的规则引擎检查完整输出，gate 把它们的 verdict 与 pre-gen 信号聚合起来，并应用一个最终动作。
 
@@ -35,11 +35,11 @@ flowchart TB
 
 | 信号状态 | 动作 |
 |---|---|
+| 非 benign 类别的 detector 置信度 >= 0.85 | 生成前 block |
 | 任一 high severity | block |
-| 任一 medium severity | redact |
-| 任一 low severity | warn |
-| 全为 none 且 detector 置信度 < 0.5 | allow |
-| detector 置信度 0.5-0.85 且无其他信号 | warn |
+| 任一 medium severity（detector 置信度 0.5-0.85，或流式输出提前终止） | redact |
+| 任一 low severity（非 benign 类别的 detector 置信度低于 0.5） | warn |
+| detector 判定 benign 且无其他信号 | allow |
 
 block 返回一条 refusal。redact 发出 classifier 脱敏后的文本，并应用规则引擎的 fixer。warn 带一条软提示发出原文。allow 发出原文。每个请求发出一条 `RequestTrace`，含 `request_id`、`prompt`、`pre_gen`（detector verdict）、`during_gen`（token 过滤器触发）、`post_gen`（classifier 动作 + 规则报告）、`final_action`、`final_output` 和 `latency_ms`。
 
@@ -59,7 +59,7 @@ demo 跑全部 50 个 taxonomy fixture 外加 10 条 benign prompt。trace 摘�
 
 ## 实际使用
 
-`python3 main.py`。demo 加载所有东西，端到端跑一遍，打印摘要表，并写出 trace 产物。退出码为 0。demo 在字面意义上是自终止的：每个请求要么跑到完成、要么提前终止，然后 gate 移到下一个。
+`python3 main.py` 或 `npx tsx main.ts`。demo 加载所有东西，端到端跑一遍，打印摘要表，并写出 trace 产物。退出码为 0。demo 在字面意义上是自终止的：每个请求要么跑到完成、要么提前终止，然后 gate 移到下一个。
 
 ## 拿去用
 

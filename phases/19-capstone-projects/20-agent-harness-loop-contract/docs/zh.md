@@ -3,7 +3,7 @@
 > harness 才是 agent。模型只是协处理器。这节课把 loop 契约钉死，好让你把任何模型接进去。
 
 **类型：** Build
-**语言：** Python
+**语言：** Python、TypeScript
 **前置要求：** 第 13 阶段第 01-07 课、第 14 阶段第 01 课
 **预计时间：** ~90 分钟
 
@@ -43,7 +43,7 @@ stateDiagram-v2
     DONE --> [*]
 ```
 
-`IDLE` 是唯一合法入口。`DONE` 是唯一合法出口。`AWAITING_TOOL` 是唯一会让出 pull point 的状态，其他转移全是内部行为。
+`IDLE` 是唯一合法入口。`DONE` 是唯一合法出口。`AWAITING_TOOL` 自身是唯一会让出 pull point 的状态。另一个 pull point `on_pause` 不是状态：预算耗尽或 hook 要求 review 时，它可从任意 active 状态触发。其他转移全是内部行为。
 
 这个状态机必须是确定性的。给定同一份事件日志，harness 必须重回同一个状态。正是这个性质，才让你能在调试时 replay session，而不用重新调用模型。
 

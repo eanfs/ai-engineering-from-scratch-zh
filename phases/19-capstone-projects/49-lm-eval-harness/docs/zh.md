@@ -3,7 +3,7 @@
 > 一个模型在你没法定义的任务上表现好，那它就是瞎猫碰死耗子。评测框架就是任务定义、指标、运行器和排行榜，装在一个简短、可替换的壳子里。
 
 **类型：** Build
-**语言：** Python
+**语言：** Python、TypeScript
 **前置要求：** 第19阶段第42-45课
 **预计时间：** ~90 分钟
 
@@ -20,7 +20,7 @@
 
 repo 里没有评测框架，你就只能靠感觉比较两个模型。有了框架，你就能在固定任务集、固定指标上用分数来比，用 JSON 输出来做 diff。框架是昨天的 run 和今天的 run 之间的合约。没有它，退化就会被发上线。
 
-陷阱是把框架调得只适合某一个模型。解决办法是同样的陷阱反过来用：框架小到十五分钟就能读完，task 小到可以放进 repo，指标从零手写以便同事可以 audit，adapter 是唯一放模型特定代码的地方。换 adapter，排行榜会动；换 task，排行榜也会动。别的什么都不应该动。
+陷阱是把框架调得只适合某一个模型。解决办法是把所有模型专属选择都留在 harness 之外：框架小到十五分钟就能读完，task 小到可以放进 repo，指标从零手写以便同事可以 audit，adapter 是唯一放模型特定代码的地方。换 adapter，排行榜会动；换 task，排行榜也会动。别的什么都不应该动。
 
 ## 核心概念
 
@@ -135,6 +135,7 @@ eval-harness-matrix
 
 ```bash
 python3 code/main.py
+npx tsx code/main.ts
 ```
 
 脚本首次运行时生成 fixture，用 toy adapter（对每个 fixture 都答对）打分，写出 `outputs/leaderboard.json`。用 toy adapter 总分为 1.0；`test_main.py` 中的 stub adapter 测试表明同一个框架在 adapter 答不上来时产出 0.0。

@@ -53,7 +53,8 @@ test('MDRender restores nested syntax tokens without changing quoted URLs, fragm
     assert.doesNotMatch(inner, /\x00TOK\d+\x00/);
     assert.doesNotMatch(inner, /<script\b|<img\b/);
     assert.equal(window.MDRender.renderCodeBlock(code, lang), html);
-    assert.ok(html.includes('data-code="' + MDRender.escapeAttr(code) + '"'), 'copy payload stays original');
+    // code-copy.js copies the text of <code>, so the decoded text above is the copy payload.
+    assert.match(html, /<button type="button" class="cb-copy">复制<\/button>/, 'copy button reads the rendered code');
   }
 });
 
@@ -157,6 +158,7 @@ test('deployed readers reuse matching Chinese embedded Markdown, but local previ
 
 test('lesson inline scripts remain syntactically valid and keep protected reader and quiz hooks', () => {
   const source = fs.readFileSync(path.join(root, 'site/lesson.html'), 'utf8');
+  const rendererSource = fs.readFileSync(path.join(root, 'site/md-render.js'), 'utf8');
   for (const match of source.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)) {
     if (/\bsrc=|type="module"/.test(match[1])) continue;
     new vm.Script(match[2]);
@@ -164,8 +166,13 @@ test('lesson inline scripts remain syntactically valid and keep protected reader
   assert.match(source, /window\.__PRERENDERED__/);
   assert.match(source, /function enhanceLesson\(/);
   assert.match(source, /function lessonHref\(/);
-  assert.match(source, /function findH2\(selectors, zhTexts\)/);
-  assert.match(source, /\['动手构建', '构建', 'Build It'\]/);
+  assert.match(source, /function lessonSectionHeadings\(article\)/);
+  assert.match(source, /MDRender\.quizPlacement\(headingInfo\)/);
+  assert.match(rendererSource, /function quizPlacement\(headings\)/);
+  assert.match(rendererSource, /firstHeading\(headings, \['核心概念', 'the concept'\]\)/);
+  assert.match(source, /buildQuizHtml\(pre, 'pre', '课前检测'\)/);
+  assert.match(source, /buildQuizHtml\(check, 'check', '课中检测'\)/);
+  assert.match(source, /buildQuizHtml\(post, 'post', '课后测验'\)/);
   assert.match(source, /_vercel\/insights\/script\.js/);
   assert.doesNotMatch(source, /function parseMd\(/);
   assert.match(source, /var parseMd = MDRender\.parseMd/);
@@ -203,7 +210,7 @@ test('MDRender real open-weight-vlm-recipes exercises form one five-item list an
   assert.match(escaped, /<code>phases\/a\/code\/main\.py<\/code>/);
   assert.match(escaped, /<strong>中文<\/strong>/);
   const code = MDRender.parseMd('```python\nprint("1. & <tag>")\n```');
-  assert.match(code, /data-code="print\(&quot;1\. &amp; &lt;tag&gt;&quot;\)"/);
+  assert.equal(code.match(/<code>([\s\S]*?)<\/code>/)[1].replace(/<[^>]*>/g, ''), 'print("1. &amp; &lt;tag&gt;")');
   assert.doesNotMatch(code, /<ol\b/);
   const source = fs.readFileSync(path.join(root, 'site/lesson.html'), 'utf8');
   assert.match(source, /\.lesson-article ol\s*\{[^}]*counter-reset:\s*ol-counter var\(--ol-start,\s*0\)/);

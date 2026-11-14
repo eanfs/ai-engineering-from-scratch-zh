@@ -3,7 +3,7 @@
 > DeepMind 的 Flamingo（2022）抢在所有人前面做了两件事。它证明了单个模型能处理任意交错的图像、视频、文本序列。它还证明了 VLM 能做 in-context 学习——给一个带三个 (图像, caption) 示例的少样本 prompt，模型就能给一张新图配上 caption，一步梯度都不走。机制是：门控交叉注意力层，插在冻结 LLM 已有的层之间，配一个从零起步的可学习 tanh 门，于是 LLM 的文本能力在初始化时被完整保留。本节课走一遍 Flamingo 的 Perceiver resampler 和门控交叉注意力架构——它是 Gemini 交错输入和 Idefics2 视觉 token 的祖先。
 
 **类型：** Learn
-**语言：** Python（标准库，门控交叉注意力 + Perceiver resampler 演示）
+**语言：** Python、TypeScript（标准库，门控交叉注意力 + Perceiver resampler 演示）
 **前置要求：** Phase 12 · 03（BLIP-2 Q-Former）
 **预计时间：** ~120 分钟
 
@@ -20,7 +20,7 @@ BLIP-2 把 32 个视觉 token 喂进冻结 LLM 的输入层。每个 prompt 一�
 
 Flamingo 的答案：根本不改 LLM 的输入流。在已有的 LLM 块之间插入额外的交叉注意力层。文本 token 照旧流过 LLM 的因果自注意力。每隔几个 LLM 块，文本 token 还会通过一个新的门控层交叉关注图像特征。这个门（初始化为零）意味着第 0 步时新层是 no-op——模型的行为与预训练 LLM 一模一样。随着训练推进，门打开，视觉信息开始流入。
 
-Flamingo 回答的第二个问题：每个 prompt 里图像数量可变（0 张、1 张或很多张）时怎么处理？用一个 Perceiver resampler——一个小型交叉注意力模块，无论你有多少个 patch，都产出固定数量的视觉 latent token。无论 prompt 里有几张图，LLM 的交叉注意力层看到的形状都一样。
+Flamingo 回答的第二个问题：每个 prompt 里图像数量可变（0 张、1 张或很多张）时怎么处理？用一个 Perceiver resampler——一个小型交叉注意力模块，把每张图的任意数量 patch 转成固定数量的视觉 latent token。图像越多，latent 总数越多；但每个文本 token 只读取一张图的 latent，因此单个文本 token 在交叉注意力里看到的形状不变。
 
 ## 核心概念
 
@@ -30,18 +30,18 @@ Flamingo 从一个冻结的 Chinchilla 70B LLM 起步。全部 70B 权重原封�
 
 ### Perceiver resampler
 
-对 prompt 里的每张图，ViT 产出 N 个 patch token。Perceiver resampler 有 K 个固定的可学习 latent（Flamingo 用 K=64）。每个 resampler 块分两个子步骤：
+对 prompt 里的每张图，ViT 产出 $N$ 个 patch token。Perceiver resampler 有 $K$ 个固定的可学习 latent（Flamingo 用 $K=64$）。每个 resampler 块分两个子步骤：
 
-1. 交叉注意力：K 个 latent 关注 N 个 patch token（Q 来自 latent，K/V 来自 patch）。
+1. 交叉注意力：$K$ 个 latent 关注 $N$ 个 patch token（Q 来自 latent，$K$/V 来自 patch）。
 2. latent 内部的自注意力 + FFN。
 
-过完 6 个 resampler 块，输出是 K=64 个维度 1024 的视觉 token，无论 ViT 产出了多少 patch。一张 224x224 的图（196 个 patch）和一张 480x480 的图（900 个 patch）都以 64 个 resampler token 的形式出来。
+过完 6 个 resampler 块，输出是 $K=64$ 个维度 1024 的视觉 token，无论 ViT 产出了多少 patch。一张 224x224 的图（196 个 patch）和一张 480x480 的图（900 个 patch）都以 64 个 resampler token 的形式出来。
 
-对视频，resampler 在时间维上应用：每帧的 patch 产出 64 个 latent，一个时间位置编码让模型能区分 t=0 和 t=N。整段视频变成 T * 64 个视觉 token。
+对视频，resampler 在时间维上应用：每帧的 patch 产出 64 个 latent，一个时间位置编码让模型能区分 $t=0$ 和 $t=N$。整段视频变成 $T \cdot 64$ 个视觉 token。
 
 ### 门控交叉注意力
 
-在冻结 LLM 每隔 M 层（Flamingo 用 M=4），插入一个新的门控交叉注意力块：
+在冻结 LLM 每隔 $M$ 层（Flamingo 用 $M=4$），插入一个新的门控交叉注意力块：
 
 ```
 x_after_llm_block = llm_block(x_before)
@@ -59,7 +59,7 @@ x_before_next_block = gated
 
 ### 用于交错输入的掩码交叉注意力
 
-在像"<image A> caption A <image B> caption B <image C> ?"这样的 prompt 里，每个文本 token 应该只看到序列中排在它前面的图像。交叉注意力掩码强制：位置 `t` 处的文本 token 只关注图像索引 `i < i_t` 的那些图像 resampler token，其中 `i_t` 是位置 `t` 之前最近的那张图。"只看最近的前一张图"和"看前面所有图"都是合法选择；Flamingo 选了前者。
+在像"<image A> caption A <image B> caption B <image C> ?"这样的 prompt 里，每个文本 token 应该只看到序列中排在它前面的图像。交叉注意力掩码强制：位置 `t` 处的文本 token 只关注最近一张先前图像 `i_t` 的 resampler token；其他图像的 token 都会被 mask，其中 `i_t` 是位置 `t` 之前最近的那张图。"只看最近的前一张图"和"看前面所有图"都是合法选择；Flamingo 选了前者。
 
 ### in-context 少样本学习
 
@@ -76,7 +76,7 @@ x_before_next_block = gated
 Flamingo 在三个数据集上训练：
 
 1. MultiModal MassiveWeb（M3W）：4300 万个图文交错的网页，重建了阅读顺序。
-2. 图文对（ALIGN + LTIP）：44 亿对。
+2. 图文对：ALIGN（18 亿对）加 LTIP（3.12 亿对），合计约 21 亿对。
 3. 视频文本对（VTP）：2700 万段短视频。
 
 OBELICS（2023）是交错网页语料的开放复现，Idefics、Idefics2 和大多数开放的"类 Flamingo"模型都在它上面训练。
@@ -102,7 +102,7 @@ Otter（2023）在 OpenFlamingo 基础上用 MIMIC-IT（一个多模态指令数
 | 冻结 LLM | 是 | 是 |
 | 少样本 in-context | 弱 | 强——论文的核心卖点 |
 | 交错输入 | 无原生支持 | 有，正是设计目标 |
-| 训练数据 | 1.3 亿对 | 13 亿对 + 4300 万交错页 |
+| 训练数据 | 1.3 亿对 | 约 21 亿对 + 2700 万视频片段 + 4300 万交错页 |
 | 参数量 | 训 188M | 训约 10B（交叉注意力层） |
 | 算力 | 8 张 A100 跑几天 | 上千张 TPUv4 跑几周 |
 
@@ -148,7 +148,7 @@ cross-attention-fusion
 | OBELICS | "交错网页语料" | 一个开放数据集，1.41 亿个按阅读顺序排布图像和文本的网页 |
 | Chinchilla | "70B 冻结基座" | Flamingo 冻结的文本 LLM，来自 DeepMind 的 Chinchilla 论文 |
 | 门控调度 | "alpha 怎么变" | 训练中交叉注意力门打开的速率 |
-| 交叉注意力频率 | "每 M 层" | 多久插入一个门控交叉注意力块；Flamingo 用 M=4 |
+| 交叉注意力频率 | "每 M 层" | 多久插入一个门控交叉注意力块；Flamingo 用 $M=4$ |
 | OpenFlamingo | "开放复现" | MosaicML/LAION 的 3-9B 开放 checkpoint；架构与 Flamingo 完全相同 |
 
 ## 延伸阅读

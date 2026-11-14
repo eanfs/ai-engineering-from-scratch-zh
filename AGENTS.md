@@ -6,13 +6,16 @@
 
 ## 定位
 
-核心课程包含 20 个阶段、528 节课。每个算法都先从原始数学构建，再使用生产框架完成同一操作。
+核心课程按 `phases/`、README 与 ROADMAP 登记，数量以 `node site/build.js --check` 的当前结果为准。每个算法都先从原始数学构建，再使用生产框架完成同一操作。
 你会亲手写出反向传播、分词器、注意力机制和 agent 循环，所以当 PyTorch 或其他库登场时，它们不再是黑盒。
 
-`projects/` 是独立实战层（76 项就绪项目、308 阶段），`manuals/` 是独立技术手册层（2 本）。它们不计入核心 528 课。
+`projects/` 是独立实战层，`manuals/` 是独立技术手册层。就绪状态和数量以各自清单与当前构建为准，不计入核心课程。
 
-`certifications/claude/` 是独立的 Claude 认证备考层，包含 4 条路线、33 节认证课、诊断和原创模拟题。
+`certifications/` 是独立认证备考层；路线、课程、诊断和原创模拟题以各 program 与 track manifest 为准。
 认证课程单独统计，使用独立的站点构建与学习路径。
+
+`practice/` 是独立编程练习层，题目关联核心课程，数量以当前构建为准，不计入核心课程。
+修改练习内容、检查器或运行器前读取 `practice/AUTHORING.md`；修改手册前读取 `manuals/AUTHORING.md`。
 
 ## 仓库结构
 
@@ -24,7 +27,7 @@ phases/
       code/                   # 实现与测试
       quiz.json               # 6 道题
       outputs/                # 可复用产物
-certifications/claude/
+certifications/<program>/
   program.json                # 项目声明、核验日期、官方链接
   tracks/*.json               # 考试蓝图、路线和学习计划
   lessons/NN-slug/            # 认证课程
@@ -53,6 +56,7 @@ scripts/                       # 审计和构建工具
 9. 项目、手册、Hub、OG 数据与目录从中文源构建；不提交 `site/projects-data.js`、`site/project-content/`、`site/manuals-data.js`、`site/manuals.html`、`site/manual-*.html`、`site/hubs/`、`site/lesson-terms.json` 或 `site/og-cards.json`。
 10. `site/data.js` 是中文仓跟踪的构建产物；课程、术语或站点数据变动后必须重建并与源文件一起提交。
 11. 视频成片与中间产物不入库：`video-productions/output/*.mp4`、`handdraw-jobs/*/work/`、`handdraw-jobs/*/outputs/film.mp4`、母带音频与 `handdraw-jobs/*/inputs/narration/master.wav` 均由 `.gitignore` 排除；只提交剧集源码（`lesson.json`、`story_*.json`、`scenes_*.js`）与任务配置（`job.json`、`design.json`、briefs、prompts、输入源图）。
+12. `site/practice/`、`site/practice-map.json` 和 `site/manual/` 由中文源生成，部署时重建，不提交。
 
 ## 依赖约束
 
@@ -62,6 +66,7 @@ scripts/                       # 审计和构建工具
 | TypeScript | `hono`、`zod`、`ws`（只在需要 WebSocket 时）、`@hono/node-server`、Node 20+ 标准库 |
 | Rust | 标准库，单文件 `rustc --edition 2021` |
 | Julia | `Random`、`Statistics`、`LinearAlgebra`、`Printf` |
+| Go | 标准库，单文件 `go run`，需通过 `gofmt` 与 `go vet` |
 
 ## 课程契约
 
@@ -95,7 +100,7 @@ scripts/                       # 审计和构建工具
 }
 ```
 
-每课恰好 6 题：1 道 `pre`、3 道 `check`、2 道 `post`。`correct` 是从 0 开始的索引，翻译时绝不改动。
+新编课程通常采用 6 题：1 道 `pre`、3 道 `check`、2 道 `post`。同步课程保留上游实际题数与阶段分布。`correct` 是从 0 开始的索引；翻译及集成去偏按 `TRANSLATION.md` 执行，并核对正确答案内容不变。
 
 ## Claude 认证契约
 
@@ -121,6 +126,18 @@ scripts/                       # 审计和构建工具
 
 ## 本地验证
 
+编程练习变动需要 NumPy，并运行真实参考解、空实现与错误实现校验：
+
+```bash
+python3 scripts/practice/test_harness.py
+python3 scripts/practice/validate.py
+node site/build-practice.js --check
+node --test site/test_practice.js site/test_practice_store.js
+```
+
+浏览器验证覆盖 Python 实际运行、失败反馈、通过后解锁、编辑内容与进度的刷新恢复，以及移动端。
+课程阅读器交互同时验证 `/lessons/` 预渲染入口和 `lesson.html?path=` 运行时入口。
+
 提交前按实际改动执行：
 
 ```bash
@@ -138,6 +155,12 @@ node scripts/test_tts.js
 
 ```bash
 python3 ~/.hub/skills/handdrawn-explainer-video/scripts/handdraw_video.py doctor .
+```
+
+改动 `site/figures*.js`、`site/lesson-figures.js` 或汉化文案时，再运行图表几何审计。它在 Chrome 中按桌面和手机宽度挂载每张课程图（含中文覆盖层），必须输出 `TOTAL 0`：
+
+```bash
+CHROME_PATH=<chrome> NODE_PATH=<含 puppeteer-core 的目录>/node_modules node scripts/audit_lesson_figures.js
 ```
 
 项目与手册整合还需运行：
@@ -299,4 +322,4 @@ end tell
 
 ---
 
-最后审校：2026-11-12。
+最后审校：2026-11-14。

@@ -3,7 +3,7 @@
 > 看不到真实命令输出的 agent 在瞎猜。一个反馈运行器把 stdout、stderr、退出码和计时捕获进一条结构化记录，下一轮可以读。然后 agent 对事实做反应，而不是对自己对事实的预测做反应。
 
 **类型：** Build
-**语言：** Python（标准库）
+**语言：** Python（标准库）、TypeScript
 **前置要求：** 阶段 14 · 32（最小工作台）、阶段 14 · 35（Init 脚本）
 **预计时间：** ~50 分钟
 
@@ -72,6 +72,7 @@ wb-feedback-loop
 
 ```
 python3 code/main.py
+npx tsx code/main.ts
 ```
 
 输出：三条反馈记录追加到 `feedback_record.jsonl`，每个的最后一条内联打印。跨重跑 tail 这个文件，看循环累积。
@@ -106,7 +107,7 @@ python3 code/main.py
 2. 加一个 `redaction` 步骤，剥掉匹配 `^Bearer ` 或 `password=` 的行。在一个固定记录上测试。
 3. 通过轮转到 `.1`、`.2` 文件把 `feedback_record.jsonl` 总大小封顶 1 MB。为轮转策略辩护。
 4. 加一个 `parent_command_id`，让重试链可见：哪个命令产出了下一个命令消费的输入。
-5. 把 JSONL 灌进一个小 TUI，高亮最新的非零退出。这个 TUI 必须展示哪八个关键特性才能在审查里有用。
+5. 把 JSONL 灌进一个小 TUI，高亮最新的非零退出。列出这个 TUI 在审查时必须展示的八个关键特性。
 
 ## 关键术语
 

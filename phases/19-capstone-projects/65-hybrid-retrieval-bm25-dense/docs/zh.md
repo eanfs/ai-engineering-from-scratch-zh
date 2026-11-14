@@ -3,7 +3,7 @@
 > Lexical 检索和 semantic 检索分别在两类相反的 query 分布上翻车。用 reciprocal rank fusion 的 hybrid retrieval 不是在做插值，它是在投票——而这一票，能在每一类 query 上都赢。
 
 **类型：** Build
-**语言：** Python
+**语言：** Python、TypeScript
 **前置要求：** 阶段 11 第 04 课（embedding）、第 06 课（RAG）；阶段 19 Track B 基础（第 20-29 课）；阶段 19 第 64 课（chunking 策略）
 **预计时间：** ~90 分钟
 
@@ -38,7 +38,7 @@ flowchart LR
 
 BM25 给一对 query-document 打分的方式是：在 query 的各个词项上求和，每一项都是一个 inverse document frequency 因子乘以一个会饱和的 term-frequency 因子，后者里还含一个长度归一化的修正。两个旋钮。`k1` 控制 term-frequency 的饱和速度；默认的 1.5 是论文推荐值，没有 benchmark 就别去动它。`b` 控制文档长度有多重要；默认的 0.75 表示长文档会被惩罚，但不是线性的。
 
-IDF 公式用的是平滑后的 Robertson 和 Sparck Jones 定义，即 `log((N - df + 0.5) / (df + 0.5) + 1)`。log 里头那个加一，能在某个词出现在超过半数 corpus 时把 IDF 保持为正。在 stopword 技术上罕见的小 corpus 里，这一点很重要。
+IDF 公式用的是平滑后的 Robertson 和 Sparck Jones 定义，即 `log((N - df + 0.5) / (df + 0.5) + 1)`。log 里头那个加一，能在某个词出现在超过半数 corpus 时把 IDF 保持为正。这对出现在大多数文档里的 stopword 很重要；在小 corpus 里，一个常见词也可能跨过半数文档这条线。
 
 字段加权让你能告诉 BM25：命中符号名比命中正文更值钱。它的实现是在建索引时给词项计数乘上一个倍数，而不是在打分时。这让数学保持不变，也避免了为每个字段单独算一份分数。
 
@@ -81,6 +81,7 @@ rrf-fusion
 
 ```bash
 python3 code/main.py
+npx tsx code/main.ts
 ```
 
 把演示输出并排着读。字面标识符那个 query 落在 BM25 rank 1、dense rank 4、RRF rank 1。改写过的 query 落在 BM25 rank 6、dense rank 1、RRF rank 1。歧义那个 query 落在 BM25 rank 3、dense rank 3、RRF rank 1。fusion 不是一个用来打破平局的东西；它是那个在每一类 query 上都赢的系统。

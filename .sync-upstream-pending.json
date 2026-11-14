@@ -1,0 +1,258 @@
+{
+  "base": "8c09d890956fdef7d75d888aa8efecc16ff3846c",
+  "target": "a509402c0b5455d11ddc2b5fa83cc8c0d2e0692b",
+  "pending": [],
+  "decisions": [
+    {
+      "scope": "README 结构与文案（2026-10-27）",
+      "decision": "按 3f9715c62a3bedcffb68a260f1a65ee2dd9cc10a 的 README 结构与原意翻译同步；保留中文站和仓库链接、原作者与译者署名及本站 IPWO 赞助，不另设中文版功能介绍。上游电子书明确标为英文版并链接上游 release；不引入上游流量统计、收款入口或外部模型生成流程。同步基准不前移。",
+      "paths": [
+        "README.md",
+        "assets/readme/",
+        "site/build.js",
+        "site/test_build_artifacts.js"
+      ]
+    },
+    {
+      "scope": "上游模型生成与多语言流水线",
+      "decision": "不移植外部LLM生成、定时翻译和非中文i18n内容；中文内容由本轮agent翻译。",
+      "paths": [
+        ".github/workflows/cheatsheets-generate.yml",
+        ".github/workflows/practice-generate.yml",
+        ".github/workflows/translate.yml",
+        "scripts/cheatsheets/",
+        "scripts/practice/generate.js",
+        "scripts/practice/prompt.md",
+        "scripts/practice/report.js",
+        "scripts/practice/test_generate.js",
+        "scripts/translate_lessons.py",
+        "scripts/translate_matrix.py",
+        "scripts/translation_freshness.py",
+        "scripts/test_translate_workflow.py",
+        "i18n/",
+        "docs/i18n.md",
+        "site/ui-strings.json"
+      ]
+    },
+    {
+      "scope": "上游推广与仓库流程",
+      "decision": "保留中文站推广、构建产物跟踪、主分支与翻译契约；不移植上游收款联系方式、star history、translations分支和不提交data.js规则。",
+      "paths": [
+        "SPONSORS.md",
+        "site/sponsors.html",
+        "site/test_sponsors.js",
+        "README.md",
+        ".github/PULL_REQUEST_TEMPLATE.md",
+        "AGENTS.md",
+        "CONTRIBUTING.md"
+      ]
+    },
+    {
+      "scope": "中文渲染与URL",
+      "decision": "以md-render.js、中文路由和versionSharedAssets语义整合新增交互、章节URL和资源版本；不新增上游的平行Markdown渲染器或全站clean URL重写。",
+      "paths": [
+        "site/lesson-markdown.js",
+        "site/clean-urls.js",
+        "site/version-assets.js",
+        "site/test_clean_urls.js"
+      ]
+    },
+    {
+      "scope": "构建产物",
+      "decision": "从中文源重建site/data.js和所有忽略产物；不复制上游生成数据。",
+      "paths": [
+        "site/data.js"
+      ]
+    },
+    {
+      "scope": "手册写作技能",
+      "decision": "现有中文技能已允许授权批量同步按逻辑批次，语义覆盖上游本轮提交粒度调整；保留中文技能契约。",
+      "paths": [
+        "skills/write-manual/SKILL.md",
+        ".claude/skills/write-manual/SKILL.md"
+      ]
+    },
+    {
+      "scope": "新增手册速查表",
+      "decision": "上游topics清单新增Miles与vLLM但尚无速查表正文；本轮依据同一冻结手册整理两张中文速查表并逐项记录证据。",
+      "paths": [
+        "cheatsheets/miles-rl.md",
+        "cheatsheets/vllm-serving.md"
+      ]
+    },
+    {
+      "scope": "导师技能课数修正（371b25565）",
+      "decision": "中文 course-guide、find-your-level、start-learning 已使用课程目录作为数量来源，不写死旧总数。保留现有中文实现；当前数量由 build.js --check 核验。",
+      "paths": [
+        "skills/course-guide/SKILL.md",
+        "skills/find-your-level/SKILL.md",
+        "skills/start-learning/SKILL.md",
+        ".claude/skills/"
+      ]
+    },
+    {
+      "scope": "学习屏幕与主题菜单（2026-10-30）",
+      "decision": "语义移植 upstream/main 已合并的学习屏幕和三态主题菜单。学习屏幕读取 docs/zh.md、中文章节及中文仓源，加载中文图表覆盖层；主题菜单使用共享页头资源基址，通知课程图表重绘。已检视基准前移，两个批次在完成独立审查、CI、合并及生产验证前保留 pending。",
+      "paths": [
+        "skills/lesson-screen/",
+        "site/theme-menu.js",
+        "site/header.js",
+        "site/lesson.html"
+      ]
+    },
+    {
+      "scope": "本批上游构建产物和流水线",
+      "decision": "2a851e678 与 fe6c657df 的英文 data.js 由中文源重建，不复制。保留中文 build.yml；其现有 site/test*.js 回归已覆盖新增测试，无需移植 curriculum.yml。中文标签直接维护，不引入 ui-strings.json 的多语言流程。",
+      "paths": [
+        "site/data.js",
+        ".github/workflows/curriculum.yml",
+        "site/ui-strings.json"
+      ]
+    },
+    {
+      "scope": "手册首页网格、等距封面与 Star 提示补齐（2026-11-03）",
+      "decision": "基准已含但未落地的上游改动在此补齐：b03ba859/b9ab0e5b 的手册首页网格与精简 hero（web.css 先前已同步，build-manuals.js 标记未跟进）；A2A、Docker Sandboxes、逆向工程三本手册的等距封面插图（db5fb253、e1f857de、6fba3c6f、80b20936、5123b89b、634421be、a965fbc8）；ef427cdb 的 star-nudge，指向中文仓 fancyboi999/ai-engineering-from-scratch-zh，文案中文化，并修正 busy() 把课程页用 CSS 隐藏的 aria-modal 图示弹层当作已打开、导致课程页永不提示的问题。手册首页导语按上游原意翻译。同步基准不前移。",
+      "paths": [
+        "site/build-manuals.js",
+        "manuals/a2a-101/",
+        "manuals/docker-sandboxes-101/",
+        "manuals/reverse-engineering-101/",
+        "site/star-nudge.js",
+        "site/test_star_nudge.js",
+        "site/header.js",
+        "lib/site-navigation.js"
+      ]
+    },
+    {
+      "scope": "核心课程勘误与测验去偏（2026-11-04）",
+      "decision": "语义移植 5153c4531 涉及 10 门课的 13 处陈述纠错，涵盖 KV Cache 比较与投影重算、EAGLE 接收率基准与生产区间界定、BPE 前导空格切分、训练复现与确定性边界、AnyRes 2x2 token 计算、Canary 门禁与 Eval 权责、pass@k 插件估计与无偏估计对比、位置编码波长物理含义、困惑度 batch 加权偏差修正及 ECE 桶内相消。重新运行 debias_quizzes 确保答案分布均匀。",
+      "paths": [
+        "phases/07-transformers-deep-dive/",
+        "phases/10-llms-from-scratch/",
+        "phases/12-multimodal-ai/",
+        "phases/17-infrastructure-and-production/",
+        "phases/19-capstone-projects/"
+      ]
+    },
+    {
+      "scope": "构建期代码渲染与搜索架构（2026-11-04）",
+      "decision": "移植 Shiki 4.5.0 与 Pagefind 1.5.2 基础工具链。强化 site/md-render.js 与 site/lesson-markdown.js 的单一渲染器契约；语义适配 site/build-lessons.js 与 site/build-search.js 优先读取中文 docs/zh.md 并生成 2830 个代码块预渲染产物；site/cmdpalette.js 接入 Pagefind 异步检索，保留中文本土化 UI 标签；保持无 Shiki 时的正则渲染优雅降级。项目页与课程页共用 .cb 代码块，项目页模板加载 code.css 与 code-copy.js，删除旧 .code-copy 样式与点击分支。",
+      "paths": [
+        "package.json",
+        "site/code.css",
+        "site/code-copy.js",
+        "site/lib/code.js",
+        "site/md-render.js",
+        "site/lesson-markdown.js",
+        "site/lesson.html",
+        "site/build-lessons.js",
+        "site/build-search.js",
+        "site/cmdpalette.js",
+        "site/test_code_render.js",
+        "site/test_lesson_code.js",
+        "site/project.html",
+        "site/projects.css",
+        "site/projects.js"
+      ]
+    },
+    {
+      "scope": "面试题库系统脚手架与模拟面试技能（2026-11-04）",
+      "decision": "引入 23 张面试卡片、60 个故障场景、482 道面试题、静态校验器（validate.js）与 build-interviews。跳过上游外部 LLM API 自动生成脚本（generate.js）。题库正文按上游 8fec9cc19 逐篇翻译并对照英文原文审校，保留英文结构标记、代码、链接目标与条目数量；生成的 README 索引随条目提交，CI 用 --check-readmes 校验。场景证据与上游手册逐字节比对，只读取 CI 从上游冻结版本解出的快照（AIFS_EVIDENCE_ROOT），不回退到中文正文；站点构建不依赖该快照。导航使用静态链接，不在运行时注入。",
+      "paths": [
+        "interviews/",
+        "scripts/interviews/validate.js",
+        "scripts/interviews/test_validate.js",
+        "site/build-interviews.js",
+        "site/interviews.css",
+        "site/interviews.js",
+        "site/test_interviews.js",
+        "skills/interview-prep/",
+        ".claude/skills/interview-prep/",
+        "site/build-skills.js",
+        "site/skills.html",
+        "site/skills.md",
+        "site/roadmap.html"
+      ]
+    },
+    {
+      "scope": "上游 8fec9cc19..d7b5633f9 修复移植（2026-11-06）",
+      "decision": "四级标题：在 md-render.js 移植 h4 解析与重复标题 id 后缀；纯中文标题的 slug 为空，保持空 id，由课程页目录在运行时分配 section-N，不改变现有中文锚点。继续学习面板改链到 catalog.html?phase=<id>。phase-13/45：代码与 build-record.json 按上游移植，中文仓独有的重定位身份测试在临时目标文件上显式放行构建记录闸门；文档补充译入 zh.md。phase-10/06、07：按上游新干扰项翻译，再用 debias_quizzes.py 确定性重排；07 课测验的 reward hacking 统一为正文用的「奖励作弊」。",
+      "paths": [
+        "site/md-render.js",
+        "site/lesson.html",
+        "site/test_lesson_headings.js",
+        "phases/13-tools-and-protocols/45-ai-assisted-reverse-engineering/",
+        "phases/10-llms-from-scratch/06-instruction-tuning-sft/quiz.json",
+        "phases/10-llms-from-scratch/07-rlhf/quiz.json"
+      ]
+    },
+    {
+      "scope": "上游 d7b5633f9..1d08d70dd 同步（2026-11-09）",
+      "decision": "#763/#765：代码按上游逐字节移植，en.md 改动语义译入 zh.md；statistics.py 因 #60 中文侧数值改进与上游分叉，只移植零方差抛异常这一行。README 语言列与 upstream/main 全量对齐（542 行一致，且声明的语言都有对应代码文件）。lesson-ports 并入 build.yml 新 job，不引入 curriculum.yml。#759：以中文实现为底按语义移植 api/lib/site 状态机修复与回归测试，跳过 lib/lesson-translations.js、site/lang-picker.js、site/ui-i18n.js、site/test_ui_i18n.js（中文站无多语言管线）；lang=en 改为 308 到无语言参数地址并补测试。#762 修正生产 llms.txt 发现区段位于摘要之前的问题。#758 只改 README，不同步 i18n 镜像。五个 chore(site): rebuild data.js 由中文源重建，不复制。线上核验 batch-2 时发现 Shiki 构建期片段未被任何课程入口消费，本轮在 build.js 预渲染与 lesson.html 运行时接入并补回归测试。 MCP 维持中文仓既有安全边界，只协商已实现的 2025-11-25；上游 #759 新增的 2025-06-18 与既有 2025-03-26 不接受，只移植请求体单次解析。集成复核撤回子任务为迁就测试桩写入生产代码的分支（projects.js 的 querySelector 守卫、highlights.js 硬编码域名回退），改为补全测试桩。",
+      "paths": [
+        "phases/",
+        "README.md",
+        ".github/workflows/build.yml",
+        "api/",
+        "lib/",
+        "site/build.js",
+        "site/lesson.html",
+        "site/build-agents.js",
+        "site/"
+      ]
+    },
+    {
+      "scope": "上游 1d08d70..8c09d89 多语言移植（2026-11-11）",
+      "decision": "433 个新增移植文件按上游原样加入；116 个已有代码文件三方合并，114 个中文仓与基准一致直接取上游，2 个无冲突合并。351 篇 en.md 改动以结构化方式移入 docs/zh.md：语言行追加新语言（顿号分隔，综合项目的 scaffold 说明译为“脚手架”），运行命令行按上下文插入，正文改动（10/02 回退分词正则、15/14 断路器轮次、19/83/85/87 运行说明、10/13 Rust 运行说明）人工翻译；每篇新增围栏与命令行数与上游一致。build.yml 的 lesson-ports 任务按上游加入 Julia、Go 与 Node 22 TypeScript 检查。README 语言列与语言列表、llms 摘要、首页与课程页描述加入 Go。autonomous-agents 速查表 velocity 数值随 15/13 代码改为 0.03；不批量刷新 source_hash，与上游一致，过期提示保留。vllm-serving 保留中文版，不替换为上游模型生成版本。i18n/ 多语言 README 与 audit_readme_locales.py 不适用于中文仓，跳过。",
+      "paths": [
+        "phases/",
+        "README.md",
+        ".github/workflows/build.yml",
+        "site/build.js",
+        "site/index.html",
+        "site/lesson.html",
+        "AGENTS.md",
+        "cheatsheets/autonomous-agents.md",
+        "cheatsheets/vllm-serving.md",
+        "i18n/",
+        "scripts/audit_readme_locales.py",
+        ".github/workflows/curriculum.yml",
+        "site/data.js"
+      ]
+    },
+    {
+      "scope": "上游 8c09d89..a509402 图表几何与新项目（2026-11-12）",
+      "decision": "57 个图表文件中，35 个与上游基准相同直接取上游，15 个无冲突三方合并，figures-re-38/40/41/44 冲突按上游新布局重排并保留中文文案（re-41 的换行宽度按全角字符 2 列计算）。LF.textWidth/LF.wrapText 改为全角字符按 1 个字号计宽、中文可按字断行，并加中文回归测试。图表工具栏（全屏、步进、控件组）文案直接汉化。上游拆行后的标签片段补入 figure-locales 与 READER_TEXT，旧整句键保留；re-44 的 score 区间与 contrastive-matrix 样本词登记保留。audit_lesson_figures.js 读取 docs/zh.md 并按站点顺序加载中文覆盖层，测量读者实际看到的中文标签；中文 .lf-readable-viewport 是有提示、可键盘操作的 12px 可读滚动区，审计不将其计为意外滚动。中文标签导致的 8 处几何问题以缩短译文修正，cap-training-loop 右侧节点标签按上游左侧规则对称放到点右边。几何审计并入 build.yml 的真实 DOM 步骤；不移植按 en.md 触发的 lesson-figures.yml。lesson.html 与 skills.html 冲突仅为构建生成的版本号和 token 数，以中文构建结果为准。新项目 tool-contract-migration-checker 代码、样本、测试与录制原样移植，README、API、阶段文档、starter 说明、project.json 和机制图译为中文，加入项目汉化测试；README/ROADMAP/roadmap.json 按上游登记，并补入此前未登记的 binary-inspector 与 mini-decompiler。合并前 CI 发现 runner 缺中日韩字体，汉字回退成方框，几何审计量到的文字框与线上不一致：build.yml 的几何审计步骤先安装 fonts-noto-cjk 并校验 fc-list 有中文字体。safety-checkpoints 的请求包在静止帧压住模型框内标签，改为插到关卡框之下（沿箭头可见、进框被遮挡），属中文站对上游图层顺序的偏离。新项目归入 cheatsheets/topics.yaml 的 tool-calling 主题来源；冻结证据版本不含该项目，因此不新增速查区块。test_site_integration、test_project_prerequisites、test_agent_api 中的项目、阶段与前置计数同步为 79/326/74。",
+      "paths": [
+        "site/figures*.js",
+        "site/lesson-figures.js",
+        "site/figure-locales/",
+        "site/figures-i18n-zh.js",
+        "site/test_build_artifacts.js",
+        "scripts/audit_lesson_figures.js",
+        "scripts/test_audit_lesson_figures.js",
+        ".github/workflows/build.yml",
+        ".github/workflows/lesson-figures.yml",
+        "skills/motion-figure/",
+        ".claude/skills/motion-figure/",
+        "AGENTS.md",
+        "CONTRIBUTING.md",
+        "projects/tool-contract-migration-checker/",
+        "site/figures/projects/tool-contract-migration-checker.js",
+        "site/test_project_localization.js",
+        "projects/README.md",
+        "projects/ROADMAP.md",
+        "projects/roadmap.json",
+        "site/lesson.html",
+        "site/skills.html",
+        "site/data.js",
+        "site/figures-capstone-b.js",
+        "cheatsheets/topics.yaml",
+        "cheatsheets/tool-calling.md",
+        "scripts/test_site_integration.js",
+        "scripts/test_agent_api.js",
+        "site/test_project_prerequisites.js"
+      ]
+    }
+  ]
+}

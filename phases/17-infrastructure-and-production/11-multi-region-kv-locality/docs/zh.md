@@ -3,7 +3,7 @@
 > 对带缓存的 LLM 推理来说，轮询负载均衡是主动有害的。一个没落在持有它前缀的节点上的请求要付全额 prefill 成本 —— 长 prompt 上 P50 大约 800 ms，而缓存命中约 80 ms。2026 年的生产模式是一个缓存感知路由器（用 Rust 写的 vLLM Router、llm-d 路由器），它消费 KV-cache 事件，按前缀哈希匹配来路由。近期研究（GORGO）把跨区域网络延迟变成路由目标里一个显式的项。商用的"跨区域推理"产品（Bedrock cross-region inference、GKE 多集群网关）把推理当成不透明的 —— 它们管的是可用性，不是 TTFT。摩根大通和梅奥诊所在 2024 年 11 月跑了 us-east-1 故障转移，约 22 分钟。灾备的现实：32% 的 LLM 灾备失败是因为团队备份了权重，却忘了分词器文件或量化配置。
 
 **类型：** Learn
-**语言：** Python（标准库，一个玩具级前缀缓存感知路由器模拟器）
+**语言：** Python、TypeScript（标准库，一个玩具级前缀缓存感知路由器模拟器）
 **前置要求：** 阶段 17 · 04（vLLM 服务）、阶段 17 · 06（SGLang RadixAttention）
 **预计时间：** ~60 分钟
 
@@ -30,7 +30,7 @@
 
 请求带着一个 prompt 到来。路由器哈希前缀（比如前 512 token）；它问每个副本"你缓存了这个前缀吗？"。副本在分配和驱逐 block 时，把 KV-cache 事件发布到一个 pub/sub 通道。路由器挑出匹配的那个副本，没人匹配就回落到基于 GPU 利用率的平局裁决。
 
-**vLLM Router**（Rust，2026 production-stack）：订阅 `kv.cache.block_added` 事件，维护一个 前缀哈希 → 副本 的索引，以 O(1) 查找路由。没匹配时回落到最小队列深度。
+**vLLM Router**（Rust，2026 production-stack）：订阅 `kv.cache.block_added` 事件，维护一个 前缀哈希 → 副本 的索引，以 $O(1)$ 查找路由。没匹配时回落到最小队列深度。
 
 **llm-d 路由器**：同样的模式，Kubernetes 原生。经由 ControlPlane API 发布事件。
 
@@ -51,7 +51,7 @@
 - us-east-1 ↔ eu-west-1：~75 ms。
 - us-east-1 ↔ ap-southeast-1：~220 ms。
 
-如果路由把一个 us-east-1 的请求送去 ap-southeast-1 的一个热前缀，省下的 prefill（800 → 80 ms）被 440 ms 的往返淹没。GORGO（2026 研究）把这点显式化了 —— 联合最小化 `prefill_time + network_latency`，不是只 prefill。答案常常是保持区域内路由，除非在 prefill 主导的巨型多 MB 前缀上。
+如果路由把一个 us-east-1 的请求送去 ap-southeast-1 的一个热前缀，省下的 prefill 时间是 720 ms（800 → 80 ms）；扣除约 220 ms 的往返时延后，收益缩到约 500 ms。如果远端排队或已淘汰前缀，收益还会消失。GORGO（2026 研究）把这点显式化了 —— 联合最小化 `prefill_time + network_latency`，不是只 prefill。答案常常是保持区域内路由，除非在 prefill 主导的巨型多 MB 前缀上。
 
 ### 商用"跨区域推理"在这里帮不上忙
 

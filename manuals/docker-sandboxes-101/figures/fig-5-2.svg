@@ -17,7 +17,7 @@
   <text x="30" y="229" font-size="11">model: ai/qwen3:4b</text>
   <text x="30" y="244" font-size="11">temperature: 0</text>
   <rect x="20" y="290" width="285" height="62" fill="var(--m-grey-fill, #ecebe3)" stroke="var(--m-grey-ink, #5e5e59)" stroke-dasharray="5 4"/>
-  <text x="30" y="308" font-size="12" font-weight="700" fill="var(--m-grey-ink, #5e5e59)">endpoint discovery</text>
+  <text x="30" y="308" font-size="12" font-weight="700" fill="var(--m-grey-ink, #5e5e59)">端点发现</text>
   <text x="30" y="326" font-size="11">docker model status --json</text>
   <text x="30" y="341" font-size="11">由 docker-agent 自行执行</text>
   <line x1="162.5" y1="143" x2="162.5" y2="177" stroke="var(--m-ink, #1a1a1a)" stroke-width="1.2" marker-end="url(#fig-5-2-head-ink)"/>
@@ -46,7 +46,7 @@
   <line x1="477.5" y1="255" x2="477.5" y2="289" stroke="var(--m-ink, #1a1a1a)" stroke-width="1.2" marker-end="url(#fig-5-2-head-ink)"/>
   <rect class="m-knock" x="482.5" y="261.03" width="116.4" height="15.5" fill="var(--m-panel, #f3f1e8)"/>
   <text x="485.5" y="272" font-size="11.5">provider: runner</text>
-  <text x="20" y="402" font-size="11" letter-spacing="1.2" fill="var(--m-ink-mute, #6f6f6a)">DOCTOR 打印的 MODEL: AUTO</text>
+  <text x="20" y="402" font-size="11" letter-spacing="1.2" fill="var(--m-ink-mute, #666660)">DOCTOR 打印的 MODEL: AUTO</text>
   <rect x="20" y="418" width="165" height="60" fill="var(--m-grey-fill, #ecebe3)" stroke="var(--m-grey-ink, #5e5e59)"/>
   <text x="102.5" y="443.25" font-size="12.5" text-anchor="middle" font-weight="700">云凭据？</text>
   <text x="102.5" y="460.55" font-size="11" text-anchor="middle" class="m-serif" fill="var(--m-ink-soft, #4a4a4a)">20 provider：not set</text>

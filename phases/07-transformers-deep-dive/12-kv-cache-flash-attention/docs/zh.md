@@ -3,19 +3,19 @@
 > 训练是并行的、受 FLOP 约束。推理是串行的、受显存约束。瓶颈不同，招数不同。
 
 **类型：** Build
-**语言：** Python
+**语言：** Python、Rust
 **前置要求：** 阶段 7 · 02（Self-Attention）、阶段 7 · 05（完整的 Transformer）、阶段 7 · 07（GPT）
 **预计时间：** ~75 分钟
 
 ## 问题背景
 
-一个朴素的自回归解码器生成 `N` 个 token 要做 `O(N²)` 的功：每一步都对整个前缀重算注意力。一个 4K token 的回复就是 1600 万次注意力运算，大部分是冗余的。一个前缀 token 的隐藏状态一旦算出就是确定的——你只需要拿新 token 的 query 去和之前所有东西的缓存 key、value 算一遍。
+一个朴素的自回归解码器生成 $N$ 个 token 要做 $O(N^2)$ 的功：每一步都对整个前缀重算注意力。一个 4K token 的回复就是 1600 万次注意力运算，大部分是冗余的。一个前缀 token 的隐藏状态一旦算出就是确定的——你只需要拿新 token 的 query 去和之前所有东西的缓存 key、value 算一遍。
 
 更糟的是，注意力本身搬运大量数据。标准注意力要物化一个 N×N 的分数矩阵、N×d 的 softmax 输出、N×d 的最终输出——对 HBM 的读写太多。N≥2K 时，注意力在变成 FLOP 约束之前就先变成显存约束了。经典注意力 kernel 把现代 GPU 用得只剩 1/4 到 1/10 的效率。
 
 两个优化，都出自 Dao et al.，把前沿推理从"慢"推到了"快"：
 
-1. **KV 缓存。** 存下每个前缀 token 的 K 和 V 向量。每个新 token 的注意力就是一次对缓存 key 的 query。推理从每个生成步 `O(N²)` 降到 `O(N)`。
+1. **KV 缓存。** 存下每个前缀 token 的 K 和 V 向量。每个新 token 的注意力就是一次对缓存 key 的 query。推理从每个生成步 $O(N^2)$ 降到 $O(N)$。
 2. **Flash Attention。** 把注意力计算分块，让完整的 N×N 矩阵永远不落 HBM。softmax + matmul 全在 SRAM 里发生。A100 上墙钟加速 2–4 倍；H100 配 FP8 加速 5–10 倍。
 
 到 2026 年两者都普及了。每个生产推理栈（vLLM、TensorRT-LLM、SGLang、llama.cpp）都假设有它们。每个前沿模型出厂都开着 Flash Attention。
@@ -26,38 +26,39 @@
 
 ### KV 缓存的算术
 
-每个解码器层、每 token、每头：
+每个解码器层、每个 token、所有 KV 头：
 
 ```
-bytes_per_token_per_layer = 2 * d_head * dtype_size
+bytes_per_token_per_layer = 2 * n_kv_heads * d_head * dtype_size
                           ^
                           K 和 V
 ```
 
-对一个 7B 模型，32 层、32 头、d_head=128、fp16：
+对一个 7B 模型，32 层、32 个头（K 和 V 都使用全部头）、d_head=128、fp16：
 
 ```
-per token per layer = 2 * 128 * 2 = 512 bytes
-per token (32 layers) = 16 KB
-per 32K context = 512 MB
+per token per layer = 2 * 32 * 128 * 2 = 16384 bytes (16 KiB)
+per token (32 layers) = 512 KiB
+per 32K context = 16 GiB
 ```
 
 对 Llama 3 70B（80 层、d_head=128、GQA 配 8 个 KV 头）：
 
 ```
-per token per layer = 2 * 8 * 128 * 2 = 4096 bytes (4 KB)
-per 32K context = 10.4 GB
+per token per layer = 2 * 8 * 128 * 2 = 4096 bytes (4 KiB)
+per 32K context = 10 GiB
 ```
 
-这 10 GB 就是为什么 Llama 3 70B 在 128K 上下文、批大小 1 下，光 KV 缓存就要吃掉一块 40 GB A100 的大部分。
+32K 上下文需要 10 GiB；扩到 128K 就是 40 GiB。批大小为 1 时，仅 KV 缓存就会占满一块标称 40 GB 的 A100。
 
-**GQA 是 KV 缓存的胜利。** 64 头的 MHA 会是 32 GB。MLA 压得更狠。
+**GQA 能大幅缩小 KV 缓存。** 如果使用 64 个 KV 头，MHA 在 32K 上下文下需要约 80 GiB，是 GQA 的 8 倍。MLA 还能进一步压缩缓存。
 
 拖动各个维度，看缓存大小怎么变。把序列长度或批大小往上拉，看它多快就冲破一块 GPU 的容量：
 
 ```figure
 kv-cache-sizer
 ```
+
 
 ### Flash Attention —— 分块把戏
 
@@ -84,7 +85,7 @@ for each block of Q (tile size ~128 × 128):
     write O_tile to HBM
 ```
 
-每个 tile 一次 HBM 往返。总显存占用从 `O(N²)` 降到 `O(N)`。反向通过从前向通过重算一些值而不是存下来——又一个显存上的胜利。
+每个 tile 一次 HBM 往返。总显存占用从 $O(N^2)$ 降到 $O(N)$。反向通过从前向通过重算一些值而不是存下来——又一个显存上的胜利。
 
 **数值把戏。** 滚动 softmax 跨 tile 维护 `(max, sum)`，让最终归一化是精确的。不是近似——Flash Attention 算出和标准注意力逐 bit 相同的输出（忽略 fp16 的非结合性）。
 
@@ -124,10 +125,15 @@ flash-attention-memory
 
 ## 动手构建
 
-见 `code/main.py`。我们实现：
+```figure
+iso-machine {"machine":"kv-cache"}
+```
 
-1. 一个朴素的 `O(N²)` 增量解码器。
-2. 一个 `O(N)` 的 KV 缓存解码器。
+
+见 `code/main.py`，或其 Rust 移植版 `code/main.rs`。运行 Rust 版本：`rustc --edition 2021 -O code/main.rs -o /tmp/lesson && /tmp/lesson`。我们实现：
+
+1. 一个朴素的 $O(N^2)$ 增量解码器。
+2. 一个 $O(N)$ 的 KV 缓存解码器。
 3. 一个模拟 Flash Attention 滚动最大值算法的分块 softmax。
 
 ### 第 1 步：KV 缓存
@@ -172,9 +178,9 @@ def tiled_softmax_dot(q, K, V, tile=4):
 
 和一次性算的 `softmax(qK) V` 逐 bit 相同的输出，但任意时刻工作集都是一个 `tile × d_head` 的块，不是完整的 `N × d_head`。
 
-### 第 3 步：在 100 token 生成上对比朴素和缓存解码
+### 第 3 步：对比朴素和缓存解码
 
-数注意力运算数。朴素：`O(N²)` = 5050。缓存：`O(N)` = 100。代码两个都打印。
+统计注意力运算。两种解码器执行完全相同的 query-key 比较次数：步骤 `t` 需要对 `t` 个 token 计算注意力，因此总比较次数为 1 + 2 + ... + N = N(N+1)/2。代码中使用 N = 10 并为两种解码器分别打印 55。若生成 100 个 token，两者都需要执行 5050 次比较。KV 缓存真正节省的是 K 和 V 投影的重新计算：没有缓存时，每一步都需要为完整前缀重新计算 K 和 V，100 个 token 的生成累计需计算 5050 次 token 状态；开启缓存后，每个 token 的 K 和 V 仅投影计算一次，相同的生成过程只需计算 100 次 token 状态。
 
 ## 实际使用
 

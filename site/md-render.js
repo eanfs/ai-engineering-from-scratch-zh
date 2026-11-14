@@ -44,7 +44,8 @@
         return m ? m[1] : '课程';
       }
 
-      function parseMd(md) {
+      function parseMd(md, options) {
+        var renderCode = options && options.renderCode || renderCodeBlock;
         var lines = md.split(/\r?\n/);
         var out = '';
         var inCodeBlock = false;
@@ -62,6 +63,20 @@
         var blockquoteLines = [];
         var mermaidBlocks = 0;
         var inLabChallenge = false;
+        var inMathBlock = false;
+        var mathLines = [];
+        var figureAnchors = Object.create(null);
+        var usedHeadingIds = Object.create(null);
+
+        // 纯中文标题的 slug 为空，保持空 id，由课程页目录在运行时分配 section-N。
+        function uniqueHeadingId(base) {
+          if (!base) return base;
+          if (!usedHeadingIds[base]) { usedHeadingIds[base] = 1; return base; }
+          var n = 2;
+          while (usedHeadingIds[base + '-' + n]) n++;
+          usedHeadingIds[base + '-' + n] = 1;
+          return base + '-' + n;
+        }
 
         function flushLabChallenge() {
           if (!inLabChallenge) return '';
@@ -138,10 +153,16 @@
             if (line.match(/^```\s*$/)) {
               inCodeBlock = false;
               var raw = codeLines.join('\n');
-              if (codeLang === 'figure') {
+              if (codeLang === 'math') {
+                out += mathBlock(raw);
+              } else if (codeLang === 'figure') {
                 // escapeAttr 而非 escapeHtml：写入 HTML 属性，含 " 会截断属性值
                 // （lesson.html 旧实现的潜在 bug，抽取时顺带修正——审查发现）
-                out += '<div class="lesson-figure" data-figure="' + escapeAttr(raw.trim()) + '"></div>';
+                var figureName = raw.trim().split(/\s+/)[0].replace(/[^A-Za-z0-9_-]/g, '-');
+                var figureBase = 'figure-' + figureName;
+                figureAnchors[figureBase] = (figureAnchors[figureBase] || 0) + 1;
+                var figureId = figureBase + (figureAnchors[figureBase] > 1 ? '-' + figureAnchors[figureBase] : '');
+                out += '<div class="lesson-figure" data-figure="' + escapeAttr(raw.trim()) + '" id="' + figureId + '"></div>';
               } else if (codeLang === 'mermaid') {
                 mermaidBlocks++;
                 out += '<div class="mermaid-container">';
@@ -154,7 +175,7 @@
                 out += '</div>';
                 out += '</div>';
               } else {
-                out += renderCodeBlock(raw, codeLang);
+                out += renderCode(raw, codeLang);
               }
               codeLines = [];
               codeLang = '';
@@ -163,6 +184,31 @@
             }
             continue;
           }
+
+      if (inMathBlock) {
+        if (line.trim() === '$$') {
+          inMathBlock = false;
+          out += mathBlock(mathLines.join('\n'));
+          mathLines = [];
+        } else {
+          mathLines.push(line);
+        }
+        continue;
+      }
+
+      var displayMath = line.match(/^\s*\$\$(.*?)(\$\$)?\s*$/);
+      if (displayMath && (displayMath[2] ? displayMath[1].trim() : !displayMath[1].trim())) {
+        out += flushList();
+        out += flushTable();
+        out += flushBlockquote();
+        if (displayMath[2]) {
+          out += mathBlock(displayMath[1]);
+        } else {
+          inMathBlock = true;
+          mathLines = [];
+        }
+        continue;
+      }
 
           var codeStart = line.match(/^```(\w*)/);
           if (codeStart) {
@@ -199,7 +245,7 @@
           if (h1) {
             out += flushList();
             out += flushLabChallenge();
-            var slug = slugify(h1[1]);
+            var slug = uniqueHeadingId(slugify(h1[1]));
             out += '<h1 id="' + slug + '">' + inlineFormat(h1[1]) + '</h1>';
             continue;
           }
@@ -213,7 +259,8 @@
             if (txt.indexOf('build it') >= 0 || txt.indexOf('build ') === 0) sectionClass = ' section-build';
             else if (txt.indexOf('use it') >= 0 || txt.indexOf('use ') === 0) sectionClass = ' section-use';
             else if (txt.indexOf('ship it') >= 0 || txt.indexOf('ship ') === 0) sectionClass = ' section-ship';
-            if (txt.indexOf('learning objectives') >= 0) {
+            if (txt.indexOf('summary') === 0 || txt.indexOf('总结') === 0 || txt.indexOf('摘要') === 0) sectionClass = ' section-summary';
+          if (txt.indexOf('learning objectives') >= 0) {
               var objItems = [];
               for (var lo = i + 1; lo < lines.length; lo++) {
                 var loLine = lines[lo];
@@ -237,11 +284,11 @@
               out += flushLabChallenge();
               inLabChallenge = true;
               out += '<div class="lab-challenge">';
-              out += '<h2 id="' + slug2 + '">&#128171; 实战挑战</h2>';
+              out += '<h2 id="' + uniqueHeadingId(slug2) + '">&#128171; 实战挑战</h2>';
               continue;
             }
             out += flushLabChallenge();
-            out += '<h2 id="' + slug2 + '" class="' + sectionClass + '">' + inlineFormat(h2[1]) + '</h2>';
+            out += '<h2 id="' + uniqueHeadingId(slug2) + '" class="' + sectionClass + '">' + inlineFormat(h2[1]) + '</h2>';
             continue;
           }
 
@@ -249,7 +296,15 @@
           if (h3) {
             out += flushList();
             var slug3 = slugify(h3[1]);
-            out += '<h3 id="' + slug3 + '">' + inlineFormat(h3[1]) + '</h3>';
+            out += '<h3 id="' + uniqueHeadingId(slug3) + '">' + inlineFormat(h3[1]) + '</h3>';
+            continue;
+          }
+
+          var h4 = line.match(/^#### (.+)/);
+          if (h4) {
+            out += flushList();
+            var slug4 = slugify(h4[1]);
+            out += '<h4 id="' + uniqueHeadingId(slug4) + '">' + inlineFormat(h4[1]) + '</h4>';
             continue;
           }
 
@@ -318,6 +373,7 @@
           out += '<p' + paraClass + '>' + inlineFormat(line) + '</p>';
         }
 
+        if (inMathBlock) out += mathBlock(mathLines.join("\n"));
         out += flushList();
         out += flushTable();
         out += flushBlockquote();
@@ -325,6 +381,116 @@
 
         return out;
       }
+
+  function mathBlock(tex) {
+    return '<div class="math-display" data-math="display">' + escapeHtml(tex.trim()) + '</div>';
+  }
+
+  function isSpace(ch) {
+    return ch === ' ' || ch === '\t' || ch === '\n' || ch === '\r' || ch === '\u00a0';
+  }
+
+  function isWordChar(ch) {
+    return /[A-Za-z0-9_]/.test(ch);
+  }
+
+  function closingDollar(text, start) {
+    for (var j = start; j < text.length; j++) {
+      var ch = text.charAt(j);
+      if (ch === '\\') {
+        j++;
+        continue;
+      }
+      if (ch !== '$') continue;
+      if (j > start && !isSpace(text.charAt(j - 1)) && !isWordChar(text.charAt(j + 1))) return j;
+      return -1;
+    }
+    return -1;
+  }
+
+  function splitInlineMath(text) {
+    var parts = [];
+    var plain = '';
+    for (var i = 0; i < text.length; i++) {
+      var ch = text.charAt(i);
+      if (ch === '\\' && text.charAt(i + 1) === '$') {
+        plain += '$';
+        i++;
+        continue;
+      }
+      if (ch === '$' && text.charAt(i + 1) === '$') {
+        plain += '$$';
+        i++;
+        continue;
+      }
+      if (ch === '$' && i + 1 < text.length && !isSpace(text.charAt(i + 1)) && !isWordChar(text.charAt(i - 1))) {
+        var end = closingDollar(text, i + 1);
+        if (end > 0) {
+          if (plain) parts.push({ text: plain });
+          plain = '';
+          parts.push({ math: text.slice(i + 1, end) });
+          i = end;
+          continue;
+        }
+      }
+      plain += ch;
+    }
+    if (plain) parts.push({ text: plain });
+    return parts;
+  }
+
+  function extractMath(md) {
+    var found = [];
+    var lines = md.split(/\r?\n/);
+    var inCode = false;
+    var mathFence = [];
+    var mathStart = 0;
+    var block = null;
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+      if (block) {
+        if (line.trim() === '$$') {
+          found.push({ display: true, tex: block.join('\n').trim(), line: i + 1 });
+          block = null;
+        } else {
+          block.push(line);
+        }
+        continue;
+      }
+      var fence = line.match(/^```(\w*)/);
+      if (fence) {
+        if (inCode === 'math') found.push({ display: true, tex: mathFence.join('\n').trim(), line: mathStart });
+        if (inCode) {
+          inCode = false;
+        } else {
+          inCode = fence[1] || 'code';
+          mathFence = [];
+          mathStart = i + 1;
+        }
+        continue;
+      }
+      if (inCode === 'math') {
+        mathFence.push(line);
+        continue;
+      }
+      if (inCode) continue;
+      if (line.trim() === '$$') {
+        block = [];
+        continue;
+      }
+      var single = line.match(/^\s*\$\$(.+?)\$\$\s*$/);
+      if (single) {
+        found.push({ display: true, tex: single[1].trim(), line: i + 1 });
+        continue;
+      }
+      var masked = line.replace(/`[^`]+`/g, function (m) { return new Array(m.length + 1).join(' '); });
+      splitInlineMath(masked).forEach(function (part) {
+        if (part.math != null) found.push({ display: false, tex: part.math, line: i + 1 });
+      });
+    }
+    return found;
+  }
+
 
       function splitTableRow(line) {
         // Split a markdown table row on cell delimiters while respecting
@@ -376,26 +542,180 @@
           /[0-9a-zA-Z)\]}|]\^[0-9a-zA-Z(]/.test(s);
       }
 
-      function inlineFormat(text) {
-        text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-        text = text.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
-        text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-        text = text.replace(/\*(.+?)\*/g, '<em>$1</em>');
-        text = text.replace(/`([^`]+)`/g, function (m, c) {
-          if (looksLikeMath(c)) return '<code class="math-tex" data-tex="' + c + '">' + c + '</code>';
-          return '<code>' + c + '</code>';
-        });
-        text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, function (m, label, href) {
-          if (/^https?:\/\/|^mailto:/i.test(href)) {
-            return '<a href="' + href + '" target="_blank" rel="noopener">' + label + '</a>';
-          }
-          return label;
-        });
-        return text;
+  function escapeInline(text) {
+    return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  function inlineFormat(text) {
+    var kept = [];
+    function keep(html) {
+      kept.push(html);
+      return '\u0000' + (kept.length - 1) + '\u0000';
+    }
+    text = text.replace(/`([^`]+)`/g, function (m, code) {
+      var escaped = escapeInline(code);
+      if (looksLikeMath(escaped)) return keep('<code class="math-tex" data-tex="' + escaped + '">' + escaped + '</code>');
+      return keep('<code>' + escaped + '</code>');
+    });
+    text = splitInlineMath(text).map(function (part) {
+      if (part.math == null) return part.text;
+      return keep('<span class="math-inline" data-math="inline">' + escapeHtml(part.math) + '</span>');
+    }).join('');
+    text = escapeInline(text);
+    text = text.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
+    text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    text = text.replace(/\*(.+?)\*/g, '<em>$1</em>');
+    // Parse inline links by balancing parentheses in the destination.
+    // URLs such as DOI links may contain their own parentheses.
+    var out = '';
+    for (var i = 0; i < text.length;) {
+      if (text.charAt(i) === '\\' && text.charAt(i + 1) === '[') {
+        out += '[';
+        i += 2;
+        continue;
       }
+      if (text.charAt(i) !== '[') {
+        out += text.charAt(i++);
+        continue;
+      }
+
+      var labelEnd = -1;
+      for (var labelCursor = i + 1; labelCursor < text.length; labelCursor++) {
+        if (text.charAt(labelCursor) === '\\') {
+          labelCursor++;
+          continue;
+        }
+        if (text.charAt(labelCursor) === ']') {
+          labelEnd = labelCursor;
+          break;
+        }
+      }
+      if (labelEnd === -1 || text.charAt(labelEnd + 1) !== '(') {
+        out += text.charAt(i++);
+        continue;
+      }
+
+      var hrefStart = labelEnd + 2;
+      var depth = 1;
+      var hrefEnd = hrefStart;
+      while (hrefEnd < text.length && depth > 0) {
+        var hrefChar = text.charAt(hrefEnd);
+        if (hrefChar === '\\') {
+          hrefEnd += 2;
+          continue;
+        }
+        if (hrefChar === '(') depth++;
+        if (hrefChar === ')') depth--;
+        hrefEnd++;
+      }
+
+      if (depth !== 0) {
+        out += text.charAt(i++);
+        continue;
+      }
+
+      var label = unescapeMarkdownPunctuation(text.slice(i + 1, labelEnd));
+      var href = unescapeMarkdownPunctuation(text.slice(hrefStart, hrefEnd - 1));
+      if (/^https?:\/\/|^mailto:/i.test(href)) {
+        out += '<a href="' + href + '" target="_blank" rel="noopener">' + label + '</a>';
+      } else {
+        out += label;
+      }
+      i = hrefEnd;
+    }
+    return out.replace(/\u0000(\d+)\u0000/g, function (m, index) { return kept[Number(index)]; });
+  }
+
+  function unescapeMarkdownPunctuation(value) {
+    var unescaped = '';
+    for (var i = 0; i < value.length; i++) {
+      var current = value.charAt(i);
+      var next = value.charAt(i + 1);
+      if (current === '\\' && (next === '[' || next === ']' || next === '(' || next === ')' || next === '\\')) {
+        unescaped += next;
+        i++;
+      } else {
+        unescaped += current;
+      }
+    }
+    return unescaped;
+  }
+
 
       function slugify(text) {
         return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      }
+
+      function headingIds(html) {
+        var ids = [];
+        var pattern = /<h2\b[^>]*\bid="([^"]*)"/g;
+        var match;
+        while ((match = pattern.exec(String(html || ''))) !== null) ids.push(match[1]);
+        return ids;
+      }
+
+      function sectionHeadings(markdown) {
+        var headings = [];
+        var fenced = false;
+        var lines = String(markdown || '').split(/\r?\n/);
+        for (var i = 0; i < lines.length; i++) {
+          if (/^\s*```/.test(lines[i])) { fenced = !fenced; continue; }
+          if (fenced) continue;
+          var match = lines[i].match(/^##\s+(.+?)\s*$/);
+          if (match) headings.push({ id: slugify(match[1]), text: match[1] });
+        }
+        return headings;
+      }
+
+      function sectionIds(markdown) {
+        return sectionHeadings(markdown).map(function (heading) { return heading.id; });
+      }
+
+      function headingText(heading) {
+        return typeof heading === 'string' ? heading : String(heading && (heading.text || heading.id) || '');
+      }
+
+      function hasHeading(heading, terms) {
+        var value = headingText(heading).toLowerCase();
+        for (var i = 0; i < terms.length; i++) {
+          if (value.indexOf(terms[i]) >= 0) return true;
+        }
+        return false;
+      }
+
+      function firstHeading(headings, terms) {
+        for (var i = 0; i < headings.length; i++) {
+          if (hasHeading(headings[i], terms)) return i;
+        }
+        return -1;
+      }
+
+      function quizPlacement(headings) {
+        headings = Array.isArray(headings) ? headings : [];
+        var count = headings.length;
+        var objectives = firstHeading(headings, ['学习目标', 'learning objectives']);
+        var concept = firstHeading(headings, ['核心概念', 'the concept']);
+        var build = firstHeading(headings, ['动手构建', 'build it']);
+        var use = firstHeading(headings, ['实际使用', 'use it']);
+        var ship = firstHeading(headings, ['拿去用', 'ship it']);
+        var terms = firstHeading(headings, ['关键术语', 'key terms']);
+        var pre = concept >= 0 ? concept : build >= 0 ? build : objectives >= 0 ? objectives + 1 : Math.min(1, count);
+        var post = terms >= 0 ? terms : count;
+        var check = use >= 0 ? use : ship >= 0 ? ship : terms >= 0 ? Math.max(pre, terms - 1) : Math.max(pre, count - 1);
+        pre = Math.max(0, Math.min(pre, count));
+        post = Math.max(pre, Math.min(post, count));
+        check = Math.max(pre, Math.min(check, post));
+        return { pre: pre, check: check, post: post, count: count };
+      }
+
+      function quizPanelQuestions(data) {
+        var questions = data && (data.questions || data);
+        if (!Array.isArray(questions)) return null;
+        var valid = questions.some(function (question) {
+          return question && question.question && Array.isArray(question.options) &&
+            typeof question.correct === 'number' && question.correct >= 0 && question.correct < question.options.length;
+        });
+        return valid ? [] : null;
       }
 
       // 把课程里的伪 LaTeX 记法整理成 KaTeX 能吃的形式。
@@ -412,10 +732,128 @@
         return s;
       }
 
-      function renderCodeBlock(code, lang) {
-        var highlighted = highlightSyntax(escapeHtml(code), lang);
-        var langLabel = lang ? '<span class="code-lang">' + escapeHtml(lang) + '</span>' : '';
-        return '<pre>' + langLabel + '<button class="code-copy" data-code="' + escapeAttr(code) + '">复制</button><code>' + highlighted + '</code></pre>';
+      var TERMINAL_LANGS = { console: 1, shellsession: 1, 'shell-session': 1, terminal: 1 };
+      var OUTPUT_LANGS = { text: 1, txt: 1, plaintext: 1, plain: 1, output: 1, log: 1, ansi: 1 };
+      var PROMPT = /^(\s*(?:\([\w.-]+\) ?)?(?:\$|%|>>>)(?: |$))/;
+      var ANSI = /\u001b\[[0-9;]*m/g;
+
+      function codeKind(lang) {
+        lang = String(lang || '').toLowerCase();
+        if (TERMINAL_LANGS[lang]) return 'terminal';
+        if (OUTPUT_LANGS[lang]) return 'output';
+        return 'code';
+      }
+
+      function splitSession(code) {
+        var parts = [];
+        var more = false;
+        var repl = false;
+        String(code).split('\n').forEach(function (line) {
+          if (more) {
+            parts.push({ cmd: true, prompt: '', text: line, lang: 'bash' });
+            more = /\\$/.test(line);
+            return;
+          }
+          if (repl && /^\.\.\.( |$)/.test(line)) {
+            parts.push({ cmd: true, prompt: line.slice(0, 4), text: line.slice(4), lang: 'python' });
+            return;
+          }
+          var match = PROMPT.exec(line);
+          if (match) {
+            var text = line.slice(match[1].length);
+            repl = match[1].indexOf('>>>') >= 0;
+            more = /\\$/.test(text);
+            parts.push({ cmd: true, prompt: match[1], text: text, lang: repl ? 'python' : 'bash' });
+            return;
+          }
+          repl = false;
+          parts.push({ cmd: false, text: line });
+        });
+        return parts;
+      }
+
+      function codeLabel(kind, lang) {
+        if (kind === 'terminal') return '终端';
+        if (kind === 'output') return lang === 'ansi' ? '日志' : '输出';
+        return lang || '代码';
+      }
+
+      function codeBlockHtml(block) {
+        var head = '<div class="cb-head"><span class="cb-label">' + escapeHtml(block.label) + '</span>' + (block.extra || '') +
+          (block.copy ? '<button type="button" class="cb-copy">复制</button>' : '') + '</div>';
+        return '<div class="cb" data-kind="' + block.kind + '"' + (block.lang ? ' data-lang="' + escapeAttr(block.lang) + '"' : '') + '>' +
+          head + '<pre><code>' + block.body + '</code></pre></div>';
+      }
+
+      var regexHighlighter = {
+        block: function (code, lang) { return highlightSyntax(escapeHtml(code), lang); },
+        lines: function (lines, lang) { return lines.map(function (line) { return highlightSyntax(escapeHtml(line), lang); }); },
+        ansi: function (code) { return escapeHtml(code.replace(ANSI, '')); }
+      };
+
+      function renderCodeWith(highlighter, code, lang, options) {
+        options = options || {};
+        lang = String(lang || '').toLowerCase();
+        code = String(code == null ? '' : code);
+        var kind = codeKind(lang);
+        var body;
+        var copy = kind === 'code';
+        if (kind === 'terminal') {
+          var parts = splitSession(code);
+          var lit = {};
+          ['bash', 'python'].forEach(function (name) {
+            var group = parts.filter(function (part) { return part.cmd && part.lang === name; });
+            var html = group.length ? highlighter.lines(group.map(function (part) { return part.text; }), name) : [];
+            group.forEach(function (part, index) { lit[parts.indexOf(part)] = html[index]; });
+          });
+          copy = parts.some(function (part) { return part.cmd; });
+          body = parts.map(function (part, index) {
+            if (!part.cmd) return part.text ? '<span class="cb-o">' + escapeHtml(part.text) + '</span>' : '';
+            return (part.prompt ? '<span class="cb-p">' + escapeHtml(part.prompt) + '</span>' : '') + '<span class="cb-ln">' + lit[index] + '</span>';
+          }).join('\n');
+        } else if (lang === 'ansi') {
+          body = highlighter.ansi(code);
+        } else if (kind === 'output') {
+          body = escapeHtml(code);
+        } else {
+          body = highlighter.block(code, lang);
+        }
+        return codeBlockHtml({
+          kind: kind,
+          lang: lang,
+          label: options.label || codeLabel(kind, lang),
+          extra: options.extra,
+          copy: options.copy === false ? false : copy,
+          body: body
+        });
+      }
+
+      function renderCodeBlock(code, lang, options) {
+        return renderCodeWith(regexHighlighter, code, lang, options);
+      }
+
+      function codeKey(code, lang) {
+        var text = String(lang || '').toLowerCase() + '\n' + String(code == null ? '' : code);
+        var h1 = 0xdeadbeef;
+        var h2 = 0x41c6ce57;
+        for (var i = 0; i < text.length; i++) {
+          var ch = text.charCodeAt(i);
+          h1 = Math.imul(h1 ^ ch, 2654435761);
+          h2 = Math.imul(h2 ^ ch, 1597334677);
+        }
+        h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+        h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+        return (h2 >>> 0).toString(36) + (h1 >>> 0).toString(36) + '-' + text.length.toString(36);
+      }
+
+      function prerenderedCode(blocks) {
+        if (!blocks || typeof blocks !== 'object') return renderCodeBlock;
+        return function (code, lang) {
+          var key = codeKey(code, lang);
+          return Object.prototype.hasOwnProperty.call(blocks, key) && typeof blocks[key] === 'string'
+            ? blocks[key]
+            : renderCodeBlock(code, lang);
+        };
       }
 
       function highlightSyntax(code, lang) {
@@ -461,12 +899,28 @@
 
   var MDRender = {
     parseMd: parseMd,
+    headingIds: headingIds,
+    sectionHeadings: sectionHeadings,
+    sectionIds: sectionIds,
+    quizPlacement: quizPlacement,
+    quizPanelQuestions: quizPanelQuestions,
+    extractMath: extractMath,
+    splitInlineMath: splitInlineMath,
+    splitTableRow: splitTableRow,
     extractTitle: extractTitle,
     lessonDescription: lessonDescription,
     inlineFormat: inlineFormat,
     slugify: slugify,
     texPreprocess: texPreprocess,
+    codeKind: codeKind,
+    splitSession: splitSession,
+    codeLabel: codeLabel,
+    codeBlockHtml: codeBlockHtml,
+    renderCodeWith: renderCodeWith,
     renderCodeBlock: renderCodeBlock,
+    codeKey: codeKey,
+    prerenderedCode: prerenderedCode,
+    regexHighlighter: regexHighlighter,
     highlightSyntax: highlightSyntax,
     escapeHtml: escapeHtml,
     escapeAttr: escapeAttr
@@ -476,5 +930,6 @@
     module.exports = MDRender;
   } else {
     global.MDRender = MDRender;
+    global.AIFSLessonMarkdown = MDRender;
   }
 })(typeof window !== 'undefined' ? window : globalThis);

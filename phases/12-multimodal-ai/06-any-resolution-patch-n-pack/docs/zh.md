@@ -1,9 +1,9 @@
 # 任意分辨率视觉：Patch-n'-Pack 与 NaFlex
 
-> 真实图像不是 224x224 的方块。一张收据是 9:16，一张图表是 16:9，一张医学扫描可能是 4096x4096，一张手机截图是 9:19.5。2024 年之前的 VLM 答案——把一切都缩成固定方块——丢掉了让 OCR、文档理解和高分辨率场景解析得以运作的信号。NaViT（Google，2023）证明了你可以用块对角掩码把可变分辨率的 patch 打包进单个 transformer batch。Qwen2-VL 的 M-RoPE（2024）彻底扔掉了绝对位置表。LLaVA-NeXT 的 AnyRes 把高分辨率图切成基础图 + 子图。SigLIP 2 的 NaFlex 变体（2025）如今是那些想用单个 checkpoint 服务所有长宽比的开放 VLM 的默认编码器。本节课从头到尾实现 patch-n'-pack。
+> 真实图像不是 224x224 的方块。一张收据是 1:3，一张图表是 16:9，一张医学扫描可能是 4096x4096，一张手机截图是 9:19.5。2024 年之前的 VLM 答案——把一切都缩成固定方块——丢掉了让 OCR、文档理解和高分辨率场景解析得以运作的信号。NaViT（Google，2023）证明了你可以用块对角掩码把可变分辨率的 patch 打包进单个 transformer batch。Qwen2-VL 的 M-RoPE（2024）彻底扔掉了绝对位置表。LLaVA-NeXT 的 AnyRes 把高分辨率图切成基础图 + 子图。SigLIP 2 的 NaFlex 变体（2025）如今是那些想用单个 checkpoint 服务所有长宽比的开放 VLM 的默认编码器。本节课从头到尾实现 patch-n'-pack。
 
 **类型：** Build
-**语言：** Python（标准库，patch 打包器 + 块对角掩码）
+**语言：** Python、TypeScript（标准库，patch 打包器 + 块对角掩码）
 **前置要求：** Phase 12 · 01（ViT patch）、Phase 12 · 05（LLaVA）
 **预计时间：** ~120 分钟
 
@@ -55,7 +55,7 @@ LLaVA-NeXT 的 AnyRes 是务实的替代方案。给定一张高分辨率图和�
 
 一张 672x672 的图用 2x2 网格加缩略图：4 * 576 + 576 = 2880 个视觉 token。贵但有效——LLM 既看到局部细节又看到全局上下文。
 
-当你的编码器被冻结且只支持一种分辨率时，AnyRes 是首选路线。它会让大图的 token 数爆炸（一张 1344x1344 的图用 4x4 网格是 9216 + 576 ≈ 9800 个 token，能塞满一个 8k LLM 上下文的大部分）。
+当你的编码器被冻结且只支持一种分辨率时，AnyRes 是首选路线。它会让大图的 token 数爆炸（一张 1344x1344 的图用 4x4 网格是 9216 + 576 ≈ 9800 个 token，超过 8k LLM 上下文，prompt 文本还没有位置）。
 
 ### M-RoPE（Qwen2-VL）
 
@@ -63,7 +63,7 @@ Qwen2-VL 引入了多模态旋转位置嵌入。不用 NaViT 的分数位置或 
 
 M-RoPE 不用重训就自带原生动态分辨率。推理时你喂任意 HxW 图，patch 嵌入器产出 H/14 x W/14 个 token，每个 token 拿到它的 (t=0, r=行, c=列) 位置，RoPE 用正确的频率旋转注意力，搞定。Qwen2.5-VL 和 Qwen3-VL 延续这个。InternVL3 的 V2PE 是同样的想法，每种模态用可变编码。
 
-与 AnyRes 不同，M-RoPE 在原生分辨率下是 O(H x W / P^2) 个 token——没有切块的乘性开销。与 NaViT 不同，它仍然期望每次前向一张图。跨分辨率批处理仍需在它之上叠 patch-n'-pack。
+与 AnyRes 不同，M-RoPE 在原生分辨率下是 $O(H \times W / P^2)$ 个 token——没有切块的乘性开销。与 NaViT 不同，它仍然期望每次前向一张图。跨分辨率批处理仍需在它之上叠 patch-n'-pack。
 
 ### NaFlex（SigLIP 2）
 

@@ -3,7 +3,7 @@
 > 2026 年的前沿产品是一个多模态 agent，它读截图、点按钮、导航 web UI、填表单，端到端完成工作流。SeeClick 和 CogAgent（2024）证明了 GUI grounding 原语。Ferret-UI 加入了移动端。ChartAgent 引入了面向图表的视觉工具使用。VisualWebArena 和 AgentVista（2026）是前沿追逐的基准——连 Gemini 3 Pro 和 Claude Opus 4.7 在 AgentVista 的难任务上也只拿约 30%。这个综合实战把 Phase 12 的每条线都拉到一起：感知（高分辨率 VLM）、推理（带工具使用的 LLM）、grounding（坐标输出）、长时程记忆、评测。
 
 **类型：** Capstone
-**语言：** Python（标准库，动作 schema + agent 循环骨架）
+**语言：** Python（标准库，动作 schema + agent 循环骨架）、TypeScript
 **前置要求：** Phase 12 · 05（LLaVA）、Phase 12 · 09（Qwen-VL JSON）、Phase 14（Agent 工程）
 **预计时间：** ~240 分钟
 
@@ -140,7 +140,7 @@ mm-agent-loop
 
 ## 练习
 
-1. 用一个 `screenshot_region` 工具（裁剪 + 缩放）扩展动作 schema。哪些任务受益？
+1. 代码中的 schema 在九个核心动作上增加了 `screenshot_region` 工具（裁剪 + 缩放）。哪些任务受益？
 
 2. 读 AgentVista（arXiv:2602.23166）。描述最难的任务类别，以及前沿模型为什么仍然失败。
 

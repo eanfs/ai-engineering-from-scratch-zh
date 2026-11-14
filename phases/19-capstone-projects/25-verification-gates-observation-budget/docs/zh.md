@@ -3,7 +3,7 @@
 > 没有 verification layer 的 agent harness，就像披着风衣的愿望。这节课把决定权交给一条确定性的 gate chain：tool call 能不能发、模型最多能看多少输出、什么时候 loop 必须停，因为它已经读太多了。整条链由一组小而明确的 gate 加上一份 observation ledger 组成，ledger 负责记录模型看过的每一份 token。
 
 **类型：** Build
-**语言：** Python（stdlib）
+**语言：** Python（stdlib）、TypeScript
 **前置要求：** 第 19 阶段 · 20-24（Track A1：agent loop、tool registry、message store、prompt builder、model router），第 14 阶段 · 33（instructions as constraints），第 14 阶段 · 36（scope contracts），第 14 阶段 · 38（verification gates）
 **预计时间：** ~90 分钟
 
@@ -82,7 +82,7 @@ token counter 故意只用一个很蠢的 `len(text) // 4` 估算。重点是 ga
 
 ## 为什么 chain 顺序重要
 
-deny 总比 allow 便宜。`WhitelistGate` 是 O(1) 的哈希查找；`RegexGate` 是 O(pattern * argv)`；`RecencyGate` 要读 message store 的一小段；`BudgetGate` 要看整本 ledger。顺序应该按成本从低到高排，这样被拒绝的 call 会尽早短路，不会把昂贵逻辑白跑一遍。
+deny 总比 allow 便宜。`WhitelistGate` 是 $O(1)$ 的哈希查找；`RegexGate` 是 $O(\text{pattern} \cdot \text{argv})$`；`RecencyGate` 要读 message store 的一小段；`BudgetGate` 要看整本 ledger。顺序应该按成本从低到高排，这样被拒绝的 call 会尽早短路，不会把昂贵逻辑白跑一遍。
 
 顺序还应该按 blast radius 排。Whitelist 是最强约束：这个 tool 根本不在契约里。Regex 次之：这个参数形状不在契约里。Recency 再后：调用本身合法，但上下文窗口已经老了。Budget 放最后，因为它本质上只在前面都过了时才有意义。
 
@@ -95,6 +95,7 @@ deny 总比 allow 便宜。`WhitelistGate` 是 O(1) 的哈希查找；`RegexGate
 ```bash
 cd phases/19-capstone-projects/25-verification-gates-observation-budget
 python3 code/main.py
+npx tsx code/main.ts
 python3 -m pytest code/tests/ -v
 ```
 

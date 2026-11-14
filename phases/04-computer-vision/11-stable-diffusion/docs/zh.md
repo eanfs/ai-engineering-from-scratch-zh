@@ -55,8 +55,8 @@ flowchart LR
 
 朴素文本条件化为每个 prompt `c` 学 `epsilon_theta(x_t, t, c)`。CFG 用同一个网络训练，但 10% 的时候把 `c` 丢掉（换成空嵌入），得到一个同时预测条件和无条件噪声的单一模型。推理时：
 
-```
-eps = eps_uncond + w * (eps_cond - eps_uncond)
+```math
+\epsilon = \epsilon_{\text{uncond}} + w \cdot (\epsilon_{\text{cond}} - \epsilon_{\text{uncond}})
 ```
 
 `w` 是引导尺度。`w=0` 是无条件，`w=1` 是朴素条件，`w>1` 把输出推向"更受 prompt 约束"，代价是多样性。SD 默认 `w=7.5`。
@@ -235,7 +235,7 @@ for step, batch in enumerate(dataloader):
 
 - **模型家族**：SD 1.5 适合开源社区微调，SDXL 适合更高保真度，SD3 / FLUX 适合业界最强和严格的授权要求。
 - **调度器**：20-30 步用 DPM-Solver++ 2M Karras，延迟要在 1s 以内时用 LCM-LoRA。
-- **精度**：4080/4090 上用 `float16`，A100 及更新的用 `bfloat16`，显存紧张时用 `int8`（通过 `bitsandbytes` 或 `compel`）。
+- **精度**：4080/4090 上用 `float16`，A100 及更新的用 `bfloat16`，显存紧张时用 `int8`（通过 `bitsandbytes`）。
 - **条件化**：朴素文本可用；要更强的控制，在基座 pipeline 之上加 ControlNet（canny、depth、pose）。
 
 批量生成用社区工具 `AUTO1111` / `ComfyUI`；生产 API 用 `diffusers` + `accelerate`，或带 TensorRT 编译的 `optimum-nvidia`。

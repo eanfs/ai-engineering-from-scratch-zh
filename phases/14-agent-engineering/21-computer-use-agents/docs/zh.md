@@ -1,16 +1,16 @@
-# Computer Use：Claude、OpenAI CUA、Gemini
+# 计算机操作：Claude、OpenAI CUA、Gemini
 
 > 2026 年有三个生产级 computer-use 模型。三个都是基于视觉的。三个都把截图、DOM 文本和工具输出当成不可信输入。只有直接的用户指令才算授权。逐步安全服务是常态。
 
 **类型：** Learn
-**语言：** Python（标准库）
+**语言：** Python（标准库）、TypeScript
 **前置要求：** 阶段 14 · 20（WebArena、OSWorld）、阶段 14 · 27（Prompt Injection）
 **预计时间：** ~60 分钟
 
 ## 学习目标
 
 - 描述 Claude computer use：截图进，键鼠命令出，不用无障碍 API。
-- 说出三个模型在 OSWorld / WebArena / Online-Mind2Web 上的基准数字。
+- 回忆本课列出的发布时基准数字：OpenAI CUA 在 OSWorld / WebArena / WebVoyager 上的数据，以及 Gemini 2.5 Computer Use 在 Online-Mind2Web 上的数据。
 - 解释 Gemini 2.5 Computer Use 记录的逐步安全模式。
 - 总结三个模型都强制执行的「不可信输入」契约。
 
@@ -92,6 +92,7 @@ computer-use-cursor
 
 ```
 python3 code/main.py
+npx tsx code/main.ts
 ```
 
 输出展示安全分类器抓到 DOM 文本里一条注入的指令，并拦下一次未确认的购买。

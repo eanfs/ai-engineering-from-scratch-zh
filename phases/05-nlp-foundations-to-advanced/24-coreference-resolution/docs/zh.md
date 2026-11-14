@@ -3,7 +3,7 @@
 > "She called him. He did not answer. The doctor was at lunch." 三处指代两个人，谁都没被点名。共指消解弄清谁是谁。
 
 **类型：** Learn
-**语言：** Python
+**语言：** Python、TypeScript
 **前置要求：** Phase 5 · 06（NER）、Phase 5 · 07（词性与句法分析）
 **预计时间：** ~60 分钟
 
@@ -36,7 +36,7 @@
 **架构。**
 
 1. **基于规则（Hobbs，1978）。** 基于句法树、用语法规则做代词消解。好基线。在代词上出奇地难被打败。
-2. **提及对分类器。** 对每一对提及 (m_i, m_j)，预测它们是否共指。按传递闭包聚类。2016 年前的标准。
+2. **提及对分类器。** 对每一对提及 $(m_i, m_j)$，预测它们是否共指。按传递闭包聚类。2016 年前的标准。
 3. **提及排序。** 对每个提及，给候选先行词（包括"无先行词"）排序，挑最靠前的。
 4. **基于 span 的端到端（Lee et al., 2017）。** transformer 编码器。枚举所有不超过长度上限的候选 span。预测提及分数。为每个 span 预测先行词概率。贪心聚类。现代默认。
 5. **生成式（2024+）。** 给 LLM 下 prompt："List every pronoun in this text and its antecedent."。在简单情况上效果好，在长文档和罕见指称上吃力。
@@ -61,14 +61,14 @@ coref-links
 ```python
 import spacy
 nlp = spacy.load("en_coreference_web_trf")   # 实验性模型
-doc = nlp("Apple announced new products. The company said they would ship soon.")
+doc = nlp("Apple announced new products. The company said it would ship them soon.")
 for cluster in doc._.coref_clusters:
     print(cluster, "->", [m.text for m in cluster])
 ```
 
 在一篇更长的文档上，你会得到类似这样的东西：
-- 簇 1：[Apple, The company, they]
-- 簇 2：[new products]
+- 簇 1：[Apple, The company, it]
+- 簇 2：[new products, them]
 
 ### 第 2 步：基于规则的代词消解器（教学）
 

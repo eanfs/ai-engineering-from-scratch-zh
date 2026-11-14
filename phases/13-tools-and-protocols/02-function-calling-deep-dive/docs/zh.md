@@ -3,7 +3,7 @@
 > 三家前沿 provider 在 2024 年收敛到了同一个工具调用循环上，然后在其他一切上各自发散。OpenAI 用 `tools` 和 `tool_calls`。Anthropic 用 `tool_use` 和 `tool_result` block。Gemini 用 `functionDeclarations` 和唯一 id 关联。本课把三者并排做 diff，让在一家 provider 上跑通的代码，移植时不至于直接崩掉。
 
 **类型：** Build
-**语言：** Python（标准库，schema 翻译器）
+**语言：** Python、TypeScript（标准库，schema 翻译器）
 **前置要求：** 阶段 13 · 01（工具接口）
 **预计时间：** ~75 分钟
 
@@ -52,12 +52,12 @@ function-calling 请求的形状因 provider 而异。来自 2026 年生产栈�
 | 结果 block | 角色 `tool`，`tool_call_id` | 带 `tool_result` 的 `user`，`tool_use_id` | 带匹配 `id` 的 `functionResponse` |
 | 强制某工具 | `tool_choice: {type: "function", function: {name}}` | `tool_choice: {type: "tool", name}` | `tool_config: {function_calling_config: {mode: "ANY"}}` |
 | 禁止工具 | `tool_choice: "none"` | `tool_choice: {type: "none"}` | `mode: "NONE"` |
-| 严格 schema | `strict: true` | schema 即 schema（始终强制） | 请求层面的 `responseSchema` |
+| 严格 schema | `strict: true` | 每个工具定义可单独设 `strict: true`（选择启用） | 请求层面的 `responseSchema` |
 
 ### 你真的会撞上的上限
 
 - **OpenAI。** 每请求 128 个工具。schema 深度 5。参数字符串 <= 8192 字节。严格模式要求没有 `$ref`、没有重叠的 `oneOf`/`anyOf`/`allOf`、每个 property 都列进 `required`。
-- **Anthropic。** 每请求 64 个工具。schema 深度实际上无界但实用上限为 10。没有严格模式标志；schema 是一份契约，模型倾向于遵守。
+- **Anthropic。** 每请求 64 个工具。schema 深度实际上无界但实用上限为 10。每个工具定义都可选择启用 `strict: true`。未启用时，schema 只是模型倾向于遵守的契约，不是保证。
 - **Gemini。** 每请求 64 个 function。schema 类型是 OpenAPI 3.0 子集（与 JSON Schema 2020-12 略有分歧）。并行调用从 Gemini 3 起带唯一 id。
 
 ### `tool_choice` 行为
@@ -94,7 +94,7 @@ OpenAI 的 `parallel_tool_calls: true`（默认）在一条 assistant 消息里�
 
 - **OpenAI（非严格）。** 模型返回 `arguments: "{bad json}"`，你的 JSON 解析失败，你注入一条错误消息并重新调用。
 - **OpenAI（严格）。** 校验在解码期间发生；非法 JSON 不可能出现，但 `refusal` 可能出现。
-- **Anthropic。** `input` 可能含有意料之外的字段；schema 是建议性的。在服务端做校验。
+- **Anthropic（非严格模式）。** `input` 可能含有意料之外的字段；schema 是建议性的，要在服务端做校验。启用 `strict: true` 后，采样会受 schema 约束。
 - **Gemini。** OpenAPI 3.0 的怪癖：对象字段上的 `enum` 会被静默忽略；自己校验。
 
 ### 翻译器模式

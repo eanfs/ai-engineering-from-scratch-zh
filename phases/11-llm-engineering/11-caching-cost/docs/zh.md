@@ -3,7 +3,7 @@
 > 大多数 AI 创业公司不是死于糟糕的模型。它们死于糟糕的单位经济模型。一次 GPT-4o 调用只花零点几美分。一万个用户每天调十次，光输入 token 就花 $250——这还是在你收到第一美元之前。活下来的公司，是把每次 API 调用都当成一笔财务交易、而不是一次函数调用的那些。
 
 **类型：** Build
-**语言：** Python
+**语言：** Python、TypeScript
 **前置要求：** 阶段 11 第 09 课（Function Calling）
 **预计时间：** ~45 分钟
 **相关：** 阶段 11 · 15（Prompt Caching）——本课讲应用层缓存（语义缓存、精确哈希缓存、模型路由）。第 15 课讲 provider 层的 prompt caching（Anthropic cache_control、OpenAI 自动、Gemini CachedContent）。两者结合，成本能降 50-95%。
@@ -21,7 +21,7 @@
 
 然后账单来了。
 
-GPT-5 每百万输入 token $5，每百万输出 $15。Claude Opus 4.7 是输入 $15 / 输出 $75。Gemini 3 Pro 是输入 $1.25 / 输出 $5。GPT-5-mini 是 $0.25/$2。下面的价格仅作示意；永远以 provider 当前的定价页为准。
+GPT-5 每百万输入 token $1.25、每百万输出 $10。Claude Opus 4.7 是输入 $5 / 输出 $25。Gemini 3.1 Pro（prompt 不超过 200K token）是输入 $2 / 输出 $12。GPT-5-mini 是 $0.25/$2。下面的计算使用 GPT-4o（输入 $2.50 / 输出 $10）。价格仅作示意；请以 provider 当前的定价页为准。
 
 下面是那道弄死创业公司的数学题：
 
@@ -863,7 +863,7 @@ Batch API 对所有 token 给一律 50% 的折扣。结果在 24 小时内到达
 #     return None
 ```
 
-在生产里，把线性扫描换成一个向量索引（Redis Vector Search、Pinecone 或 pgvector）。线性扫描对 <1,000 条目有效。超过那个，用 ANN（近似最近邻）做 O(log n) 的查找。
+在生产里，把线性扫描换成一个向量索引（Redis Vector Search、Pinecone 或 pgvector）。线性扫描对 <1,000 条目有效。超过那个，用 ANN（近似最近邻）做 $O(\log n)$ 的查找。
 
 ## 拿去用
 

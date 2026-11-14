@@ -3,7 +3,7 @@
 > Chao、Robey、Dobriban、Hassani、Pappas、Wong（NeurIPS 2023, arXiv:2310.08419）。PAIR——Prompt Automatic Iterative Refinement——是经典的自动化黑盒越狱。一个带红队系统提示的攻击者 LLM，迭代地为目标 LLM 提议越狱方案，把尝试和响应累积进自己的对话历史，当作上下文反馈。PAIR 通常在 20 次查询内成功，比 GCG（Zou et al. 的 token 级梯度搜索）高效几个数量级，而且不需要白盒访问。如今 PAIR 已是 JailbreakBench（arXiv:2404.01318）和 HarmBench 里的标准基线，与 GCG、AutoDAN、TAP、Persuasive Adversarial Prompt 并列。
 
 **类型：** Build
-**语言：** Python（标准库，针对玩具目标的模拟 PAIR 循环）
+**语言：** Python、TypeScript（标准库，针对玩具目标的模拟 PAIR 循环）
 **前置要求：** 阶段 18 · 01（遵循指令）、阶段 14（智能体工程）
 **预计时间：** ~75 分钟
 
@@ -31,11 +31,11 @@
 
 循环，对 k 取 1..K：
 1. 用目标 G 和到目前为止的（提示, 响应）对历史来提示 A。
-2. A 产出一个新提示 p_k。
-3. 把 p_k 提交给 T；收到响应 r_k。
-4. J 就目标给 (p_k, r_k) 打分。
+2. A 产出一个新提示 $p_k$。
+3. 把 $p_k$ 提交给 T；收到响应 $r_k$。
+4. J 就目标给 $(p_k, r_k)$ 打分。
 5. 若分数 >= 阈值，停止——找到越狱。
-6. 否则，把 (p_k, r_k) 追加进 A 的历史；继续。
+6. 否则，把 $(p_k, r_k)$ 追加进 A 的历史；继续。
 
 实证结果（NeurIPS 2023）：对 GPT-3.5-turbo、Llama-2-7B-chat 的攻击成功率 >50%；到成功的平均查询数在 10-20 区间。
 

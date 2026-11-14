@@ -53,6 +53,7 @@ mlruns/
 *.bin
 *.h5
 .gstack/
+.lesson-screen/
 
 .link-cache.json
 # 本地 Claude 设置仍忽略；只发布认证导师 wrapper，让新 clone 能自动发现。
@@ -66,12 +67,15 @@ mlruns/
 !.claude/skills/find-your-level/**
 !.claude/skills/learn-agent-skills/
 !.claude/skills/learn-mcp/
+!.claude/skills/interview-prep/
+!.claude/skills/interview-prep/**
 # impeccable 工具的本地缓存/配置（config.json、hook.cache.json），任意层级，不入库
 .impeccable/
 
 # 由 site/build.js 在每次 Vercel 部署时生成（buildCommand）——不提交，
 # 以免漂移或丢 URL。每次从 PHASES 重新生成。
 site/sitemap.xml
+site/sitemap-*.xml
 site/llms.txt
 # 由 build.js 每次部署写入，记录本次部署的 git 分支（供 lesson.html 按分支拉取 docs）
 site/build-meta.js
@@ -86,6 +90,8 @@ generated/
 site/agent-pages/
 # 预渲染静态课程页（writeLessonPages 生成，523 个 index.html）——同款策略不提交
 site/lessons/
+# 预渲染项目页（writeProjectPages 生成）——同款策略不提交
+site/project/
 
 # scripts/build_catalog.py 的可再生产物；中文仓的发布与课数真相仍由
 # site/build.js 管理，因此忽略 catalog.json，避免误提交生成文件。
@@ -138,3 +144,38 @@ video-productions/handdraw-jobs/*/inputs/music.mp3
 .venv-handdraw/
 uv.toml
 video-productions/previews/
+# 主题速查表与关联索引由中文源生成。
+site/cheatsheets/
+site/cheatsheet-map.json
+!.claude/skills/blueprint-figure/
+!.claude/skills/blueprint-figure/**
+!.claude/skills/course-style/
+!.claude/skills/course-style/**
+!.claude/skills/isometric-explainer/
+!.claude/skills/isometric-explainer/**
+!.claude/skills/motion-figure/
+!.claude/skills/motion-figure/**
+!.claude/skills/write-manual/
+!.claude/skills/write-manual/**
+!.claude/skills/learn-reverse-engineering/
+!.claude/skills/learn-reverse-engineering/**
+!.claude/skills/course-guide/
+!.claude/skills/course-guide/**
+!.claude/skills/learn/
+!.claude/skills/learn/**
+!.claude/skills/lesson-screen/
+!.claude/skills/lesson-screen/**
+!.claude/skills/start-learning/
+!.claude/skills/start-learning/**
+!.claude/skills/build-project/
+!.claude/skills/build-project/**
+
+# 编程练习与手册章节由中文源构建。
+site/practice/
+site/practice-map.json
+site/manual/
+site/pagefind/
+site/lesson-code/
+site/interviews/
+site/interviews.json
+site/sitemap-interviews.xml

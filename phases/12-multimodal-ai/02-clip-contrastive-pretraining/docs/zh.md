@@ -3,7 +3,7 @@
 > OpenAI 的 CLIP（2021）证明了一个足以撑起后续五年的想法：只用嘈杂的网络图文对加一个对比损失，就能把图像编码器和文本编码器对齐到同一个向量空间。零监督标签。4 亿对。由此得到的嵌入空间能做零样本分类、图文检索，还能作为视觉塔插进每一个 2026 年的 VLM。SigLIP 2（2025）用 sigmoid 换掉 softmax，以更低的成本把规模推过了 CLIP。本节课把从 InfoNCE 到 sigmoid 成对损失的数学走一遍，并用纯标准库 Python 把训练步骤搭出来。
 
 **类型：** Build
-**语言：** Python（标准库，InfoNCE + sigmoid 损失实现）
+**语言：** Python、TypeScript（标准库，InfoNCE + sigmoid 损失实现）
 **前置要求：** Phase 12 · 01（ViT patch）、Phase 7（Transformers）
 **预计时间：** ~180 分钟
 
@@ -35,10 +35,10 @@ CLIP 有两座塔：
 
 两座塔都把输出归一化成单位长度。因为两边都是单位范数，相似度就是 `cos(f(x), g(y)) = f(x)^T g(y)`。
 
-对一批 N 个 (图像, caption) 对，构建形状为 `(N, N)` 的相似度矩阵 `S`：
+对一批 $N$ 个 (图像, caption) 对，构建形状为 `(N, N)` 的相似度矩阵 `S`：
 
-```
-S[i, j] = cos(f(x_i), g(y_j)) / tau
+```math
+S[i, j] = \cos(f(x_i), g(y_j)) / \tau
 ```
 
 其中 `tau` 是一个可学习的温度（CLIP 初始化为 0.07；在 log 空间里学）。
@@ -57,7 +57,7 @@ loss = (loss_i2t + loss_t2i) / 2
 
 ### 温度
 
-`tau` 控制 softmax 的锐度。tau 低 → 分布尖锐，有难负例挖掘的效果。tau 高 → 柔和，所有样本都贡献。CLIP 学的是 log(1/tau)，做了裁剪以防塌缩。SigLIP 2 固定初始 tau，改用一个可学习的偏置。
+`tau` 控制 softmax 的锐度。$\tau$ 低 → 分布尖锐，有难负例挖掘的效果。$\tau$ 高 → 柔和，所有样本都贡献。CLIP 学的是 $\log(1/\tau)$，做了裁剪以防塌缩。SigLIP 2 固定初始 $\tau$，改用一个可学习的偏置。
 
 ### 为什么 sigmoid 扩展得更好（SigLIP）
 
@@ -65,8 +65,8 @@ softmax 需要整个相似度矩阵保持同步。在分布式训练里，你必
 
 SigLIP 用逐元素的 sigmoid 换掉 softmax：对每一对 `(i, j)`，损失是一个"这两个是匹配对吗？"的二分类，正类标签是对角线，其余都是负类。损失为：
 
-```
-L = -1/N sum over (i, j) [ y_ij log sigmoid(S[i,j]) + (1-y_ij) log sigmoid(-S[i,j]) ]
+```math
+L = -\frac{1}{N} \sum_{(i, j)} \Big[ y_{ij} \log \mathop{\mathrm{sigmoid}}(S[i,j]) + (1-y_{ij}) \log \mathop{\mathrm{sigmoid}}(-S[i,j]) \Big]
 ```
 
 `i == j` 时 `y_ij = 1`，否则为 0。每一对的损失彼此独立。不需要 all-gather。每张 GPU 算自己的本地块再求和。SigLIP 2 能廉价地扩展到 batch 32k-512k，而 CLIP 在这里需要成比例增长的通信。
@@ -132,7 +132,7 @@ multimodal-fusion
 
 3. 为猫 vs 狗建一个零样本分类器。试两个 prompt 模板：`a photo of a {class}` 和 `a picture of a {class}`。在 100 张测试图上测准确率。模板集成是否胜过单模板？
 
-4. 算一下 512 张 GPU、batch 32k 下 softmax InfoNCE 与 sigmoid 成对损失的通信成本。哪个是 O(N)，哪个是 O(N^2)？引用 SigLIP 第 4 节。
+4. 算一下 512 张 GPU、batch 32k 下 softmax InfoNCE 与 sigmoid 成对损失的通信成本。哪个是 $O(N)$，哪个是 $O(N^2)$？引用 SigLIP 第 4 节。
 
 5. 读 OpenCLIP 缩放定律论文（arXiv:2212.07143，Cherti 等人）。从图里复现他们关于数据缩放的结论：在固定模型规模下，ImageNet 零样本准确率与训练数据规模之间是什么样的对数线性关系？
 

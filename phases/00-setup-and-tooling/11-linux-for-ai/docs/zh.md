@@ -1,4 +1,4 @@
-# Linux for AI
+# AI 开发中的 Linux
 
 > 大多数 AI 跑在 Linux 上。你得懂到不会被卡住的程度。
 
@@ -39,7 +39,7 @@ graph TD
 
 ## 核心命令
 
-这是覆盖你在远程 GPU 机器上 95% 操作的 15 个命令。
+下面 13 个命令覆盖了你在远程 GPU 机器上的大部分日常操作。
 
 ### 四处移动
 
@@ -305,3 +305,15 @@ s0-process-fork
 3. 启动一个 tmux 会话，在里面跑 `sleep 300`，分离，列出会话，再重新接上。
 4. 用 `df -h` 查可用磁盘空间，再用 `du -sh ~/.cache/*` 找出缓存里什么在占空间。
 5. 用 `scp` 把一个文件从本地传到远程，再用 `rsync` 做同样的传输，对比两者的体验。
+
+### 提示
+
+**练习 1。** 用 `cd ~`、`mkdir` 创建新文件夹并 `cd` 进入，然后对三个文件名执行 `touch`。在 `ls -la` 输出中，检查三个文件大小均为 0，所有者均为你的用户名。
+
+**练习 2。** 通过 `sudo apt install -y htop` 安装并启动 htop，按 `F6`（或点击列名）按 `MEM%` 排序。列表顶部的进程占用内存最多。
+
+**练习 3。** 按课程运行 `tmux new -s train`，启动 `sleep 300`，再按 `Ctrl+B`、`d` 脱离。用 `tmux ls` 查看会话，然后 `tmux attach -t train`；`sleep` 应仍在运行。
+
+**练习 4。** 运行 `df -h`，读取主目录所在文件系统的 `Avail` 列。再运行 `du -sh ~/.cache/* | sort -h`，最后一行就是最大的文件夹。
+
+**练习 5。** 先用 `scp file.txt user@host:~/` 复制文件，再对同一文件执行 `rsync -avP file.txt user@host:~/`。第二次执行 `rsync` 时几乎不传数据，因为远端文件未变。

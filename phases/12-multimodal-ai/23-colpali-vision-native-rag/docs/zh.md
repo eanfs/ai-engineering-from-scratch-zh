@@ -3,7 +3,7 @@
 > 传统 RAG 把 PDF 解析成文本、切成块、嵌入块、存向量。每一步都丢信号：OCR 丢掉图表数据，分块拆散表格行，文本嵌入无视图。ColPali（Faysse 等人，2024 年 7 月）问了个更简单的问题：为什么要抽文本？经 PaliGemma 直接嵌入页面图像，用 ColBERT 式的晚交互做检索，保留文档携带的所有版面、图、字体和格式信号。公布的基准：在视觉丰富的文档上端到端准确率比文本 RAG 高 20-40%。ColQwen2、ColSmol 和 VisRAG 拓展了这个模式。本节课通读视觉原生 RAG 论点，并搭一个微型 ColPali 式索引器。
 
 **类型：** Build
-**语言：** Python（标准库，多向量索引器 + MaxSim 打分器）
+**语言：** Python（标准库，多向量索引器 + MaxSim 打分器）、TypeScript
 **前置要求：** Phase 11（LLM 工程——RAG 基础）、Phase 12 · 05（LLaVA）
 **预计时间：** ~180 分钟
 
@@ -36,28 +36,28 @@ ColPali 的解法：跳过 OCR，直接嵌入页面图像。用 ColBERT 式晚�
 
 ColBERT（Khattab & Zaharia，arXiv:2004.12832）是一种文本检索方法。它不是每文档一个向量，而是每 token 一个向量。查询时：
 
-- 查询 token 拿到自己的嵌入（N_q 个向量）。
-- 文档 token 拿到嵌入（N_d 个向量，通常缓存）。
-- 分数 = 对每个查询 token，取它与文档 token 余弦相似度的最大值，再求和：Σ_i max_j cos(q_i, d_j)。
+- 查询 token 拿到自己的嵌入（$N_q$ 个向量）。
+- 文档 token 拿到嵌入（$N_d$ 个向量，通常缓存）。
+- 分数 = 对每个查询 token，取它与文档 token 余弦相似度的最大值，再求和：$\sum_i \max_j \cos(q_i, d_j)$。
 
 这就是 MaxSim 操作。每个查询 token "挑"它最匹配的文档 token。最终分数是求和。
 
-优点：召回强，处理词级语义。缺点：每文档 N_d 个向量，存储昂贵。
+优点：召回强，处理词级语义。缺点：每文档 $N_d$ 个向量，存储昂贵。
 
 ### ColPali
 
 ColPali（Faysse 等人，arXiv:2407.01449）把 ColBERT 模式应用到图像。
 
-- 每页被 PaliGemma（ViT + 语言）编码成 patch 嵌入：每页 N_p 个向量。
-- 每个用户查询（文本）被编码成查询 token 嵌入：N_q 个向量。
-- 分数 = Σ_i max_j cos(q_i, p_j)，即对查询文本 token 和页面图像 patch 做 MaxSim。
+- 每页被 PaliGemma（ViT + 语言）编码成 patch 嵌入：每页 $N_p$ 个向量。
+- 每个用户查询（文本）被编码成查询 token 嵌入：$N_q$ 个向量。
+- 分数 = $\sum_i \max_j \cos(q_i, p_j)$，即对查询文本 token 和页面图像 patch 做 MaxSim。
 - 按总分检索 top-k 页面。
 
 文档摄入时：用 PaliGemma 嵌入每页，存所有 patch 嵌入。查询时：嵌入查询 token，对所有存好的页面嵌入算 MaxSim，返回 top-k 页面。
 
 优点：在视觉丰富的文档上端到端比文本 RAG 高 20-40%。每个 patch 向量捕捉局部版面和内容。
 
-缺点：每页 N_p 个 patch × 4 字节浮点 × D 维向量 = 存储增长快。用 PQ / OPQ 量化缓解。
+缺点：每页 $N_p$ 个 patch × 4 字节浮点 × $D$ 维向量 = 存储增长快。用 PQ / OPQ 量化缓解。
 
 ### ColQwen2 与 ColSmol
 
@@ -95,10 +95,10 @@ ColPali-v1 在 ViDoRe 上拿到约 80% nDCG@5；同样文档上的文本 RAG 拿
 
 一份 50 页财务报告，每页 729 个 patch、128 维嵌入：
 
-- ColPali：50 * 729 * 128 * 4 字节 = 约 18 MB 原始，PQ 后约 4 MB。
+- ColPali：50 * 729 * 128 * 4 字节 = 约 18 MB 原始，经 8x PQ 后约 2.3 MB。
 - 文本 RAG：50 块 * 768 维 * 4 字节 = 约 150 kB。
 
-ColPali 每文档存储约多 30 倍。规模化时，OPQ / PQ 把它降到约 5-10 倍，通常可接受。
+ColPali 原始状态下每份文档存储约多 120 倍。规模化时，经 8x OPQ / PQ 可降到约 15 倍，通常可接受。
 
 ### 文本 RAG 仍取胜的情况
 
@@ -128,7 +128,7 @@ mm-maxsim
 
 1. 一份 200 页年报，每页 729 个 patch、128 维嵌入、4 字节浮点。算原始存储和 PQ 压缩（8 倍）后的存储。
 
-2. MaxSim 是 Σ_i max_j cos(q_i, p_j)。它捕捉到了什么是简单均值相似度做不到的？
+2. MaxSim 是 $\sum_i \max_j \cos(q_i, p_j)$。它捕捉到了什么是简单均值相似度做不到的？
 
 3. ColPali 把页面索引为 patch 集。如果我们改在词级索引（像 ColBERT 那样）会怎样？有什么取舍？
 
@@ -143,7 +143,7 @@ mm-maxsim
 | 晚交互 | "ColBERT 式" | 用逐 token 或逐 patch 嵌入 + MaxSim 检索，而非单个文档向量 |
 | MaxSim | "对 patch 取最大" | 对每个查询 token，挑相似度最高的文档 token；跨查询求和 |
 | 双编码器 | "单向量" | 每文档一个向量；更快但丢粒度 |
-| 多向量 | "每文档多向量" | 每文档 / 页面存 N_p 个向量；存储成本涨但召回提升 |
+| 多向量 | "每文档多向量" | 每文档 / 页面存 $N_p$ 个向量；存储成本涨但召回提升 |
 | patch 嵌入 | "页面特征" | 来自 VLM 编码器的每个图像 patch 一个向量，按页缓存 |
 | ViDoRe | "视觉文档基准" | ColPali 的视觉文档检索基准套件 |
 | PQ 量化 | "乘积量化" | 在保持向量相似度的同时把存储缩小约 8 倍的压缩 |

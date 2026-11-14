@@ -74,24 +74,26 @@ anchor 框先验（416x416 输入的例子）：
 
 原始的 `tx, ty, tw, th` 不是框坐标；它们是回归目标，画图前要先变换：
 
-```
-中心 x  = (sigmoid(tx) + cell_x) * stride
-中心 y  = (sigmoid(ty) + cell_y) * stride
-宽度    = anchor_w * exp(tw)
-高度    = anchor_h * exp(th)
+```math
+\begin{aligned}
+\text{中心 } x &= (\sigma(t_x) + \text{cell}_x) \cdot \text{stride} \\
+\text{中心 } y &= (\sigma(t_y) + \text{cell}_y) \cdot \text{stride} \\
+\text{width} &= \text{anchor}_w \cdot \exp(t_w) \\
+\text{height} &= \text{anchor}_h \cdot \exp(t_h)
+\end{aligned}
 ```
 
-`sigmoid` 把中心偏移量限制在单元内。`exp` 让宽度从 anchor 自由缩放而不会变号。`stride` 把网格坐标缩放回像素。这个解码步骤从 v2 起在每个 YOLO 版本里都一样。
+`encode` 把中心偏移存成 logit，也就是 `decode` 中 `sigmoid` 的反函数。裁剪让 logit 保持有限；如果中心恰好落在单元边缘，它最多移动 `1e-6` 个单元。`assign_targets` 也存相同的 logits，因此预测头和 `decode` 使用同一空间。`exp` 让宽度从 anchor 自由缩放而不会变号。`stride` 把网格坐标缩放回像素。
 
 ### IoU
 
 检测里两个框之间通用的相似度度量：
 
-```
-IoU(A, B) = area(A 交 B) / area(A 并 B)
+```math
+\mathrm{IoU}(A, B) = \frac{\mathop{\mathrm{area}}(A \cap B)}{\mathop{\mathrm{area}}(A \cup B)}
 ```
 
-IoU = 1 表示完全相同；IoU = 0 表示无重叠。预测和真值框之间的 IoU 决定了一个预测是否算真阳性（通常 IoU >= 0.5）。两个预测之间的 IoU 是 NMS 用来去重的。
+$\mathrm{IoU} = 1$ 表示完全相同；$\mathrm{IoU} = 0$ 表示无重叠。预测和真值框之间的 IoU 决定了一个预测是否算真阳性（通常 $\mathrm{IoU} \ge 0.5$）。两个预测之间的 IoU 是 NMS 用来去重的。
 
 ### 非极大值抑制
 
@@ -113,11 +115,13 @@ NMS(boxes, scores, iou_threshold):
 
 YOLO 损失是三个损失加权相加：
 
-```
-L = lambda_coord * L_box(pred, target, 在 obj=1 处)
-  + lambda_obj   * L_obj(pred, 1,     在 obj=1 处)
-  + lambda_noobj * L_obj(pred, 0,     在 obj=0 处)
-  + lambda_cls   * L_cls(pred, target, 在 obj=1 处)
+```math
+\begin{aligned}
+L = {} & \lambda_{\text{coord}} \cdot L_{\text{box}}(\text{pred}, \text{target}, \text{其中 obj}=1) \\
++ {} & \lambda_{\text{obj}} \cdot L_{\text{obj}}(\text{pred}, 1, \text{其中 obj}=1) \\
++ {} & \lambda_{\text{noobj}} \cdot L_{\text{obj}}(\text{pred}, 0, \text{其中 obj}=0) \\
++ {} & \lambda_{\text{cls}} \cdot L_{\text{cls}}(\text{pred}, \text{target}, \text{其中 obj}=1)
+\end{aligned}
 ```
 
 只有含物体的单元才对框回归和分类损失有贡献。不含物体的单元只对 objectness 损失有贡献（教模型保持沉默）。`lambda_noobj` 通常很小（约 0.5），因为绝大多数单元是空的，否则会主导总损失。
@@ -199,8 +203,10 @@ def encode(box_xyxy, cell_x, cell_y, stride, anchor_wh):
     cy = 0.5 * (y1 + y2)
     w = x2 - x1
     h = y2 - y1
-    tx = cx / stride - cell_x
-    ty = cy / stride - cell_y
+    off_x = np.clip(cx / stride - cell_x, 1e-6, 1 - 1e-6)
+    off_y = np.clip(cy / stride - cell_y, 1e-6, 1 - 1e-6)
+    tx = np.log(off_x / (1 - off_x))
+    ty = np.log(off_y / (1 - off_y))
     tw = np.log(w / anchor_wh[0] + 1e-8)
     th = np.log(h / anchor_wh[1] + 1e-8)
     return np.array([tx, ty, tw, th])
@@ -269,8 +275,10 @@ def assign_targets(boxes_xyxy, classes, anchors, stride, grid_size, num_classes)
         best = int(np.argmax(ious))
         aw, ah = anchors[best]
 
-        target[gy, gx, best, 0] = cx / stride - gx
-        target[gy, gx, best, 1] = cy / stride - gy
+        off_x = np.clip(cx / stride - gx, 1e-6, 1 - 1e-6)
+        off_y = np.clip(cy / stride - gy, 1e-6, 1 - 1e-6)
+        target[gy, gx, best, 0] = np.log(off_x / (1 - off_x))
+        target[gy, gx, best, 1] = np.log(off_y / (1 - off_y))
         target[gy, gx, best, 2] = np.log(bw / aw + 1e-8)
         target[gy, gx, best, 3] = np.log(bh / ah + 1e-8)
         target[gy, gx, best, 4] = 1.0
@@ -315,7 +323,7 @@ def yolo_loss(pred, target, has_obj, lambda_coord=5.0, lambda_obj=1.0, lambda_no
                    "obj_neg": loss_obj_neg.item(), "cls": loss_cls.item()}
 ```
 
-每个 YOLO 教程要么写死、要么扫一遍的五个超参数。比例很要紧：`lambda_coord=5, lambda_noobj=0.5` 沿用了原始 YOLOv1 论文，至今仍是个合理的默认值。
+每个 YOLO 教程要么写死、要么扫一遍的四个损失权重。比例很要紧：`lambda_coord=5, lambda_noobj=0.5` 符合原始 YOLOv1 论文，至今仍是个合理的默认值。
 
 ### 第 7 步：推理流水线
 
