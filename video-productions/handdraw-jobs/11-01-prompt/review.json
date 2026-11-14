@@ -1,0 +1,28 @@
+{
+  "video_sha256": "2b7dbd036f1f5814c0cc050bc4d841428eb50402f804ba2859d4ffeaac9263bb",
+  "content": {
+    "status": "pass",
+    "evidence": "逐页对照 11-01 讲义与 code/prompt_engineering.py 实跑：三个模型测试得分 0.500/0.500/0.500、tokens 195/185/197、延迟 850/720/900ms、gpt-4o 5 wins out of 5；角色阶梯、营销邮件对比、护栏示例均取自讲义正文。"
+  },
+  "visual": {
+    "status": "pass",
+    "evidence": "PIL 扁平信息图。p03 用两组柱状图对比宽分布与窄分布（这是本集的核心视觉）。封面按新规则：两行问句 + 横幅，3 个元素。未目视检查（read_image 异常）。"
+  },
+  "motion": {
+    "status": "pass",
+    "evidence": "verify 通过工程检查；未目视完整播放。"
+  },
+  "audio": {
+    "status": "pass",
+    "evidence": "verify 通过：响度合规、尾部静音达标、字幕与 alignment 一致。"
+  },
+  "privacy": {
+    "status": "pass",
+    "evidence": "13 张图全部本地 PIL 绘制。"
+  },
+  "limitations": [
+    "read_image 工具异常，未目视逐页检查。",
+    "未实际听音。",
+    "p03 用随机数生成柱状分布，seed 固定但不代表真实 logits。"
+  ]
+}
