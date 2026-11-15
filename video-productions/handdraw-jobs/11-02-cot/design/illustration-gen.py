@@ -13,6 +13,7 @@ import random
 import numpy as np
 
 W, H, S = 1600, 900, 2
+OUT_W, OUT_H = 2048, 1152  # 大画布：高于 1920x1080 视频分辨率，输出时缩小而非放大
 OUT = Path(__file__).resolve().parent.parent / "inputs"
 FONT = "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf"
 INK = (43, 47, 51)
@@ -148,7 +149,7 @@ class Sheet:
 
     def save(self, name):
         OUT.mkdir(parents=True, exist_ok=True)
-        image = self.img.resize((W, H), Image.LANCZOS)
+        image = self.img.resize((OUT_W, OUT_H), Image.LANCZOS)
         rgb = np.array(image.convert("RGB")).astype(int)
         diff = np.abs(rgb - np.array(PAPER)).max(axis=2)
         alpha = np.clip((diff - 2) / 10 * 255, 0, 255).astype(np.uint8)
@@ -460,19 +461,19 @@ def p12():
 
 # ---------------------------------------------------------------- cover (大画布 1920x1080)
 def cover():
-    base = Image.new("RGB", (1920, 1080), PAPER)
+    base = Image.new("RGB", (OUT_W, OUT_H), PAPER)
     d = ImageDraw.Draw(base)
-    title_font = ImageFont.truetype(FONT, 112)
-    sub_font = ImageFont.truetype(FONT, 62)
-    meta_font = ImageFont.truetype(FONT, 32)
-    d.text((120, 160), "加五个字", font=title_font, fill=INK, stroke_width=3, stroke_fill=INK)
-    d.text((120, 300), "78% → 91%", font=title_font, fill=INK, stroke_width=3, stroke_fill=INK)
-    d.text((120, 460), "思维链为什么管用", font=sub_font, fill=INK)
-    d.rectangle([120, 570, 700, 580], fill=INK)
-    d.text((120, 610), "11-02 · LLM Engineering", font=meta_font, fill=INK)
+    title_font = ImageFont.truetype(FONT, 120)
+    sub_font = ImageFont.truetype(FONT, 66)
+    meta_font = ImageFont.truetype(FONT, 34)
+    d.text((128, 170), "加五个字", font=title_font, fill=INK, stroke_width=3, stroke_fill=INK)
+    d.text((128, 320), "78% → 91%", font=title_font, fill=INK, stroke_width=3, stroke_fill=INK)
+    d.text((128, 490), "思维链为什么管用", font=sub_font, fill=INK)
+    d.rectangle([128, 608, 746, 619], fill=INK)
+    d.text((128, 650), "11-02 · LLM Engineering", font=meta_font, fill=INK)
     art = Image.open(OUT / "p01.png").convert("RGB")
-    art = art.resize((1040, 585), Image.LANCZOS)
-    base.paste(art, (800, 400))
+    art = art.resize((1109, 624), Image.LANCZOS)
+    base.paste(art, (853, 427))
     base.save(OUT / "cover.png")
     print("wrote", OUT / "cover.png")
 
