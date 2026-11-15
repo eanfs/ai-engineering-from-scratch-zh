@@ -162,110 +162,111 @@ class Sheet:
 # ---------------------------------------------------------------- p01
 def p01():
     s = Sheet(2111)
-    s.text(110, 60, "一万日活，每月账单 22500 美元", size=46)
-    s.box(110, 170, 700, 420, r=16, width=10, fill=PAPER)
-    s.text(405, 220, "每月 LLM 成本", size=30, anchor="mm")
-    s.text(405, 320, "$22,500", size=64, anchor="mm")
-    s.text(405, 390, "还只是语言模型", size=24, anchor="mm")
+    s.text(110, 60, "一万日活，月账单 22500 美元", size=44)
 
-    s.box(760, 170, 1490, 420, r=16, width=10, fill=YELLOW)
-    s.streaks((770, 180, 1480, 410), step=50, width=2)
-    s.text(1125, 220, "其中重复查询", size=30, anchor="mm", stroke=2)
-    s.text(1125, 320, "40% 到 60%", size=56, anchor="mm", stroke=2)
-    s.text(1125, 390, "你在为同一份计算付好几次钱", size=24, anchor="mm", stroke=2)
+    s.box(110, 170, 720, 470, r=20, width=11, fill=PAPER)
+    s.text(415, 225, "每月成本", size=36, anchor="mm")
+    s.text(415, 340, "$22,500", size=64, anchor="mm")
+    s.text(415, 425, "还只是语言模型", size=30, anchor="mm")
 
-    s.line([(110, 490), (1490, 490)], width=7)
-    s.text(110, 535, "大多数 AI 创业公司不是死于糟糕的模型", size=34)
-    s.text(110, 610, "是死于糟糕的单位经济", size=38)
-    s.text(110, 690, "这一课讲怎么把账单砍掉七成", size=32)
+    s.box(780, 170, 1490, 470, r=20, width=11, fill=YELLOW)
+    s.streaks((790, 180, 1480, 460), step=56, width=3)
+    s.text(1135, 225, "其中重复查询", size=36, anchor="mm", stroke=2)
+    s.text(1135, 340, "40% - 60%", size=60, anchor="mm", stroke=2)
+    s.text(1135, 425, "同一份计算付好几次", size=30, anchor="mm", stroke=2)
+
+    s.text(110, 550, "不是死于糟糕的模型", size=44)
+    s.text(110, 630, "是死于糟糕的单位经济", size=50)
+    s.text(110, 740, "这一课把账单砍掉七成", size=42)
     s.save("p01")
 
 
 # ---------------------------------------------------------------- p02
 def p02():
     s = Sheet(2112)
-    s.text(110, 70, "缓存、限流与成本优化", size=56)
-    s.text(110, 165, "阶段 11 · 第 11 课", size=34)
-    s.line([(110, 240), (1490, 240)], width=9)
-    s.text(110, 285, "七层优化，按顺序叠加：", size=34)
-    layers = ["1  provider prompt 缓存", "2  精确缓存（哈希）", "3  语义缓存（向量）",
-              "4  模型路由（贵 vs 便宜）", "5  限流与配额", "6  prompt 压缩", "7  批处理"]
+    s.text(110, 70, "缓存、限流与成本优化", size=58)
+    s.text(110, 165, "阶段 11 · 第 11 课", size=36)
+    s.line([(110, 250), (1490, 250)], width=10)
+
+    s.text(110, 300, "七层优化，按顺序叠加", size=44)
+    layers = ["prompt 缓存", "精确缓存", "语义缓存", "模型路由", "限流配额"]
     for i, name in enumerate(layers):
-        y = 370 + i * 68
-        s.box(110, y, 1490, y + 56, r=10, width=6,
-              fill=YELLOW if i < 5 else PAPER)
-        if i < 5:
-            s.streaks((120, y + 6, 1480, y + 50), step=44, width=2)
-        s.text(160, y + 28, name, size=24, anchor="lm", stroke=2 if i < 5 else 0)
-    s.text(800, 850, "前五层通常能把成本降 70% 以上", size=26, anchor="mm")
+        y = 400 + i * 95
+        s.box(110, y, 1490, y + 78, r=14, width=9,
+              fill=YELLOW if i < 3 else PAPER)
+        if i < 3:
+            s.streaks((120, y + 6, 1480, y + 72), step=44, width=3)
+        s.text(180, y + 39, name, size=38, anchor="lm", stroke=2 if i < 3 else 0)
+
+    s.text(800, 900, "前三层通常就能砍掉一半", size=36, anchor="mm")
     s.save("p02")
 
 
 # ---------------------------------------------------------------- p03
 def p03():
     s = Sheet(2113)
-    s.text(110, 55, "一次调用有五个成本组成部分", size=42)
-    parts = [("system prompt", "500 - 2000 token", "每个请求都一样", YELLOW),
-             ("检索上下文", "500 - 4000 token", "同话题用户反复出现", YELLOW),
-             ("用户消息", "50 - 500 token", "真正独有的部分", PAPER)]
-    for i, (name, size_, note, fill) in enumerate(parts):
-        y = 160 + i * 175
-        s.box(110, y, 1490, y + 145, r=14, width=9, fill=fill)
-        if fill == YELLOW:
-            s.streaks((120, y + 8, 1480, y + 137), step=48, width=2)
-        s.text(160, y + 45, name, size=30, anchor="lm", stroke=2 if fill == YELLOW else 0)
-        s.text(160, y + 100, size_, size=26, anchor="lm", stroke=2 if fill == YELLOW else 0)
-        s.text(1400, y + 72, note, size=24, anchor="rm", stroke=2 if fill == YELLOW else 0)
+    s.text(110, 55, "一次调用的成本构成", size=50)
 
-    s.text(110, 720, "前两部分占了大头，而且每个请求都在重复发送", size=30)
-    s.text(110, 800, "真正的独有信息，只有用户那一句", size=30)
+    parts = [("system prompt", "每个请求都一样", YELLOW),
+             ("检索上下文", "同话题反复出现", YELLOW),
+             ("用户消息", "真正独有的", PAPER)]
+    for i, (name, note, fill) in enumerate(parts):
+        y = 160 + i * 190
+        s.box(110, y, 1490, y + 155, r=20, width=10, fill=fill)
+        if fill == YELLOW:
+            s.streaks((120, y + 8, 1480, y + 147), step=54, width=3)
+        s.text(180, y + 55, name, size=42, anchor="lm", stroke=2 if fill == YELLOW else 0)
+        s.text(180, y + 118, note, size=32, anchor="lm", stroke=2 if fill == YELLOW else 0)
+
+    s.text(110, 800, "前两部分占大头，而且每次都重复发", size=36)
     s.save("p03")
 
 
 # ---------------------------------------------------------------- p04
 def p04():
     s = Sheet(2114)
-    s.text(110, 55, "system prompt 是无声的杀手", size=42)
-    s.text(110, 130, "假设 system prompt 是 1500 token：", size=30)
-    rows = [("100 万次请求", "$3.75", "光这个前缀"),
-            ("一天 10 万请求", "$375/天", "同一天的重复"),
-            ("一个月", "$11,250", "为一段从不改变的文字")]
-    for i, (a, b, c) in enumerate(rows):
-        y = 200 + i * 130
+    s.text(110, 55, "system prompt 是无声杀手", size=46)
+    s.text(110, 135, "假设它是 1500 token", size=40)
+
+    rows = [("100 万次请求", "$3.75"),
+            ("一天 10 万请求", "$375"),
+            ("一个月", "$11,250")]
+    for i, (a, b) in enumerate(rows):
+        y = 220 + i * 160
         hot = i == 2
-        s.box(110, y, 1490, y + 110, r=14, width=9,
+        s.box(110, y, 1490, y + 135, r=20, width=10,
               fill=YELLOW if hot else PAPER)
         if hot:
-            s.streaks((120, y + 8, 1480, y + 102), step=48, width=2)
-        s.text(160, y + 55, a, size=30, anchor="lm", stroke=2 if hot else 0)
-        s.text(700, y + 55, b, size=36, anchor="lm", stroke=2 if hot else 0)
-        s.text(1100, y + 55, c, size=24, anchor="lm", stroke=2 if hot else 0)
+            s.streaks((120, y + 8, 1480, y + 127), step=52, width=3)
+        s.text(180, y + 67, a, size=38, anchor="lm", stroke=2 if hot else 0)
+        s.text(1000, y + 67, b, size=48, anchor="lm", stroke=2 if hot else 0)
 
-    s.line([(110, 640), (1490, 640)], width=7)
-    s.text(110, 680, "这段文字你从来没改过，但每次都付全价", size=32)
-    s.text(110, 755, "provider 缓存就是为这个场景设计的", size=32)
+    s.line([(110, 730), (1490, 730), ], width=9)
+    s.text(110, 775, "这段文字你从没改过", size=42)
+    s.text(110, 855, "但每次都付全价", size=44)
     s.save("p04")
 
 
 # ---------------------------------------------------------------- p05
 def p05():
     s = Sheet(2115)
-    s.text(110, 55, "三家厂商的 prompt 缓存，机制不同", size=40)
-    rows = [("Anthropic", "显式 cache_control 标记", "省 90%", "写入多付 25%", YELLOW),
-            ("OpenAI", "自动前缀匹配", "省 50%", "零实现成本", PAPER),
-            ("Gemini", "显式 CachedContent", "省 75%", "外加存储费", PAPER)]
-    for i, (name, mech, save, cost, fill) in enumerate(rows):
-        y = 160 + i * 170
-        s.box(110, y, 1490, y + 140, r=14, width=9, fill=fill)
-        if fill == YELLOW:
-            s.streaks((120, y + 8, 1480, y + 132), step=48, width=2)
-        s.text(160, y + 42, name, size=32, anchor="lm", stroke=2 if fill == YELLOW else 0)
-        s.text(160, y + 96, mech, size=24, anchor="lm", stroke=2 if fill == YELLOW else 0)
-        s.text(900, y + 42, save, size=34, anchor="lm", stroke=2 if fill == YELLOW else 0)
-        s.text(1200, y + 96, cost, size=22, anchor="lm", stroke=2 if fill == YELLOW else 0)
+    s.text(110, 55, "三家厂商的缓存折扣", size=48)
 
-    s.text(110, 700, "折扣从 50% 到 90%，但都要求「前缀完全相同」", size=28)
-    s.text(110, 780, "不同问法的相同意图，就要靠下一层的语义缓存", size=30)
+    rows = [("Anthropic", "显式标记", "省 90%", YELLOW),
+            ("OpenAI", "自动前缀", "省 50%", PAPER),
+            ("Gemini", "显式缓存", "省 75%", PAPER)]
+    for i, (name, mech, save, fill) in enumerate(rows):
+        y = 160 + i * 175
+        s.box(110, y, 1490, y + 145, r=20, width=10, fill=fill)
+        if fill == YELLOW:
+            s.streaks((120, y + 8, 1480, y + 137), step=52, width=3)
+        s.text(180, y + 48, name, size=42, anchor="lm", stroke=2 if fill == YELLOW else 0)
+        s.text(180, y + 108, mech, size=30, anchor="lm", stroke=2 if fill == YELLOW else 0)
+        s.text(1400, y + 72, save, size=46, anchor="rm", stroke=2 if fill == YELLOW else 0)
+
+    s.line([(110, 720), (1490, 720), ], width=9)
+    s.text(110, 765, "都要求前缀完全相同", size=42)
+    s.text(110, 845, "不同问法要靠语义缓存", size=38)
     s.save("p05")
 
 
@@ -274,195 +275,191 @@ def p06():
     s = Sheet(2116)
     s.text(110, 55, "语义缓存：不同问法，同一意图", size=42)
 
-    s.box(110, 150, 700, 250, r=12, width=8, fill=PAPER)
-    s.text(405, 200, "退货政策是什么", size=28, anchor="mm")
-    s.box(110, 280, 700, 380, r=12, width=8, fill=PAPER)
-    s.text(405, 330, "我怎么退货", size=28, anchor="mm")
-    s.arrow(730, 265, 800, 265, width=9)
-    s.text(765, 235, "嵌入", size=22, anchor="mb")
+    s.box(110, 150, 660, 250, r=18, width=10, fill=PAPER)
+    s.text(385, 200, "退货政策是什么", size=32, anchor="mm")
+    s.box(110, 290, 660, 390, r=18, width=10, fill=PAPER)
+    s.text(385, 340, "我怎么退货", size=32, anchor="mm")
+    s.arrow(690, 270, 780, 270, width=10)
+    s.text(735, 240, "嵌入", size=30, anchor="mb")
 
-    s.box(820, 150, 1490, 380, r=14, width=9, fill=PAPER)
-    s.text(860, 190, "算余弦相似度：", size=26)
-    s.text(860, 260, "0.96  >  0.95", size=40)
-    s.text(860, 335, "超过阈值 → 直接返回缓存", size=26)
+    s.box(800, 150, 1490, 390, r=20, width=11, fill=YELLOW)
+    s.streaks((810, 160, 1480, 380), step=54, width=3)
+    s.text(1145, 210, "余弦相似度", size=36, anchor="mm", stroke=2)
+    s.text(1145, 300, "0.96 > 0.95", size=50, anchor="mm", stroke=2)
+    s.text(1145, 360, "直接返回缓存", size=30, anchor="mm", stroke=2)
 
-    s.line([(110, 460), (1490, 460)], width=7)
-    s.text(110, 495, "嵌入成本可以忽略：每百万 token 两美分", size=30)
-    s.text(110, 565, "和一次完整调用相比，查缓存几乎不花钱", size=30)
-    s.text(110, 640, "实测命中率 52%，这一层就把账单砍掉一半", size=32)
-    s.text(110, 720, "而它新增的嵌入成本，一小时就赚回来了", size=28)
+    s.line([(110, 470), (1490, 470)], width=9)
+    s.text(110, 515, "嵌入成本每百万 token 两美分", size=40)
+    s.text(110, 600, "查缓存几乎不花钱", size=42)
+    s.text(110, 690, "实测命中 52%，账单砍一半", size=42)
     s.save("p06")
 
 
 # ---------------------------------------------------------------- p07
 def p07():
     s = Sheet(2117)
-    s.text(110, 55, "精确缓存：哈希匹配，最简单也最快", size=40)
+    s.text(110, 55, "精确缓存：哈希匹配", size=50)
 
-    s.box(110, 160, 1490, 260, r=12, width=8, fill=YELLOW)
-    s.streaks((120, 170, 1480, 250), step=44, width=2)
-    s.text(800, 210, "hash(prompt) → 查表 → 命中返回", size=34, anchor="mm", stroke=2)
+    s.box(110, 160, 1490, 290, r=18, width=10, fill=YELLOW)
+    s.streaks((120, 170, 1480, 280), step=52, width=3)
+    s.text(800, 225, "hash(prompt) → 查表 → 命中", size=42, anchor="mm", stroke=2)
 
-    s.text(110, 320, "三种场景完美适用：", size=30)
-    cases = ["固定 system prompt + 固定上下文 + 完全相同的查询",
-             "带相同工具定义的 function calling",
-             "同一份文档被反复处理的批处理"]
+    s.text(110, 350, "三种场景完美适用", size=42)
+    cases = ["固定 prompt + 固定上下文", "相同工具定义的调用", "同一文档反复处理"]
     for i, c in enumerate(cases):
-        y = 390 + i * 85
-        s.check(140, y + 30, r=16, width=8)
-        s.text(185, y + 30, c, size=26, anchor="lm")
+        y = 450 + i * 105
+        s.check(150, y + 30, r=20, width=10)
+        s.text(215, y + 30, c, size=36, anchor="lm")
 
-    s.line([(110, 680), (1490, 680)], width=7)
-    s.text(110, 715, "它比语义缓存简单一个数量级", size=32)
-    s.text(110, 790, "没有向量库、没有阈值调参、没有误命中", size=30)
-    s.text(110, 860, "代价是只能命中「一个字都不差」的请求", size=28)
+    s.line([(110, 790), (1490, 790), ], width=9)
+    s.text(110, 835, "比语义缓存简单一个数量级", size=40)
+    s.text(110, 915, "代价是只能命中「一字不差」", size=36)
     s.save("p07")
 
 
 # ---------------------------------------------------------------- p08
 def p08():
     s = Sheet(2118)
-    s.text(110, 55, "模型路由：不是每个查询都要大模型", size=40)
+    s.text(110, 55, "模型路由：不是每个都要大模型", size=42)
 
-    s.box(400, 130, 1200, 220, r=12, width=8, fill=PAPER)
-    s.text(800, 175, "复杂度分类器", size=30, anchor="mm")
+    s.box(400, 140, 1200, 250, r=18, width=10, fill=PAPER)
+    s.text(800, 195, "复杂度分类器", size=42, anchor="mm")
 
-    branches = [("简单：查询、FAQ", "gpt-4o-mini  $0.15/$0.60", 65, YELLOW),
-                ("中等：分析、摘要", "claude-sonnet  $3/$15", 27, PAPER),
-                ("复杂：推理、代码", "gpt-4o  $2.50/$10", 8, PAPER)]
+    branches = [("简单", "mini", "65%", YELLOW),
+                ("中等", "sonnet", "27%", PAPER),
+                ("复杂", "gpt-4o", "8%", PAPER)]
     for i, (label, model, pct, fill) in enumerate(branches):
         x = 140 + i * 480
-        s.arrow(800, 230, x + 150, 300, width=8)
-        s.box(x, 310, x + 380, 440, r=12, width=9, fill=fill)
+        s.arrow(800, 260, x + 150, 320, width=9)
+        s.box(x, 330, x + 380, 500, r=18, width=10, fill=fill)
         if fill == YELLOW:
-            s.streaks((x + 8, 318, x + 372, 432), step=44, width=2)
-        s.text(x + 190, 350, label, size=24, anchor="mm", stroke=2 if fill == YELLOW else 0)
-        s.text(x + 190, 395, model, size=22, anchor="mm", stroke=2 if fill == YELLOW else 0)
-        s.text(x + 190, 425, f"{pct}%", size=26, anchor="mm", stroke=2 if fill == YELLOW else 0)
+            s.streaks((x + 10, 340, x + 370, 490), step=46, width=3)
+        s.text(x + 190, 375, label, size=36, anchor="mm", stroke=2 if fill == YELLOW else 0)
+        s.text(x + 190, 435, model, size=32, anchor="mm", stroke=2 if fill == YELLOW else 0)
+        s.text(x + 190, 480, pct, size=38, anchor="mm", stroke=2 if fill == YELLOW else 0)
 
-    s.line([(110, 490), (1490, 490)], width=7)
-    s.text(110, 525, "实测：65% 的查询可以走 mini", size=36)
-    s.text(110, 595, "光这一项就省 40% 到 70% 的模型成本", size=30)
-    s.text(110, 670, "关键是分类器要准，误判会比不做路由更贵", size=28)
-    s.text(110, 745, "对了省一半，错了既贵又慢", size=30)
+    s.line([(110, 560), (1490, 560)], width=9)
+    s.text(110, 605, "65% 的查询可以走 mini", size=46)
+    s.text(110, 690, "光这一项省 40-70%", size=42)
+    s.text(110, 780, "分类器要准，误判更贵", size=38)
     s.save("p08")
 
 
 # ---------------------------------------------------------------- p09
 def p09():
     s = Sheet(2119)
-    s.text(110, 55, "限流：不只是公平，是生存", size=42)
+    s.text(110, 55, "限流：不只是公平，是生存", size=46)
 
-    s.text(110, 130, "令牌桶：每人一个桶，按速率回填", size=30)
-    s.box(110, 200, 1490, 300, r=12, width=8, fill=PAPER)
-    s.text(800, 250, "桶容量 N 个令牌 · 每秒回填 R 个", size=32, anchor="mm")
+    s.text(110, 135, "令牌桶：每人一个桶，按速率回填", size=38)
+    s.box(110, 220, 1490, 330, r=18, width=10, fill=PAPER)
+    s.text(800, 275, "容量 N · 每秒回填 R", size=40, anchor="mm")
 
-    rows = [("等级", "每日 token", "每分钟请求", "模型访问"),
-            ("免费", "50,000", "10", "仅 mini"),
-            ("专业", "500,000", "60", "mini + sonnet"),
-            ("企业", "5,000,000", "300", "全部")]
-    for i, (a, b, c, d) in enumerate(rows):
-        y = 340 + i * 90
-        s.box(90, y, 1470, y + 74, r=10, width=7,
+    rows = [("等级", "每日 token", "每分钟"),
+            ("免费", "50,000", "10"),
+            ("专业", "500,000", "60"),
+            ("企业", "5,000,000", "300")]
+    for i, (a, b, c) in enumerate(rows):
+        y = 390 + i * 105
+        s.box(90, y, 1470, y + 88, r=14, width=9,
               fill=METAL if i == 0 else PAPER)
-        for j, v in enumerate([a, b, c, d]):
-            s.text(140 + j * 320, y + 37, v, size=26, anchor="lm")
+        for j, v in enumerate([a, b, c]):
+            s.text(180 + j * 440, y + 44, v, size=36 if i else 32, anchor="lm")
 
-    s.text(110, 730, "没有限流，一个爬虫就能把你的月度预算跑光", size=30)
-    s.text(110, 810, "令牌桶允许突发，同时强制平均速率", size=30)
+    s.text(110, 820, "没有限流，一个爬虫跑光预算", size=40)
     s.save("p09")
 
 
 # ---------------------------------------------------------------- p10
 def p10():
     s = Sheet(2120)
-    s.text(110, 55, "预算三档告警与熔断器", size=44)
+    s.text(110, 55, "预算三档告警", size=50)
 
-    levels = [("70%", "发告警", "还能继续跑", PAPER),
-              ("85%", "切便宜模型", "自动降级", YELLOW),
-              ("95%", "拒绝新请求", "只返回缓存", INK)]
-    for i, (pct, action, note, fill) in enumerate(levels):
-        y = 170 + i * 180
-        s.box(110, y, 1490, y + 150, r=14, width=9, fill=fill)
+    levels = [("70%", "发告警", PAPER),
+              ("85%", "切便宜模型", YELLOW),
+              ("95%", "拒绝新请求", INK)]
+    for i, (pct, action, fill) in enumerate(levels):
+        y = 170 + i * 190
+        s.box(110, y, 1490, y + 160, r=20, width=10, fill=fill)
         if fill == YELLOW:
-            s.streaks((120, y + 8, 1480, y + 142), step=48, width=2)
-        txt_fill = PAPER if fill == INK else INK
-        s.text(200, y + 60, pct, size=48, anchor="lm", fill=txt_fill)
-        s.text(420, y + 55, action, size=34, anchor="lm", fill=txt_fill)
-        s.text(420, y + 110, note, size=24, anchor="lm", fill=txt_fill)
+            s.streaks((120, y + 8, 1480, y + 152), step=54, width=3)
+        txt = PAPER if fill == INK else INK
+        s.text(220, y + 80, pct, size=64, anchor="lm", fill=txt)
+        s.text(500, y + 80, action, size=44, anchor="lm", fill=txt)
 
-    s.line([(110, 720), (1490, 720), ], width=7)
-    s.text(110, 755, "没有熔断器，一个 bug 能在几小时内烧穿整月预算", size=30)
-    s.text(110, 830, "三档阈值是最小可用配置", size=32)
+    s.line([(110, 750), (1490, 750), ], width=9)
+    s.text(110, 795, "没有熔断器，一个 bug 烧穿预算", size=38)
+    s.text(110, 875, "三档是最小可用配置", size=40)
     s.save("p10")
 
 
 # ---------------------------------------------------------------- p11
 def p11():
     s = Sheet(2121)
-    s.text(110, 55, "实测：优化前后对比", size=44)
+    s.text(110, 55, "实测：优化前后", size=50)
 
-    rows = [("指标", "优化前", "优化后", "变化"),
-            ("总成本", "$0.0291", "$0.0095", "-67.3%"),
-            ("每次调用", "$0.0029", "$0.0010", "-67.3%"),
-            ("月账单（1 万日活）", "$22,500", "$5,380", "-76%"),
-            ("P95 延迟", "2800ms", "900ms", "-68%")]
-    for i, (a, b, c, d) in enumerate(rows):
-        y = 150 + i * 100
+    rows = [("指标", "优化前", "优化后"),
+            ("总成本", "$0.029", "$0.0095"),
+            ("每次调用", "$0.0029", "$0.0010"),
+            ("月账单", "$22,500", "$5,380"),
+            ("P95 延迟", "2800ms", "900ms")]
+    for i, (a, b, c) in enumerate(rows):
+        y = 150 + i * 115
         hot = i == 3
-        s.box(90, y, 1470, y + 84, r=10, width=7,
+        s.box(90, y, 1470, y + 98, r=14, width=9,
               fill=YELLOW if hot else (METAL if i == 0 else PAPER))
         if hot:
-            s.streaks((100, y + 8, 1460, y + 76), step=44, width=2)
-        for j, v in enumerate([a, b, c, d]):
-            s.text(140 + j * 340, y + 42, v, size=26 if j else 24, anchor="lm",
+            s.streaks((100, y + 8, 1460, y + 90), step=48, width=3)
+        for j, v in enumerate([a, b, c]):
+            s.text(180 + j * 440, y + 49, v, size=38 if j else 32, anchor="lm",
                    stroke=2 if hot else 0)
 
-    s.text(110, 700, "七层优化全叠上，月账单从两万二降到五千三", size=32)
-    s.text(110, 775, "语义缓存的嵌入成本每月 180 美元，一小时就赚回来", size=28)
-    s.text(110, 850, "这就是活下来和烧光跑道的差别", size=32)
+    s.line([(110, 740), (1490, 740), ], width=9)
+    s.text(110, 785, "省 67.3%，月账单降到 5380", size=42)
+    s.text(110, 865, "嵌入成本一小时赚回来", size=38)
     s.save("p11")
 
 
 # ---------------------------------------------------------------- p12
 def p12():
     s = Sheet(2122)
-    s.text(110, 55, "你的产品现在用了几层缓存？", size=44)
+    s.text(110, 55, "你的产品用了几层缓存？", size=48)
 
-    opts = [("语义缓存", "命中率最高，要调阈值", YELLOW),
-            ("模型路由", "省 40-70%，要准的分类器", PAPER),
-            ("熔断器", "保命，但平时看不出效果", PAPER)]
+    opts = [("语义缓存", "命中最高，要调阈值", YELLOW),
+            ("模型路由", "省 40-70%，要准", PAPER),
+            ("熔断器", "保命，平时看不出", PAPER)]
     for i, (name, note, fill) in enumerate(opts):
-        y = 170 + i * 150
-        s.box(110, y, 1490, y + 120, r=14, width=9, fill=fill)
+        y = 170 + i * 155
+        s.box(110, y, 1490, y + 130, r=18, width=10, fill=fill)
         if fill == YELLOW:
-            s.streaks((120, y + 8, 1480, y + 112), step=46, width=2)
-        s.text(180, y + 60, name, size=34, anchor="lm", stroke=2 if fill == YELLOW else 0)
-        s.text(660, y + 60, note, size=26, anchor="lm", stroke=2 if fill == YELLOW else 0)
+            s.streaks((120, y + 8, 1480, y + 122), step=50, width=3)
+        s.text(200, y + 65, name, size=40, anchor="lm", stroke=2 if fill == YELLOW else 0)
+        s.text(700, y + 65, note, size=32, anchor="lm", stroke=2 if fill == YELLOW else 0)
 
-    s.line([(110, 640), (1490, 640), ], width=7)
-    s.text(110, 675, "顺序建议：先加 provider 缓存，再上精确缓存", size=30)
-    s.text(110, 745, "语义缓存和路由要等你有真实流量再调", size=30)
+    s.text(110, 700, "先加 provider 缓存和精确缓存", size=40)
+    s.text(110, 790, "语义和路由要等真实流量再调", size=38)
 
-    s.box(110, 810, 1490, 870, r=12, width=8, fill=PAPER)
-    s.text(800, 840, "下一集：护栏与内容过滤", size=28, anchor="mm")
+    s.box(110, 850, 1490, 930, r=14, width=9, fill=PAPER)
+    s.text(800, 890, "下一集：护栏与内容过滤", size=34, anchor="mm")
     s.save("p12")
 
 
-# ---------------------------------------------------------------- cover
+# ---------------------------------------------------------------- cover (大画布 1920x1080)
 def cover():
-    s = Sheet(2100)
-    s.text(110, 80, "同一句话，为什么收两次钱？", size=52)
-    s.line([(110, 220), (1490, 220)], width=10)
-    s.text(110, 275, "一万日活的 AI 产品，月账单 22500 美元", size=34)
-
-    s.box(110, 380, 1490, 640, r=20, width=11, fill=YELLOW)
-    s.streaks((120, 390, 1480, 630), step=56, width=3)
-    s.text(800, 470, "其中 40%-60% 是重复查询", size=46, anchor="mm", stroke=2)
-    s.text(800, 570, "优化后降到 5380 美元", size=44, anchor="mm", stroke=2)
-
-    s.text(110, 730, "缓存、路由、限流，七层把成本砍七成", size=34)
-    s.save("cover")
+    base = Image.new("RGB", (1920, 1080), PAPER)
+    d = ImageDraw.Draw(base)
+    title_font = ImageFont.truetype(FONT, 112)
+    sub_font = ImageFont.truetype(FONT, 62)
+    meta_font = ImageFont.truetype(FONT, 32)
+    d.text((120, 160), "同一句话", font=title_font, fill=INK, stroke_width=3, stroke_fill=INK)
+    d.text((120, 300), "收两次钱", font=title_font, fill=INK, stroke_width=3, stroke_fill=INK)
+    d.text((120, 460), "一万日活的月账单 22500 美元", font=sub_font, fill=INK)
+    d.rectangle([120, 570, 700, 580], fill=INK)
+    d.text((120, 610), "11-11 · LLM Engineering", font=meta_font, fill=INK)
+    art = Image.open(OUT / "p01.png").convert("RGB")
+    art = art.resize((1040, 585), Image.LANCZOS)
+    base.paste(art, (800, 400))
+    base.save(OUT / "cover.png")
+    print("wrote", OUT / "cover.png")
 
 
 if __name__ == "__main__":

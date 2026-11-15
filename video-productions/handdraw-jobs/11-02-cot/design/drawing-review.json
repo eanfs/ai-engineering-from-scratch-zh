@@ -5,7 +5,7 @@
     {
       "plan_id": "cover",
       "status": "pass",
-      "source_sha256": "4deb3ce751a8e880b240f0c3d2382e39045e1eb2b04f7bad48c3988a55d412ae",
+      "source_sha256": "183d751de0947f4918ed0296ce7b45f38eada250b4dee1e4ad6dd89e7897f9c4",
       "crop": null,
       "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
       "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
@@ -23,7 +23,7 @@
     {
       "plan_id": "hook",
       "status": "pass",
-      "source_sha256": "22d60734cfd3fa13653f39aa91d9725ffc56e169b331de6cb727c8227501550c",
+      "source_sha256": "7928ebffe130175b4dac03d79bb11fa075d0add4ca77bd8e8b16cb941e57fc43",
       "crop": null,
       "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
       "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
@@ -41,7 +41,7 @@
     {
       "plan_id": "title-three",
       "status": "pass",
-      "source_sha256": "18ea245bff94d3b678c398fd88f0a24932afb5df72c38d1591d217768d7d7bd8",
+      "source_sha256": "c18ea3dddc9a3e7c0061b45a2d46d786d2540b5c129c3db43f08cf113a68fddf",
       "crop": null,
       "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
       "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
@@ -59,7 +59,7 @@
     {
       "plan_id": "simple-complex",
       "status": "pass",
-      "source_sha256": "40fbdae41813b7511c616c8cfdfd5794065768a9721e5684cd4997bfc4217182",
+      "source_sha256": "c23d031c6adfda109c7bbf5292c5a35757ba0265416d5812dd3ccdaa3fb4c806",
       "crop": null,
       "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
       "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
@@ -77,7 +77,7 @@
     {
       "plan_id": "principles",
       "status": "pass",
-      "source_sha256": "17949953a21d3c27bd654cc42d14506e9380f94c7dd13674d9b6618ea906efa6",
+      "source_sha256": "3260527a349a42f480eb31b4acbec784a0282d486353c3376a00479739647c36",
       "crop": null,
       "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
       "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
@@ -95,7 +95,7 @@
     {
       "plan_id": "cot-mechanism",
       "status": "pass",
-      "source_sha256": "0b85ed43263cd5185d39e83a3108f6d6c74184c691196550e66f2700bc7e4bcd",
+      "source_sha256": "f4bee970a4e8a7aa1224adec1414565998b6ec3b14370c801f8b7ba79aacdf05",
       "crop": null,
       "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
       "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
@@ -113,7 +113,7 @@
     {
       "plan_id": "gsm8k",
       "status": "pass",
-      "source_sha256": "3c139ea22a521ea496204e9df867cbd61a2fed54ed3aa59b527282eea86fe71d",
+      "source_sha256": "920b994f576a821e3ef76f7fe66801b5026413fec1be820e90325c317e96a27a",
       "crop": null,
       "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
       "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
@@ -131,7 +131,7 @@
     {
       "plan_id": "reasoning-models",
       "status": "pass",
-      "source_sha256": "b2dc3561869f7f899c5f17d5bc103ccda6171e920df24210968db36848fe53cb",
+      "source_sha256": "e5e08decca4327b2fe045dbfab039c2bb5618d1b2db530e9cdc4389febb75900",
       "crop": null,
       "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
       "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
@@ -149,7 +149,7 @@
     {
       "plan_id": "self-consistency",
       "status": "pass",
-      "source_sha256": "b410fa7d7ef6f173c5eb2c279cba01fb54226a5ef5eb5c1e164bb32f158e1e79",
+      "source_sha256": "b193331ff9014436d31237fce6e175b4bafe7f02834861dd33758e5368519177",
       "crop": null,
       "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
       "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
@@ -167,7 +167,7 @@
     {
       "plan_id": "tree",
       "status": "pass",
-      "source_sha256": "7ba8ead777255abb3b1477f0a2ddf6e43a1d6cf2cca3935ff714eaabad31f329",
+      "source_sha256": "c50daa4c5ab8e4591090878ec86e666b32940400022e659665e59d0d4731edfd",
       "crop": null,
       "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
       "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
@@ -185,7 +185,7 @@
     {
       "plan_id": "when-not",
       "status": "pass",
-      "source_sha256": "3c1303a76a60c1dffa993dd2939c1a9910a967b8de09b84e8abca689396f93f8",
+      "source_sha256": "9b54876aa150046b4d092c25cff096955d380cd002cfaf1d1cb016fa783e5d8f",
       "crop": null,
       "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
       "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
@@ -203,7 +203,7 @@
     {
       "plan_id": "cost",
       "status": "pass",
-      "source_sha256": "27ef0ab05db3b0f0594becac3f02fcb8bac9817197ea85186cad374f0c285f0c",
+      "source_sha256": "2b5fe52823d268d05f3caeeb72e40e392a9746d613a4dfbfbb0202f5f1aac1d2",
       "crop": null,
       "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
       "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
@@ -221,7 +221,7 @@
     {
       "plan_id": "outro",
       "status": "pass",
-      "source_sha256": "2d93074af8274d00ea2c5abb50a921044d2d753b76bbe01f1f52841abdbdc686",
+      "source_sha256": "84a02415fcece6f62cd80f4fef7a9e16028799429f9cba10dc7cc936f0d5bfde",
       "crop": null,
       "anatomy_and_occlusion": "无人物物体图，不存在人体解剖；主体与接地阴影由纸色过渡分隔。",
       "part_boundaries": "主体区域覆盖除接地阴影外的全部墨迹，按分件逐块追踪。",
