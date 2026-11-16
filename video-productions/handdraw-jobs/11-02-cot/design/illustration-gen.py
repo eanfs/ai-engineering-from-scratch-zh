@@ -13,6 +13,7 @@ import random
 import numpy as np
 
 W, H, S = 1600, 900, 2
+OUT_W, OUT_H = 2048, 1152  # 大画布：高于 1920x1080 视频分辨率，输出时缩小而非放大
 OUT = Path(__file__).resolve().parent.parent / "inputs"
 FONT = "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf"
 INK = (43, 47, 51)
@@ -148,7 +149,7 @@ class Sheet:
 
     def save(self, name):
         OUT.mkdir(parents=True, exist_ok=True)
-        image = self.img.resize((W, H), Image.LANCZOS)
+        image = self.img.resize((OUT_W, OUT_H), Image.LANCZOS)
         rgb = np.array(image.convert("RGB")).astype(int)
         diff = np.abs(rgb - np.array(PAPER)).max(axis=2)
         alpha = np.clip((diff - 2) / 10 * 255, 0, 255).astype(np.uint8)
@@ -162,335 +163,319 @@ class Sheet:
 # ---------------------------------------------------------------- p01
 def p01():
     s = Sheet(2201)
-    s.text(110, 60, "加五个字，准确率从 78% 涨到 91%", size=42)
-    s.box(110, 170, 1490, 290, r=16, width=10, fill=YELLOW)
-    s.streaks((120, 180, 1480, 280), step=50, width=2)
-    s.text(800, 230, "Let's think step by step", size=42, anchor="mm", stroke=2)
+    s.text(110, 60, "加五个字，78% 变 91%", size=48)
+    s.box(110, 160, 1490, 300, r=20, width=11, fill=YELLOW)
+    s.streaks((120, 170, 1480, 290), step=52, width=3)
+    s.text(800, 230, "Let's think step by step", size=46, anchor="mm", stroke=2)
 
-    s.box(110, 330, 720, 560, r=16, width=10, fill=PAPER)
-    s.text(415, 375, "不加这句", size=30, anchor="mm")
-    s.text(415, 465, "78%", size=64, anchor="mm")
-    s.text(415, 530, "零样本", size=24, anchor="mm")
+    s.box(110, 350, 720, 600, r=20, width=11, fill=PAPER)
+    s.text(415, 400, "不加", size=38, anchor="mm")
+    s.text(415, 495, "78%", size=72, anchor="mm")
+    s.text(415, 570, "零样本", size=32, anchor="mm")
 
-    s.box(780, 330, 1490, 560, r=16, width=10, fill=YELLOW)
-    s.streaks((790, 340, 1480, 550), step=50, width=2)
-    s.text(1135, 375, "加上这句", size=30, anchor="mm", stroke=2)
-    s.text(1135, 465, "91%", size=64, anchor="mm", stroke=2)
-    s.text(1135, 530, "同一个模型，同样的温度", size=24, anchor="mm", stroke=2)
+    s.box(780, 350, 1490, 600, r=20, width=11, fill=YELLOW)
+    s.streaks((790, 360, 1480, 590), step=52, width=3)
+    s.text(1135, 400, "加上", size=38, anchor="mm", stroke=2)
+    s.text(1135, 495, "91%", size=72, anchor="mm", stroke=2)
+    s.text(1135, 570, "同一个模型", size=32, anchor="mm", stroke=2)
 
-    s.line([(110, 620), (1490, 620)], width=7)
-    s.text(110, 660, "唯一的差别是，你给了模型一张草稿纸", size=34)
-    s.text(110, 735, "这不是 hack，这就是推理的运作方式", size=32)
+    s.text(110, 670, "唯一差别是给了模型一张草稿纸", size=44)
+    s.text(110, 760, "这不是 hack", size=48)
+    s.text(110, 845, "这就是推理的运作方式", size=44)
     s.save("p01")
 
 
 # ---------------------------------------------------------------- p02
 def p02():
     s = Sheet(2202)
-    s.text(110, 70, "少样本、思维链与思维树", size=54)
-    s.text(110, 165, "阶段 11 · 第 2 课", size=34)
-    s.line([(110, 240), (1490, 240)], width=9)
-    s.text(110, 285, "三句话概括这一课：", size=34)
-    rows = [("示例", "被压缩过的指令，比描述更可靠", YELLOW),
-            ("思维链", "把中间计算写成 token，延展计算深度", PAPER),
-            ("自洽 / 思维树", "多采样、多数表决、探索分支", PAPER)]
-    for i, (name, note, fill) in enumerate(rows):
-        y = 370 + i * 145
-        s.box(110, y, 1490, y + 120, r=14, width=9, fill=fill)
-        if fill == YELLOW:
-            s.streaks((120, y + 8, 1480, y + 112), step=48, width=2)
-        s.text(160, y + 42, name, size=30, anchor="lm", stroke=2 if fill == YELLOW else 0)
-        s.text(160, y + 90, note, size=24, anchor="lm", stroke=2 if fill == YELLOW else 0)
+    s.text(110, 70, "少样本与思维链", size=64)
+    s.text(110, 165, "阶段 11 · 第 2 课", size=36)
+    s.line([(110, 250), (1490, 250)], width=10)
 
-    s.text(800, 850, "告诉模型做什么是提示，教它怎么想是工程", size=28, anchor="mm")
+    rows = [("示例", "被压缩过的指令", YELLOW),
+            ("思维链", "把推理写成 token", PAPER),
+            ("自洽", "多采样再表决", PAPER)]
+    for i, (name, note, fill) in enumerate(rows):
+        y = 340 + i * 165
+        s.box(110, y, 1490, y + 140, r=18, width=10, fill=fill)
+        if fill == YELLOW:
+            s.streaks((120, y + 8, 1480, y + 132), step=52, width=3)
+        s.text(180, y + 45, name, size=44, anchor="lm", stroke=2 if fill == YELLOW else 0)
+        s.text(180, y + 105, note, size=34, anchor="lm", stroke=2 if fill == YELLOW else 0)
+
+    s.text(800, 880, "告诉它做什么是提示，教它怎么想是工程", size=34, anchor="mm")
     s.save("p02")
 
 
 # ---------------------------------------------------------------- p03
 def p03():
     s = Sheet(2203)
-    s.text(110, 55, "少样本什么时候真正管用", size=42)
+    s.text(110, 55, "少样本什么时候真管用", size=50)
 
-    s.box(110, 150, 730, 480, r=16, width=9, fill=PAPER)
-    s.text(420, 195, "简单任务", size=32, anchor="mm")
-    s.text(420, 275, "情感分类", size=26, anchor="mm")
-    s.text(420, 345, "差不到 2 个点", size=28, anchor="mm")
-    s.text(420, 420, "示例可有可无", size=24, anchor="mm")
+    s.box(110, 150, 730, 480, r=20, width=10, fill=PAPER)
+    s.text(420, 205, "简单任务", size=42, anchor="mm")
+    s.text(420, 300, "情感分类", size=36, anchor="mm")
+    s.text(420, 400, "差不到 2 点", size=38, anchor="mm")
 
-    s.box(790, 150, 1490, 480, r=16, width=9, fill=YELLOW)
-    s.streaks((800, 160, 1480, 470), step=50, width=2)
-    s.text(1140, 195, "复杂任务", size=32, anchor="mm", stroke=2)
-    s.text(1140, 275, "多步算术、符号推理", size=26, anchor="mm", stroke=2)
-    s.text(1140, 345, "提升 10 到 25 个点", size=28, anchor="mm", stroke=2)
-    s.text(1140, 420, "示例几乎是必需的", size=24, anchor="mm", stroke=2)
+    s.box(790, 150, 1490, 480, r=20, width=10, fill=YELLOW)
+    s.streaks((800, 160, 1480, 470), step=56, width=3)
+    s.text(1140, 205, "复杂任务", size=42, anchor="mm", stroke=2)
+    s.text(1140, 300, "多步算术", size=36, anchor="mm", stroke=2)
+    s.text(1140, 400, "提 10 到 25 点", size=38, anchor="mm", stroke=2)
 
-    s.line([(110, 540), (1490, 540)], width=7)
-    s.text(110, 580, "直觉：示例是被压缩过的指令", size=36)
-    s.text(110, 655, "与其描述输出格式，不如直接展示格式", size=30)
-    s.text(110, 725, "与其解释推理过程，不如直接演示一遍", size=30)
-    s.text(110, 800, "模型做模式匹配，比解读抽象指令可靠得多", size=28)
+    s.line([(110, 550), (1490, 550)], width=9)
+    s.text(110, 595, "示例是被压缩过的指令", size=44)
+    s.text(110, 680, "与其描述格式，不如展示格式", size=40)
+    s.text(110, 760, "与其解释推理，不如演示一遍", size=40)
     s.save("p03")
 
 
 # ---------------------------------------------------------------- p04
 def p04():
     s = Sheet(2204)
-    s.text(110, 55, "示例怎么挑：三条原则", size=44)
+    s.text(110, 55, "示例怎么挑", size=50)
 
-    rows = [("1  语义相似", "挑 embedding 空间里离输入最近的", YELLOW),
-            ("2  标签多样", "示例要覆盖所有输出类别", PAPER),
-            ("3  难度匹配", "匹配目标问题的复杂度", PAPER)]
+    rows = [("语义相似", "离输入最近", YELLOW),
+            ("标签多样", "覆盖所有类别", PAPER),
+            ("难度匹配", "匹配复杂度", PAPER)]
     for i, (name, note, fill) in enumerate(rows):
-        y = 150 + i * 145
-        s.box(110, y, 1490, y + 120, r=14, width=9, fill=fill)
+        y = 150 + i * 155
+        s.box(110, y, 1490, y + 130, r=18, width=10, fill=fill)
         if fill == YELLOW:
-            s.streaks((120, y + 8, 1480, y + 112), step=48, width=2)
-        s.text(160, y + 42, name, size=30, anchor="lm", stroke=2 if fill == YELLOW else 0)
-        s.text(160, y + 90, note, size=24, anchor="lm", stroke=2 if fill == YELLOW else 0)
+            s.streaks((120, y + 8, 1480, y + 122), step=50, width=3)
+        s.text(180, y + 42, name, size=42, anchor="lm", stroke=2 if fill == YELLOW else 0)
+        s.text(180, y + 98, note, size=34, anchor="lm", stroke=2 if fill == YELLOW else 0)
 
-    s.line([(110, 600), (1490, 600)], width=7)
-    s.text(110, 635, "最优数量：3 到 5 个", size=36)
-    s.text(110, 710, "少于 3 个，模型提取不出模式", size=30)
-    s.text(110, 780, "多于 5 个，收益递减，还白占上下文", size=30)
+    s.line([(110, 640), (1490, 640), ], width=9)
+    s.text(110, 685, "最优数量：3 到 5 个", size=48)
+    s.text(110, 770, "少于 3 个提取不出模式", size=38)
+    s.text(110, 850, "多于 5 个收益递减", size=38)
     s.save("p04")
 
 
 # ---------------------------------------------------------------- p05
 def p05():
     s = Sheet(2205)
-    s.text(110, 55, "思维链为什么管用：一张草稿纸", size=40)
+    s.text(110, 55, "思维链为什么管用", size=50)
 
-    s.box(110, 140, 730, 420, r=16, width=9, fill=PAPER)
-    s.text(420, 180, "标准提示", size=30, anchor="mm")
-    s.text(420, 245, "问题 → 答案", size=28, anchor="mm")
-    s.text(420, 320, "所有推理压进", size=24, anchor="mm")
-    s.text(420, 365, "一次前向传播", size=24, anchor="mm")
+    s.box(110, 145, 730, 430, r=20, width=10, fill=PAPER)
+    s.text(420, 195, "标准", size=40, anchor="mm")
+    s.text(420, 285, "问题 → 答案", size=36, anchor="mm")
+    s.text(420, 375, "压进一次前向", size=34, anchor="mm")
 
-    s.box(790, 140, 1490, 420, r=16, width=9, fill=YELLOW)
-    s.streaks((800, 150, 1480, 410), step=50, width=2)
-    s.text(1140, 180, "思维链", size=30, anchor="mm", stroke=2)
-    steps = ["问题", "先写一步推理", "再写一步", "最后给答案"]
-    for i, st in enumerate(steps):
-        s.text(1140, 240 + i * 42, st, size=22, anchor="mm", stroke=2)
+    s.box(790, 145, 1490, 430, r=20, width=10, fill=YELLOW)
+    s.streaks((800, 155, 1480, 420), step=54, width=3)
+    s.text(1140, 195, "思维链", size=40, anchor="mm", stroke=2)
+    for i, st in enumerate(["问题", "推理一步", "再一步", "答案"]):
+        s.text(1140, 255 + i * 44, st, size=32, anchor="mm", stroke=2)
 
-    s.line([(110, 480), (1490, 480)], width=7)
-    s.text(110, 515, "每个推理 token 都成为下一个 token 的上下文", size=30)
-    s.text(110, 590, "token 一层层叠加，等于把计算深度延展开", size=30)
-    s.text(110, 665, "人类不会一个念头跳完多步问题，transformer 也不会", size=28)
-    s.text(110, 745, "逼它写出中间步骤，它才是真的一步步算", size=30)
+    s.line([(110, 500), (1490, 500)], width=9)
+    s.text(110, 545, "每个推理 token 都是下一个 token 的上下文", size=40)
+    s.text(110, 630, "token 叠加 = 计算深度延展", size=42)
+    s.text(110, 720, "人类不会一个念头跳完多步", size=38)
+    s.text(110, 800, "transformer 也不会", size=38)
     s.save("p05")
 
 
 # ---------------------------------------------------------------- p06
 def p06():
     s = Sheet(2206)
-    s.text(110, 55, "实测：GSM8K 上的三级跳", size=42)
+    s.text(110, 55, "GSM8K 上的三级跳", size=50)
 
-    rows = [("模型", "零样本", "+CoT", "+少样本 CoT"),
+    rows = [("模型", "零样本", "+CoT", "少样本"),
             ("GPT-4o", "78%", "91%", "95%"),
             ("GPT-5", "94%", "97%", "98%"),
-            ("Llama 4 70B", "80%", "89%", "94%"),
-            ("DeepSeek-V3.1", "89%", "94%", "96%")]
+            ("Llama 4", "80%", "89%", "94%"),
+            ("DeepSeek", "89%", "94%", "96%")]
     for i, (a, b, c, d) in enumerate(rows):
-        y = 150 + i * 100
+        y = 150 + i * 115
         hot = i == 1
-        s.box(90, y, 1470, y + 84, r=10, width=7,
+        s.box(90, y, 1470, y + 98, r=14, width=9,
               fill=YELLOW if hot else (METAL if i == 0 else PAPER))
         if hot:
-            s.streaks((100, y + 8, 1460, y + 76), step=44, width=2)
+            s.streaks((100, y + 8, 1460, y + 90), step=48, width=3)
         for j, v in enumerate([a, b, c, d]):
-            s.text(150 + j * 340, y + 42, v, size=26 if j else 24, anchor="lm",
+            s.text(150 + j * 340, y + 49, v, size=36 if j else 32, anchor="lm",
                    stroke=2 if hot else 0)
 
-    s.line([(110, 660), (1490, 660), ], width=7)
-    s.text(110, 695, "GPT-4o 从 78 加到 95，整整 17 个点", size=30)
-    s.text(110, 765, "Llama 4 从 80 加到 94，小模型提升更明显", size=28)
-    s.text(110, 835, "八千五百道小学数学题，同一套提示策略", size=26)
+    s.line([(110, 740), (1490, 740), ], width=9)
+    s.text(110, 785, "GPT-4o 从 78 到 95，17 个点", size=40)
+    s.text(110, 860, "小模型提升更明显", size=36)
     s.save("p06")
 
 
 # ---------------------------------------------------------------- p07
 def p07():
     s = Sheet(2207)
-    s.text(110, 55, "但推理模型不需要这一招", size=42)
+    s.text(110, 55, "推理模型不需要这一招", size=48)
 
-    s.box(110, 150, 1490, 330, r=16, width=9, fill=PAPER)
-    s.text(800, 195, "o3、o4-mini、DeepSeek R1", size=34, anchor="mm")
-    s.text(800, 265, "内部已经跑过思维链", size=28, anchor="mm")
-    s.text(800, 315, "答案之前先自己想一遍", size=24, anchor="mm")
+    s.box(110, 150, 1490, 360, r=20, width=10, fill=PAPER)
+    s.text(800, 205, "o3 · o4-mini · DeepSeek R1", size=42, anchor="mm")
+    s.text(800, 290, "内部已经跑过思维链", size=38, anchor="mm")
 
-    s.line([(110, 380), (1490, 380)], width=7)
-    s.text(110, 415, "再给它们加「让我们一步步思考」：", size=30)
-    s.cross(140, 495, r=18, width=9)
-    s.text(185, 495, "多余，因为它们已经做过这件事", size=28, anchor="lm")
-    s.cross(140, 570, r=18, width=9)
-    s.text(185, 570, "有时帮倒忙，多花 token 还扰乱格式", size=28, anchor="lm")
+    s.line([(110, 430), (1490, 430)], width=9)
+    s.text(110, 475, "再加「一步步思考」：", size=40)
+    s.cross(150, 570, r=24, width=12)
+    s.text(215, 570, "多余", size=42, anchor="lm")
+    s.cross(150, 680, r=24, width=12)
+    s.text(215, 680, "有时帮倒忙", size=42, anchor="lm")
 
-    s.text(110, 660, "所以第一步是问：我用的是推理模型还是普通模型？", size=30)
-    s.text(110, 735, "普通模型加思维链，推理模型直接给任务", size=30)
-    s.text(110, 810, "这一条能省掉不少无效 token", size=28)
+    s.text(110, 790, "先问：这是推理模型吗？", size=44)
+    s.text(110, 870, "这一条能省不少无效 token", size=38)
     s.save("p07")
 
 
 # ---------------------------------------------------------------- p08
 def p08():
     s = Sheet(2208)
-    s.text(110, 55, "自洽性：多采样，一次表决", size=42)
+    s.text(110, 55, "自洽性：多采样再表决", size=48)
 
-    s.box(110, 140, 1490, 220, r=12, width=8, fill=PAPER)
-    s.text(800, 180, "48 个苹果，周一卖 1/3，周二卖剩余 1/4", size=26, anchor="mm")
+    s.box(110, 140, 1490, 230, r=16, width=10, fill=PAPER)
+    s.text(800, 185, "48 个苹果，周一卖 1/3，周二卖 1/4", size=34, anchor="mm")
 
-    paths = [("路径 1", "24", YELLOW), ("路径 2", "24", YELLOW),
-             ("路径 3", "24", YELLOW), ("路径 4", "27", METAL),
-             ("路径 5", "24", YELLOW)]
-    for i, (name, ans, fill) in enumerate(paths):
+    paths = [("24", YELLOW), ("24", YELLOW), ("24", YELLOW), ("27", METAL), ("24", YELLOW)]
+    for i, (ans, fill) in enumerate(paths):
         x = 130 + i * 275
-        s.arrow(800, 230, x + 110, 300, width=7)
-        s.box(x, 310, x + 220, 420, r=12, width=9, fill=fill)
+        s.arrow(800, 240, x + 110, 300, width=8)
+        s.box(x, 310, x + 220, 460, r=16, width=10, fill=fill)
         if fill == YELLOW:
-            s.streaks((x + 8, 318, x + 212, 412), step=40, width=2)
-        s.text(x + 110, 345, name, size=22, anchor="mm", stroke=2 if fill == YELLOW else 0)
-        s.text(x + 110, 390, ans, size=32, anchor="mm", stroke=2 if fill == YELLOW else 0)
+            s.streaks((x + 10, 320, x + 210, 450), step=42, width=3)
+        s.text(x + 110, 385, ans, size=48, anchor="mm", stroke=2 if fill == YELLOW else 0)
 
-    s.box(400, 470, 1100, 570, r=14, width=9, fill=YELLOW)
-    s.streaks((410, 480, 1090, 560), step=48, width=2)
-    s.text(750, 520, "多数表决：24 得 4 票 → 最终 24", size=30, anchor="mm", stroke=2)
+    s.box(400, 520, 1100, 640, r=18, width=11, fill=YELLOW)
+    s.streaks((410, 530, 1090, 630), step=52, width=3)
+    s.text(750, 580, "24 得 4 票 → 最终 24", size=42, anchor="mm", stroke=2)
 
-    s.text(110, 620, "单条路径可能含推理错误", size=30)
-    s.text(110, 690, "采样五条，错误会相互抵消", size=30)
-    s.text(110, 765, "代价是五倍的 token，换来更稳的答案", size=28)
+    s.text(110, 700, "单条路径可能出错", size=40)
+    s.text(110, 780, "采样五条，错误相互抵消", size=42)
+    s.text(110, 860, "代价是五倍 token", size=36)
     s.save("p08")
 
 
 # ---------------------------------------------------------------- p09
 def p09():
     s = Sheet(2209)
-    s.text(110, 55, "思维树：探索分支再剪枝", size=44)
+    s.text(110, 55, "思维树：探索再剪枝", size=50)
 
-    # 简单的树结构
-    s.box(620, 130, 980, 200, r=12, width=8, fill=PAPER)
-    s.text(800, 165, "问题", size=26, anchor="mm")
+    s.box(680, 130, 1120, 220, r=16, width=10, fill=PAPER)
+    s.text(900, 175, "问题", size=36, anchor="mm")
 
-    layer1 = [(280, "想法 A"), (620, "想法 B"), (960, "想法 C")]
+    layer1 = [(280, "想法 A"), (800, "想法 B")]
     for x, name in layer1:
-        s.arrow(800, 210, x + 110, 270, width=7)
-        s.box(x, 280, x + 220, 360, r=10, width=7, fill=METAL)
-        s.text(x + 110, 320, name, size=24, anchor="mm")
+        s.arrow(900, 230, x + 140, 290, width=8)
+        s.box(x, 300, x + 280, 410, r=14, width=9, fill=METAL)
+        s.text(x + 140, 355, name, size=34, anchor="mm")
 
-    layer2 = [(180, "A1"), (400, "A2"), (620, "B1"), (840, "B2")]
-    for x, name in layer2:
-        parent = 280 if name.startswith("A") else 620
-        s.arrow(parent + 110, 370, x + 90, 420, width=6)
-        fill = YELLOW if name in ("A1", "B2") else PAPER
-        s.box(x, 430, x + 180, 500, r=10, width=7, fill=fill)
+    layer2 = [(200, "A1", YELLOW), (480, "A2", PAPER), (720, "B1", PAPER), (1000, "B2", YELLOW)]
+    for x, name, fill in layer2:
+        parent = 280 if name.startswith("A") else 800
+        s.arrow(parent + 140, 420, x + 110, 470, width=7)
+        s.box(x, 480, x + 220, 600, r=14, width=9, fill=fill)
         if fill == YELLOW:
-            s.streaks((x + 8, 438, x + 172, 492), step=34, width=2)
-        s.text(x + 90, 465, name, size=22, anchor="mm", stroke=2 if fill == YELLOW else 0)
+            s.streaks((x + 8, 488, x + 212, 592), step=38, width=3)
+        s.text(x + 110, 540, name, size=36, anchor="mm", stroke=2 if fill == YELLOW else 0)
 
-    s.text(110, 560, "每一层生成几个候选，评估打分，剪掉差的分支", size=28)
-    s.text(110, 630, "它更像人在草稿纸上涂改", size=30)
-    s.text(110, 700, "而不是一口气写到底", size=30)
-    s.text(110, 775, "成本也更高：每个分支都要一次模型调用", size=26)
+    s.text(110, 670, "每层生成候选，打分，剪掉差的", size=40)
+    s.text(110, 750, "像人在草稿纸上涂改", size=42)
+    s.text(110, 830, "成本更高：每个分支一次调用", size=36)
     s.save("p09")
 
 
 # ---------------------------------------------------------------- p10
 def p10():
     s = Sheet(2210)
-    s.text(110, 55, "什么时候思维链帮倒忙", size=42)
+    s.text(110, 55, "什么时候帮倒忙", size=50)
 
-    s.box(110, 150, 730, 520, r=16, width=9, fill=PAPER)
-    s.text(420, 195, "别用", size=32, anchor="mm")
-    items1 = ["简单事实回忆", "单步分类", "速度优先的批量任务"]
-    for i, t in enumerate(items1):
-        y = 290 + i * 70
-        s.cross(180, y, r=16, width=8)
-        s.text(225, y, t, size=26, anchor="lm")
+    s.box(110, 150, 730, 530, r=20, width=10, fill=PAPER)
+    s.text(420, 205, "别用", size=44, anchor="mm")
+    for i, t in enumerate(["事实回忆", "单步分类", "速度优先"]):
+        y = 300 + i * 75
+        s.cross(180, y, r=20, width=10)
+        s.text(240, y, t, size=36, anchor="lm")
 
-    s.box(790, 150, 1490, 520, r=16, width=9, fill=YELLOW)
-    s.streaks((800, 160, 1480, 510), step=50, width=2)
-    s.text(1140, 195, "该用", size=32, anchor="mm", stroke=2)
-    items2 = ["多步算术", "符号推理", "需要展示过程的场景"]
-    for i, t in enumerate(items2):
-        y = 290 + i * 70
-        s.check(860, y, r=16, width=8)
-        s.text(905, y, t, size=26, anchor="lm", stroke=2)
+    s.box(790, 150, 1490, 530, r=20, width=10, fill=YELLOW)
+    s.streaks((800, 160, 1480, 520), step=54, width=3)
+    s.text(1140, 205, "该用", size=44, anchor="mm", stroke=2)
+    for i, t in enumerate(["多步算术", "符号推理", "要展示过程"]):
+        y = 300 + i * 75
+        s.check(860, y, r=20, width=10)
+        s.text(920, y, t, size=36, anchor="lm", stroke=2)
 
-    s.line([(110, 580), (1490, 580)], width=7)
-    s.text(110, 615, "每次查询多出 50 到 200 个 token 的推理开销", size=28)
-    s.text(110, 690, "高吞吐、低复杂度的任务上，那就是白花的钱", size=28)
-    s.text(110, 765, "算一下：一天一百万次调用，每次多 100 token", size=26)
-    s.text(110, 835, "等于每天多花几美元到几十美元", size=26)
+    s.line([(110, 600), (1490, 600)], width=9)
+    s.text(110, 645, "每次多 50 到 200 个 token", size=42)
+    s.text(110, 730, "一天百万次调用，成本翻倍", size=40)
+    s.text(110, 810, "算完这笔账再决定", size=38)
     s.save("p10")
 
 
 # ---------------------------------------------------------------- p11
 def p11():
     s = Sheet(2211)
-    s.text(110, 55, "三种策略的成本对比", size=44)
+    s.text(110, 55, "三种策略的成本", size=50)
 
-    rows = [("策略", "调用次数", "token 倍数", "准确率"),
+    rows = [("策略", "调用", "token", "准确率"),
             ("零样本", "1", "1x", "78%"),
             ("零样本 CoT", "1", "3x", "91%"),
             ("少样本 CoT", "1", "5x", "95%"),
-            ("自洽性 ×5", "5", "15x", "96%")]
+            ("自洽性 x5", "5", "15x", "96%")]
     for i, (a, b, c, d) in enumerate(rows):
-        y = 150 + i * 100
-        hot = i == 2
-        s.box(90, y, 1470, y + 84, r=10, width=7,
+        y = 150 + i * 115
+        hot = i == 3
+        s.box(90, y, 1470, y + 98, r=14, width=9,
               fill=YELLOW if hot else (METAL if i == 0 else PAPER))
         if hot:
-            s.streaks((100, y + 8, 1460, y + 76), step=44, width=2)
+            s.streaks((100, y + 8, 1460, y + 90), step=48, width=3)
         for j, v in enumerate([a, b, c, d]):
-            s.text(150 + j * 330, y + 42, v, size=26 if j else 24, anchor="lm",
+            s.text(150 + j * 340, y + 49, v, size=36 if j else 32, anchor="lm",
                    stroke=2 if hot else 0)
 
-    s.line([(110, 660), (1490, 660), ], width=7)
-    s.text(110, 695, "少样本 CoT 是性价比拐点：5 倍 token 换 17 个点", size=30)
-    s.text(110, 765, "自洽性再往上加，边际收益就很小了", size=28)
-    s.text(110, 835, "先上少样本 CoT，不够再上自洽性", size=30)
+    s.line([(110, 740), (1490, 740), ], width=9)
+    s.text(110, 785, "少样本 CoT 是性价比拐点", size=42)
+    s.text(110, 865, "5 倍 token 换 17 个点", size=38)
     s.save("p11")
 
 
 # ---------------------------------------------------------------- p12
 def p12():
     s = Sheet(2212)
-    s.text(110, 55, "你的场景里，加思维链是赚还是亏？", size=42)
+    s.text(110, 55, "加思维链，赚还是亏？", size=50)
 
     opts = [("多步推理", "加，提升明显", YELLOW),
             ("简单分类", "不加，纯浪费", PAPER),
-            ("用推理模型", "不加，它自己想过了", PAPER)]
+            ("推理模型", "不加，它想过了", PAPER)]
     for i, (name, note, fill) in enumerate(opts):
-        y = 170 + i * 150
-        s.box(110, y, 1490, y + 120, r=14, width=9, fill=fill)
+        y = 170 + i * 155
+        s.box(110, y, 1490, y + 130, r=18, width=10, fill=fill)
         if fill == YELLOW:
-            s.streaks((120, y + 8, 1480, y + 112), step=46, width=2)
-        s.text(180, y + 60, name, size=34, anchor="lm", stroke=2 if fill == YELLOW else 0)
-        s.text(660, y + 60, note, size=26, anchor="lm", stroke=2 if fill == YELLOW else 0)
+            s.streaks((120, y + 8, 1480, y + 122), step=50, width=3)
+        s.text(200, y + 65, name, size=42, anchor="lm", stroke=2 if fill == YELLOW else 0)
+        s.text(760, y + 65, note, size=34, anchor="lm", stroke=2 if fill == YELLOW else 0)
 
-    s.line([(110, 640), (1490, 640), ], width=7)
-    s.text(110, 675, "判断标准很简单：任务是几步？", size=30)
-    s.text(110, 745, "两步以上，思维链通常划算", size=30)
+    s.text(110, 700, "判断标准：任务是几步", size=44)
+    s.text(110, 790, "两步以上，通常划算", size=40)
 
-    s.box(110, 810, 1490, 870, r=12, width=8, fill=PAPER)
-    s.text(800, 840, "下一集：结构化输出", size=28, anchor="mm")
+    s.box(110, 850, 1490, 930, r=14, width=9, fill=PAPER)
+    s.text(800, 890, "下一集：结构化输出", size=34, anchor="mm")
     s.save("p12")
 
 
-# ---------------------------------------------------------------- cover
+# ---------------------------------------------------------------- cover (大画布 1920x1080)
 def cover():
-    s = Sheet(2200)
-    s.text(110, 90, "加五个字", size=64)
-    s.text(110, 190, "78% → 91%", size=64)
-    s.line([(110, 320), (1490, 320)], width=11)
-
-    s.box(110, 390, 1490, 640, r=20, width=11, fill=YELLOW)
-    s.streaks((120, 400, 1480, 630), step=56, width=3)
-    s.text(800, 470, "Let's think step by step", size=44, anchor="mm", stroke=2)
-    s.text(800, 570, "同一模型，同一温度", size=36, anchor="mm", stroke=2)
-
-    s.text(110, 720, "思维链 · 少样本 · 思维树", size=34)
-    s.save("cover")
+    base = Image.new("RGB", (OUT_W, OUT_H), PAPER)
+    d = ImageDraw.Draw(base)
+    title_font = ImageFont.truetype(FONT, 120)
+    sub_font = ImageFont.truetype(FONT, 66)
+    meta_font = ImageFont.truetype(FONT, 34)
+    d.text((128, 170), "加五个字", font=title_font, fill=INK, stroke_width=3, stroke_fill=INK)
+    d.text((128, 320), "78% → 91%", font=title_font, fill=INK, stroke_width=3, stroke_fill=INK)
+    d.text((128, 490), "思维链为什么管用", font=sub_font, fill=INK)
+    d.rectangle([128, 608, 746, 619], fill=INK)
+    d.text((128, 650), "11-02 · LLM Engineering", font=meta_font, fill=INK)
+    art = Image.open(OUT / "p01.png").convert("RGB")
+    art = art.resize((1109, 624), Image.LANCZOS)
+    base.paste(art, (853, 427))
+    base.save(OUT / "cover.png")
+    print("wrote", OUT / "cover.png")
 
 
 if __name__ == "__main__":
