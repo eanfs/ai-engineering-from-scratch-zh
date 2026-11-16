@@ -1,0 +1,814 @@
+{
+  "version": 1,
+  "title": "少样本与思维链",
+  "design_file": "design.json",
+  "art_direction": {
+    "record": "design/art-direction.json"
+  },
+  "drawing_plan": "design/drawing-plan.json",
+  "drawing_review": "design/drawing-review.json",
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "cover": {
+    "source": "inputs/cover.png",
+    "seconds": 1.0
+  },
+  "hand": {
+    "preset": "teacher-pen"
+  },
+  "narration": {
+    "source": "inputs/narration/master.wav",
+    "alignment": "inputs/narration/alignment.json"
+  },
+  "audio": {
+    "end_hold_seconds": 0.3,
+    "music": {
+      "source": "inputs/music.wav",
+      "gain": 0.3,
+      "user_instruction": "动感电子铺底"
+    }
+  },
+  "font": {
+    "path": "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf",
+    "index": 0
+  },
+  "captions": {
+    "font": {
+      "path": "/Applications/MiniMax Design.app/Contents/Resources/app-resources/fonts/NotoSansCJKsc-Regular.otf",
+      "index": 0
+    },
+    "font_size": 42,
+    "color": "#FFFFFF",
+    "bottom_margin": 54,
+    "max_width_ratio": 0.82,
+    "max_lines": 2,
+    "stroke_width": 4,
+    "stroke_color": "#1E1E1E",
+    "background": null
+  },
+  "paper": "#FFFFFF",
+  "ending": {
+    "fade_seconds": 0.25
+  },
+  "pages": [
+    {
+      "id": "p01",
+      "title": "钩子",
+      "illustration": "hook",
+      "beats": [
+        {
+          "id": "p01-b01",
+          "text": "在提示词后面加五个字：让我们一步步思考。"
+        },
+        {
+          "id": "p01-b02",
+          "text": "准确率从百分之七十八涨到百分之九十一。"
+        },
+        {
+          "id": "p01-b03",
+          "text": "同一个模型、同样的温度、同样的 API 成本。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p01.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "hook",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p02",
+      "title": "片头",
+      "illustration": "title-three",
+      "beats": [
+        {
+          "id": "p02-b01",
+          "text": "阶段 11，第 2 课：少样本提示、思维链与思维树。"
+        },
+        {
+          "id": "p02-b02",
+          "text": "告诉模型该做什么，那是提示。"
+        },
+        {
+          "id": "p02-b03",
+          "text": "教它该怎么想，那是工程。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p02.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "title-three",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p03",
+      "title": "少样本何时管用",
+      "illustration": "simple-complex",
+      "beats": [
+        {
+          "id": "p03-b01",
+          "text": "给模型一个任务不给例子，叫零样本。先给几个例子，叫少样本。"
+        },
+        {
+          "id": "p03-b02",
+          "text": "简单任务上，两者差不到两个百分点。"
+        },
+        {
+          "id": "p03-b03",
+          "text": "但多步算术和符号推理，少样本能提十到二十五个点。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p03.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "simple-complex",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p04",
+      "title": "示例三原则",
+      "illustration": "principles",
+      "beats": [
+        {
+          "id": "p04-b01",
+          "text": "与其描述输出格式，不如直接展示格式。"
+        },
+        {
+          "id": "p04-b02",
+          "text": "与其解释推理过程，不如直接演示一遍。"
+        },
+        {
+          "id": "p04-b03",
+          "text": "模型在示例上做模式匹配，比解读抽象指令可靠得多。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p04.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "principles",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p05",
+      "title": "思维链机制",
+      "illustration": "cot-mechanism",
+      "beats": [
+        {
+          "id": "p05-b01",
+          "text": "不是随便挑几个例子就行。"
+        },
+        {
+          "id": "p05-b02",
+          "text": "三条原则：语义上离目标输入近、覆盖所有输出类别、难度匹配。"
+        },
+        {
+          "id": "p05-b03",
+          "text": "最优数量是三到五个，少于三个信号不够，多于五个收益递减。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p05.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "cot-mechanism",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p06",
+      "title": "GSM8K 实测",
+      "illustration": "gsm8k",
+      "beats": [
+        {
+          "id": "p06-b01",
+          "text": "标准提示下，模型要把所有推理压进一次前向传播的隐藏状态里。"
+        },
+        {
+          "id": "p06-b02",
+          "text": "思维链让它把中间计算写成 token。"
+        },
+        {
+          "id": "p06-b03",
+          "text": "每个推理 token 都成为下一个 token 的上下文，等于延展了计算深度。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p06.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "gsm8k",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p07",
+      "title": "推理模型例外",
+      "illustration": "reasoning-models",
+      "beats": [
+        {
+          "id": "p07-b01",
+          "text": "小学数学基准 GSM8K，八千五百道题。"
+        },
+        {
+          "id": "p07-b02",
+          "text": "GPT-4o：零样本七十八，加思维链九十一，再加少样本九十五。"
+        },
+        {
+          "id": "p07-b03",
+          "text": "GPT-5 从九十四到九十七再到九十八，Llama 4 70B 从八十到八十九再到九十四。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p07.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "reasoning-models",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p08",
+      "title": "自洽性",
+      "illustration": "self-consistency",
+      "beats": [
+        {
+          "id": "p08-b01",
+          "text": "o3、o4-mini、DeepSeek R1 这类推理模型，内部已经跑过思维链。"
+        },
+        {
+          "id": "p08-b02",
+          "text": "再给它们加「让我们一步步思考」是多余的。"
+        },
+        {
+          "id": "p08-b03",
+          "text": "有时甚至帮倒忙，因为它们已经做过这件事了。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p08.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "self-consistency",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p09",
+      "title": "思维树",
+      "illustration": "tree",
+      "beats": [
+        {
+          "id": "p09-b01",
+          "text": "单条推理路径可能出错，那就采样五条。"
+        },
+        {
+          "id": "p09-b02",
+          "text": "对最终答案做多数表决，错误会相互抵消。"
+        },
+        {
+          "id": "p09-b03",
+          "text": "实测五条路径里，四条算出 24，一条算出 27，最终答案是 24。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p09.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "tree",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p10",
+      "title": "帮倒忙时",
+      "illustration": "when-not",
+      "beats": [
+        {
+          "id": "p10-b01",
+          "text": "自洽性是采样多条独立路径，思维树是把路径展开成一棵树。"
+        },
+        {
+          "id": "p10-b02",
+          "text": "每一层生成几个候选想法，评估打分，剪掉差的分支。"
+        },
+        {
+          "id": "p10-b03",
+          "text": "它更像人在草稿纸上涂改，而不是一口气写到底。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p10.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "when-not",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p11",
+      "title": "成本对比",
+      "illustration": "cost",
+      "beats": [
+        {
+          "id": "p11-b01",
+          "text": "简单事实回忆、单步分类，思维链是浪费。"
+        },
+        {
+          "id": "p11-b02",
+          "text": "每次查询会多出五十到两百个 token 的推理开销。"
+        },
+        {
+          "id": "p11-b03",
+          "text": "高吞吐、低复杂度的任务上，那就是白花的成本。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p11.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "cost",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p12",
+      "title": "结尾互动",
+      "illustration": "outro",
+      "beats": [
+        {
+          "id": "p12-b01",
+          "text": "你的场景里，加思维链是赚还是亏？"
+        },
+        {
+          "id": "p12-b02",
+          "text": "评论区说说：你在什么任务上试过，效果如何。"
+        },
+        {
+          "id": "p12-b03",
+          "text": "关注这个系列，下一集讲结构化输出。"
+        }
+      ],
+      "visual_groups": [
+        {
+          "start_beat": 0,
+          "end_beat": 2,
+          "lead": 0.54,
+          "hold": 0.72,
+          "actions": [
+            {
+              "type": "illustration",
+              "source": "inputs/p12.png",
+              "x": 320,
+              "y": 120,
+              "width": 1280,
+              "height": 720,
+              "weight": 3,
+              "parts": [
+                {
+                  "id": "body",
+                  "polygon": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                }
+              ],
+              "drawing_plan_id": "outro",
+              "stroke_style": "calm"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
