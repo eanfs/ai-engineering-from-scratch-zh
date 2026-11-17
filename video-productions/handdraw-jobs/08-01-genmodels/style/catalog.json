@@ -1,0 +1,136 @@
+{
+  "source": "/Users/lirichen/.hub/skills/handdrawn-explainer-video/assets/custom-styles",
+  "styles_sha256": "341a610e70e710b1b81ea11f8f8974b1638fdcea9be20928783acb09842a0577",
+  "styles": [
+    {
+      "id": "1",
+      "library_id": "custom-minimal-stickman",
+      "name": "极简黑白火柴人(minimal-stickman)",
+      "preview": "previews/1.jpg",
+      "recipe": "recipes/1.md",
+      "recipe_sha256": "b514b33f3a5d38793b9b0e86fc15a6230ed73a84b1c403859a43c125f7472815",
+      "anchor": "anchors/1.jpg",
+      "anchor_sha256": "a2e1a08512dac9bb2d7671ca04ac8a78ad819348f18ba74b12d63922d8d748aa"
+    },
+    {
+      "id": "2",
+      "library_id": "custom-black-bean-doodle",
+      "name": "黑豆小人涂鸦(black-bean-doodle)",
+      "preview": "previews/2.jpg",
+      "recipe": "recipes/2.md",
+      "recipe_sha256": "3e7fbad37b89cdafa218f1253ed6863846f7c1ec96f889e1812ca3034334e2c3",
+      "anchor": "anchors/2.jpg",
+      "anchor_sha256": "a704ede2364151c85d2cb0f6fcfc2f2be30bd724bdc12ec45217bed437440478"
+    },
+    {
+      "id": "3",
+      "library_id": "custom-warm-pastel-storybook",
+      "name": "暖调色粉童话(warm-pastel-storybook)",
+      "preview": "previews/3.jpg",
+      "recipe": "recipes/3.md",
+      "recipe_sha256": "2287338027e1a7e52409eb741b10f3fb7ad3fc9de4e90cdcd160db03f8439411",
+      "anchor": "anchors/3.jpg",
+      "anchor_sha256": "d01fc95e8332718163e6c59faf01da9fd234da518441ceb275151d5049061059"
+    },
+    {
+      "id": "4",
+      "library_id": "custom-ink-wash-bird-bamboo",
+      "name": "写意水墨花鸟(ink-wash-bird-bamboo)",
+      "preview": "previews/4.jpg",
+      "recipe": "recipes/4.md",
+      "recipe_sha256": "3089c441ce7f7539a02fdfe7cfbe4d59c4c16fc5ffcd34b0b7efae3554157b9e",
+      "anchor": "anchors/4.jpg",
+      "anchor_sha256": "c28b903c153574643da993608f172eb6ee435245ff208c65d668499d95432d7a"
+    },
+    {
+      "id": "5",
+      "library_id": "custom-retro-animation-character",
+      "name": "复古动画角色(retro-animation-character)",
+      "preview": "previews/5.jpg",
+      "recipe": "recipes/5.md",
+      "recipe_sha256": "e261ca8191360c8e9e5e9c2f1e5fd0af3fb4bbbc61affdadb072c93866d8435c",
+      "anchor": "anchors/5.jpg",
+      "anchor_sha256": "3b710a630b0ddca50119739c5fe9137f95d285dada7902fe8868089647c1e9e5"
+    },
+    {
+      "id": "6",
+      "library_id": "custom-crayon-kid-doodle",
+      "name": "蜡笔童趣涂鸦(crayon-kid-doodle)",
+      "preview": "previews/6.jpg",
+      "recipe": "recipes/6.md",
+      "recipe_sha256": "0c4fd47eed0854c43699dcfae77300135abc732ecdd23bb078bdbc6c5d6f3b3e",
+      "anchor": "anchors/6.jpg",
+      "anchor_sha256": "adef69e0484772dd27d11bd87d6cc4aee38d0cccf56088cb80feca4f39fb72af"
+    },
+    {
+      "id": "7",
+      "library_id": "custom-retro-cozy-picturebook",
+      "name": "复古治愈绘本(retro-cozy-picturebook)",
+      "preview": "previews/7.jpg",
+      "recipe": "recipes/7.md",
+      "recipe_sha256": "82e91f4d413e5cda6eae1aac76fe0decf602a8a6262503eb94f88227c25bc08a",
+      "anchor": "anchors/7.jpg",
+      "anchor_sha256": "80eacc5eacfbd1080b0bfdce0ee76b0bbf2f9199d12b5d3f3cd986ccfafd70ed"
+    },
+    {
+      "id": "8",
+      "library_id": "custom-retro-warm-picturebook",
+      "name": "复古暖调绘本(retro-warm-picturebook)",
+      "preview": "previews/8.jpg",
+      "recipe": "recipes/8.md",
+      "recipe_sha256": "cd902202d134c73d4a08c590040ef9a35754e2a4cecf2df324289add26ea2a20",
+      "anchor": "anchors/8.jpg",
+      "anchor_sha256": "b44ec3e8417ec0ba452898d96da315b3af93f8fea4a1b78ac8f6ba60c8680b1f"
+    },
+    {
+      "id": "9",
+      "library_id": "custom-oil-pastel-kids",
+      "name": "油画棒童趣卡通(oil-pastel-kids)",
+      "preview": "previews/9.jpg",
+      "recipe": "recipes/9.md",
+      "recipe_sha256": "b45532e7ed95a5fbab29212abd15a3545dd8421585c4213e40ada07836add418",
+      "anchor": "anchors/9.jpg",
+      "anchor_sha256": "6ac6ff0c52fff71bb63e23d220f5289b93cb1e5cfdf0ff3fbd6229d0e7c3e454"
+    },
+    {
+      "id": "10",
+      "library_id": "custom-american-cartoon-ink",
+      "name": "美式卡通描线(american-cartoon-ink)",
+      "preview": "previews/10.jpg",
+      "recipe": "recipes/10.md",
+      "recipe_sha256": "807b94022f870482314287e2851eac590938b45c379a3cee01123a83ccab4615",
+      "anchor": "anchors/10.jpg",
+      "anchor_sha256": "6a95e8d7292f80412e77a32c83e5feb45e944c5f95158005241b326329031069"
+    },
+    {
+      "id": "11",
+      "library_id": "custom-hardboiled-ink-comic",
+      "name": "硬派黑白墨线漫画(hardboiled-ink-comic)",
+      "preview": "previews/11.jpg",
+      "recipe": "recipes/11.md",
+      "recipe_sha256": "4dcdf23ac95da6ad45a7898f2abced5f5c1ed0a5feb9d8fc0d7d209d24ac9e65",
+      "anchor": "anchors/11.jpg",
+      "anchor_sha256": "fce32fb9fe0cc35b4bb2dd401d0aab8ac156ea61a43b07d77a9eef104b4b6be2"
+    },
+    {
+      "id": "12",
+      "library_id": "custom-industrial-marker-sketch",
+      "name": "工业设计马克笔手绘(industrial-marker-sketch)",
+      "preview": "previews/12.jpg",
+      "recipe": "recipes/12.md",
+      "recipe_sha256": "5c14366e71b24ed051ddb056a0a96a841c27819906d1782bac628f18b49a84e6",
+      "anchor": "anchors/12.jpg",
+      "anchor_sha256": "1c3c5a2cc305bb27563e75df3d5064ac3e547de94763142824cbb9ec08f70f0d"
+    },
+    {
+      "id": "13",
+      "library_id": "custom-anime-cel-portrait",
+      "name": "日系赛璐珞立绘(anime-cel-portrait)",
+      "preview": "previews/13.jpg",
+      "recipe": "recipes/13.md",
+      "recipe_sha256": "8112e9c1aa172cd3eafd765e97e93a9aa5e4349fdc39b7a66bba21d191bdb9ed",
+      "anchor": "anchors/13.jpg",
+      "anchor_sha256": "149935082eb8d42bbb83de916e127ec800cbdb141a0b190f61a02e6f2dc7a887"
+    }
+  ]
+}
